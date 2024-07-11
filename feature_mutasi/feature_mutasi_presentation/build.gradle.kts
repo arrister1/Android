@@ -37,7 +37,7 @@ android {
 dependencies {
 
     implementation(project(":feature_mutasi"))
-    implementation(project(":feature_mutasi:feature_mutasi_data"))
+    implementation(project(":feature_mutasi:feature_mutasi_di"))
     implementation(project(":feature_mutasi:feature_mutasi_domain"))
 
     val lifecycle_version = "2.7.0"

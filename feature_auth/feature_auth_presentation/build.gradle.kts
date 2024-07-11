@@ -36,7 +36,7 @@ android {
 dependencies {
 
     implementation(project(":feature_auth"))
-    implementation(project(":feature_auth:feature_auth_data"))
+    implementation(project(":feature_auth:feature_auth_di"))
     implementation(project(":feature_auth:feature_auth_domain"))
 
     val lifecycle_version = "2.7.0"
