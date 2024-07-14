@@ -34,6 +34,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":common"))
     implementation(project(":feature_mutasi:feature_mutasi_domain"))
 
     implementation("androidx.core:core-ktx:1.13.1")
