@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/feature_auth_navigation"
+    app:startDestination="@id/fotoKtpFragment">
+
+    <fragment
+        android:id="@+id/fotoKtpFragment"
+        android:name="com.synrgy7team4.feature_auth.presentation.register.FotoKtpFragment"
+        android:label="fragment_foto_ktp"
+        tools:layout="@layout/fragment_foto_ktp" >
+        <action
+            android:id="@+id/action_fotoKtpFragment_to_verifikasiKtpFragment"
+            app:destination="@id/verifikasiKtpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/verifikasiKtpFragment"
+        android:name="com.synrgy7team4.feature_auth.presentation.register.VerifikasiKtpFragment"
+        android:label="fragment_verifikasi_ktp"
+        tools:layout="@layout/fragment_verifikasi_ktp" >
+        <action
+            android:id="@+id/action_verifikasiKtpFragment_to_fingerprintVerifFragment"
+            app:destination="@id/fingerprintVerifFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fingerprintVerifFragment"
+        android:name="com.synrgy7team4.feature_auth.presentation.register.FingerprintVerifFragment"
+        android:label="fragment_fingerprint_verif"
+        tools:layout="@layout/fragment_fingerprint_verif" />
+</navigation>
