@@ -6,6 +6,8 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("kotlin-parcelize")
     kotlin("kapt")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -70,6 +72,7 @@ dependencies {
     implementation(project(":feature_mutasi"))
     implementation(project(":common"))
     implementation("androidx.activity:activity:1.8.0")
+    implementation("com.google.firebase:firebase-crashlytics:19.0.3")
 
     val lifecycle_version = "2.7.0"
     val koin_version = "3.5.6"
