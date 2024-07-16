@@ -13,15 +13,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/feature_auth" />
-            <option value="$PROJECT_DIR$/feature_auth/feature_auth_data" />
-            <option value="$PROJECT_DIR$/feature_auth/feature_auth_di" />
-            <option value="$PROJECT_DIR$/feature_auth/feature_auth_domain" />
-            <option value="$PROJECT_DIR$/feature_auth/feature_auth_presentation" />
             <option value="$PROJECT_DIR$/feature_mutasi" />
-            <option value="$PROJECT_DIR$/feature_mutasi/feature_mutasi_data" />
-            <option value="$PROJECT_DIR$/feature_mutasi/feature_mutasi_di" />
-            <option value="$PROJECT_DIR$/feature_mutasi/feature_mutasi_domain" />
-            <option value="$PROJECT_DIR$/feature_mutasi/feature_mutasi_presentation" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />
