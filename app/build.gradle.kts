@@ -67,15 +67,8 @@ buildscript {
 dependencies {
 
     implementation(project(":feature_auth"))
-    implementation(project(":feature_auth:feature_auth_data"))
-    implementation(project(":feature_auth:feature_auth_di"))
-    implementation(project(":feature_auth:feature_auth_domain"))
-    implementation(project(":feature_auth:feature_auth_presentation"))
     implementation(project(":feature_mutasi"))
-    implementation(project(":feature_mutasi:feature_mutasi_data"))
-    implementation(project(":feature_mutasi:feature_mutasi_di"))
-    implementation(project(":feature_mutasi:feature_mutasi_domain"))
-    implementation(project(":feature_mutasi:feature_mutasi_presentation"))
+    implementation(project(":common"))
 
     val lifecycle_version = "2.7.0"
     val koin_version = "3.5.6"
