@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.register.RegistrationSuccessFragment">
+
+    <ImageView
+        android:id="@+id/iv_regis_success"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="236dp"
+        android:src="@drawable/ic_success"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_regis_success"
+        style="@style/RegulerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/anda_berhasil_membuka_rekening"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@id/iv_regis_success"
+        app:layout_constraintStart_toStartOf="@id/iv_regis_success"
+        app:layout_constraintTop_toBottomOf="@id/iv_regis_success" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

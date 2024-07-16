@@ -11,12 +11,13 @@
         <item name="colorSecondaryVariant">@color/secondary_green</item>
         <item name="colorOnSecondary">@color/secondary_yellow</item>
 
-
-
+        <item name="fontFamily">@font/calibri</item>
 
     </style>
 
+
     <style name="Theme.BankingApps" parent="Base.Theme.BankingApps" />
+
 
 
     <style name="MyButton">
