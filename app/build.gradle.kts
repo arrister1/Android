@@ -69,6 +69,7 @@ dependencies {
     implementation(project(":feature_auth"))
     implementation(project(":feature_mutasi"))
     implementation(project(":common"))
+    implementation("androidx.activity:activity:1.8.0")
 
     val lifecycle_version = "2.7.0"
     val koin_version = "3.5.6"
