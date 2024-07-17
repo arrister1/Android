@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">feature_mutasi</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="beranda">Beranda</string>
+    <string name="qris">QRIS</string>
+    <string name="akun">Akun</string>
+    <string name="selamat_pagi">Selamat Pagi,</string>
+    <string name="dummy_name">Nur Afina</string>
+    <string name="dummy_acc_number">7293********9283</string>
+    <string name="dummy_account_balance">Rp 3,492,203</string>
+    <string name="transfer">Transfer</string>
+    <string name="riwayat">Riwayat</string>
+
+</resources>

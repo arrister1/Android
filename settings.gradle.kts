@@ -17,4 +17,5 @@ rootProject.name = "Banking Apps"
 include(":app")
 include(":feature_auth")
 include(":feature_mutasi")
+include(":feature_dashboard")
 include(":common")

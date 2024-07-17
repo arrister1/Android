@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "522963507791",
+    "project_id": "banking-app-1dab6",
+    "storage_bucket": "banking-app-1dab6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:522963507791:android:c46df31fe29314dfe6e83a",
+        "android_client_info": {
+          "package_name": "com.synrgy7team4.bankingapps.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzZytLsFg5HkgXPP3LcNR74uh0DpiPHKQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

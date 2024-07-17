@@ -2,20 +2,19 @@ package com.synrgy7team4.bankingapps
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
-import android.view.KeyEvent
-import android.view.View
-import android.widget.EditText
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputEditText
+import androidx.navigation.fragment.NavHostFragment
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_feature_auth) as NavHostFragment
+        val navController = navHostFragment.navController
+
+        // Navigate to the main destination
+        navController.navigate(com.synrgy7team4.feature_auth.R.id.fotoKtpFragment)
 
     }
 }
