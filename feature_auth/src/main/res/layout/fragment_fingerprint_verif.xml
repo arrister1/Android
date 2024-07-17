@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="150dp"
         android:id="@+id/tv_judul_fingerprint"
         android:text="Verifikasi Fingerprint"
         android:fontFamily="@font/calibri"
