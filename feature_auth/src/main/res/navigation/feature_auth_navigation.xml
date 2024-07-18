@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/feature_auth_navigation"
-    app:startDestination="@id/fotoKtpFragment">
+    app:startDestination="@id/inputEmailFragment">
 
     <fragment
         android:id="@+id/fotoKtpFragment"
@@ -54,7 +54,15 @@
         android:id="@+id/registrationSuccessFragment"
         android:name="com.synrgy7team4.feature_auth.presentation.register.RegistrationSuccessFragment"
         android:label="fragment_registration_success"
-        tools:layout="@layout/fragment_registration_success" />
+        tools:layout="@layout/fragment_registration_success" >
+        <!--<action
+            android:id="@+id/action_registrationSuccessFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />-->
+    </fragment>
+    <!--<activity
+        android:id="@+id/mainActivity"
+        android:name="com.synrgy7team4.feature_dashboard.presentation.MainActivity"
+        android:label="MainActivity" />-->
     <fragment
         android:id="@+id/inputEmailFragment"
         android:name="com.synrgy7team4.feature_auth.presentation.register.InputEmailFragment"
@@ -73,3 +81,17 @@
             app:destination="@id/fotoKtpFragment" />
     </fragment>
 </navigation>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

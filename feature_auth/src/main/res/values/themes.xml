@@ -1,88 +1,94 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.BankingApps" parent="Theme.Material3.DayNight.NoActionBar">
-<!--        Color Primary-->
-         <item name="colorPrimary">@color/primary_blue</item>
-         <item name="colorPrimaryDark">@color/primary_darkBlue</item>
-         <item name="colorOnPrimary">@color/primary_lightBlue</item>
 
-<!--        its Color Secondary-->
+    <style name="Theme.BankingApps" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <!--        Color Primary-->
+        <item name="colorPrimary">@color/primary_blue</item>
+        <item name="colorPrimaryDark">@color/primary_darkBlue</item>
+        <item name="colorOnPrimary">@color/primary_lightBlue</item>
+
+        <!--        its Color Secondary-->
+
         <item name="colorSecondary">@color/secondary_red</item>
         <item name="colorSecondaryVariant">@color/secondary_green</item>
         <item name="colorOnSecondary">@color/secondary_yellow</item>
-
-        <item name="fontFamily">@font/calibri</item>
+      <item name="fontFamily">@font/calibri</item>
 
     </style>
 
 
-    <style name="Theme.BankingApps" parent="Base.Theme.BankingApps" />
 
 
 
-    <style name="MyButton">
+    <style name="MyButton" parent="Widget.Material3.Button">
+
         <item name="android:textSize">16sp</item>
         <item name="cornerRadius">12dp</item>
         <item name="android:textAllCaps">false</item>
     </style>
 
-    <style name="PrimaryActiveButton" >
-        <item name="buttonStyle">@style/MyButton</item>
+    <style name="PrimaryActiveButton" parent="MyButton">
+
         <item name="backgroundTint">@color/primary_blue</item>
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="PrimaryActiveButtonDark">
-        <item name="buttonStyle">@style/MyButton</item>
+
+    <style name="PrimaryActiveButtonDark" parent="MyButton">
+
         <item name="backgroundTint">@color/primary_darkBlue</item>
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="PrimaryInactiveButton">
-        <item name="buttonStyle">@style/MyButton</item>
+
+    <style name="PrimaryInactiveButton" parent="MyButton">
+
         <item name="backgroundTint">@color/light_grey</item>
         <item name="android:textColor">@color/grey</item>
     </style>
 
-    <style name="SecondaryActiveButton">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textAllCaps">false</item>
 
+    <style name="SecondaryActiveButton" parent="Widget.AppCompat.Button">
         <item name="android:background">@drawable/button_with_border</item>
         <item name="android:textColor">@color/primary_blue</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAllCaps">false</item>
 
     </style>
 
-    <style name="SecondaryActiveButtonDark">
-        <item name="buttonStyle">@style/MyButton</item>
+    <style name="SecondaryActiveButtonDark" parent="MyButton">
         <item name="backgroundTint">@color/primary_darkBlue</item>
         <item name="android:textColor">@color/white</item>
+
     </style>
 
-    <style name="SecondaryInactiveButton">
-        <item name="android:textSize">16sp</item>
-        <item name="cornerRadius">12dp</item>
-        <item name="android:textAllCaps">false</item>
+    <style name="SecondaryInactiveButton" parent="Widget.AppCompat.Button">
         <item name="android:background">@drawable/button_with_border2</item>
         <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="cornerRadius">12dp</item>
     </style>
-    
-    <style name="GradientActiveButton">
+
+    <style name="GradientActiveButton" parent="Widget.AppCompat.Button" >
+
         <item name="android:background">@drawable/gradient_button</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textAllCaps">false</item>
+
+
+
     </style>
 
-    <style name="GradientInactiveButton">
+    <style name="GradientInactiveButton" parent="Widget.AppCompat.Button">
+
         <item name="android:textSize">16sp</item>
         <item name="cornerRadius">12dp</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:background">@drawable/button_with_border2</item>
         <item name="android:textColor">@color/grey</item>
     </style>
-
-
-
 
 </resources>
