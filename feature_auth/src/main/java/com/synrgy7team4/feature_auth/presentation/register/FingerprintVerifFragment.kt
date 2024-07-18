@@ -14,6 +14,8 @@ import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
+import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentFingerprintVerifBinding
 import java.util.concurrent.Executor
 
@@ -56,6 +58,7 @@ class FingerprintVerifFragment : Fragment() {
                 ) {
                     super.onAuthenticationSucceeded(result)
                     // DISINI KALO SUCCES BIOMETRICNYA, bisa kasih nav/intent disini
+                    requireView().findNavController().navigate(R.id.action_fingerprintVerifFragment_to_pinFragment)
                     Toast.makeText(requireContext(),
                         "Authentication succeeded!", Toast.LENGTH_SHORT)
                         .show()
