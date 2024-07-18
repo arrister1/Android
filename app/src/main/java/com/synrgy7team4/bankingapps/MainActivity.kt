@@ -9,6 +9,7 @@ import android.view.View
 import androidx.fragment.app.commitNow
 import com.synrgy7team4.bankingapps.databinding.ActivityMainBinding
 import com.synrgy7team4.feature_auth.presentation.onBoarding.OnBoardingFragment
+import androidx.navigation.fragment.NavHostFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,6 +29,14 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+
+
+        /*setContentView(R.layout.activity_main)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_feature_auth) as NavHostFragment
+        val navController = navHostFragment.navController
+
+        // Navigate to the main destination
+        navController.navigate(com.synrgy7team4.feature_auth.R.id.fotoKtpFragment)*/
 
     }
 

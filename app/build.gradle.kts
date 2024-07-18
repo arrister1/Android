@@ -6,6 +6,8 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("kotlin-parcelize")
     kotlin("kapt")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -71,6 +73,9 @@ dependencies {
     implementation(project(":common"))
     implementation("androidx.activity:activity:1.8.0")
 
+    implementation("com.google.firebase:firebase-crashlytics:19.0.3")
+
+
     val lifecycle_version = "2.7.0"
     val koin_version = "3.5.6"
 
@@ -114,6 +119,10 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
+    //biometric
+    var biometricLibraryVersion = "1.1.0"
+    implementation ("androidx.biometric:biometric:$biometricLibraryVersion")
+
     // Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
@@ -145,4 +154,13 @@ dependencies {
     // Chucker
     debugImplementation("com.github.chuckerteam.chucker:library:4.0.0")
     releaseImplementation("com.github.chuckerteam.chucker:library-no-op:4.0.0")
+
+    var camerax_version = "1.3.4"
+    implementation ("androidx.camera:camera-core:${camerax_version}")
+    implementation ("androidx.camera:camera-camera2:${camerax_version}")
+    implementation ("androidx.camera:camera-lifecycle:${camerax_version}")
+    implementation ("androidx.camera:camera-video:${camerax_version}")
+
+    implementation ("androidx.camera:camera-view:${camerax_version}")
+    implementation ("androidx.camera:camera-extensions:${camerax_version}")
 }

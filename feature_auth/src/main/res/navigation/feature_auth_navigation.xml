@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/feature_auth_navigation"
+    app:startDestination="@id/fotoKtpFragment">
+
+    <fragment
+        android:id="@+id/fotoKtpFragment"
+        android:name="com.synrgy7team4.feature_auth.presentation.register.FotoKtpFragment"
+        android:label="fragment_foto_ktp"
+        tools:layout="@layout/fragment_foto_ktp" >
+        <action
+            android:id="@+id/action_fotoKtpFragment_to_verifikasiKtpFragment"
+            app:destination="@id/verifikasiKtpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/verifikasiKtpFragment"
+        android:name="com.synrgy7team4.feature_auth.presentation.register.VerifikasiKtpFragment"
+        android:label="fragment_verifikasi_ktp"
+        tools:layout="@layout/fragment_verifikasi_ktp" >
+        <action
+            android:id="@+id/action_verifikasiKtpFragment_to_fingerprintVerifFragment"
+            app:destination="@id/fingerprintVerifFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fingerprintVerifFragment"
+        android:name="com.synrgy7team4.feature_auth.presentation.register.FingerprintVerifFragment"
+        android:label="fragment_fingerprint_verif"
+        tools:layout="@layout/fragment_fingerprint_verif" >
+        <action
+            android:id="@+id/action_fingerprintVerifFragment_to_pinFragment"
+            app:destination="@id/pinFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pinFragment"
+        android:name="com.synrgy7team4.feature_auth.presentation.register.PinFragment"
+        android:label="fragment_pin"
+        tools:layout="@layout/fragment_pin" >
+        <action
+            android:id="@+id/action_pinFragment_to_pinConfirmationFragment"
+            app:destination="@id/pinConfirmationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pinConfirmationFragment"
+        android:name="com.synrgy7team4.feature_auth.presentation.register.PinConfirmationFragment"
+        android:label="fragment_pin_confirmation"
+        tools:layout="@layout/fragment_pin_confirmation" >
+        <action
+            android:id="@+id/action_pinConfirmationFragment_to_registrationSuccessFragment"
+            app:destination="@id/registrationSuccessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationSuccessFragment"
+        android:name="com.synrgy7team4.feature_auth.presentation.register.RegistrationSuccessFragment"
+        android:label="fragment_registration_success"
+        tools:layout="@layout/fragment_registration_success" >
+        <action
+            android:id="@+id/action_registrationSuccessFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.synrgy7team4.feature_dashboard.presentation.MainActivity"
+        android:label="MainActivity" />
+</navigation>
