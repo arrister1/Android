@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/feature_auth_navigation"
-    app:startDestination="@id/inputEmailFragment">
+    app:startDestination="@id/splashScreenFragment">
 
     <fragment
         android:id="@+id/fotoKtpFragment"
@@ -55,14 +55,8 @@
         android:name="com.synrgy7team4.feature_auth.presentation.register.RegistrationSuccessFragment"
         android:label="fragment_registration_success"
         tools:layout="@layout/fragment_registration_success" >
-        <action
-            android:id="@+id/action_registrationSuccessFragment_to_dashboardActivity"
-            app:destination="@id/dashboardActivity" />
+
     </fragment>
-    <!--<activity
-        android:id="@+id/mainActivity"
-        android:name="com.synrgy7team4.feature_dashboard.presentation.DashboardActivityivity"
-        android:label="DashboardActivity" />-->
     <fragment
         android:id="@+id/inputEmailFragment"
         android:name="com.synrgy7team4.feature_auth.presentation.register.InputEmailFragment"
@@ -97,9 +91,7 @@
         android:name="com.synrgy7team4.feature_auth.presentation.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_loginFragment_to_dashboardActivity"
-            app:destination="@id/dashboardActivity" />
+
     </fragment>
     <fragment
         android:id="@+id/otpVerification"
@@ -129,21 +121,14 @@
             app:destination="@id/fotoKtpFragment" />
     </fragment>
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.home.HomeFragment"
-        android:label="HomeFragment" />
-    <fragment
-        android:id="@+id/accountFragment"
-        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.account.AccountFragment"
-        android:label="AccountFragment" />
-    <fragment
-        android:id="@+id/qrisFragment"
-        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.qris.QrisFragment"
-        android:label="QrisFragment" />
-    <activity
-        android:id="@+id/dashboardActivity"
-        android:name="com.synrgy7team4.feature_dashboard.presentation.DashboardActivity"
-        android:label="DashboardActivity" />
+        android:id="@+id/splashScreenFragment"
+        android:name="com.synrgy7team4.feature_auth.presentation.onBoarding.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_onBoardingFragment"
+            app:destination="@id/onBoardingFragment" />
+    </fragment>
 </navigation>
 
 

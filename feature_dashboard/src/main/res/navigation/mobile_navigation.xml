@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.qris.QrisFragment"
+        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_qris" />
+        tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.account.AccountFragment"
+        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_notifications" />
 </navigation>

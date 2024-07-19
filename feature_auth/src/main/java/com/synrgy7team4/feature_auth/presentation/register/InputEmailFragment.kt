@@ -21,11 +21,18 @@ class InputEmailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnNext.setOnClickListener {
-            view.findNavController().navigate(R.id.action_inputEmailFragment_to_inputPhoneNumberFragment)
-        }
 
+            requireView().findNavController().navigate(R.id.action_inputEmailFragment_to_inputPhoneNumberFragment)
+        }
         binding.btnBack.setOnClickListener {
             view.findNavController().popBackStack()
         }
     }
+
+
+        
+
+        
+ 
+
 }
