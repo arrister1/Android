@@ -1,4 +1,4 @@
-package com.synrgy7team4.bankingapps
+package com.synrgy7team4.feature_auth.presentation.register
 
 import android.os.Bundle
 import android.text.Editable
@@ -10,9 +10,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.navigation.findNavController
 import com.google.android.material.button.MaterialButton
+import com.synrgy7team4.feature_auth.R
+import com.synrgy7team4.feature_auth.databinding.FragmentOtpVerificationBinding
 
 class OtpVerification : Fragment() {
+
+    private var _binding: FragmentOtpVerificationBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var inputCode1: EditText
     private lateinit var inputCode2: EditText
@@ -30,11 +36,22 @@ class OtpVerification : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_otp_verification, container, false)
+       // return inflater.inflate(R.layout.fragment_otp_verification, container, false)
+        _binding = FragmentOtpVerificationBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.submitOTPButton.setOnClickListener {
+
+            view.findNavController().navigate(R.id.action_otpVerification_to_ktpVerificationBoardFragment)
+        }
+
+        binding.btnBack.setOnClickListener {
+            view.findNavController().popBackStack()
+        }
 
         inputCode1 = view.findViewById(R.id.inputCode1)
         inputCode2 = view.findViewById(R.id.inputCode2)
@@ -45,7 +62,7 @@ class OtpVerification : Fragment() {
 
         setupOTPInputs()
 
-        view.findViewById<MaterialButton>(R.id.submitOTPButton).setOnClickListener{getOTP()}
+       // view.findViewById<MaterialButton>(R.id.submitOTPButton).setOnClickListener{getOTP()}
     }
 
     private fun setupOTPInputs(){
