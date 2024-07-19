@@ -59,6 +59,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+    implementation ("com.github.khaled2252:pin-view:1.0.0")
+
 
     //biometric
     var biometricLibraryVersion = "1.1.0"

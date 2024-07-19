@@ -1,4 +1,4 @@
-package com.synrgy7team4.feature_auth.presentation.login
+package com.synrgy7team4.feature_auth.presentation.register
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.synrgy7team4.feature_auth.R
-import com.synrgy7team4.feature_auth.databinding.FragmentLoginBinding
+import com.synrgy7team4.feature_auth.databinding.FragmentKtpVerificationBoardBinding
 
-
-class LoginFragment : Fragment() {
-    private var _binding: FragmentLoginBinding? = null
+class KtpVerificationBoardFragment : Fragment() {
+    private var _binding: FragmentKtpVerificationBoardBinding? = null
     private val binding get() = _binding!!
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,21 +24,18 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_login, container, false)
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        //return inflater.inflate(R.layout.fragment_ktp_verification_board, container, false)
+        _binding = FragmentKtpVerificationBoardBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnBack.setOnClickListener{
-            view.findNavController().popBackStack()
-        }
-
-        binding.btnMasuk.setOnClickListener {
-            view.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+        binding.btnNext.setOnClickListener {
+            view.findNavController().navigate(R.id.action_ktpVerificationBoardFragment_to_fotoKtpFragment)
         }
     }
+
+
 }
