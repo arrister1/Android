@@ -1,4 +1,4 @@
-package com.synrgy7team4.bankingapps
+package com.synrgy7team4.feature_auth.presentation.register
 
 import android.os.Bundle
 import android.text.Editable
@@ -10,7 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.navigation.findNavController
 import com.google.android.material.button.MaterialButton
+import com.synrgy7team4.feature_auth.R
 
 class OtpVerification : Fragment() {
 
@@ -21,9 +23,6 @@ class OtpVerification : Fragment() {
     private lateinit var inputCode5: EditText
     private lateinit var inputCode6: EditText
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -84,6 +83,7 @@ class OtpVerification : Fragment() {
 
     private fun getOTP(){
         Log.d("OTP","${inputCode1.text}${inputCode2.text}${inputCode3.text}${inputCode4.text}${inputCode5.text}${inputCode6.text}")
+        requireView().findNavController().navigate(R.id.action_otpVerification_to_createPassword)
     }
 }
 

@@ -10,11 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.camera.core.Camera
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageCaptureException
-import androidx.camera.core.Preview
+import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
@@ -26,13 +22,13 @@ import com.google.common.util.concurrent.ListenableFuture
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentFotoKtpBinding
 
-class FotoKtpFragment : Fragment()/*, ImageCapture.OnImageSavedCallback */{
+class FotoKtpFragment : Fragment(), ImageCapture.OnImageSavedCallback {
     private var _binding: FragmentFotoKtpBinding? = null
     private val binding get() = _binding!!
-    /*private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
-    private lateinit var camera: Camera
-    private lateinit var imageCapture: ImageCapture
-    private lateinit var cameraProvider: ProcessCameraProvider
+    private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
+    private var camera: Camera? = null
+    private var imageCapture: ImageCapture? = null
+    private var cameraProvider: ProcessCameraProvider? = null
 
     private val backCameraSelector by lazy {
         getCameraSelector(CameraSelector.LENS_FACING_BACK)
@@ -45,7 +41,7 @@ class FotoKtpFragment : Fragment()/*, ImageCapture.OnImageSavedCallback */{
     private val cameraPermissionResult =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
             if (granted) {
-                startCamera()
+                startCamera(backCameraSelector)
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -53,7 +49,7 @@ class FotoKtpFragment : Fragment()/*, ImageCapture.OnImageSavedCallback */{
                     Toast.LENGTH_SHORT
                 ).show()
             }
-        }*/
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,9 +62,16 @@ class FotoKtpFragment : Fragment()/*, ImageCapture.OnImageSavedCallback */{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnCapture.setOnClickListener {
-            requireView().findNavController().navigate(R.id.action_fotoKtpFragment_to_verifikasiKtpFragment)
+            takePicture()
         }
-        /*// Check for camera permission and request if not granted
+        binding.btnBack.setOnClickListener {
+            requireView().findNavController().popBackStack()
+        }
+        binding.btnFlipCamera.setOnClickListener {
+            flipCamera()
+        }
+
+        // Check for camera permission and request if not granted
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.CAMERA
@@ -76,33 +79,17 @@ class FotoKtpFragment : Fragment()/*, ImageCapture.OnImageSavedCallback */{
         ) {
             cameraPermissionResult.launch(Manifest.permission.CAMERA)
         } else {
-            startCamera()
-        }*/
+            startCamera(backCameraSelector)
+        }
     }
 
-    /*private fun startCamera() {
+    private fun startCamera(cameraSelector: CameraSelector) {
         cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
 
         cameraProviderFuture.addListener({
             cameraProvider = cameraProviderFuture.get()
-            bindPreview(cameraProvider, backCameraSelector)
+            bindPreview(cameraProvider!!, cameraSelector)
         }, ContextCompat.getMainExecutor(requireContext()))
-
-        binding.btnCapture.setOnClickListener {
-            takePicture()
-        }
-
-        binding.btnFlipCamera.setOnClickListener {
-            if (!this::camera.isInitialized && !this::cameraProvider.isInitialized) return@setOnClickListener
-
-            if (camera.cameraInfo.lensFacing == CameraSelector.LENS_FACING_FRONT) {
-                cameraProvider.unbindAll()
-                bindPreview(cameraProvider, backCameraSelector)
-            } else {
-                cameraProvider.unbindAll()
-                bindPreview(cameraProvider, frontCameraSelector)
-            }
-        }
     }
 
     private fun bindPreview(cameraProvider: ProcessCameraProvider, cameraSelector: CameraSelector) {
@@ -115,20 +102,37 @@ class FotoKtpFragment : Fragment()/*, ImageCapture.OnImageSavedCallback */{
             .setTargetRotation(previewView.display.rotation)
             .build()
 
-        camera = cameraProvider.bindToLifecycle(
-            this as LifecycleOwner,
-            cameraSelector,
-            preview,
-            imageCapture
-        )
+        try {
+            cameraProvider.unbindAll()
+            camera = cameraProvider.bindToLifecycle(
+                this as LifecycleOwner,
+                cameraSelector,
+                preview,
+                imageCapture
+            )
+        } catch (exc: Exception) {
+            Toast.makeText(requireContext(), "Error binding camera use cases", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun flipCamera() {
+        val currentCameraProvider = cameraProvider ?: return
+
+        val cameraSelector = if (camera?.cameraInfo?.lensFacing == CameraSelector.LENS_FACING_FRONT) {
+            backCameraSelector
+        } else {
+            frontCameraSelector
+        }
+
+        startCamera(cameraSelector)
     }
 
     private fun takePicture() {
-        requireView().findNavController().navigate(R.id.action_fotoKtpFragment_to_verifikasiKtpFragment)
-        if (!this::imageCapture.isInitialized) return
+        val imageCapture = imageCapture ?: return
 
+        val outputOptions = getImageOutputOptions()
         imageCapture.takePicture(
-            getImageOutputOptions(),
+            outputOptions,
             ContextCompat.getMainExecutor(requireContext()),
             this
         )
@@ -160,7 +164,7 @@ class FotoKtpFragment : Fragment()/*, ImageCapture.OnImageSavedCallback */{
 
     override fun onError(exception: ImageCaptureException) {
         exception.printStackTrace()
-    }*/
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
