@@ -24,15 +24,22 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
 //        return inflater.inflate(R.layout.fragment_login, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnMasuk.setOnClickListener{
-            requireView().findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+
+        binding.btnBack.setOnClickListener{
+            view.findNavController().popBackStack()
+        }
+
+        binding.btnMasuk.setOnClickListener {
+            view.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
         }
 
         setupAccessibility()
@@ -51,5 +58,9 @@ class LoginFragment : Fragment() {
         }
     }
 
+
+
+        
+    
 
 }

@@ -21,7 +21,13 @@ class InputPhoneNumberFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnNext.setOnClickListener {
-            requireView().findNavController().navigate(R.id.action_inputPhoneNumberFragment_to_fotoKtpFragment)
+
+            view.findNavController().navigate(R.id.action_inputPhoneNumberFragment_to_otpVerification)
         }
+        binding.btnBack.setOnClickListener {
+            view.findNavController().popBackStack()
+
+        }
+        
     }
 }

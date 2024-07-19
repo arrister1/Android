@@ -24,9 +24,12 @@ class RegistrationSuccessFragment : Fragment() {
         return view;
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        requireView().findNavController().navigate(R.id.action_verifikasiKtpFragment_to_fingerprintVerifFragment)
+
+        binding.regisSuccessLayout.setOnClickListener {
+            requireView().findNavController().navigate(R.id.action_registrationSuccessFragment_to_homeFragment)
+        }
     }
 
 }

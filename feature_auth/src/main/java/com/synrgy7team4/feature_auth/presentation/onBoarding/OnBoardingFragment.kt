@@ -12,6 +12,7 @@ import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentOnBoardingBinding
 
 class OnBoardingFragment : Fragment() {
+   
 
     private val binding by lazy { FragmentOnBoardingBinding.inflate(layoutInflater) }
 
@@ -26,7 +27,7 @@ class OnBoardingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_on_boarding, container, false)
+
         playAnimation()
         return binding.root
 
@@ -82,5 +83,5 @@ class OnBoardingFragment : Fragment() {
 
     }
 
-
+       
 }
