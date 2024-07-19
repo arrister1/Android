@@ -3,6 +3,8 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
+        maven { url = uri("https://www.jitpack.io" ) }
+
     }
 }
 dependencyResolutionManagement {
@@ -10,6 +12,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url = uri("https://www.jitpack.io" ) }
+
     }
 }
 
@@ -19,3 +23,4 @@ include(":feature_auth")
 include(":feature_mutasi")
 include(":feature_dashboard")
 include(":common")
+

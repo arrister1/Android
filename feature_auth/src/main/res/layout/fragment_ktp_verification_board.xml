@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="20dp"
+    tools:context=".presentation.register.KtpVerificationBoardFragment">
+
+    <TextView
+        android:id="@+id/tv_verif_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="288dp"
+        style="@style/BoldText"
+        android:text="@string/verifikasi_e_ktp"
+        android:textColor="@color/primary_blue"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent" />
+    
+    <TextView
+        android:id="@+id/tv_verif_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/verif_description"
+        style="@style/RegulerText"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/tv_verif_title"
+        app:layout_constraintStart_toStartOf="@id/tv_verif_title"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_next"
+        android:layout_width="203dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="180dp"
+        android:fontFamily="@font/calibri"
+        android:paddingVertical="12dp"
+        android:text="@string/ambil_foto_e_ktp"
+        android:textSize="16sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_verif_desc"
+        app:layout_constraintEnd_toEndOf="@id/tv_verif_desc"
+        app:layout_constraintStart_toStartOf="@id/tv_verif_desc"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

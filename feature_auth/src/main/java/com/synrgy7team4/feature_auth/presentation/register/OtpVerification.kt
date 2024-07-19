@@ -13,8 +13,12 @@ import android.widget.EditText
 import androidx.navigation.findNavController
 import com.google.android.material.button.MaterialButton
 import com.synrgy7team4.feature_auth.R
+import com.synrgy7team4.feature_auth.databinding.FragmentOtpVerificationBinding
 
 class OtpVerification : Fragment() {
+
+    private var _binding: FragmentOtpVerificationBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var inputCode1: EditText
     private lateinit var inputCode2: EditText
@@ -23,17 +27,31 @@ class OtpVerification : Fragment() {
     private lateinit var inputCode5: EditText
     private lateinit var inputCode6: EditText
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_otp_verification, container, false)
+       // return inflater.inflate(R.layout.fragment_otp_verification, container, false)
+        _binding = FragmentOtpVerificationBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.submitOTPButton.setOnClickListener {
+
+            view.findNavController().navigate(R.id.action_otpVerification_to_createPassword)
+        }
+
+        binding.btnBack.setOnClickListener {
+            view.findNavController().popBackStack()
+        }
 
         inputCode1 = view.findViewById(R.id.inputCode1)
         inputCode2 = view.findViewById(R.id.inputCode2)
@@ -44,7 +62,7 @@ class OtpVerification : Fragment() {
 
         setupOTPInputs()
 
-        view.findViewById<MaterialButton>(R.id.submitOTPButton).setOnClickListener{getOTP()}
+       // view.findViewById<MaterialButton>(R.id.submitOTPButton).setOnClickListener{getOTP()}
     }
 
     private fun setupOTPInputs(){
@@ -83,7 +101,6 @@ class OtpVerification : Fragment() {
 
     private fun getOTP(){
         Log.d("OTP","${inputCode1.text}${inputCode2.text}${inputCode3.text}${inputCode4.text}${inputCode5.text}${inputCode6.text}")
-        requireView().findNavController().navigate(R.id.action_otpVerification_to_createPassword)
     }
 }
 

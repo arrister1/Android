@@ -19,12 +19,12 @@ class InputPhoneNumberFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.btnNext.setOnClickListener {
-            requireView().findNavController().navigate(R.id.action_inputPhoneNumberFragment_to_otpVerification)
+            view.findNavController().navigate(R.id.action_inputPhoneNumberFragment_to_otpVerification)
         }
         binding.btnBack.setOnClickListener {
-            requireView().findNavController().popBackStack()
+            view.findNavController().popBackStack()
         }
-
     }
 }

@@ -19,11 +19,13 @@ class InputEmailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.btnNext.setOnClickListener {
-            requireView().findNavController().navigate(R.id.action_inputEmailFragment_to_inputPhoneNumberFragment)
+            view.findNavController().navigate(R.id.action_inputEmailFragment_to_inputPhoneNumberFragment)
         }
+
         binding.btnBack.setOnClickListener {
-            requireView().findNavController().popBackStack()
+            view.findNavController().popBackStack()
         }
     }
 }

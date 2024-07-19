@@ -5,8 +5,20 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="30dp"
-    tools:context=".OtpVerification">
-        
+    tools:context="com.synrgy7team4.feature_auth.presentation.register.OtpVerification">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_back"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="47dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:paddingHorizontal="7dp"
+        app:icon="@drawable/baseline_arrow_back_ios_new_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/verifikasi"
             android:layout_width="wrap_content"
@@ -156,7 +168,6 @@
             android:text="Lanjut"
             android:textSize="20sp"
             app:cornerRadius="8dp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
