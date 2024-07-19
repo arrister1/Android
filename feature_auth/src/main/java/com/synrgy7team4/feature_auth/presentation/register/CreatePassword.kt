@@ -82,7 +82,7 @@ class CreatePassword : Fragment() {
     private fun getPassword() {
         val password = binding.inputPassword.text
         val passwordConfirmation = binding.inputPasswordConfirmation.text
-        requireView().findNavController().navigate(R.id.action_createPassword_to_ktpVerificationBoardFragment)
+        requireView().findNavController().navigate(R.id.action_createPassword_to_ktpVerificationBoardFragment2)
         Log.d("password", password.toString())
         Log.d("passwordConfirmation", passwordConfirmation.toString())
     }

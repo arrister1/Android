@@ -63,6 +63,7 @@ class FotoKtpFragment : Fragment(), ImageCapture.OnImageSavedCallback {
         super.onViewCreated(view, savedInstanceState)
         binding.btnCapture.setOnClickListener {
             takePicture()
+            requireView().findNavController().navigate(R.id.action_fotoKtpFragment_to_verifikasiKtpFragment)
         }
         binding.btnBack.setOnClickListener {
             requireView().findNavController().popBackStack()

@@ -28,7 +28,7 @@ class RegistrationSuccessFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.regisSuccessLayout.setOnClickListener {
-            requireView().findNavController().navigate(R.id.action_registrationSuccessFragment_to_homeFragment)
+            requireView().findNavController().navigate(R.id.action_registrationSuccessFragment_to_dashboardActivity)
         }
     }
 

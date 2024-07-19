@@ -56,8 +56,8 @@
         android:label="fragment_registration_success"
         tools:layout="@layout/fragment_registration_success" >
         <action
-            android:id="@+id/action_registrationSuccessFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_registrationSuccessFragment_to_dashboardActivity"
+            app:destination="@id/dashboardActivity" />
     </fragment>
     <!--<activity
         android:id="@+id/mainActivity"
@@ -98,8 +98,8 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_loginFragment_to_dashboardActivity"
+            app:destination="@id/dashboardActivity" />
     </fragment>
     <fragment
         android:id="@+id/otpVerification"
@@ -107,14 +107,18 @@
         android:label="fragment_otp_verification"
         tools:layout="@layout/fragment_otp_verification" >
         <action
-            android:id="@+id/action_otpVerification_to_ktpVerificationBoardFragment"
-            app:destination="@id/ktpVerificationBoardFragment" />
+            android:id="@+id/action_otpVerification_to_createPassword"
+            app:destination="@id/createPassword" />
     </fragment>
     <fragment
         android:id="@+id/createPassword"
         android:name="com.synrgy7team4.feature_auth.presentation.register.CreatePassword"
         android:label="fragment_create_password"
-        tools:layout="@layout/fragment_create_password" />
+        tools:layout="@layout/fragment_create_password" >
+        <action
+            android:id="@+id/action_createPassword_to_ktpVerificationBoardFragment2"
+            app:destination="@id/ktpVerificationBoardFragment" />
+    </fragment>
     <fragment
         android:id="@+id/ktpVerificationBoardFragment"
         android:name="com.synrgy7team4.feature_auth.presentation.register.KtpVerificationBoardFragment"
@@ -128,6 +132,18 @@
         android:id="@+id/homeFragment"
         android:name="com.synrgy7team4.feature_dashboard.presentation.ui.home.HomeFragment"
         android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.account.AccountFragment"
+        android:label="AccountFragment" />
+    <fragment
+        android:id="@+id/qrisFragment"
+        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.qris.QrisFragment"
+        android:label="QrisFragment" />
+    <activity
+        android:id="@+id/dashboardActivity"
+        android:name="com.synrgy7team4.feature_dashboard.presentation.DashboardActivity"
+        android:label="DashboardActivity" />
 </navigation>
 
 
