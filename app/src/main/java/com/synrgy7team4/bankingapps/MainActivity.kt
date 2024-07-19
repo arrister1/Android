@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
 
         // Navigate to the main destination
-        navController.navigate(com.synrgy7team4.feature_auth.R.id.fotoKtpFragment)
+        navController.navigate(com.synrgy7team4.feature_auth.R.id.splashScreenFragment)
 
     }
 }

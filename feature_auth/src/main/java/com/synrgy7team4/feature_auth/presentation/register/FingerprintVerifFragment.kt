@@ -72,16 +72,18 @@ class FingerprintVerifFragment : Fragment() {
                 }
             })
 
-        checkDeviceHasBiometric()
+//        checkDeviceHasBiometric()
         binding.ivFingerprint.setOnClickListener {
-            biometricPrompt.authenticate(promptInfo)
-        }
+//            biometricPrompt.authenticate(promptInfo)
+            requireView().findNavController().navigate(R.id.action_fingerprintVerifFragment_to_pinFragment)
 
-        promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Biometric login for Register")
-            .setSubtitle("Log in using your biometric credential")
-            .setNegativeButtonText("Use account password")
-            .build()
+        }
+//
+//        promptInfo = BiometricPrompt.PromptInfo.Builder()
+//            .setTitle("Biometric login for Register")
+//            .setSubtitle("Log in using your biometric credential")
+//            .setNegativeButtonText("Use account password")
+//            .build()
 
 
     }

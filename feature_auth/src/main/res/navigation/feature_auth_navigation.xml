@@ -80,6 +80,40 @@
             android:id="@+id/action_inputPhoneNumberFragment_to_fotoKtpFragment"
             app:destination="@id/fotoKtpFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        android:name="com.synrgy7team4.feature_auth.presentation.onBoarding.OnBoardingFragment"
+        android:label="fragment_on_boarding"
+        tools:layout="@layout/fragment_on_boarding" >
+        <action
+            android:id="@+id/action_onBoardingFragment_to_inputEmailFragment"
+            app:destination="@id/inputEmailFragment" />
+        <action
+            android:id="@+id/action_onBoardingFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.synrgy7team4.feature_auth.presentation.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.home.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.synrgy7team4.feature_auth.presentation.onBoarding.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_onBoardingFragment"
+            app:destination="@id/onBoardingFragment" />
+    </fragment>
 </navigation>
 
 

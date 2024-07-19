@@ -27,6 +27,10 @@ class PinFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //binding.tvPinInput6.
-        requireView().findNavController().navigate(R.id.action_verifikasiKtpFragment_to_fingerprintVerifFragment)
+//        requireView().findNavController().navigate(R.id.action_verifikasiKtpFragment_to_fingerprintVerifFragment)
+        binding.btnNum1.setOnClickListener {
+            requireView().findNavController().navigate(R.id.action_pinFragment_to_pinConfirmationFragment)
+
+        }
     }
 }

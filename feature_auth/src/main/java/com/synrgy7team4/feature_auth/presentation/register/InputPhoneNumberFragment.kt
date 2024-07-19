@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
+import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentInputPhoneNumberBinding
 
 class InputPhoneNumberFragment : Fragment() {
@@ -14,4 +16,12 @@ class InputPhoneNumberFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = binding.root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.btnNext.setOnClickListener {
+            requireView().findNavController().navigate(R.id.action_inputPhoneNumberFragment_to_fotoKtpFragment)
+        }
+    }
 }
