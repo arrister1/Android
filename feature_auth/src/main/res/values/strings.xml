@@ -24,11 +24,11 @@
     <string name="konfirmasi_pin">Konfirmasi PIN</string>
     <string name="konfirmasi_6_digit_pin">Konfirmasi 6 digit PIN</string>
     <string name="anda_berhasil_membuka_rekening">Anda berhasil membuka rekening</string>
-
+    <string name="no_hp">No HP</string>
     <string name="tombol_kembali">tombol kembali</string>
     <string name="tombol_lanjut">Tombol lanjut</string>
     <string name="input_nomor_hp">input nomor hp</string>
-    <string name="input_email">input email</string>
+    <string name="input_">input email</string>
 
     <string name="tombol_sudah_punya_rekening">tombol sudah punya rekening</string>
     <string name="tombol_belum_punya_rekening">tombol belum punya rekening</string>
