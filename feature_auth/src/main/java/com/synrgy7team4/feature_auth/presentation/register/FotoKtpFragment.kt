@@ -51,6 +51,19 @@ class FotoKtpFragment : Fragment(), ImageCapture.OnImageSavedCallback {
         getCameraSelector(CameraSelector.LENS_FACING_FRONT)
     }
 
+    private val storagePermissionResult =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+            if (granted) {
+                startCamera(backCameraSelector)
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "Storage permission not available closing app",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
     private val cameraPermissionResult =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
             if (granted) {
@@ -90,9 +103,19 @@ class FotoKtpFragment : Fragment(), ImageCapture.OnImageSavedCallback {
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.CAMERA
+            ) != PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             cameraPermissionResult.launch(Manifest.permission.CAMERA)
+            storagePermissionResult.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            storagePermissionResult.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
         } else {
             startCamera(backCameraSelector)
         }
@@ -189,7 +212,9 @@ class FotoKtpFragment : Fragment(), ImageCapture.OnImageSavedCallback {
     private fun handleTextRecognitionResult(visionText: Text) {
         // Handle the recognized text here
         val recognizedText = visionText.text
-        Snackbar.make(binding.root, "Text recognized: $recognizedText", Snackbar.LENGTH_LONG).show()
+        print("Text recognized: $recognizedText")
+        requireView().findNavController().navigate(R.id.action_fotoKtpFragment_to_verifikasiKtpFragment)
+        Snackbar.make(binding.root, "Text recognized", Snackbar.LENGTH_LONG).show()
     }
 
     override fun onError(exception: ImageCaptureException) {
