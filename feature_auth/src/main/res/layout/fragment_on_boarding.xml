@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.onBoarding.OnBoardingFragment">
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="250dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="100dp"
+
+        android:src="@drawable/logo_lumi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewWelcome"
+        style="@style/BoldText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/selamat_datang"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:layout_marginBottom="62dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnPunya"
+        app:layout_constraintEnd_toEndOf="@+id/btnPunya"
+        app:layout_constraintStart_toStartOf="@+id/btnPunya" />
+
+    <Button
+        android:id="@+id/btnPunya"
+        style="@style/PrimaryActiveButton"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="62dp"
+        android:text="@string/sudah_punya_rekening"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnBlumPunya"
+        style="@style/SecondaryActiveButton"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/belum_punya_rekening"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnPunya" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
