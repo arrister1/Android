@@ -7,15 +7,17 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.synrgy7team4.feature_dashboard.R
 import com.synrgy7team4.feature_dashboard.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+    private var isHidden: Boolean = false
+    private val fullBalance: String = "123,456,789.0"
+    private val hiddenBalance: String
+        get() = fullBalance.replace(Regex("\\d"), "*").replace(Regex("[,.]"), "")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +37,27 @@ class HomeFragment : Fragment() {
         return root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.tvBalance.text = fullBalance
+        binding.toggleBalance.setImageResource(com.synrgy7team4.common.R.drawable.ic_visibility_on)
+
+        binding.toggleBalance.setOnClickListener{
+            balanceVisibility()
+        }
+    }
+
+    private fun balanceVisibility() {
+        if(isHidden){
+            binding.tvBalance.text = fullBalance
+            binding.toggleBalance.setImageResource(com.synrgy7team4.common.R.drawable.ic_visibility_on)
+        } else {
+            binding.tvBalance.text = hiddenBalance
+            binding.toggleBalance.setImageResource(com.synrgy7team4.common.R.drawable.ic_visibility_off)
+        }
+        isHidden = !isHidden
+    }
 
 
     override fun onDestroyView() {
