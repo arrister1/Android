@@ -184,7 +184,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cv_date"
         tools:listitem="@layout/cv_mutasi_pertanggal"
-        tools:itemCount="2">
+        tools:itemCount="3">
     </androidx.recyclerview.widget.RecyclerView>
 
 
