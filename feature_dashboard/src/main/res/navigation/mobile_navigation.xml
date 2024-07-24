@@ -22,4 +22,18 @@
         android:name="com.synrgy7team4.feature_dashboard.presentation.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/qrisFragment"
+        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.qris.QrisFragment"
+        android:label="fragment_qris"
+        tools:layout="@layout/fragment_qris" />
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.account.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/mutasiFragment"
+        android:name="com.synrgy7team4.feature_mutasi.presentation.ui.MutasiFragment"
+        android:label="MutasiFragment" />
 </navigation>

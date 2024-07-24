@@ -28,7 +28,7 @@
     <string name="tombol_kembali">tombol kembali</string>
     <string name="tombol_lanjut">Tombol lanjut</string>
     <string name="input_nomor_hp">input nomor hp</string>
-    <string name="input_">input email</string>
+    <string name="input_email">input email</string>
 
     <string name="tombol_sudah_punya_rekening">tombol sudah punya rekening</string>
     <string name="tombol_belum_punya_rekening">tombol belum punya rekening</string>
@@ -84,5 +84,16 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="papan_tombol">Papan Tombol</string>
+    <string name="back">back</string>
+    <string name="foto_ktp">Foto KTP</string>
+    <string name="border_ktp">Border KTP</string>
+    <string name="capture_image">Capture Image</string>
+    <string name="flip_camera">Flip Camera</string>
+    <string name="verifikasi_fingerprint">Verifikasi Fingerprint</string>
+    <string name="check_biometric_finger">Check Biometric Finger</string>
+    <string name="sentuh_sensor_fingerprint">Sentuh Sensor Fingerprint</string>
+    <string name="jangan_tutup_aplikasi">Jangan tutup Aplikasi,</string>
+    <string name="e_ktp_sedang_di_verifikasi">e-KTP sedang di verifikasi</string>
+    <string name="verifikasi_ktp">Verifikasi KTP</string>
 
 </resources>
