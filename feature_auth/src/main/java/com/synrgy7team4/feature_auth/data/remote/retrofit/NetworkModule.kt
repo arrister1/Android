@@ -1,6 +1,7 @@
 package com.synrgy7team4.feature_auth.data.remote
 
 import com.synrgy7team4.common.Constants.Companion.BASE_URL
+import com.synrgy7team4.common.Constants.Companion.BASE_URL_AUTH
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -24,7 +25,8 @@ fun provideRetrofit(
     gsonConverterFactory: GsonConverterFactory
 ): Retrofit {
     return Retrofit.Builder()
-        .baseUrl(BASE_URL)
+        .baseUrl(BASE_URL_AUTH)
+//        .baseUrl(BASE_URL)
         .client(okHttpClient)
         .addConverterFactory(gsonConverterFactory)
         .build()
