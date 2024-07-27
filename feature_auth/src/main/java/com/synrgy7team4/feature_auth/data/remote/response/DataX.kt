@@ -3,6 +3,7 @@ package com.synrgy7team4.feature_auth.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 
+//DataX is Response from Login
 data class DataX(
     @SerializedName("email")
     val email: String,

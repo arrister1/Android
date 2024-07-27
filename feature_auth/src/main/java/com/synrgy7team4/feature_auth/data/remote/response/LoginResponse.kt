@@ -3,6 +3,9 @@ package com.synrgy7team4.feature_auth.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 
+
+//Ga jadi pake ini bang
+
 data class LoginResponse(
     @SerializedName("email")
     val email: String,
@@ -13,3 +16,4 @@ data class LoginResponse(
     @SerializedName("token")
     val token: String
 )
+//Ga jadi pake ini bang

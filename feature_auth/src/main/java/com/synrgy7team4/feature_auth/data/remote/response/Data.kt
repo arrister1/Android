@@ -3,6 +3,7 @@ package com.synrgy7team4.feature_auth.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 
+//Data is response from Register
 data class Data(
     @SerializedName("id")
     val id: String,
