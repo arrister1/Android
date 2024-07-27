@@ -1,4 +1,4 @@
-package com.synrgy7team4.feature_auth.data.remote.retrofit
+package com.synrgy7team4.feature_auth.data.remote.response
 
 
 import com.google.gson.annotations.SerializedName

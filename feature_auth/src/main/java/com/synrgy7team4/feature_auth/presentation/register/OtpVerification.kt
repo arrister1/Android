@@ -46,7 +46,8 @@ class OtpVerification : Fragment() {
 
         binding.submitOTPButton.setOnClickListener {
 
-            view.findNavController().navigate(R.id.action_otpVerification_to_ktpVerificationBoardFragment)
+            view.findNavController().navigate(R.id.action_otpVerification_to_createPasswordFragment)
+//            view.findNavController().navigate(R.id.action_otpVerification_to_ktpVerificationBoardFragment)
         }
 
         binding.btnBack.setOnClickListener {

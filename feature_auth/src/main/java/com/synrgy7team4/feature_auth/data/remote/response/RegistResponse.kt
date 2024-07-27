@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class RegistResponse(
     @SerializedName("data")
-    val `data`: Data,
+    val data: Data,
     @SerializedName("success")
     val success: Boolean
 )

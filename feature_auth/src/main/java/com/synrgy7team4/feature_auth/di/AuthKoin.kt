@@ -19,7 +19,7 @@ import com.synrgy7team4.feature_auth.domain.repository.AuthRepository
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
-val AuthModule = module {
+val AuthKoin = module {
     single { provideHttpClient() }
     single { provideConverterFactory() }
     single { provideRetrofit(get()) }

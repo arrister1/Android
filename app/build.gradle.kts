@@ -71,6 +71,7 @@ dependencies {
     implementation(project(":feature_auth"))
     implementation(project(":feature_mutasi"))
     implementation(project(":common"))
+    implementation(project(":shared"))
     implementation("androidx.activity:activity:1.8.0")
     implementation("com.google.firebase:firebase-crashlytics:19.0.3")
 

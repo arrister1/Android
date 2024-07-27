@@ -1,7 +1,10 @@
-package com.jer.di
+package com.synrgy7team4.bankingapps
 
 import android.app.Application
+import androidx.lifecycle.ViewModelProvider
+import com.jer.shared.ViewModelFactoryProvider
 import com.synrgy7team4.feature_auth.di.AuthKoin
+
 import com.synrgy7team4.feature_auth.di.Module
 
 import com.synrgy7team4.feature_auth.presentation.viewmodel.AuthViewModelKoin
@@ -11,7 +14,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 
-class MyApplication : Application() {
+class MyApplication : Application(), ViewModelFactoryProvider {
 
     lateinit var module: Module
     lateinit var viewModelFactory: ViewModelFactory
@@ -26,11 +29,16 @@ class MyApplication : Application() {
             androidLogger()
             androidContext(this@MyApplication)
             modules(
+
                 AuthKoin,
                 AuthViewModelKoin,
                 MutasiKoin,
                 MutasiViewModelKoin
             )
         }
+    }
+
+    override fun provideViewModelFactory(): ViewModelProvider.Factory {
+        return viewModelFactory
     }
 }

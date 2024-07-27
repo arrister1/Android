@@ -1,19 +1,33 @@
 package com.synrgy7team4.feature_auth.presentation.register
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import com.jer.shared.ViewModelFactoryProvider
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentPinConfirmationBinding
+import com.synrgy7team4.feature_auth.presentation.viewmodel.RegisterViewModel
 
 class PinConfirmationFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentPinConfirmationBinding? = null
     private val binding get() = _binding!!
+    private lateinit var sharedPreferences: SharedPreferences
+
+    private val viewModel by viewModels<RegisterViewModel> {
+//        val app = requireActivity().application
+//        (app as MyApplication).viewModelFactory
+
+        val app = requireActivity().application as ViewModelFactoryProvider
+        app.provideViewModelFactory()
+    }
 
     private val numberList = ArrayList<String>()
     private var passCode = ""
@@ -35,9 +49,33 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
+
         // Mengambil passCode dari Bundle
         firstPassCode = arguments?.getString("passCode") ?: ""
         initializeComponents()
+//        viewModel.registerResult.observe(viewLifecycleOwner) { result ->
+//            if (result != null) {
+//                setToast("Registrasi Berhasil: $result")
+//                viewModel.clearRegisterResult()
+//            }
+//
+////                result?.let {
+////                    viewModel.clearRegisterResult()
+////                }
+//        }
+
+//        viewModel.error.observe(viewLifecycleOwner) { errorMessage ->
+//            if (errorMessage != null) {
+//                setToast("Registrasi Gagal: $errorMessage")
+//                viewModel.clearError()
+//            }
+//
+////                errorMessage?.let {
+////                    viewModel.clearError()
+////                }
+//        }
     }
 
     private fun initializeComponents() {
@@ -67,6 +105,7 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
             R.id.btn_num_7 -> addNumberToList("7")
             R.id.btn_num_8 -> addNumberToList("8")
             R.id.btn_num_9 -> addNumberToList("9")
+            R.id.btn_num_0 -> addNumberToList("0")
             R.id.btn_delete -> {
                 if (numberList.isNotEmpty()) {
                     numberList.removeAt(numberList.size - 1)
@@ -131,12 +170,46 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
 
     private fun matchPassCode() {
         if (firstPassCode == passCode) {
+
+            sharedPreferences.edit().putString("pin", passCode).apply()
+            sendRegisterRequest()
+            setToast("Selamat! Registrasi Berhasil, \nTerimakasih Telah Melengkapi Data Kamu ")
+
             requireView().findNavController().navigate(R.id.action_pinConfirmationFragment_to_registrationSuccessFragment)
         } else {
             Toast.makeText(requireContext(), "Password doesn't match", Toast.LENGTH_SHORT).show()
             numberList.clear()
             clearPinDisplay()
         }
+    }
+
+    private fun sendRegisterRequest() {
+        val email = sharedPreferences.getString("email", "budi@example.com")
+        val hp = sharedPreferences.getString("hp", "911")
+        val password = sharedPreferences.getString("password", "12345678")
+        val ktp = sharedPreferences.getString("ktp", "")
+        val name = sharedPreferences.getString("name", "Budi")
+        val pin = sharedPreferences.getString("pin", "111111")
+
+        if (!email.isNullOrEmpty() &&
+            !hp.isNullOrEmpty() &&
+            !password.isNullOrEmpty() &&
+            !ktp.isNullOrEmpty() &&
+            !name.isNullOrEmpty() &&
+            !pin.isNullOrEmpty())
+        {
+
+            viewModel.registerUser(email, hp, password, ktp, name, pin)
+
+        } else {
+            setToast("Registration data is not complete")
+        }
+
+    }
+
+    private fun setToast(msg: String) {
+        Toast.makeText(requireActivity(),msg, Toast.LENGTH_SHORT).show()
+
     }
 
     override fun onDestroyView() {

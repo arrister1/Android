@@ -1,4 +1,4 @@
-package com.jer.di
+package com.synrgy7team4.bankingapps
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

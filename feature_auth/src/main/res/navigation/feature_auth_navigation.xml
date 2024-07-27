@@ -107,14 +107,9 @@
         android:label="fragment_otp_verification"
         tools:layout="@layout/fragment_otp_verification" >
         <action
-            android:id="@+id/action_otpVerification_to_ktpVerificationBoardFragment"
-            app:destination="@id/ktpVerificationBoardFragment" />
+            android:id="@+id/action_otpVerification_to_createPasswordFragment"
+            app:destination="@id/createPasswordFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/createPassword"
-        android:name="com.synrgy7team4.feature_auth.presentation.register.CreatePassword"
-        android:label="fragment_create_password"
-        tools:layout="@layout/fragment_create_password" />
     <fragment
         android:id="@+id/ktpVerificationBoardFragment"
         android:name="com.synrgy7team4.feature_auth.presentation.register.KtpVerificationBoardFragment"
@@ -137,6 +132,24 @@
         <action
             android:id="@+id/action_splashScreenFragment_to_onBoardingFragment"
             app:destination="@id/onBoardingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createPasswordFragment"
+        android:name="com.synrgy7team4.feature_auth.presentation.register.CreatePasswordFragment"
+        android:label="fragment_create_password"
+        tools:layout="@layout/fragment_create_password" >
+        <action
+            android:id="@+id/action_createPasswordFragment_to_biodataFragment"
+            app:destination="@id/biodataFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/biodataFragment"
+        android:name="com.synrgy7team4.feature_auth.presentation.register.BiodataFragment"
+        android:label="fragment_biodata"
+        tools:layout="@layout/fragment_biodata" >
+        <action
+            android:id="@+id/action_biodataFragment_to_ktpVerificationBoardFragment"
+            app:destination="@id/ktpVerificationBoardFragment" />
     </fragment>
 
 
