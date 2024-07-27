@@ -1,0 +1,7 @@
+<resources>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="masukkan_pin">Masukkan PIN</string>
+    <string name="gunakan_pin_lumi_anda">Gunakan PIN Lumi Anda</string>
+    <string name="transfer_berhasil">Transfer Berhasil</string>
+</resources>
