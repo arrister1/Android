@@ -24,3 +24,6 @@ include(":feature_mutasi")
 include(":feature_dashboard")
 include(":common")
 
+include(":feature_transfer")
+include(":feature_transfer:domain")
+include(":feature_transfer:data")

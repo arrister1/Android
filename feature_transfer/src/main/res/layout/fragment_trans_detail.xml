@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.ui.samebank.TransDetailFragment">
+
+    <ImageView
+        android:id="@+id/iv_success"
+        android:layout_marginTop="110dp"
+        android:contentDescription="@null"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_success"
+        android:layout_width="wrap_content"
+        android:layout_height="96dp"/>
+
+    <TextView
+        android:id="@+id/tv_success"
+        android:text="@string/transfer_berhasil"
+        android:layout_marginTop="15dp"
+        android:contentDescription="@string/transfer_berhasil"
+        app:layout_constraintTop_toBottomOf="@id/iv_success"
+        app:layout_constraintStart_toStartOf="@id/iv_success"
+        app:layout_constraintEnd_toEndOf="@id/iv_success"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
