@@ -6,42 +6,60 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.findNavController
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentLoginBinding
 import com.synrgy7team4.feature_dashboard.presentation.DashboardActivity
-
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment() {
-    private var _binding: FragmentLoginBinding? = null
-    private val binding get() = _binding!!
+    private val binding by lazy { FragmentLoginBinding.inflate(layoutInflater) }
+    private val viewmodel: LoginViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-
-        _binding = FragmentLoginBinding.inflate(inflater,container,false)
-        val view = binding.root
-        return view
-    }
-
+    ): View = binding.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupAccessibility()
 
-        binding.btnBack.setOnClickListener{
+        binding.btnBack.setOnClickListener {
             view.findNavController().popBackStack()
         }
 
         binding.btnMasuk.setOnClickListener {
-            val intent = Intent (getActivity(), DashboardActivity::class.java)
-            getActivity()?.startActivity(intent)
-            /*view.findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment)*/
-            setupAccessibility()
+            viewmodel.login(
+                binding.edtEmail.text.toString(),
+                binding.edtPassword.text.toString()
+            )
+        }
+
+        viewmodel.isSuccessful.observe(viewLifecycleOwner) { isSuccessful ->
+            if (isSuccessful) {
+                val intent = Intent(activity, DashboardActivity::class.java)
+                activity?.startActivity(intent)
+//                view.findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment)
+            }
+        }
+
+        viewmodel.error.observe(viewLifecycleOwner) { error ->
+            if (error != null) {
+                Toast.makeText(requireContext(), error.message, Toast.LENGTH_LONG).show()
+            }
+        }
+
+        viewmodel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
+                // Show loading
+            } else {
+                // Hide loading
+            }
         }
     }
+
     private fun setupAccessibility() {
         binding.apply {
             textViewMasuk.contentDescription = getString(R.string.masuk)

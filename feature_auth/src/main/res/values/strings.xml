@@ -28,7 +28,7 @@
     <string name="tombol_kembali">tombol kembali</string>
     <string name="tombol_lanjut">Tombol lanjut</string>
     <string name="input_nomor_hp">input nomor hp</string>
-    <string name="input_">input email</string>
+    <string name="input_email">input email</string>
 
     <string name="tombol_sudah_punya_rekening">tombol sudah punya rekening</string>
     <string name="tombol_belum_punya_rekening">tombol belum punya rekening</string>
