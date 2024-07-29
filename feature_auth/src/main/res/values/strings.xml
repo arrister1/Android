@@ -84,5 +84,6 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="biodata">Biodata</string>
+    <string name="calendar_format">dd/mm/yyyy</string>
 
 </resources>

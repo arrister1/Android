@@ -66,7 +66,7 @@ class FotoKtpFragment : Fragment()/*, ImageCapture.OnImageSavedCallback */{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnCapture.setOnClickListener {
-            requireView().findNavController().navigate(R.id.action_fotoKtpFragment_to_verifikasiKtpFragment)
+           // requireView().findNavController().navigate(R.id.action_fotoKtpFragment_to_verifikasiKtpFragment)
         }
         /*// Check for camera permission and request if not granted
         if (ContextCompat.checkSelfPermission(

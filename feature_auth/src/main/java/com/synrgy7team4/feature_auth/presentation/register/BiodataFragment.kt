@@ -1,5 +1,6 @@
 package com.synrgy7team4.feature_auth.presentation.register
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -14,11 +16,16 @@ import com.jer.shared.ViewModelFactoryProvider
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentBiodataBinding
 import com.synrgy7team4.feature_auth.presentation.viewmodel.RegisterViewModel
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 
 class BiodataFragment : Fragment() {
 
     private val binding by lazy { FragmentBiodataBinding.inflate(layoutInflater) }
+
+    private val calendar = Calendar.getInstance()
 
     private lateinit var sharedPreferences: SharedPreferences
     private val viewModel by viewModels<RegisterViewModel> {
@@ -47,6 +54,10 @@ class BiodataFragment : Fragment() {
 
         sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
 
+        binding.btnCalendar.setOnClickListener {
+            showCalendar()
+        }
+
         binding.btnLanjut.setOnClickListener {
             val ktp = binding.edtKtp.text.toString()
             val name = binding.edtName.text.toString()
@@ -58,7 +69,7 @@ class BiodataFragment : Fragment() {
                     sharedPreferences.edit().putString("ktp", ktp).apply()
                     sharedPreferences.edit().putString("name", name).apply()
                     setToast("Bidoata kamu berhasil ditambahkan")
-                    view.findNavController().navigate(R.id.action_biodataFragment_to_ktpVerificationBoardFragment)
+                    view.findNavController().navigate(R.id.action_biodataFragment_to_pinFragment)
 
                 }
             }
@@ -66,6 +77,21 @@ class BiodataFragment : Fragment() {
 
 
 
+    }
+
+    private fun showCalendar() {
+        val datePickerDialog = DatePickerDialog(requireContext(), {DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
+            val selectedDate = Calendar.getInstance()
+            selectedDate.set(year, monthOfYear, dayOfMonth)
+            val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            val formattedDate = dateFormat.format(selectedDate.time)
+            binding.calendar.text = formattedDate
+
+        }, calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+            )
+        datePickerDialog.show()
     }
 
     private fun setToast(msg: String) {

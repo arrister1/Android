@@ -177,7 +177,7 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
 
             requireView().findNavController().navigate(R.id.action_pinConfirmationFragment_to_registrationSuccessFragment)
         } else {
-            Toast.makeText(requireContext(), "Password doesn't match", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Password Tidak Cocok", Toast.LENGTH_SHORT).show()
             numberList.clear()
             clearPinDisplay()
         }
