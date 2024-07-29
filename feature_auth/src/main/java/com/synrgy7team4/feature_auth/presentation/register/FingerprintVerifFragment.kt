@@ -75,7 +75,7 @@ class FingerprintVerifFragment : Fragment() {
 //        checkDeviceHasBiometric()
         binding.ivFingerprint.setOnClickListener {
 //            biometricPrompt.authenticate(promptInfo)
-            requireView().findNavController().navigate(R.id.action_fingerprintVerifFragment_to_pinFragment)
+            //requireView().findNavController().navigate(R.id.action_fingerprintVerifFragment_to_pinFragment)
 
         }
 

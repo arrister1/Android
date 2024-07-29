@@ -92,6 +92,29 @@
         app:layout_constraintStart_toStartOf="@+id/ktpLayout"
         app:layout_constraintTop_toBottomOf="@+id/nameLayout" />
 
+    <TextView
+        android:id="@+id/calendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/calendar_format"
+        android:layout_marginTop="5dp"
+        android:textSize="12sp"
+        android:textColor="@color/grey"
+        style="@style/RegulerText"
+        app:layout_constraintTop_toBottomOf="@id/tvTanggalLahir"
+        app:layout_constraintStart_toStartOf="@id/tvTanggalLahir"/>
+
+    <ImageButton
+        android:id="@+id/btn_calendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:src="@drawable/ic_calendar"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toEndOf="@id/calendar"
+        app:layout_constraintTop_toTopOf="@id/calendar"
+        app:layout_constraintBottom_toBottomOf="@id/calendar"/>
+
 
 
 

@@ -21,6 +21,9 @@ class ImplementLocalSource(private val dataStore: DataStore<Preferences>): AuthL
         private val REFRESH_TOKEN = stringPreferencesKey("refresh_token")
     }
 
+    val name: Flow<String?> = dataStore.data.map { preferences ->
+        preferences[NAME]
+    }
 
 //    override suspend fun saveToken(token: String) {
 //        dataStore.edit {
