@@ -43,6 +43,7 @@ class SplashScreenFragment : Fragment() {
 
                     requireView().findNavController().navigate(R.id.action_splashScreenFragment_to_onBoardingFragment)
 
+
 //                    val intent = Intent(this@SplashScreenFragment, MainActivity::class.java)
 //                    intent.putExtra("MOVE_FROM_SPLASH", true)
 //                    startActivity(intent)

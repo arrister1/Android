@@ -1,5 +1,7 @@
 package com.synrgy7team4.feature_auth.data.repository
 
+import android.content.Context
+import android.net.Uri
 import com.synrgy7team4.feature_auth.data.local.AuthLocalSource
 import com.synrgy7team4.feature_auth.data.remote.AuthRemoteSource
 import com.synrgy7team4.feature_auth.data.remote.response.Data
@@ -20,8 +22,8 @@ class ImplementAuthRepository(
 //        return authRemoteSource.register(name, email, password)
 //    }
 
-    override suspend fun register(registerBody: RegisterBody): Data {
-        return authRemoteSource.register(registerBody)
+    override suspend fun register(registerBody: RegisterBody, context: Context, uri: Uri): Data {
+        return authRemoteSource.register(registerBody, context, uri)
     }
 
     override suspend fun login(email: String, password: String): DataX {

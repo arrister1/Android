@@ -55,6 +55,10 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
         // Mengambil passCode dari Bundle
         firstPassCode = arguments?.getString("passCode") ?: ""
         initializeComponents()
+
+//        viewModel.error.observe(viewLifecycleOwner) {error->
+//            setToast(error.toString())
+//        }
 //        viewModel.registerResult.observe(viewLifecycleOwner) { result ->
 //            if (result != null) {
 //                setToast("Registrasi Berhasil: $result")
@@ -171,11 +175,12 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
     private fun matchPassCode() {
         if (firstPassCode == passCode) {
 
-            sharedPreferences.edit().putString("pin", passCode).apply()
-            sendRegisterRequest()
-            setToast("Selamat! Registrasi Berhasil, \nTerimakasih Telah Melengkapi Data Kamu ")
-
-            requireView().findNavController().navigate(R.id.action_pinConfirmationFragment_to_registrationSuccessFragment)
+            sharedPreferences.edit().putString("confirm_pin", passCode).apply()
+//            sendRegisterRequest()
+//            setToast("Selamat! Registrasi Berhasil, \nTerimakasih Telah Melengkapi Data Kamu ")
+            setToast("Kamu Berhasil Membuat Pin ")
+//            requireView().findNavController().navigate(R.id.action_pinConfirmationFragment_to_registrationSuccessFragment)
+            requireView().findNavController().navigate(R.id.action_pinConfirmationFragment_to_uploadKtpFragment)
         } else {
             Toast.makeText(requireContext(), "Password Tidak Cocok", Toast.LENGTH_SHORT).show()
             numberList.clear()
@@ -183,29 +188,36 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    private fun sendRegisterRequest() {
-        val email = sharedPreferences.getString("email", "budi@example.com")
-        val hp = sharedPreferences.getString("hp", "911")
-        val password = sharedPreferences.getString("password", "12345678")
-        val ktp = sharedPreferences.getString("ktp", "")
-        val name = sharedPreferences.getString("name", "Budi")
-        val pin = sharedPreferences.getString("pin", "111111")
-
-        if (!email.isNullOrEmpty() &&
-            !hp.isNullOrEmpty() &&
-            !password.isNullOrEmpty() &&
-            !ktp.isNullOrEmpty() &&
-            !name.isNullOrEmpty() &&
-            !pin.isNullOrEmpty())
-        {
-
-            viewModel.registerUser(email, hp, password, ktp, name, pin)
-
-        } else {
-            setToast("Registration data is not complete")
-        }
-
-    }
+//    private fun sendRegisterRequest() {
+//        val email = sharedPreferences.getString("email", "budi@example.com")
+//        val hp = sharedPreferences.getString("hp", "911")
+//        val password = sharedPreferences.getString("password", "12345678")
+//        val confirm_password = sharedPreferences.getString("confirm_password", "12345678")
+//        val ktp = sharedPreferences.getString("ktp", "")
+//        val name = sharedPreferences.getString("name", "Budi")
+//        val date = sharedPreferences.getString("date", "01-01-2000")
+//        val pin = sharedPreferences.getString("pin", "111111")
+//        val confirm_pin = sharedPreferences.getString("confirm_pin", "111111")
+//
+//        if (!email.isNullOrEmpty() &&
+//            !hp.isNullOrEmpty() &&
+//            !password.isNullOrEmpty() &&
+//            !confirm_password.isNullOrEmpty() &&
+//            !ktp.isNullOrEmpty() &&
+//            !name.isNullOrEmpty() &&
+//            !date.isNullOrEmpty() &&
+//            !pin.isNullOrEmpty() &&
+//            !confirm_pin.isNullOrEmpty()
+//            )
+//        {
+//
+//            viewModel.registerUser(email, hp, password, ktp, name, date, pin)
+//
+//        } else {
+//            setToast("Registration data is not complete")
+//        }
+//
+//    }
 
     private fun setToast(msg: String) {
         Toast.makeText(requireActivity(),msg, Toast.LENGTH_SHORT).show()

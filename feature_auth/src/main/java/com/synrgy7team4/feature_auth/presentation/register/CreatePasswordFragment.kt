@@ -65,7 +65,8 @@ class CreatePasswordFragment : Fragment() {
                     if (passwordConfirmation != password) {
                         binding.inputPasswordConfirmation.error = "Password tidak sama, mohon input kembali"
                     } else {
-                        sharedPreferences.edit().putString("password", passwordConfirmation).apply()
+                        sharedPreferences.edit().putString("password", password).apply()
+                        sharedPreferences.edit().putString("confirm_password", passwordConfirmation).apply()
                         setToast("Kamu berhasil membuat password")
                         view.findNavController().navigate(R.id.action_createPasswordFragment_to_biodataFragment)
                     }

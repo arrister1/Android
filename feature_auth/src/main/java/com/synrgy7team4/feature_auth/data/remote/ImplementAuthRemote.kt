@@ -1,11 +1,17 @@
 package com.synrgy7team4.feature_auth.data.remote
 
+import android.content.Context
+import android.net.Uri
+import com.synrgy7team4.feature_auth.data.Utils.FileUtils
 import com.synrgy7team4.feature_auth.data.remote.response.Data
 import com.synrgy7team4.feature_auth.data.remote.response.DataX
 import com.synrgy7team4.feature_auth.data.remote.retrofit.ApiService
 import com.synrgy7team4.feature_auth.data.remote.response.LoginResponse
 import com.synrgy7team4.feature_auth.data.remote.response.RegisterResponse
 import com.synrgy7team4.feature_auth.data.remote.retrofit.RegisterBody
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class ImplementAuthRemote (
     private val apiService: ApiService
@@ -53,9 +59,39 @@ class ImplementAuthRemote (
 //
 //        })
 //    }
-    override suspend fun register(registerBody: RegisterBody): Data {
-        return apiService.register(registerBody)
+
+    private fun prepareFilePart(partName: String, fileUri: Uri, context: Context): MultipartBody.Part {
+        val file = FileUtils.getFile(context, fileUri)
+        val requestFile = RequestBody.create(context.contentResolver.getType(fileUri)?.toMediaTypeOrNull(), file)
+        return MultipartBody.Part.createFormData(partName, file.name, requestFile)
     }
+
+    private fun createPartFromString(value: String): RequestBody {
+        return RequestBody.create("multipart/form-data".toMediaTypeOrNull(),value)
+    }
+
+    override suspend fun register(registerBody: RegisterBody, context: Context, uri: Uri): Data {
+//        return apiService.register(registerBody)
+        val body = prepareFilePart("photo", uri, context)
+        val map = hashMapOf(
+            "email" to createPartFromString(registerBody.email),
+            "no_hp" to createPartFromString(registerBody.no_hp),
+            "password" to createPartFromString(registerBody.password),
+            "confirm_password" to createPartFromString(registerBody.confirm_password),
+            "no_ktp" to createPartFromString(registerBody.no_ktp),
+            "name" to createPartFromString(registerBody.name),
+            "date_of_birth" to createPartFromString(registerBody.date_of_birth),
+            "pin" to createPartFromString(registerBody.pin),
+            "confirm_pin" to createPartFromString(registerBody.confirm_pin),
+            "ektp_photo" to createPartFromString(registerBody.ektp_photo),
+        )
+
+        return apiService.register(map, body)
+
+    }
+
+
+
 
     override suspend fun login(email: String, password: String): DataX {
         return apiService.login(email, password)

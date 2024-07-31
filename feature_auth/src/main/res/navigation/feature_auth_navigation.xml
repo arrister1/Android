@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_pinConfirmationFragment_to_registrationSuccessFragment"
             app:destination="@id/registrationSuccessFragment" />
+        <action
+            android:id="@+id/action_pinConfirmationFragment_to_uploadKtpFragment"
+            app:destination="@id/uploadKtpFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationSuccessFragment"
@@ -134,6 +137,15 @@
         <action
             android:id="@+id/action_biodataFragment_to_pinFragment"
             app:destination="@id/pinFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/uploadKtpFragment"
+        android:name="com.synrgy7team4.feature_auth.presentation.register.UploadKtpFragment"
+        android:label="fragment_upload_ktp"
+        tools:layout="@layout/fragment_upload_ktp" >
+        <action
+            android:id="@+id/action_uploadKtpFragment_to_registrationSuccessFragment"
+            app:destination="@id/registrationSuccessFragment" />
     </fragment>
 
 

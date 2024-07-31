@@ -53,10 +53,9 @@ class InputEmailFragment : Fragment() {
             when {
                 email.isEmpty() -> binding.tiedtEmail.error = "Email Tidak Boleh Kosong!"
                 else -> {
+
                     sharedPreferences.edit().putString("email", email).apply()
                     setToast("Akun $email Berhasil Terdaftar ")
-
-
                     requireView().findNavController().navigate(R.id.action_inputEmailFragment_to_inputPhoneNumberFragment)
                 }
 

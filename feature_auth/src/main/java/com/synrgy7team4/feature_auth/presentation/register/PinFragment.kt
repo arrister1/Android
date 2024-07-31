@@ -1,5 +1,7 @@
 package com.synrgy7team4.feature_auth.presentation.register
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,6 +21,8 @@ class PinFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentPinBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var sharedPreferences: SharedPreferences
 
     private val viewModel by viewModels<RegisterViewModel> {
 //        val app = requireActivity().application
@@ -49,6 +53,7 @@ class PinFragment : Fragment(), View.OnClickListener {
 
         initializeComponents()
 
+        sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
 
 
 
@@ -130,7 +135,9 @@ class PinFragment : Fragment(), View.OnClickListener {
                         val bundle = Bundle().apply {
                             putString("passCode", passCode)
                         }
-                        setToast("Kamu berhasil membuat pin")
+                        sharedPreferences.edit().putString("pin", passCode).apply()
+
+//                        setToast("Kamu berhasil membuat pin")
                         requireView().findNavController().navigate(R.id.action_pinFragment_to_pinConfirmationFragment, bundle)
                     }
                 }
