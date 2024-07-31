@@ -17,27 +17,54 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        style="@style/RegulerText"
+        android:id="@+id/tvDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:text="Mohon Upload E-KTP Anda!"
-        android:textSize="20sp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginVertical="16dp"
+        android:text="Dibawah ini code dari hasil encoding image:"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_ktp" />
 
+    <TextView
+        android:id="@+id/tv_encode"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginHorizontal="30dp"
+        android:text=""
+        android:textSize="8sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_encode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
+
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_upload"
+        android:id="@+id/btn_encode"
         style="@style/GradientActiveButton"
-        android:layout_width="match_parent"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         android:text="Upload E-KTP"
         app:layout_constraintBottom_toTopOf="@+id/btn_send"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_decode"
+        style="@style/GradientActiveButton"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginBottom="124dp"
+        android:text="Show E-KTP"
+        app:layout_constraintBottom_toTopOf="@+id/btn_send"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_send"

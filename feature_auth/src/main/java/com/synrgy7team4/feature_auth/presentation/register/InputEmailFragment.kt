@@ -3,6 +3,8 @@ package com.synrgy7team4.feature_auth.presentation.register
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -49,18 +51,46 @@ class InputEmailFragment : Fragment() {
 
         binding.btnNext.setOnClickListener {
             val email = binding.tiedtEmail.text.toString()
+            val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+
 
             when {
                 email.isEmpty() -> binding.tiedtEmail.error = "Email Tidak Boleh Kosong!"
                 else -> {
+                    if (!email.matches(emailPattern.toRegex())) {
+                        binding.tiedtEmail.error = "Format email tidak sesuai. Contoh: user@domain.com"
+                    } else {
+                        sharedPreferences.edit().putString("email", email).apply()
+                        setToast("Akun $email Berhasil Terdaftar ")
+                        requireView().findNavController().navigate(R.id.action_inputEmailFragment_to_inputPhoneNumberFragment)
 
-                    sharedPreferences.edit().putString("email", email).apply()
-                    setToast("Akun $email Berhasil Terdaftar ")
-                    requireView().findNavController().navigate(R.id.action_inputEmailFragment_to_inputPhoneNumberFragment)
+                    }
+//                    sharedPreferences.edit().putString("email", email).apply()
+//                    setToast("Akun $email Berhasil Terdaftar ")
+//                    requireView().findNavController().navigate(R.id.action_inputEmailFragment_to_inputPhoneNumberFragment)
                 }
 
             }
         }
+
+        binding.tiedtEmail.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+                if (!s.toString().matches(emailPattern.toRegex())) {
+                    binding.tiedtEmail.error = "Format email tidak sesuai. Contoh: user@domain.com"
+                } else {
+                    binding.tiedtEmail.error = null
+                }
+            }
+        })
 
 
 

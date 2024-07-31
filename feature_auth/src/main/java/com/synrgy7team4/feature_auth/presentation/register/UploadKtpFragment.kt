@@ -1,11 +1,18 @@
 package com.synrgy7team4.feature_auth.presentation.register
 
+import android.Manifest
 import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Base64
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,16 +21,20 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.jer.shared.ViewModelFactoryProvider
+
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentUploadKtpBinding
 import com.synrgy7team4.feature_auth.presentation.viewmodel.RegisterViewModel
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
+import java.io.IOException
 import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -35,6 +46,7 @@ class UploadKtpFragment : Fragment() {
     private val binding by lazy { FragmentUploadKtpBinding.inflate(layoutInflater) }
     private var currentImageUri: Uri? = null
     private lateinit var sharedPreferences: SharedPreferences
+    private var sImage: String? = null
 //    private val timeStamp: String = SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(Date())
 
 //    companion object {
@@ -45,6 +57,28 @@ class UploadKtpFragment : Fragment() {
         val app = requireActivity().application as ViewModelFactoryProvider
         app.provideViewModelFactory()
     }
+
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                selectImage()
+            } else {
+                setToast("Izin Ditolak")
+            }
+        }
+
+    private val pickImageLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK && result.data != null) {
+                val uri: Uri? = result.data?.data
+                uri?.let {
+                    Toast.makeText(requireActivity(), "Mohon Tunggu Hingga Proses Encode Selesai", Toast.LENGTH_LONG).show()
+                    handleImageUri(it)
+                }
+            }
+        }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,46 +98,102 @@ class UploadKtpFragment : Fragment() {
 
         sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
 
-        binding.btnUpload.setOnClickListener {
-            selectFile()
-            showPicture()
+        binding.btnEncode.setOnClickListener {
+//            if (ContextCompat.checkSelfPermission(
+//                    requireContext(),
+//                    Manifest.permission.READ_EXTERNAL_STORAGE
+//                ) != PackageManager.PERMISSION_GRANTED) {
+//                requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+//            } else {
+//                selectImage()
+//            }
+
+            selectImage()
+
+//            selectFile()
+//            showPicture()
         }
 
+        binding.btnDecode.setOnClickListener {
+            sImage?.let {
+                val bytes = Base64.decode(it, Base64.DEFAULT)
+                val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                binding.ivKtp.setImageBitmap(bitmap)
+            }
+        }
+
+
+
         binding.btnSend.setOnClickListener {
-            sendRegisterRequest()
+//            sendRegisterRequest()
             requireView().findNavController().navigate(R.id.action_uploadKtpFragment_to_registrationSuccessFragment)
         }
 
-        viewModel.registerResult.observe(viewLifecycleOwner) {
-            setToast("Selamat! Registrasi Berhasil, \nTerimakasih Telah Melengkapi Data Kamu ")
-        }
+//        viewModel.registerResult.observe(viewLifecycleOwner) {
+//            setToast("Selamat! Registrasi Berhasil, \nTerimakasih Telah Melengkapi Data Kamu ")
+//        }
 
-        viewModel.error.observe(viewLifecycleOwner) {
-            setToast("Error: $it")
-        }
+//        viewModel.error.observe(viewLifecycleOwner) {
+//            setToast("Error: $it")
+//        }
 
     }
 
-    private fun showPicture() {
-        currentImageUri?.let {
-            binding.ivKtp.setImageURI(it)
+
+    private fun selectImage() {
+        binding.tvEncode.text = ""
+        binding.ivKtp.setImageBitmap(null)
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+
+
+//        intent.type = "image/*"
+        pickImageLauncher.launch(Intent.createChooser(intent, "Pilih Gambar"))
+    }
+
+//        private fun selectFile() {
+//        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+//            type = "image/*"
+//            addCategory(Intent.CATEGORY_OPENABLE)
+//        }
+//        startActivityForResult(intent, REQUEST_CODE_SELECT_FILE)
+//    }
+
+    private fun handleImageUri(uri: Uri) {
+        try {
+            val bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, uri)
+            val stream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+            val bytes = stream.toByteArray()
+            sImage = Base64.encodeToString(bytes, Base64.DEFAULT)
+            binding.tvEncode.text = sImage
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
     }
 
-    private fun selectFile() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-            type = "image/*"
-            addCategory(Intent.CATEGORY_OPENABLE)
-        }
-        startActivityForResult(intent, REQUEST_CODE_SELECT_FILE)
-    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_SELECT_FILE && resultCode ==  Activity.RESULT_OK) {
-            currentImageUri = data?.data
-        }
-    }
+
+//    private fun showPicture() {
+//        currentImageUri?.let {
+//            binding.ivKtp.setImageURI(it)
+//        }
+//    }
+
+//    private fun selectFile() {
+//        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+//            type = "image/*"
+//            addCategory(Intent.CATEGORY_OPENABLE)
+//        }
+//        startActivityForResult(intent, REQUEST_CODE_SELECT_FILE)
+//    }
+
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (requestCode == REQUEST_CODE_SELECT_FILE && resultCode ==  Activity.RESULT_OK) {
+//            currentImageUri = data?.data
+//        }
+//    }
 
     companion object {
         private const val REQUEST_CODE_SELECT_FILE = 1001

@@ -3,6 +3,8 @@ package com.synrgy7team4.feature_auth.presentation.register
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -62,18 +64,52 @@ class CreatePasswordFragment : Fragment() {
                 password.isEmpty() -> binding.inputPassword.error = "Password tidak boleh kosong"
                 passwordConfirmation.isEmpty() -> binding.inputPasswordConfirmation.error = "Password tidak boleh kosong"
                 else -> {
-                    if (passwordConfirmation != password) {
-                        binding.inputPasswordConfirmation.error = "Password tidak sama, mohon input kembali"
+                    if (password.contains(Regex("[^a-zA-Z0-9]"))) {
+                        binding.inputPassword.error = "Password tidak boleh mengandung simbol"
+                    } else if (password.length < 8) {
+                        binding.inputPassword.error = "Password harus terdiri dari 8-15 karakter"
+                    } else if (password.length > 15) {
+                        binding.inputPassword.error = "Password harus terdiri dari 8-15 karakter"
                     } else {
-                        sharedPreferences.edit().putString("password", password).apply()
-                        sharedPreferences.edit().putString("confirm_password", passwordConfirmation).apply()
-                        setToast("Kamu berhasil membuat password")
-                        view.findNavController().navigate(R.id.action_createPasswordFragment_to_biodataFragment)
+                        if (passwordConfirmation != password) {
+                            binding.inputPasswordConfirmation.error = "Password tidak sama, mohon input kembali"
+                        } else {
+                            sharedPreferences.edit().putString("password", password).apply()
+                            sharedPreferences.edit().putString("confirm_password", passwordConfirmation).apply()
+                            setToast("Kamu berhasil membuat password")
+                            view.findNavController().navigate(R.id.action_createPasswordFragment_to_biodataFragment)
+                        }
                     }
+
+
 
 
                 }
             }
+
+            binding.inputPassword.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    val pw = s.toString()
+
+                    if (pw.contains(Regex("[^a-zA-Z0-9]"))) {
+                        binding.inputPassword.error = "Password tidak boleh mengandung simbol"
+                    } else if (pw.length < 8) {
+                        binding.inputPassword.error = "Password harus terdiri dari 8-15 karakter"
+                    } else if (pw.length > 15) {
+                        binding.inputPassword.error = "Password harus terdiri dari 8-15 karakter"
+                    } else {
+                        binding.inputPassword.error = null // Reset error
+                    }
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                }
+
+            })
 
 //
 //            view.postDelayed({

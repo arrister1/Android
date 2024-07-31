@@ -4,6 +4,8 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -62,18 +64,48 @@ class BiodataFragment : Fragment() {
             val ktp = binding.edtKtp.text.toString()
             val name = binding.edtName.text.toString()
 
+
             when {
                 ktp.isEmpty() -> binding.edtKtp.error = "No KTP tidak boleh kosong"
                 name.isEmpty() -> binding.edtName.error = "Nama tidak boleh kosong"
+
                 else ->  {
-                    sharedPreferences.edit().putString("ktp", ktp).apply()
-                    sharedPreferences.edit().putString("name", name).apply()
-                    setToast("Bidoata kamu berhasil ditambahkan")
-                    view.findNavController().navigate(R.id.action_biodataFragment_to_pinFragment)
+
+                    if (ktp.length != 16) {
+                        binding.edtKtp.error = "NIK harus berjumlah 16 digit"
+                    } else {
+                        sharedPreferences.edit().putString("ktp", ktp).apply()
+                        sharedPreferences.edit().putString("name", name).apply()
+                        setToast("Biodata kamu berhasil ditambahkan")
+                        view.findNavController().navigate(R.id.action_biodataFragment_to_pinFragment)
+                    }
+
+//                    sharedPreferences.edit().putString("ktp", ktp).apply()
+//                    sharedPreferences.edit().putString("name", name).apply()
+//                    setToast("Bidoata kamu berhasil ditambahkan")
+//                    view.findNavController().navigate(R.id.action_biodataFragment_to_pinFragment)
 
                 }
             }
         }
+
+        binding.edtKtp.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val nik = s.toString()
+                if (nik.length != 16) {
+                    binding.edtKtp.error = "NIK harus berjumlah 16 digit"
+                } else {
+                    binding.edtKtp.error = null
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
 
 
 
