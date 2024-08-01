@@ -36,8 +36,10 @@ class InputPhoneNumberFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupAccessibility()
 
-        sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
+        sharedPreferences =
+            requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
 
         binding.btnBack.setOnClickListener {
             view.findNavController().popBackStack()
@@ -59,7 +61,8 @@ class InputPhoneNumberFragment : Fragment() {
                     } else {
                         sharedPreferences.edit().putString("hp", hp).apply()
                         setToast("Nomor $hp Kamu Berhasil Ditambahkan")
-                        view.findNavController().navigate(R.id.action_inputPhoneNumberFragment_to_otpVerification)
+                        view.findNavController()
+                            .navigate(R.id.action_inputPhoneNumberFragment_to_otpVerification)
                     }
 
 //                    sharedPreferences.edit().putString("hp", hp).apply()
@@ -92,11 +95,19 @@ class InputPhoneNumberFragment : Fragment() {
             }
 
         })
-        
+
     }
 
     private fun setToast(msg: String) {
-        Toast.makeText(requireActivity(),msg, Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show()
+    }
 
+    private fun setupAccessibility() {
+        binding.apply {
+            btnBack.contentDescription = getString(R.string.tombol_kembali)
+            tvPhoneNumber.contentDescription = getString(R.string.no_hp)
+            tiedtPhoneNumber.contentDescription = getString(R.string.input_nomor_hp)
+            btnNext.contentDescription = getString(R.string.tombol_lanjut)
+        }
     }
 }
