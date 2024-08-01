@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.synrgy7team4.feature_auth.data.Repository
+import com.synrgy7team4.feature_auth.data.remote.request.LoginRequest
 import com.synrgy7team4.feature_auth.data.remote.response.ErrorResponse
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -23,8 +24,9 @@ class LoginViewModel(private val repository: Repository) : ViewModel() {
         viewModelScope.launch {
             _isLoading.value = true
             try {
-                repository.login(email, password)
-                _isSuccessful.value = true
+                val loginRequest = LoginRequest(email, password)
+                val loginResponse = repository.login(loginRequest)
+                _isSuccessful.value = loginResponse.success
             } catch (e: Exception) {
                 _error.value = e
             } catch (e: HttpException) {
