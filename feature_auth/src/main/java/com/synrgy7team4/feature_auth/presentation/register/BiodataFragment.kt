@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.jer.shared.ViewModelFactoryProvider
@@ -107,12 +108,10 @@ class BiodataFragment : Fragment() {
 
         })
 
-
-
     }
 
     private fun showCalendar() {
-        val datePickerDialog = DatePickerDialog(requireContext(), {DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
+        val datePickerDialog = DatePickerDialog(requireContext(), R.style.CustomDatePickerDialogTheme, {DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
             val selectedDate = Calendar.getInstance()
             selectedDate.set(year, monthOfYear, dayOfMonth)
             val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
@@ -123,6 +122,21 @@ class BiodataFragment : Fragment() {
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
             )
+
+        datePickerDialog.setOnShowListener {
+            // Access the buttons and change their color
+            val positiveButton = datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE)
+            val negativeButton = datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE)
+
+            val positiveColor = ContextCompat.getColor(requireContext(), R.color.primary_blue)
+            val negativeColor = ContextCompat.getColor(requireContext(), R.color.primary_darkBlue)
+
+            positiveButton.setTextColor(positiveColor)
+            negativeButton.setTextColor(negativeColor)
+        }
+
+        datePickerDialog.datePicker.maxDate = calendar.timeInMillis
+
         datePickerDialog.show()
     }
 

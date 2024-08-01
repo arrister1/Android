@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.jer.shared.ViewModelFactoryProvider
+import com.synrgy7team4.common.databinding.PinInputBinding
+import com.synrgy7team4.common.databinding.PinNumberBinding
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentPinBinding
 import com.synrgy7team4.feature_auth.databinding.FragmentVerifikasiKtpBinding
@@ -21,6 +23,10 @@ class PinFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentPinBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var pinNumberBinding : PinNumberBinding
+    private lateinit var pinInputBinding : PinInputBinding
+
 
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -51,44 +57,44 @@ class PinFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initializeComponents()
-
         sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
 
+        pinNumberBinding = PinNumberBinding.bind(binding.pinNumber.root)
+        pinInputBinding = PinInputBinding.bind(binding.pinInput.root)
 
-
+        initializeComponents()
 
     }
 
     private fun initializeComponents() {
         binding.apply {
-            btnNum1.setOnClickListener(this@PinFragment)
-            btnNum2.setOnClickListener(this@PinFragment)
-            btnNum3.setOnClickListener(this@PinFragment)
-            btnNum4.setOnClickListener(this@PinFragment)
-            btnNum5.setOnClickListener(this@PinFragment)
-            btnNum6.setOnClickListener(this@PinFragment)
-            btnNum7.setOnClickListener(this@PinFragment)
-            btnNum8.setOnClickListener(this@PinFragment)
-            btnNum9.setOnClickListener(this@PinFragment)
-            btnNum0.setOnClickListener(this@PinFragment)
-            btnDelete.setOnClickListener(this@PinFragment)
+            pinNumberBinding.btnNum1.setOnClickListener(this@PinFragment)
+            pinNumberBinding.btnNum2.setOnClickListener(this@PinFragment)
+            pinNumberBinding.btnNum3.setOnClickListener(this@PinFragment)
+            pinNumberBinding.btnNum4.setOnClickListener(this@PinFragment)
+            pinNumberBinding.btnNum5.setOnClickListener(this@PinFragment)
+            pinNumberBinding.btnNum6.setOnClickListener(this@PinFragment)
+            pinNumberBinding.btnNum7.setOnClickListener(this@PinFragment)
+            pinNumberBinding.btnNum8.setOnClickListener(this@PinFragment)
+            pinNumberBinding.btnNum9.setOnClickListener(this@PinFragment)
+            pinNumberBinding.btnNum0.setOnClickListener(this@PinFragment)
+            pinNumberBinding.btnDelete.setOnClickListener(this@PinFragment)
         }
     }
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.btn_num_1 -> addNumberToList("1")
-            R.id.btn_num_2 -> addNumberToList("2")
-            R.id.btn_num_3 -> addNumberToList("3")
-            R.id.btn_num_4 -> addNumberToList("4")
-            R.id.btn_num_5 -> addNumberToList("5")
-            R.id.btn_num_6 -> addNumberToList("6")
-            R.id.btn_num_7 -> addNumberToList("7")
-            R.id.btn_num_8 -> addNumberToList("8")
-            R.id.btn_num_9 -> addNumberToList("9")
-            R.id.btn_num_0 -> addNumberToList("0")
-            R.id.btn_delete -> {
+            pinNumberBinding.btnNum1.id -> addNumberToList("1")
+            pinNumberBinding.btnNum2.id -> addNumberToList("2")
+            pinNumberBinding.btnNum3.id -> addNumberToList("3")
+            pinNumberBinding.btnNum4.id -> addNumberToList("4")
+            pinNumberBinding.btnNum5.id -> addNumberToList("5")
+            pinNumberBinding.btnNum6.id -> addNumberToList("6")
+            pinNumberBinding.btnNum7.id -> addNumberToList("7")
+            pinNumberBinding.btnNum8.id -> addNumberToList("8")
+            pinNumberBinding.btnNum9.id -> addNumberToList("9")
+            pinNumberBinding.btnNum0.id -> addNumberToList("0")
+            pinNumberBinding.btnDelete.id-> {
                 if (numberList.isNotEmpty()) {
                     numberList.removeAt(numberList.size - 1)
                     passNumber(numberList)
@@ -109,27 +115,27 @@ class PinFragment : Fragment(), View.OnClickListener {
             when (i) {
                 0 -> {
                     input1 = numberList[0]
-                    binding.tvPinInput1.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet_filled)
+                    pinInputBinding.tvPinInput1.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet_filled)
                 }
                 1 -> {
                     input2 = numberList[1]
-                    binding.tvPinInput2.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet_filled)
+                    pinInputBinding.tvPinInput2.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet_filled)
                 }
                 2 -> {
                     input3 = numberList[2]
-                    binding.tvPinInput3.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet_filled)
+                    pinInputBinding.tvPinInput3.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet_filled)
                 }
                 3 -> {
                     input4 = numberList[3]
-                    binding.tvPinInput4.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet_filled)
+                    pinInputBinding.tvPinInput4.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet_filled)
                 }
                 4 -> {
                     input5 = numberList[4]
-                    binding.tvPinInput5.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet_filled)
+                    pinInputBinding.tvPinInput5.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet_filled)
                 }
                 5 -> {
                     input6 = numberList[5]
-                    binding.tvPinInput6.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet_filled)
+                    pinInputBinding.tvPinInput6.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet_filled)
                     passCode = input1 + input2 + input3 + input4 + input5 + input6
                     if (passCode.length == 6) {
                         val bundle = Bundle().apply {
@@ -146,12 +152,12 @@ class PinFragment : Fragment(), View.OnClickListener {
     }
 
     private fun clearPinDisplay() {
-        binding.tvPinInput1.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet)
-        binding.tvPinInput2.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet)
-        binding.tvPinInput3.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet)
-        binding.tvPinInput4.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet)
-        binding.tvPinInput5.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet)
-        binding.tvPinInput6.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet)
+        pinInputBinding.tvPinInput1.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet)
+        pinInputBinding.tvPinInput2.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet)
+        pinInputBinding.tvPinInput3.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet)
+        pinInputBinding.tvPinInput4.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet)
+        pinInputBinding.tvPinInput5.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet)
+        pinInputBinding.tvPinInput6.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet)
     }
 
     private fun setToast(msg: String) {
