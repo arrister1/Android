@@ -96,5 +96,16 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="papan_tombol">Papan Tombol</string>
+    <string name="back">back</string>
+    <string name="foto_ktp">Foto KTP</string>
+    <string name="border_ktp">Border KTP</string>
+    <string name="capture_image">Capture Image</string>
+    <string name="flip_camera">Flip Camera</string>
+    <string name="verifikasi_fingerprint">Verifikasi Fingerprint</string>
+    <string name="check_biometric_finger">Check Biometric Finger</string>
+    <string name="sentuh_sensor_fingerprint">Sentuh Sensor Fingerprint</string>
+    <string name="jangan_tutup_aplikasi">Jangan tutup Aplikasi,</string>
+    <string name="e_ktp_sedang_di_verifikasi">e-KTP sedang di verifikasi</string>
+    <string name="verifikasi_ktp">Verifikasi KTP</string>
 
 </resources>
