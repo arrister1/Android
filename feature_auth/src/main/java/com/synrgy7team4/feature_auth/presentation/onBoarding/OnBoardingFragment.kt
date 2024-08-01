@@ -21,8 +21,6 @@ class OnBoardingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
-        playAnimation()
         return binding.root
 
 
@@ -30,7 +28,7 @@ class OnBoardingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        playAnimation()
 
         setupAccessibility()
 

@@ -26,7 +26,7 @@
     <string name="konfirmasi_pin">Konfirmasi PIN</string>
     <string name="konfirmasi_6_digit_pin">Konfirmasi 6 digit PIN</string>
     <string name="anda_berhasil_membuka_rekening">Anda berhasil membuka rekening</string>
-
+    <string name="no_hp">No HP</string>
     <string name="tombol_kembali">tombol kembali</string>
     <string name="tombol_lanjut">Tombol lanjut</string>
     <string name="input_nomor_hp">input nomor hp</string>
@@ -95,5 +95,6 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="papan_tombol">Papan Tombol</string>
 
 </resources>
