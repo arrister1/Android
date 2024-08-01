@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+
+import androidx.navigation.findNavController
+
 import com.synrgy7team4.feature_dashboard.R
 import com.synrgy7team4.feature_dashboard.databinding.FragmentHomeBinding
 
@@ -40,11 +43,15 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         binding.tvBalance.text = fullBalance
         binding.toggleBalance.setImageResource(com.synrgy7team4.common.R.drawable.ic_visibility_on)
 
         binding.toggleBalance.setOnClickListener{
             balanceVisibility()
+        }
+        binding.btnHistory.setOnClickListener {
+            view.findNavController().navigate(R.id.action_navigation_home_to_mutasiFragment)
         }
     }
 
