@@ -125,7 +125,7 @@ class UploadKtpFragment : Fragment() {
 
 
         binding.btnSend.setOnClickListener {
-//            sendRegisterRequest()
+            sendRegisterRequest()
             requireView().findNavController().navigate(R.id.action_uploadKtpFragment_to_registrationSuccessFragment)
         }
 
@@ -203,30 +203,33 @@ class UploadKtpFragment : Fragment() {
         val email = sharedPreferences.getString("email", "budi@example.com")
         val hp = sharedPreferences.getString("hp", "911")
         val password = sharedPreferences.getString("password", "12345678")
-        val confirm_password = sharedPreferences.getString("confirm_password", "12345678")
+//        val confirm_password = sharedPreferences.getString("confirm_password", "12345678")
         val ktp = sharedPreferences.getString("ktp", "")
         val name = sharedPreferences.getString("name", "Budi")
         val date = sharedPreferences.getString("date", "01-01-2000")
         val pin = sharedPreferences.getString("pin", "111111")
-        val confirm_pin = sharedPreferences.getString("confirm_pin", "111111")
+//        val confirm_pin = sharedPreferences.getString("confirm_pin", "111111")
 
         if (!email.isNullOrEmpty() &&
             !hp.isNullOrEmpty() &&
             !password.isNullOrEmpty() &&
-            !confirm_password.isNullOrEmpty() &&
+//            !confirm_password.isNullOrEmpty() &&
             !ktp.isNullOrEmpty() &&
             !name.isNullOrEmpty() &&
             !date.isNullOrEmpty() &&
-            !pin.isNullOrEmpty() &&
-            !confirm_pin.isNullOrEmpty()
+            !pin.isNullOrEmpty()
+//            !confirm_pin.isNullOrEmpty()
         )
         {
-            currentImageUri?.let {
-                viewModel.registerUser(email.toString(), hp.toString(), password.toString(), confirm_password.toString(), ktp.toString(), name.toString(), date.toString(), pin.toString(), confirm_pin.toString(), it.toString(), requireActivity(), it)
 
-            } ?: kotlin.run {
-                setToast("Mohon pilih gambar dahulu")
-            }
+            viewModel.registerUser(email, hp, password, ktp, name, date, pin)
+
+//            currentImageUri?.let {
+//                viewModel.registerUser(email.toString(), hp.toString(), password.toString(), confirm_password.toString(), ktp.toString(), name.toString(), date.toString(), pin.toString(), confirm_pin.toString(), it.toString(), requireActivity(), it)
+//
+//            } ?: kotlin.run {
+//                setToast("Mohon pilih gambar dahulu")
+//            }
 
         } else {
             setToast("Registration data is not complete")

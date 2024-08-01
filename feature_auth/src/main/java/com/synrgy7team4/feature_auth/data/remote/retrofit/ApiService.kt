@@ -23,20 +23,20 @@ interface ApiService {
     @GET("posts")
     suspend fun getPosts(): Response<List<Post>>
 
-    @Multipart
-    @POST("auth/register")
-    suspend fun register(
-        @PartMap partMap: Map<String, @JvmSuppressWildcards RequestBody>,
-        @Part photo: MultipartBody.Part
-    ): Data
+//    @Multipart
+//    @POST("auth/register")
+//    suspend fun register(
+//        @PartMap partMap: Map<String, @JvmSuppressWildcards RequestBody>,
+//        @Part photo: MultipartBody.Part
+//    ): Data
 
 
 
 //
-//    @POST("auth/register")
-//    suspend fun register(
-//       @Body registerBody: RegisterBody
-//    ): Data
+    @POST("auth/register")
+    suspend fun register(
+       @Body registerBody: RegisterBody
+    ): Data
 //            RegisterResponse
 
     @POST("auth/login")

@@ -18,13 +18,17 @@ class ImplementAuthRepository(
     private val authRemoteSource: AuthRemoteSource
 ): AuthRepository {
 
+    override suspend fun register(registerBody: RegisterBody): Data {
+        return authRemoteSource.register(registerBody)
+    }
+
 //    override suspend fun register(name: String, email: String, password: String): RegisterResponse {
 //        return authRemoteSource.register(name, email, password)
 //    }
 
-    override suspend fun register(registerBody: RegisterBody, context: Context, uri: Uri): Data {
-        return authRemoteSource.register(registerBody, context, uri)
-    }
+//    override suspend fun register(registerBody: RegisterBody, context: Context, uri: Uri): Data {
+//        return authRemoteSource.register(registerBody, context, uri)
+//    }
 
     override suspend fun login(email: String, password: String): DataX {
         return authRemoteSource.login(email, password)

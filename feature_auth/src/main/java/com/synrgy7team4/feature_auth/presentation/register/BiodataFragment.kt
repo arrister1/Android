@@ -115,7 +115,7 @@ class BiodataFragment : Fragment() {
         val datePickerDialog = DatePickerDialog(requireContext(), {DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
             val selectedDate = Calendar.getInstance()
             selectedDate.set(year, monthOfYear, dayOfMonth)
-            val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
             val formattedDate = dateFormat.format(selectedDate.time)
             binding.calendar.text = formattedDate
             sharedPreferences.edit().putString("date", formattedDate).apply()

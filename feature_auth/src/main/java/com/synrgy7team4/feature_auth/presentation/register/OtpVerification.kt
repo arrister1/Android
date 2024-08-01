@@ -1,5 +1,7 @@
 package com.synrgy7team4.feature_auth.presentation.register
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -19,6 +21,8 @@ class OtpVerification : Fragment() {
 
     private var _binding: FragmentOtpVerificationBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var sharedPreferences: SharedPreferences
 
     private lateinit var inputCode1: EditText
     private lateinit var inputCode2: EditText
@@ -43,6 +47,16 @@ class OtpVerification : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
+
+        val hp = sharedPreferences.getString("hp", "08123456789")
+        binding.tvNumber.text = hp
+
+        binding.btnBack.setOnClickListener {
+            view.findNavController().popBackStack()
+
+        }
 
         binding.submitOTPButton.setOnClickListener {
 

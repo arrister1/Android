@@ -175,7 +175,7 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
     private fun matchPassCode() {
         if (firstPassCode == passCode) {
 
-            sharedPreferences.edit().putString("confirm_pin", passCode).apply()
+//            sharedPreferences.edit().putString("confirm_pin", passCode).apply()
 //            sendRegisterRequest()
 //            setToast("Selamat! Registrasi Berhasil, \nTerimakasih Telah Melengkapi Data Kamu ")
             setToast("Kamu Berhasil Membuat Pin ")

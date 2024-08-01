@@ -73,15 +73,12 @@ class RegisterViewModel(private val authRepository: AuthRepository): ViewModel()
         email: String,
         hp: String,
         password: String,
-        confirm_password: String,
         ktp: String,
         name: String,
         date: String,
         pin: String,
-        confirm_pin: String,
-        ektp_photo: String,
-        context: Context,
-        uri: Uri,
+
+//        ektp_photo: String,
     ) {
 //        val date = Date()
 //        val formattedDate = dateFormatter.format(date)
@@ -90,8 +87,10 @@ class RegisterViewModel(private val authRepository: AuthRepository): ViewModel()
         viewModelScope.launch {
 
             try {
-                val registerBody = RegisterBody(email, hp, password, confirm_password, ktp, name, date, pin, confirm_pin, ektp_photo)
-                val response = authRepository.register(registerBody, context, uri)
+                val registerBody = RegisterBody(email, hp, password, ktp, name, date, pin)
+                val response = authRepository.register(registerBody)
+//                val registerBody = RegisterBody(email, hp, password, confirm_password, ktp, name, date, pin, confirm_pin, ektp_photo)
+//                val response = authRepository.register(registerBody, context, uri)
                 _registerResult.postValue(response)
                 Log.d("RegisterUser", "RegisterBody: $registerBody")
 

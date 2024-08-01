@@ -13,8 +13,8 @@ import kotlinx.coroutines.flow.Flow
 interface AuthRepository {
 
 //    suspend fun register(name: String, email: String, password: String): RegisterResponse
-//    suspend fun register(registerBody: RegisterBody): Data
-    suspend fun register(registerBody: RegisterBody, context: Context, uri: Uri): Data
+    suspend fun register(registerBody: RegisterBody): Data
+//    suspend fun register(registerBody: RegisterBody, context: Context, uri: Uri): Data
 //    suspend fun login(email: String, password: String): LoginResponse
     suspend fun login(email: String, password: String): DataX
 //    suspend fun saveSession(userModel: UserModel)

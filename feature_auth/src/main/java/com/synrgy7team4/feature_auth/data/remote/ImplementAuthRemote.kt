@@ -19,7 +19,17 @@ class ImplementAuthRemote (
 
 
 
+    override suspend fun register(registerBody: RegisterBody): Data {
+        return apiService.register(registerBody)
+    }
 
+
+    override suspend fun login(email: String, password: String): DataX {
+        return apiService.login(email, password)
+    }
+
+
+// Ga dipake cuk
 //    override suspend fun register(name: String, email: String, password: String) {
 //
 //        val registerRequest = RegisterBody(name, email, password)
@@ -41,6 +51,7 @@ class ImplementAuthRemote (
 //
 //    }
 
+//    Ga di pake cuk
     //    override suspend fun login(email: String, password: String) {
 //        val loginRequest = LoginBody(email, password)
 //        val call = apiService.login(loginRequest)
@@ -60,42 +71,37 @@ class ImplementAuthRemote (
 //        })
 //    }
 
-    private fun prepareFilePart(partName: String, fileUri: Uri, context: Context): MultipartBody.Part {
-        val file = FileUtils.getFile(context, fileUri)
-        val requestFile = RequestBody.create(context.contentResolver.getType(fileUri)?.toMediaTypeOrNull(), file)
-        return MultipartBody.Part.createFormData(partName, file.name, requestFile)
-    }
+//    private fun prepareFilePart(partName: String, fileUri: Uri, context: Context): MultipartBody.Part {
+//        val file = FileUtils.getFile(context, fileUri)
+//        val requestFile = RequestBody.create(context.contentResolver.getType(fileUri)?.toMediaTypeOrNull(), file)
+//        return MultipartBody.Part.createFormData(partName, file.name, requestFile)
+//    }
+//
+//    private fun createPartFromString(value: String): RequestBody {
+//        return RequestBody.create("multipart/form-data".toMediaTypeOrNull(),value)
+//    }
 
-    private fun createPartFromString(value: String): RequestBody {
-        return RequestBody.create("multipart/form-data".toMediaTypeOrNull(),value)
-    }
-
-    override suspend fun register(registerBody: RegisterBody, context: Context, uri: Uri): Data {
-//        return apiService.register(registerBody)
-        val body = prepareFilePart("photo", uri, context)
-        val map = hashMapOf(
-            "email" to createPartFromString(registerBody.email),
-            "no_hp" to createPartFromString(registerBody.no_hp),
-            "password" to createPartFromString(registerBody.password),
-            "confirm_password" to createPartFromString(registerBody.confirm_password),
-            "no_ktp" to createPartFromString(registerBody.no_ktp),
-            "name" to createPartFromString(registerBody.name),
-            "date_of_birth" to createPartFromString(registerBody.date_of_birth),
-            "pin" to createPartFromString(registerBody.pin),
-            "confirm_pin" to createPartFromString(registerBody.confirm_pin),
-            "ektp_photo" to createPartFromString(registerBody.ektp_photo),
-        )
-
-        return apiService.register(map, body)
-
-    }
-
-
+//    override suspend fun register(registerBody: RegisterBody, context: Context, uri: Uri): Data {
+////        return apiService.register(registerBody)
+//        val body = prepareFilePart("photo", uri, context)
+//        val map = hashMapOf(
+//            "email" to createPartFromString(registerBody.email),
+//            "no_hp" to createPartFromString(registerBody.no_hp),
+//            "password" to createPartFromString(registerBody.password),
+//            "confirm_password" to createPartFromString(registerBody.confirm_password),
+//            "no_ktp" to createPartFromString(registerBody.no_ktp),
+//            "name" to createPartFromString(registerBody.name),
+//            "date_of_birth" to createPartFromString(registerBody.date_of_birth),
+//            "pin" to createPartFromString(registerBody.pin),
+//            "confirm_pin" to createPartFromString(registerBody.confirm_pin),
+//            "ektp_photo" to createPartFromString(registerBody.ektp_photo),
+//        )
+//
+//        return apiService.register(map, body)
+//
+//    }
 
 
-    override suspend fun login(email: String, password: String): DataX {
-        return apiService.login(email, password)
-    }
 
 
 }

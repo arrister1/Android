@@ -7,15 +7,12 @@
     android:padding="30dp"
     tools:context="com.synrgy7team4.feature_auth.presentation.register.OtpVerification">
 
-    <com.google.android.material.button.MaterialButton
+    <ImageView
         android:id="@+id/btn_back"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_marginTop="47dp"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:paddingHorizontal="7dp"
-        app:icon="@drawable/baseline_arrow_back_ios_new_24"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/back_button_blue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,8 +34,31 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:layout_marginTop="20dp"
-            android:text="Kode OTP telah dikirimkan ke 0812****89, masukkan kode di bawah ini untuk melanjutkan"
+            android:text="Kode OTP telah dikirimkan ke "
             app:layout_constraintTop_toBottomOf="@id/verifikasi"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+    <TextView
+        android:id="@+id/tvNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="08123456789"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/phoneNumberInformation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/phoneNumberInformation" />
+
+
+    <TextView
+            android:id="@+id/phoneNumberInformation2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="0dp"
+            android:text="Masukkan kode di bawah ini untuk melanjutkan"
+            app:layout_constraintTop_toBottomOf="@id/phoneNumberInformation"
             app:layout_constraintStart_toStartOf="parent"
             />
 
@@ -49,7 +69,7 @@
             android:gravity="center"
             android:orientation="horizontal"
             android:layout_marginTop="40dp"
-            app:layout_constraintTop_toBottomOf="@id/phoneNumberInformation"
+            app:layout_constraintTop_toBottomOf="@id/phoneNumberInformation2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
@@ -160,10 +180,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             />
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/submitOTPButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/PrimaryActiveButton"
             android:layout_margin="70dp"
             android:text="Lanjut"
             android:textSize="20sp"
