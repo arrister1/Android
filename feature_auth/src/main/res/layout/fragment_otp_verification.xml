@@ -3,19 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginHorizontal="20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="30dp"
     tools:context="com.synrgy7team4.feature_auth.presentation.register.OtpVerification">
 
-    <com.google.android.material.button.MaterialButton
+    <ImageView
         android:id="@+id/btn_back"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_marginTop="47dp"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:paddingHorizontal="7dp"
-        app:icon="@drawable/baseline_arrow_back_ios_new_24"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/back_button_blue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

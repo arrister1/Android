@@ -10,8 +10,9 @@
     <string name="selamat_pagi">Selamat Pagi,</string>
     <string name="dummy_name">Nur Afina</string>
     <string name="dummy_acc_number">7293********9283</string>
-    <string name="dummy_account_balance">Rp 3,492,203</string>
+    <string name="dummy_account_balance">3,492,203</string>
     <string name="transfer">Transfer</string>
     <string name="riwayat">Riwayat</string>
+    <string name="rp">Rp</string>
 
 </resources>
