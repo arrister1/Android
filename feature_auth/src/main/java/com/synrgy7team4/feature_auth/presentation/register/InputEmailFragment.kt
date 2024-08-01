@@ -40,14 +40,14 @@ class InputEmailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupAccessibility()
 
-        sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
+        sharedPreferences =
+            requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
 
         binding.btnBack.setOnClickListener {
             view.findNavController().popBackStack()
         }
-
-
 
         binding.btnNext.setOnClickListener {
             val email = binding.tiedtEmail.text.toString()
@@ -58,11 +58,13 @@ class InputEmailFragment : Fragment() {
                 email.isEmpty() -> binding.tiedtEmail.error = "Email Tidak Boleh Kosong!"
                 else -> {
                     if (!email.matches(emailPattern.toRegex())) {
-                        binding.tiedtEmail.error = "Format email tidak sesuai. Contoh: user@domain.com"
+                        binding.tiedtEmail.error =
+                            "Format email tidak sesuai. Contoh: user@domain.com"
                     } else {
                         sharedPreferences.edit().putString("email", email).apply()
                         setToast("Akun $email Berhasil Terdaftar ")
-                        requireView().findNavController().navigate(R.id.action_inputEmailFragment_to_inputPhoneNumberFragment)
+                        requireView().findNavController()
+                            .navigate(R.id.action_inputEmailFragment_to_inputPhoneNumberFragment)
 
                     }
 //                    sharedPreferences.edit().putString("email", email).apply()
@@ -91,22 +93,18 @@ class InputEmailFragment : Fragment() {
                 }
             }
         })
-
-
-
-
-
     }
 
     private fun setToast(msg: String) {
-        Toast.makeText(requireActivity(),msg, Toast.LENGTH_SHORT).show()
-
+        Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show()
     }
 
-
-        
-
-        
- 
-
+    private fun setupAccessibility() {
+        binding.apply {
+            btnBack.contentDescription = getString(R.string.tombol_kembali)
+            tvEmail.contentDescription = getString(R.string.email)
+            tiedtEmail.contentDescription = getString(R.string.input_email)
+            btnNext.contentDescription = getString(R.string.tombol_lanjut)
+        }
+    }
 }

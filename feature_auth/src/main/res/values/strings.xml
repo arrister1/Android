@@ -27,6 +27,7 @@
 
     <string name="tombol_kembali">tombol kembali</string>
     <string name="tombol_lanjut">Tombol lanjut</string>
+    <string name="no_hp">No HP</string>
     <string name="input_nomor_hp">input nomor hp</string>
     <string name="input_email">input email</string>
 
