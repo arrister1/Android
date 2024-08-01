@@ -62,6 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/dummy_acc_number"
+            android:contentDescription="@string/informasi_saldo"
             style="@style/RegulerText"
             android:textSize="10sp"
             android:textColor="@color/white"
@@ -69,25 +70,39 @@
             app:layout_constraintStart_toStartOf="@id/tv_acc_name"/>
 
         <TextView
-            android:id="@+id/tv_acc_balance"
+            android:id="@+id/tv_rp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="17dp"
             style="@style/BoldText"
-            android:text="@string/dummy_account_balance"
+            android:text="Rp"
             android:textColor="@color/white"
             app:layout_constraintTop_toBottomOf="@id/tv_acc_number"
             app:layout_constraintStart_toStartOf="@id/tv_acc_number"/>
 
-        <ImageView
+        <TextView
+            android:id="@+id/tv_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:layout_marginStart="8dp"
+            style="@style/BoldText"
+            android:text="@string/dummy_account_balance"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@id/tv_rp"
+            app:layout_constraintTop_toBottomOf="@id/tv_acc_number"/>
+
+        <ImageButton
             android:id="@+id/toggle_balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:src="@drawable/ic_eye"
-            app:layout_constraintBottom_toBottomOf="@id/tv_acc_balance"
-            app:layout_constraintStart_toEndOf="@id/tv_acc_balance"
-            app:layout_constraintTop_toTopOf="@id/tv_acc_balance"
+            android:src="@drawable/ic_visibility_on"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/tampilkan_saldo"
+            app:layout_constraintBottom_toBottomOf="@id/tv_balance"
+            app:layout_constraintStart_toEndOf="@id/tv_balance"
+            app:layout_constraintTop_toTopOf="@id/tv_balance"
             app:layout_constraintVertical_bias="0.428" />
 
         <Button
@@ -96,10 +111,11 @@
             android:layout_height="35dp"
             android:layout_marginTop="10dp"
             android:text="@string/transfer"
+            android:contentDescription="@string/transfer"
             android:backgroundTint="@color/primary_blue"
             android:textSize="10sp"
-            app:layout_constraintStart_toStartOf="@id/tv_acc_balance"
-            app:layout_constraintTop_toBottomOf="@id/tv_acc_balance" />
+            app:layout_constraintStart_toStartOf="@id/tv_rp"
+            app:layout_constraintTop_toBottomOf="@id/tv_rp" />
 
 <!--        <Button-->
 <!--            android:id="@+id/btn_history"-->
@@ -123,9 +139,11 @@
             app:strokeColor = "@color/white"
             android:textColor="@color/white"
             android:text="@string/riwayat"
+            android:contentDescription="@string/riwayat"
             android:textSize="10sp"
             app:layout_constraintStart_toEndOf="@id/btn_transfer"
-            app:layout_constraintTop_toBottomOf="@id/tv_acc_balance" />
+            app:layout_constraintTop_toBottomOf="@id/tv_balance"
+           />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -134,6 +152,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_listrik"
+        android:contentDescription="@string/bayar_tagihan_listrik"
         android:layout_marginStart="10dp"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintTop_toBottomOf="@+id/acc_layout"
@@ -146,6 +165,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_pulsa"
+        android:contentDescription="@string/pulsa"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintTop_toBottomOf="@+id/acc_layout"
         app:layout_constraintStart_toEndOf="@id/btn_electric"
@@ -156,6 +176,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_data"
+        android:contentDescription="@string/data"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintTop_toBottomOf="@+id/acc_layout"
         app:layout_constraintStart_toEndOf="@id/btn_pulsa"
@@ -164,6 +185,7 @@
     <ImageView
         android:layout_marginEnd="10dp"
         android:id="@+id/btn_ewallet"
+        android:contentDescription="@string/e_wallet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_e_wallet"
