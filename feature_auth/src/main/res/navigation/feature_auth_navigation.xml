@@ -95,7 +95,7 @@
     </fragment>
     <fragment
         android:id="@+id/otpVerification"
-        android:name="com.synrgy7team4.feature_auth.presentation.register.OtpVerification"
+        android:name="com.synrgy7team4.feature_auth.presentation.register.OtpVerificationFragment"
         android:label="fragment_otp_verification"
         tools:layout="@layout/fragment_otp_verification" >
         <action
