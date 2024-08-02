@@ -19,10 +19,8 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private var isHidden: Boolean = false
-    private val fullBalance: String = getString(R.string.dummy_account_balance)
-    private val hiddenBalance: String
-        get() = fullBalance.replace(Regex("\\d"), "*").replace(Regex("[,.]"), "")
-
+    private lateinit var fullBalance: String
+    private lateinit var hiddenBalance: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,6 +42,11 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        fullBalance = getString(R.string.dummy_account_balance)
+        hiddenBalance = fullBalance.replace(Regex("\\d"), "*").replace(Regex("[,.]"), "")
+
+
 
         binding.btnElectric.setOnClickListener {
             showToast()
