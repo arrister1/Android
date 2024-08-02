@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.jer.shared.ViewModelFactoryProvider
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentCreatePasswordBinding
@@ -65,13 +66,14 @@ class CreatePasswordFragment : Fragment() {
                 passwordConfirmation.isEmpty() -> binding.inputPasswordConfirmation.error = "Password tidak boleh kosong"
                 else -> {
                     if (password.contains(Regex("[^a-zA-Z0-9]"))) {
-                        binding.inputPassword.error = "Password tidak boleh mengandung simbol"
+                        Snackbar.make(view, "Password tidak boleh mengandung simbol", Snackbar.LENGTH_SHORT).show()
                     } else if (password.length < 8) {
-                        binding.inputPassword.error = "Password harus terdiri dari 8-15 karakter"
+                        Snackbar.make(view, "Password harus terdiri dari 8-15 karakter", Snackbar.LENGTH_SHORT).show()
                     } else if (password.length > 15) {
-                        binding.inputPassword.error = "Password harus terdiri dari 8-15 karakter"
+                        Snackbar.make(view, "Password harus terdiri dari 8-15 karakter", Snackbar.LENGTH_SHORT).show()
                     } else {
                         if (passwordConfirmation != password) {
+                            Snackbar.make(view, "Password tidak sama, mohon input kembali", Snackbar.LENGTH_SHORT).show()
                             binding.inputPasswordConfirmation.error = "Password tidak sama, mohon input kembali"
                         } else {
                             sharedPreferences.edit().putString("password", password).apply()
@@ -96,11 +98,11 @@ class CreatePasswordFragment : Fragment() {
                     val pw = s.toString()
 
                     if (pw.contains(Regex("[^a-zA-Z0-9]"))) {
-                        binding.inputPassword.error = "Password tidak boleh mengandung simbol"
+                        Snackbar.make(view, "Password tidak boleh mengandung simbol", Snackbar.LENGTH_SHORT).show()
                     } else if (pw.length < 8) {
-                        binding.inputPassword.error = "Password harus terdiri dari 8-15 karakter"
+                        Snackbar.make(view, "Password harus terdiri dari 8-15 karakter", Snackbar.LENGTH_SHORT).show()
                     } else if (pw.length > 15) {
-                        binding.inputPassword.error = "Password harus terdiri dari 8-15 karakter"
+                        Snackbar.make(view, "Password harus terdiri dari 8-15 karakter", Snackbar.LENGTH_SHORT).show()
                     } else {
                         binding.inputPassword.error = null // Reset error
                     }
@@ -124,6 +126,8 @@ class CreatePasswordFragment : Fragment() {
         Toast.makeText(requireActivity(),msg, Toast.LENGTH_SHORT).show()
 
     }
+
+
 
 //    private fun getPassword() {
 //        val password = binding.inputPassword.text

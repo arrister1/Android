@@ -4,6 +4,7 @@ import com.synrgy7team4.feature_auth.data.Post
 import com.synrgy7team4.feature_auth.data.remote.response.Data
 import com.synrgy7team4.feature_auth.data.remote.response.DataX
 import com.synrgy7team4.feature_auth.data.remote.response.LoginResponse
+import com.synrgy7team4.feature_auth.data.remote.response.RegistResponse
 import com.synrgy7team4.feature_auth.data.remote.response.RegisterResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -36,7 +37,8 @@ interface ApiService {
     @POST("auth/register")
     suspend fun register(
        @Body registerBody: RegisterBody
-    ): Data
+    ): RegistResponse
+//        Data
 //            RegisterResponse
 
     @POST("auth/login")

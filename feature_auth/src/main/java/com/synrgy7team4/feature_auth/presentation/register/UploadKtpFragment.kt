@@ -73,8 +73,14 @@ class UploadKtpFragment : Fragment() {
             if (result.resultCode == RESULT_OK && result.data != null) {
                 val uri: Uri? = result.data?.data
                 uri?.let {
-                    Toast.makeText(requireActivity(), "Mohon Tunggu Hingga Proses Encode Selesai", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireActivity(), "Mohon Tunggu Hingga Proses Upload Selesai", Toast.LENGTH_SHORT).show()
                     handleImageUri(it)
+                }
+
+                sImage?.let {
+                    val bytes = Base64.decode(it, Base64.DEFAULT)
+                    val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                    binding.ivKtp.setImageBitmap(bitmap)
                 }
             }
         }
@@ -114,19 +120,28 @@ class UploadKtpFragment : Fragment() {
 //            showPicture()
         }
 
-        binding.btnDecode.setOnClickListener {
-            sImage?.let {
-                val bytes = Base64.decode(it, Base64.DEFAULT)
-                val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                binding.ivKtp.setImageBitmap(bitmap)
-            }
-        }
+
 
 
 
         binding.btnSend.setOnClickListener {
+            setToast("Mohon tunggu sebentar")
             sendRegisterRequest()
-            requireView().findNavController().navigate(R.id.action_uploadKtpFragment_to_registrationSuccessFragment)
+            viewModel.registerResult.observe(viewLifecycleOwner) { result ->
+                if (result!!.success) {
+                    setToast(result.message)
+                    requireView().findNavController().navigate(R.id.action_uploadKtpFragment_to_registrationSuccessFragment)
+                }
+            }
+
+            viewModel.error.observe(viewLifecycleOwner) { error ->
+                if (!error.success) {
+                    setToast(error.message)
+                }
+            }
+
+
+//            requireView().findNavController().navigate(R.id.action_uploadKtpFragment_to_registrationSuccessFragment)
         }
 
 //        viewModel.registerResult.observe(viewLifecycleOwner) {
@@ -141,7 +156,7 @@ class UploadKtpFragment : Fragment() {
 
 
     private fun selectImage() {
-        binding.tvEncode.text = ""
+//        binding.tvEncode.text = ""
         binding.ivKtp.setImageBitmap(null)
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
@@ -166,7 +181,8 @@ class UploadKtpFragment : Fragment() {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
             val bytes = stream.toByteArray()
             sImage = Base64.encodeToString(bytes, Base64.DEFAULT)
-            binding.tvEncode.text = sImage
+            sharedPreferences.edit().putString("ktp", sImage).apply()
+//            binding.tvEncode.text = sImage
         } catch (e: IOException) {
             e.printStackTrace()
         }
@@ -204,17 +220,18 @@ class UploadKtpFragment : Fragment() {
         val hp = sharedPreferences.getString("hp", "911")
         val password = sharedPreferences.getString("password", "12345678")
 //        val confirm_password = sharedPreferences.getString("confirm_password", "12345678")
-        val ktp = sharedPreferences.getString("ktp", "")
+        val nik = sharedPreferences.getString("nik", "")
         val name = sharedPreferences.getString("name", "Budi")
         val date = sharedPreferences.getString("date", "01-01-2000")
         val pin = sharedPreferences.getString("pin", "111111")
+//        val ktp = sharedPreferences.getString("ktp", "")
 //        val confirm_pin = sharedPreferences.getString("confirm_pin", "111111")
 
         if (!email.isNullOrEmpty() &&
             !hp.isNullOrEmpty() &&
             !password.isNullOrEmpty() &&
 //            !confirm_password.isNullOrEmpty() &&
-            !ktp.isNullOrEmpty() &&
+            !nik.isNullOrEmpty() &&
             !name.isNullOrEmpty() &&
             !date.isNullOrEmpty() &&
             !pin.isNullOrEmpty()
@@ -222,7 +239,7 @@ class UploadKtpFragment : Fragment() {
         )
         {
 
-            viewModel.registerUser(email, hp, password, ktp, name, date, pin)
+            viewModel.registerUser(email, hp, password, nik, name, date, pin)
 
 //            currentImageUri?.let {
 //                viewModel.registerUser(email.toString(), hp.toString(), password.toString(), confirm_password.toString(), ktp.toString(), name.toString(), date.toString(), pin.toString(), confirm_pin.toString(), it.toString(), requireActivity(), it)

@@ -7,6 +7,7 @@ import com.synrgy7team4.feature_auth.data.remote.AuthRemoteSource
 import com.synrgy7team4.feature_auth.data.remote.response.Data
 import com.synrgy7team4.feature_auth.data.remote.response.DataX
 import com.synrgy7team4.feature_auth.data.remote.response.LoginResponse
+import com.synrgy7team4.feature_auth.data.remote.response.RegistResponse
 import com.synrgy7team4.feature_auth.data.remote.response.RegisterResponse
 import com.synrgy7team4.feature_auth.data.remote.retrofit.RegisterBody
 import com.synrgy7team4.feature_auth.domain.model.UserModel
@@ -18,7 +19,11 @@ class ImplementAuthRepository(
     private val authRemoteSource: AuthRemoteSource
 ): AuthRepository {
 
-    override suspend fun register(registerBody: RegisterBody): Data {
+//    override suspend fun register(registerBody: RegisterBody): Data {
+//        return authRemoteSource.register(registerBody)
+//    }
+
+    override suspend fun register(registerBody: RegisterBody): RegistResponse {
         return authRemoteSource.register(registerBody)
     }
 

@@ -75,7 +75,7 @@ class BiodataFragment : Fragment() {
                     if (ktp.length != 16) {
                         binding.edtKtp.error = "NIK harus berjumlah 16 digit"
                     } else {
-                        sharedPreferences.edit().putString("ktp", ktp).apply()
+                        sharedPreferences.edit().putString("nik", ktp).apply()
                         sharedPreferences.edit().putString("name", name).apply()
                         setToast("Biodata kamu berhasil ditambahkan")
                         view.findNavController().navigate(R.id.action_biodataFragment_to_pinFragment)

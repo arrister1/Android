@@ -36,7 +36,7 @@ class LoginViewModel(private val loginUseCase: LoginUseCase): ViewModel() {
                 if (throwable is HttpException) {
                     val json = throwable.response()?.errorBody()?.string()
                     val error = Gson().fromJson(json, ErrorResponse::class.java)
-                    _error.value = error.error
+                    _error.value = error.message
                 } else {
                     _error.value = throwable.message
                 }

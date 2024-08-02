@@ -7,6 +7,7 @@ import com.synrgy7team4.feature_auth.data.remote.response.Data
 import com.synrgy7team4.feature_auth.data.remote.response.DataX
 import com.synrgy7team4.feature_auth.data.remote.retrofit.ApiService
 import com.synrgy7team4.feature_auth.data.remote.response.LoginResponse
+import com.synrgy7team4.feature_auth.data.remote.response.RegistResponse
 import com.synrgy7team4.feature_auth.data.remote.response.RegisterResponse
 import com.synrgy7team4.feature_auth.data.remote.retrofit.RegisterBody
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -19,7 +20,7 @@ class ImplementAuthRemote (
 
 
 
-    override suspend fun register(registerBody: RegisterBody): Data {
+    override suspend fun register(registerBody: RegisterBody): RegistResponse {
         return apiService.register(registerBody)
     }
 

@@ -25,8 +25,8 @@ import java.util.Locale
 class RegisterViewModel(private val authRepository: AuthRepository): ViewModel() {
 
 
-    private val _registerResult = MutableLiveData<Data?>()
-    val registerResult: LiveData<Data?> = _registerResult
+    private val _registerResult = MutableLiveData<RegistResponse?>()
+    val registerResult: LiveData<RegistResponse?> = _registerResult
 
     private val _error = MutableLiveData<ErrorResponse>()
     val error: LiveData<ErrorResponse> = _error
@@ -73,7 +73,7 @@ class RegisterViewModel(private val authRepository: AuthRepository): ViewModel()
         email: String,
         hp: String,
         password: String,
-        ktp: String,
+        nik: String,
         name: String,
         date: String,
         pin: String,
@@ -87,17 +87,18 @@ class RegisterViewModel(private val authRepository: AuthRepository): ViewModel()
         viewModelScope.launch {
 
             try {
-                val registerBody = RegisterBody(email, hp, password, ktp, name, date, pin)
+                val registerBody = RegisterBody(email, hp, password, nik, name, date, pin)
                 val response = authRepository.register(registerBody)
 //                val registerBody = RegisterBody(email, hp, password, confirm_password, ktp, name, date, pin, confirm_pin, ektp_photo)
 //                val response = authRepository.register(registerBody, context, uri)
+//                _registerResult.value = response.data
                 _registerResult.postValue(response)
                 Log.d("RegisterUser", "RegisterBody: $registerBody")
 
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
-                val errorMessage = errorBody.error
+                val errorMessage = errorBody.message
                 _error.postValue(errorBody)
                 Log.e("LoginViewModel", "HTTP Error: $errorMessage")
 
