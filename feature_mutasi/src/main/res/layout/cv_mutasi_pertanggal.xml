@@ -14,8 +14,9 @@
         android:text="@string/_10_juli_2024"
         android:textColor="@color/grey"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_totopOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/rv_transfer"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
