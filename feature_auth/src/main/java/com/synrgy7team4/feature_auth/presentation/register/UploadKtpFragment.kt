@@ -174,13 +174,43 @@ class UploadKtpFragment : Fragment() {
 //        startActivityForResult(intent, REQUEST_CODE_SELECT_FILE)
 //    }
 
+
+    private fun resizeBitmap(bitmap: Bitmap, maxWidth: Int, maxHeight: Int): Bitmap {
+        var width = bitmap.width
+        var height = bitmap.height
+        val aspectRatio = width.toFloat() / height.toFloat()
+        if (width > height) {
+            width = maxWidth
+            height = (width * aspectRatio).toInt()
+        } else {
+            height = maxHeight
+            width = (height * aspectRatio).toInt()
+        }
+        return Bitmap.createScaledBitmap(bitmap, width, height, true)
+    }
+
+
+    private fun encodeImageToBase64(bitmap: Bitmap): String {
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream)
+        val byteArray = stream.toByteArray()
+        return Base64.encodeToString(byteArray, Base64.DEFAULT)
+
+    }
+
     private fun handleImageUri(uri: Uri) {
         try {
             val bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, uri)
+
+
+//            val maxWidth = 800
+//            val maxHeight = 800
+//            val resizingBitmap = resizeBitmap(bitmap, maxWidth, maxHeight)
             val stream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 40, stream)
             val bytes = stream.toByteArray()
             sImage = Base64.encodeToString(bytes, Base64.DEFAULT)
+//            sImage = encodeImageToBase64(resizingBitmap)
             sharedPreferences.edit().putString("ktp", sImage).apply()
 //            binding.tvEncode.text = sImage
         } catch (e: IOException) {
@@ -224,7 +254,7 @@ class UploadKtpFragment : Fragment() {
         val name = sharedPreferences.getString("name", "Budi")
         val date = sharedPreferences.getString("date", "01-01-2000")
         val pin = sharedPreferences.getString("pin", "111111")
-//        val ktp = sharedPreferences.getString("ktp", "")
+        val ktp = sharedPreferences.getString("ktp", "")
 //        val confirm_pin = sharedPreferences.getString("confirm_pin", "111111")
 
         if (!email.isNullOrEmpty() &&
@@ -234,12 +264,13 @@ class UploadKtpFragment : Fragment() {
             !nik.isNullOrEmpty() &&
             !name.isNullOrEmpty() &&
             !date.isNullOrEmpty() &&
-            !pin.isNullOrEmpty()
+            !pin.isNullOrEmpty() &&
+            !ktp.isNullOrEmpty()
 //            !confirm_pin.isNullOrEmpty()
         )
         {
 
-            viewModel.registerUser(email, hp, password, nik, name, date, pin)
+            viewModel.registerUser(email, hp, password, nik, name, date, pin, ktp)
 
 //            currentImageUri?.let {
 //                viewModel.registerUser(email.toString(), hp.toString(), password.toString(), confirm_password.toString(), ktp.toString(), name.toString(), date.toString(), pin.toString(), confirm_pin.toString(), it.toString(), requireActivity(), it)

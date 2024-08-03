@@ -14,5 +14,5 @@ data class RegisterBody(
     val date_of_birth: String,
     val pin: String,
 //    val confirm_pin: String,
-//    val ektp_photo: String,
+    val ektp_photo: String,
 )
