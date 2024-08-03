@@ -44,7 +44,7 @@ class MutasiFragment : Fragment() {
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 // Handle spinner selection
-                viewModel.loadMutations("0411043376") // Replace with actual account number if needed
+                viewModel.loadMutations("9074822924") // Replace with actual account number if needed
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}

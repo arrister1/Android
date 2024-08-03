@@ -137,4 +137,8 @@ dependencies {
     //mlkit
     implementation ("com.google.firebase:firebase-ml-vision:24.0.3")
 
+    //sharedpref
+    implementation ("androidx.security:security-crypto:1.1.0-alpha03")
+
+
 }

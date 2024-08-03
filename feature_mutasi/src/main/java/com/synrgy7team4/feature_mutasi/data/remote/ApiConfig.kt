@@ -12,20 +12,21 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object ApiConfig {
-    fun provideApiService(context: Context): ApiService =
+    fun provideApiService(context: Context, token: String): ApiService =
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(Gson()))
-            .client(provideOkhttpClient(context))
+            .client(provideOkhttpClient(context, token))
             .build()
             .create(ApiService::class.java)
 
-    private fun provideOkhttpClient(context: Context): OkHttpClient =
+    private fun provideOkhttpClient(context: Context, token: String): OkHttpClient =
         OkHttpClient.Builder()
             .readTimeout(60, TimeUnit.SECONDS)
             .connectTimeout(60, TimeUnit.SECONDS)
             .addInterceptor(provideHttpLoggingInterceptor())
             .addInterceptor(provideChuckerInterceptor(context))
+            .addInterceptor(provideAuthInterceptor(token))
             .build()
 
     private fun provideHttpLoggingInterceptor(): Interceptor {
@@ -36,4 +37,13 @@ object ApiConfig {
 
     private fun provideChuckerInterceptor(context: Context): Interceptor =
         ChuckerInterceptor.Builder(context).build()
+
+    private fun provideAuthInterceptor(token: String): Interceptor = Interceptor { chain ->
+        val original = chain.request()
+        val requestBuilder = original.newBuilder()
+            .header("Content-Type", "application/json")
+            .header("Authorization", "Bearer $token")
+        val request = requestBuilder.build()
+        chain.proceed(request)
+    }
 }

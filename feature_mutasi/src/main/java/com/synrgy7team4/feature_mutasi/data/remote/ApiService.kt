@@ -12,6 +12,6 @@ interface ApiService {
     @GET("posts")
     suspend fun getPosts(): Response<List<Post>>
 
-    @GET("/mutations")
+    @GET("/api/transaction/mutations")
     suspend fun getMutationsByAcc(@Query("accountNumber") accountNumber: String): Response<MutationResponse>
 }

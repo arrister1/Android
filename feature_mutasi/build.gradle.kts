@@ -112,4 +112,8 @@ dependencies {
     // Chucker
     debugImplementation("com.github.chuckerteam.chucker:library:4.0.0")
     releaseImplementation("com.github.chuckerteam.chucker:library-no-op:4.0.0")
+
+    //sharedpref
+    implementation ("androidx.security:security-crypto:1.1.0-alpha03")
+
 }
