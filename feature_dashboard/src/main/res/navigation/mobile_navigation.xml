@@ -3,13 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.synrgy7team4.feature_dashboard.presentation.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_savedAccountFragment"
+            app:destination="@id/savedAccountFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -22,4 +26,18 @@
         android:name="com.synrgy7team4.feature_dashboard.presentation.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/savedAccountFragment"
+        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.transfer.SavedAccountFragment"
+        android:label="fragment_saved_account"
+        tools:layout="@layout/fragment_saved_account" >
+        <action
+            android:id="@+id/action_savedAccountFragment_to_transferInputFragment"
+            app:destination="@id/transferInputFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/transferInputFragment"
+        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.transfer.TransferInputFragment"
+        android:label="fragment_transfer_input"
+        tools:layout="@layout/fragment_transfer_input" />
 </navigation>
