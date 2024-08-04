@@ -1,7 +1,7 @@
 package com.synrgy7team4.feature_mutasi.data
 
 import com.synrgy7team4.feature_mutasi.data.remote.RemoteDataSource
-import retrofit2.Call
+import com.synrgy7team4.feature_mutasi.data.response.MutationResponse
 import retrofit2.Response
 
 
@@ -11,4 +11,6 @@ class Repository(private val remoteDataSource: RemoteDataSource) {
     suspend fun getMutations(accountNumber: String): Response<MutationResponse> {
         return remoteDataSource.getMutationsByAcc(accountNumber)
     }
+
+    suspend fun getUserData() = remoteDataSource.getUserData()
 }

@@ -1,7 +1,7 @@
 package com.synrgy7team4.feature_mutasi.presentation.viewmodel
 
 import androidx.lifecycle.*
-import com.synrgy7team4.feature_mutasi.data.MutationData
+import com.synrgy7team4.feature_mutasi.data.response.MutationData
 import com.synrgy7team4.feature_mutasi.data.Repository
 import kotlinx.coroutines.launch
 
@@ -16,10 +16,11 @@ class MutasiViewmodel(private val repository: Repository) : ViewModel() {
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
 
-    fun loadMutations(accountNumber: String) {
+    fun loadMutations() {
         _isLoading.value = true
         viewModelScope.launch {
             try {
+                val accountNumber = repository.getUserData().body()?.data?.accountNumber.toString()
                 val response = repository.getMutations(accountNumber)
                 if (response.isSuccessful) {
                     _mutations.value = response.body()?.data

@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 
 import com.synrgy7team4.feature_dashboard.R
 import com.synrgy7team4.feature_dashboard.databinding.FragmentHomeBinding
+import com.synrgy7team4.feature_mutasi.presentation.ui.MutasiFragment
 
 class HomeFragment : Fragment() {
 
@@ -51,7 +52,11 @@ class HomeFragment : Fragment() {
             balanceVisibility()
         }
         binding.btnHistory.setOnClickListener {
-            view.findNavController().navigate(R.id.action_navigation_home_to_mutasiFragment)
+            val transaction = activity?.supportFragmentManager?.beginTransaction()
+            transaction?.replace(R.id.full_framelayout, MutasiFragment())
+            transaction?.disallowAddToBackStack()
+            transaction?.commit()
+            //view.findNavController().navigate(R.id.action_navigation_home_to_mutasiFragment)
         }
     }
 

@@ -5,7 +5,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.synrgy7team4.feature_mutasi.R
 
-import com.synrgy7team4.feature_mutasi.data.MutationData
+import com.synrgy7team4.feature_mutasi.data.response.MutationData
 
 
 class MutationAdapter(private val mutationList: List<MutationData>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

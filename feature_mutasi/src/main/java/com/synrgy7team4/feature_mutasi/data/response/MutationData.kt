@@ -1,4 +1,4 @@
-package com.synrgy7team4.feature_mutasi.data
+package com.synrgy7team4.feature_mutasi.data.response
 
 data class MutationData(
     val id: String,
