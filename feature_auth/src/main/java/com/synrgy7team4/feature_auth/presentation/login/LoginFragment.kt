@@ -5,14 +5,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.findNavController
+import com.jer.shared.ViewModelFactoryProvider
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentLoginBinding
+import com.synrgy7team4.feature_auth.presentation.viewmodel.LoginViewModel
+import com.synrgy7team4.feature_auth.presentation.viewmodel.RegisterViewModel
 
 
 class LoginFragment : Fragment() {
 
     private val binding by lazy { FragmentLoginBinding.inflate(layoutInflater) }
+    private val viewModel by viewModels<LoginViewModel> {
+
+        val app = requireActivity().application as ViewModelFactoryProvider
+        app.provideViewModelFactory()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +50,28 @@ class LoginFragment : Fragment() {
         }
 
         binding.btnMasuk.setOnClickListener {
-            view.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+            viewModel.loginUser(
+                binding.edtEmail.text.toString(),
+                binding.edtPassword.text.toString()
+            )
         }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            showLoading(it)
+        }
+
+        viewModel.isSuccessful.observe(viewLifecycleOwner) {success ->
+            setToast("User Login Successfully")
+            view.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) { error ->
+            if (error != null) {
+                setToast(error)
+            }
+        }
+
 
         setupAccessibility()
 
@@ -58,7 +89,18 @@ class LoginFragment : Fragment() {
         }
     }
 
+    private fun setToast(msg: String) {
+        Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show()
+    }
 
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
+    }
 
         
     

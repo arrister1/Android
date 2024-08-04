@@ -40,16 +40,9 @@ class RegistrationSuccessFragment : Fragment() {
    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+       setupAccessibility()
         binding.regisSuccessLayout.setOnClickListener {
-//            if (viewModel.isDataComplete()) {
-//                viewModel.registerUser()
-//                setToast("Terimakasih telah melengkapi data kamu")
-//                requireView().findNavController().navigate(R.id.action_registrationSuccessFragment_to_homeFragment)
-//
-//
-//            } else {
-//                setToast("Mohon lengkapi data terlebih dahulu")
-//            }
+
 
             requireView().findNavController().navigate(R.id.action_registrationSuccessFragment_to_homeFragment)
 
@@ -61,6 +54,11 @@ class RegistrationSuccessFragment : Fragment() {
     private fun setToast(msg: String) {
         Toast.makeText(requireActivity(),msg, Toast.LENGTH_SHORT).show()
 
+    }
+    private fun setupAccessibility() {
+        binding.apply {
+            tvRegisSuccess.contentDescription = getString(R.string.anda_berhasil_membuka_rekening)
+        }
     }
 
 }

@@ -4,6 +4,6 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val AuthViewModelKoin = module {
-    viewModel { LoginViewModel(loginUseCase = get()) }
+    viewModel { LoginViewModel(get()) }
     viewModel { RegisterViewModel( get()) }
 }
