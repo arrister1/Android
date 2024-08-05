@@ -21,7 +21,7 @@ class RegistrationSuccessFragment : Fragment() {
     private var _binding: FragmentRegistrationSuccessBinding? = null
     private val binding get() = _binding!!
 
-    private val DELAY_MILLIS: Long = 1500
+    private val DELAY_MILLIS: Long = 2000
 
     private val viewModel by viewModels<RegisterViewModel> {
 //        val app = requireActivity().application
