@@ -1,12 +1,16 @@
 package com.synrgy7team4.feature_auth.data.repository
 
+import android.content.Context
+import android.net.Uri
 import com.synrgy7team4.feature_auth.data.local.AuthLocalSource
 import com.synrgy7team4.feature_auth.data.remote.AuthRemoteSource
-import com.synrgy7team4.feature_auth.data.remote.request.LoginRequest
+import com.synrgy7team4.feature_auth.data.remote.response.Data
 import com.synrgy7team4.feature_auth.data.remote.response.DataX
-import com.synrgy7team4.feature_auth.data.remote.response.RegistResponse
-import com.synrgy7team4.feature_auth.data.remote.request.RegisterRequest
 import com.synrgy7team4.feature_auth.data.remote.response.LoginResponse
+import com.synrgy7team4.feature_auth.data.remote.response.RegistResponse
+import com.synrgy7team4.feature_auth.data.remote.response.RegisterResponse
+import com.synrgy7team4.feature_auth.data.remote.retrofit.RegisterBody
+import com.synrgy7team4.feature_auth.domain.model.UserModel
 import com.synrgy7team4.feature_auth.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.Flow
 
@@ -19,8 +23,8 @@ class ImplementAuthRepository(
 //        return authRemoteSource.register(registerBody)
 //    }
 
-    override suspend fun register(registerRequest: RegisterRequest): RegistResponse {
-        return authRemoteSource.register(registerRequest)
+    override suspend fun register(registerBody: RegisterBody): RegistResponse {
+        return authRemoteSource.register(registerBody)
     }
 
 //    override suspend fun register(name: String, email: String, password: String): RegisterResponse {
@@ -31,8 +35,8 @@ class ImplementAuthRepository(
 //        return authRemoteSource.register(registerBody, context, uri)
 //    }
 
-    override suspend fun login(loginRequest: LoginRequest): LoginResponse {
-        return authRemoteSource.login(loginRequest)
+    override suspend fun login(email: String, password: String): DataX {
+        return authRemoteSource.login(email, password)
     }
 
     override suspend fun saveSession(dataX: DataX) {

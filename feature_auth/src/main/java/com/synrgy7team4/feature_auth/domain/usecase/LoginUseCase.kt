@@ -8,15 +8,15 @@ import kotlinx.coroutines.launch
 
 class LoginUseCase( private val authRepository: AuthRepository) {
 
-//    suspend fun login(email:String, password: String) {
-//        if (email.isEmpty() || password.isEmpty()) {
-//            throw IllegalArgumentException("username or password cannot be empty")
-//        } else {
-//             val response = authRepository.login(email, password)
-//            authRepository.saveSession(response)
-//
-//        }
-//    }
+    suspend fun login(email:String, password: String) {
+        if (email.isEmpty() || password.isEmpty()) {
+            throw IllegalArgumentException("username or password cannot be empty")
+        } else {
+             val response = authRepository.login(email, password)
+            authRepository.saveSession(response)
+
+        }
+    }
 
 
 

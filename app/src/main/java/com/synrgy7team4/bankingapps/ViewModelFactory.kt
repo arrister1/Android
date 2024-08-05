@@ -12,7 +12,7 @@ class ViewModelFactory(private val module: Module): ViewModelProvider.Factory {
         return when (modelClass) {
 
             RegisterViewModel::class.java-> RegisterViewModel(authRepository = module.authRepository) as T
-            LoginViewModel::class.java -> LoginViewModel(repository = module.authRepository) as T
+            LoginViewModel::class.java -> LoginViewModel(loginUseCase = module.loginUseCase) as T
 
             else -> {
                 throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)

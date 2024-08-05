@@ -1,6 +1,8 @@
 package com.synrgy7team4.feature_auth.presentation.register
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.jer.shared.ViewModelFactoryProvider
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentRegistrationSuccessBinding
@@ -17,6 +20,8 @@ import com.synrgy7team4.feature_auth.presentation.viewmodel.RegisterViewModel
 class RegistrationSuccessFragment : Fragment() {
     private var _binding: FragmentRegistrationSuccessBinding? = null
     private val binding get() = _binding!!
+
+    private val DELAY_MILLIS: Long = 2000
 
     private val viewModel by viewModels<RegisterViewModel> {
 //        val app = requireActivity().application
@@ -40,13 +45,24 @@ class RegistrationSuccessFragment : Fragment() {
    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-       setupAccessibility()
-        binding.regisSuccessLayout.setOnClickListener {
+       Handler(Looper.getMainLooper()).postDelayed({
+           findNavController().navigate(R.id.action_registrationSuccessFragment_to_homeFragment)
+       }, DELAY_MILLIS)
 
+//        binding.regisSuccessLayout.setOnClickListener {
+//            if (viewModel.isDataComplete()) {
+//                viewModel.registerUser()
+//                setToast("Terimakasih telah melengkapi data kamu")
+//                requireView().findNavController().navigate(R.id.action_registrationSuccessFragment_to_homeFragment)
+//
+//
+//            } else {
+//                setToast("Mohon lengkapi data terlebih dahulu")
+//            }
 
-            requireView().findNavController().navigate(R.id.action_registrationSuccessFragment_to_homeFragment)
-
-        }
+//            requireView().findNavController().navigate(R.id.action_registrationSuccessFragment_to_homeFragment)
+//
+//        }
 
 
     }
@@ -54,11 +70,6 @@ class RegistrationSuccessFragment : Fragment() {
     private fun setToast(msg: String) {
         Toast.makeText(requireActivity(),msg, Toast.LENGTH_SHORT).show()
 
-    }
-    private fun setupAccessibility() {
-        binding.apply {
-            tvRegisSuccess.contentDescription = getString(R.string.anda_berhasil_membuka_rekening)
-        }
     }
 
 }
