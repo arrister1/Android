@@ -114,10 +114,6 @@ class UploadKtpFragment : Fragment() {
                 }
             }
 
-
-
-
-//            requireView().findNavController().navigate(R.id.action_uploadKtpFragment_to_registrationSuccessFragment)
         }
 
         viewModel.error.observe(viewLifecycleOwner) { error ->

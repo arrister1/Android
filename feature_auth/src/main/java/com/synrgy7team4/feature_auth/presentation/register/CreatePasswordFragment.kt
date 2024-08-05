@@ -74,7 +74,7 @@ class CreatePasswordFragment : Fragment() {
                     } else {
                         if (passwordConfirmation != password) {
                             Snackbar.make(view, "Password tidak sama, mohon input kembali", Snackbar.LENGTH_SHORT).show()
-                            binding.inputPasswordConfirmation.error = "Password tidak sama, mohon input kembali"
+
                         } else {
                             sharedPreferences.edit().putString("password", password).apply()
 //                            sharedPreferences.edit().putString("confirm_password", passwordConfirmation).apply()

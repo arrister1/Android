@@ -5,8 +5,8 @@ import com.google.gson.annotations.SerializedName
 
 //Data is response from Registerr
 data class Data(
-    @SerializedName("id")
-    val id: String,
+//    @SerializedName("id")
+//    val id: String,
     @SerializedName("name")
     val name: String,
     @SerializedName("email")
@@ -17,4 +17,10 @@ data class Data(
     val noHp: String,
     @SerializedName("date_of_birth")
     val dateOfBirth: String,
+    @SerializedName("account_number")
+    val accountNumber: String,
+    @SerializedName("account_pin")
+    val accountPin: String,
+    @SerializedName("ektp_photo")
+    val ektpPhoto: String,
 )
