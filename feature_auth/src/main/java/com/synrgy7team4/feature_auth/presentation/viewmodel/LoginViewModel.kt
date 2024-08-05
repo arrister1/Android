@@ -19,8 +19,7 @@ import retrofit2.HttpException
 
 class LoginViewModel(private val repository: AuthRepository): ViewModel() {
 
-    private val _loginResult = MutableLiveData<LoginResponse>()
-    val loginResult: LiveData<LoginResponse> = _loginResult
+
 
     private val _isSuccessful = MutableLiveData<Boolean>()
     val isSuccessful:LiveData<Boolean> = _isSuccessful
@@ -28,8 +27,8 @@ class LoginViewModel(private val repository: AuthRepository): ViewModel() {
     private var _isLoading = MutableLiveData<Boolean>()
     val isLoading: MutableLiveData<Boolean> get() = _isLoading
 
-    private val _error = MutableLiveData<String>()
-    val error: LiveData<String> = _error
+    private val _error = MutableLiveData<Boolean>()
+    val error: LiveData<Boolean> = _error
 
     fun loginUser(email: String, password: String) {
         viewModelScope.launch {
@@ -45,10 +44,10 @@ class LoginViewModel(private val repository: AuthRepository): ViewModel() {
                 if (throwable is HttpException) {
                     val json = throwable.response()?.errorBody()?.string()
                     val error = Gson().fromJson(json, ErrorResponse::class.java)
-                    _error.value = error.message
+                    _error.value = false
                     Log.e("LoginViewModel", "HTTP Error: ${error.message}")
                 } else {
-                    _error.value = throwable.message
+                    _error.value = false
                     Log.e("LoginViewModel", "Error: ${throwable.message}")
 
                 }

@@ -47,6 +47,8 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="ektp_image">Gambar E-KTP</string>
+
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
@@ -86,5 +88,9 @@
     </string>
     <string name="biodata">Biodata</string>
     <string name="calendar_format">dd/mm/yyyy</string>
+    <string name="tombol_kirim">Tombol Kirim</string>
+    <string name="tombol_upload_ktp">Tombol Upload KTP</string>
+    <string name="silahkan_upload_dan_kirim_e_ktp_anda">Silahkan upload dan kirim E-KTP Anda!</string>
+    <string name="teks_silahkan_upload_dan_kirim_e_ktp_anda">Teks Silahkan Upload dan Kirim E KTP Anda</string>
 
 </resources>

@@ -48,10 +48,30 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupAccessibility()
+
 
         binding.btnBack.setOnClickListener{
             view.findNavController().popBackStack()
         }
+
+
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            showLoading(it)
+        }
+
+        viewModel.isSuccessful.observe(viewLifecycleOwner) {
+            setToast("User Login Successfully")
+            view.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) { notError ->
+            if (!notError) {
+                setToast("Email atau Password anda salah")
+            }
+        }
+
+
 
         binding.btnMasuk.setOnClickListener {
             val email = binding.edtEmail.text.toString()
@@ -106,25 +126,9 @@ class LoginFragment : Fragment() {
 
         })
 
-        viewModel.isLoading.observe(viewLifecycleOwner) {
-            showLoading(it)
-        }
-
-        viewModel.isSuccessful.observe(viewLifecycleOwner) {success ->
-            setToast("User Login Successfully")
-            view.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-
-        }
-
-        viewModel.error.observe(viewLifecycleOwner) { error ->
-            if (error != null) {
-                setToast(error)
-            }
-        }
 
 
 
-        setupAccessibility()
 
     }
 

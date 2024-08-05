@@ -91,6 +91,8 @@ class UploadKtpFragment : Fragment() {
 
         sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
 
+        setupAccessibility()
+
         binding.btnEncode.setOnClickListener {
             selectImage()
         }
@@ -195,6 +197,16 @@ class UploadKtpFragment : Fragment() {
             setToast("Registration data is not complete")
         }
 
+    }
+
+
+    private fun setupAccessibility() {
+        binding.apply {
+            ivKtp.contentDescription = getString(R.string.ektp_image)
+            btnSend.contentDescription = getString(R.string.tombol_kirim)
+            btnEncode.contentDescription = getString(R.string.tombol_upload_ktp)
+            tvDesc.contentDescription = getString(R.string.teks_silahkan_upload_dan_kirim_e_ktp_anda)
+        }
     }
 
 
