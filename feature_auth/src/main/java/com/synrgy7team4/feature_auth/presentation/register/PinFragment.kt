@@ -142,13 +142,11 @@ class PinFragment : Fragment(), View.OnClickListener {
                     pinInputBinding.tvPinInput6.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet_filled)
                     passCode = input1 + input2 + input3 + input4 + input5 + input6
                     if (passCode.length == 6) {
-                        val bundle = Bundle().apply {
-                            putString("passCode", passCode)
-                        }
+
                         sharedPreferences.edit().putString("pin", passCode).apply()
 
 //                        setToast("Kamu berhasil membuat pin")
-                        val deepLinkUri = Uri.parse("app://example/pinConfirmation?passCode=$passCode")
+                        val deepLinkUri = Uri.parse("app://com.example.app/auth/pinConfirmation")
 
 
                         requireView().findNavController().navigate(deepLinkUri)                    }

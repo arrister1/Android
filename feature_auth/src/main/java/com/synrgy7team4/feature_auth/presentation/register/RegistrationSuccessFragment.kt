@@ -47,8 +47,8 @@ class RegistrationSuccessFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
        Handler(Looper.getMainLooper()).postDelayed({
-           val deepLinkUri = Uri.parse("app://com.example.app/dashboard/home" )
-
+           val deepLinkUri = Uri.parse("app://com.example.app/auth/login" )
+           findNavController().navigate(deepLinkUri)
            // findNavController().navigate(R.id.action_registrationSuccessFragment_to_homeFragment)
        }, DELAY_MILLIS)
 

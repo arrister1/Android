@@ -8,6 +8,7 @@ import com.synrgy7team4.feature_auth.di.AuthKoin
 import com.synrgy7team4.feature_auth.di.Module
 
 import com.synrgy7team4.feature_auth.presentation.viewmodel.AuthViewModelKoin
+import com.synrgy7team4.feature_dashboard.presentation.viewmodel.DashboardViewModelKoin
 //import com.synrgy7team4.feature_dashboard.presentation.viewmodel.DashboardViewModelKoin
 import com.synrgy7team4.feature_mutasi.di.MutasiKoin
 import com.synrgy7team4.feature_mutasi.presentation.viewmodel.MutasiViewModelKoin
@@ -35,7 +36,7 @@ class MyApplication : Application(), ViewModelFactoryProvider {
                 AuthViewModelKoin,
                 MutasiKoin,
                 MutasiViewModelKoin,
-//                DashboardViewModelKoin
+                DashboardViewModelKoin
             )
         }
     }

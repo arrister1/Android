@@ -76,11 +76,8 @@
         android:name="com.synrgy7team4.feature_auth.presentation.register.PinConfirmationFragment"
         android:label="PinConfirmationFragment">
         <deepLink
-            android:id="@+id/deepLinkPinConfirmation"
-            app:uri="app://com.example.app/auth/pinConfirmation?passCode={passCode}" />
-        <argument
-            android:name="passCode"
-            app:argType="string" />
+            app:uri="app://com.example.app/auth/pinConfirmation" />
+
     </fragment>
     <fragment
         android:id="@+id/uploadKtpFragment2"
