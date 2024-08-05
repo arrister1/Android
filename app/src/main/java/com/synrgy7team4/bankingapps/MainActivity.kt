@@ -1,5 +1,6 @@
 package com.synrgy7team4.bankingapps
 
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
@@ -10,12 +11,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_feature_auth) as NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
         // Navigate to the main destination
+        val deepLinkUri = Uri.parse("app://com.example.app/auth/splashScreen")
 
-        navController.navigate(com.synrgy7team4.feature_auth.R.id.splashScreenFragment)
+        navController.navigate(deepLinkUri)
 
 
     }

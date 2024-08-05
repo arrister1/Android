@@ -8,6 +8,8 @@ import com.synrgy7team4.feature_auth.di.AuthKoin
 import com.synrgy7team4.feature_auth.di.Module
 
 import com.synrgy7team4.feature_auth.presentation.viewmodel.AuthViewModelKoin
+import com.synrgy7team4.feature_dashboard.presentation.viewmodel.DashboardViewModelKoin
+//import com.synrgy7team4.feature_dashboard.presentation.viewmodel.DashboardViewModelKoin
 import com.synrgy7team4.feature_mutasi.di.MutasiKoin
 import com.synrgy7team4.feature_mutasi.presentation.viewmodel.MutasiViewModelKoin
 import org.koin.android.ext.koin.androidContext
@@ -33,7 +35,8 @@ class MyApplication : Application(), ViewModelFactoryProvider {
                 AuthKoin,
                 AuthViewModelKoin,
                 MutasiKoin,
-                MutasiViewModelKoin
+                MutasiViewModelKoin,
+                DashboardViewModelKoin
             )
         }
     }

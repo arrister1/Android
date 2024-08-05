@@ -1,6 +1,9 @@
 
 buildscript {
+    val nav_version by extra("2.7.7") // Atau versi terbaru
+
     dependencies {
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
         classpath("com.android.tools.build:gradle:8.1.0")
         classpath("com.google.gms:google-services:4.4.2")
         classpath("com.google.firebase:firebase-crashlytics-gradle:3.0.2")
@@ -17,3 +20,4 @@ plugins {
     kotlin("kapt") version "1.9.24"
     id("com.android.library") version "8.5.1" apply false
 }
+

@@ -1,5 +1,6 @@
 package com.synrgy7team4.feature_auth.presentation.login
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -39,9 +40,13 @@ class LoginFragment : Fragment() {
         }
 
         binding.btnMasuk.setOnClickListener {
-            view.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-        }
+            val deepLinkUri = Uri.parse("app://com.example.app/dashboard/home" )
+            view.findNavController().navigate(deepLinkUri)
 
+
+//            view.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+//
+        }
         setupAccessibility()
 
     }

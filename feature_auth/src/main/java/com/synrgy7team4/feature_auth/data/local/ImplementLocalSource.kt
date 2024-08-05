@@ -67,5 +67,11 @@ class ImplementLocalSource(private val dataStore: DataStore<Preferences>): AuthL
 
     }
 
+    fun getUserNmae(): Flow<String?>{
+        return dataStore.data.map { preferences ->
+            preferences[NAME]
+        }
+    }
+
 
 }

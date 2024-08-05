@@ -2,6 +2,7 @@ package com.synrgy7team4.feature_auth.presentation.onBoarding
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -41,11 +42,12 @@ class OnBoardingFragment : Fragment() {
         setupAccessibility()
 
         binding.btnBlumPunya.setOnClickListener {
-            requireView().findNavController().navigate(R.id.action_onBoardingFragment_to_inputEmailFragment)
+            val deepLinkUriRegis = Uri.parse("app://com.example.app/auth/inputEmail")
+            requireView().findNavController().navigate(deepLinkUriRegis)
         }
         binding.btnPunya.setOnClickListener {
-            requireView().findNavController().navigate(R.id.action_onBoardingFragment_to_loginFragment)
-        }
+            val deepLinkUri = Uri.parse("app://com.example.app/auth/login")
+            requireView().findNavController().navigate(deepLinkUri)        }
 
 
 

@@ -38,6 +38,9 @@ android {
 dependencies {
 
     implementation(project(":common"))
+    implementation(project(":shared"))
+    implementation(project(":feature_auth"))
+
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.7.0")
