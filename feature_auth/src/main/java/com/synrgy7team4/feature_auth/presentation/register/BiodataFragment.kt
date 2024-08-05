@@ -83,11 +83,6 @@ class BiodataFragment : Fragment() {
                         view.findNavController().navigate(deepLinkUri)
                     }
 
-//                    sharedPreferences.edit().putString("ktp", ktp).apply()
-//                    sharedPreferences.edit().putString("name", name).apply()
-//                    setToast("Bidoata kamu berhasil ditambahkan")
-//                    view.findNavController().navigate(R.id.action_biodataFragment_to_pinFragment)
-
                 }
             }
         }
