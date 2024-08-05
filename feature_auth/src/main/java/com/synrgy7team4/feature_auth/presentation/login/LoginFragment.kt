@@ -1,14 +1,18 @@
 package com.synrgy7team4.feature_auth.presentation.login
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.jer.shared.ViewModelFactoryProvider
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentLoginBinding
@@ -50,11 +54,57 @@ class LoginFragment : Fragment() {
         }
 
         binding.btnMasuk.setOnClickListener {
-            viewModel.loginUser(
-                binding.edtEmail.text.toString(),
-                binding.edtPassword.text.toString()
-            )
+            val email = binding.edtEmail.text.toString()
+            val password = binding.edtPassword.text.toString()
+            val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+
+            when {
+                email.isEmpty() -> binding.edtEmail.error = "Email tidak boleh kosong"
+                password.isEmpty() -> binding.edtPassword.error = "Password tidak boleh kosong"
+                else -> {
+                    if (!email.matches(emailPattern.toRegex())) {
+                        binding.edtEmail.error = "Format email tidak sesuai. Contoh: user@domain.com"
+                    }
+                    if  (password.contains(Regex("[^a-zA-Z0-9]"))) {
+                        Snackbar.make(view, "Password tidak boleh mengandung simbol", Snackbar.LENGTH_SHORT).show()
+                    } else if (password.length < 8) {
+                        Snackbar.make(view, "Password harus terdiri dari 8-15 karakter", Snackbar.LENGTH_SHORT).show()
+                    } else if (password.length > 15) {
+                        Snackbar.make(view, "Password harus terdiri dari 8-15 karakter", Snackbar.LENGTH_SHORT).show()
+                    } else {
+                        viewModel.loginUser(
+                            email,
+                            password
+                        )
+                    }
+                }
+            }
+
         }
+
+
+        binding.edtPassword.addTextChangedListener(object: TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val pw = s.toString()
+
+                if (pw.contains(Regex("[^a-zA-Z0-9]"))) {
+                    Snackbar.make(view, "Password tidak boleh mengandung simbol", Snackbar.LENGTH_SHORT).show()
+                } else if (pw.length < 8) {
+                    Snackbar.make(view, "Password harus terdiri dari 8-15 karakter", Snackbar.LENGTH_SHORT).show()
+                } else if (pw.length > 15) {
+                    Snackbar.make(view, "Password harus terdiri dari 8-15 karakter", Snackbar.LENGTH_SHORT).show()
+                } else {
+                    binding.edtPassword.error = null
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
 
         viewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
@@ -71,6 +121,7 @@ class LoginFragment : Fragment() {
                 setToast(error)
             }
         }
+
 
 
         setupAccessibility()

@@ -104,7 +104,7 @@ class CreatePasswordFragment : Fragment() {
                     } else if (pw.length > 15) {
                         Snackbar.make(view, "Password harus terdiri dari 8-15 karakter", Snackbar.LENGTH_SHORT).show()
                     } else {
-                        binding.inputPassword.error = null // Reset error
+                        binding.inputPassword.error = null
                     }
                 }
 
