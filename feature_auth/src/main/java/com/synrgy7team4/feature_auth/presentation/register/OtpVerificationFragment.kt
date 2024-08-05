@@ -29,9 +29,7 @@ class OtpVerificationFragment : Fragment() {
     private lateinit var inputCode5: EditText
     private lateinit var inputCode6: EditText
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

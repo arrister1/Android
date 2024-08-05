@@ -54,7 +54,7 @@ class HomeFragment : Fragment() {
         binding.btnHistory.setOnClickListener {
             val transaction = activity?.supportFragmentManager?.beginTransaction()
             transaction?.replace(R.id.full_framelayout, MutasiFragment())
-            transaction?.disallowAddToBackStack()
+            transaction?.addToBackStack(null)
             transaction?.commit()
             //view.findNavController().navigate(R.id.action_navigation_home_to_mutasiFragment)
         }

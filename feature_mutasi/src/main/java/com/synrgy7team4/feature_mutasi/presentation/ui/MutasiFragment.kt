@@ -54,6 +54,9 @@ class MutasiFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.btnBack.setOnClickListener {
+            activity?.supportFragmentManager?.popBackStack()
+        }
         tvDateStart = view.findViewById(R.id.tv_date_start)
         tvDateEnd = view.findViewById(R.id.tv_date_end)
 
