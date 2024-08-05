@@ -1,5 +1,7 @@
 package com.synrgy7team4.feature_auth.presentation.login
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -32,6 +34,8 @@ class LoginFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+
     }
 
     override fun onCreateView(
@@ -50,9 +54,15 @@ class LoginFragment : Fragment() {
 
         setupAccessibility()
 
+        val sharedPreferences: SharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
+
 
         binding.btnBack.setOnClickListener{
             view.findNavController().popBackStack()
+        }
+
+        viewModel.token.observe(viewLifecycleOwner) { token ->
+            sharedPreferences.edit().putString("token", token).apply()
         }
 
 

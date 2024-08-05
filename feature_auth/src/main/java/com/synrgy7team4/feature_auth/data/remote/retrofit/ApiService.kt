@@ -3,12 +3,10 @@ package com.synrgy7team4.feature_auth.data.remote.retrofit
 import com.synrgy7team4.feature_auth.data.Post
 import com.synrgy7team4.feature_auth.data.remote.request.LoginRequest
 import com.synrgy7team4.feature_auth.data.remote.request.RegisterRequest
-import com.synrgy7team4.feature_auth.data.remote.response.DataX
 import com.synrgy7team4.feature_auth.data.remote.response.LoginResponse
 import com.synrgy7team4.feature_auth.data.remote.response.RegistResponse
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.Field
 import retrofit2.http.GET
 import retrofit2.http.POST
 
@@ -42,13 +40,5 @@ interface ApiService {
 
 
 
-//    @POST("register")
-//    suspend fun register(
-//        @Body registerBody: RegisterBody
-//    ): Call<RegisterResponse>
-//
-//    @POST("login")
-//    suspend fun login(
-//        @Body loginBody: LoginBody
-//    ): Call<LoginResponse>
+
 }

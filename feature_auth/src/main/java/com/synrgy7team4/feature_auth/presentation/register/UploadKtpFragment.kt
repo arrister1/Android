@@ -111,6 +111,8 @@ class UploadKtpFragment : Fragment() {
                 if (result!!.success) {
                     setToast(result.message)
                     requireView().findNavController().navigate(R.id.action_uploadKtpFragment_to_registrationSuccessFragment)
+
+                    sharedPreferences.edit().putString("accountNumber", result.data.accountNumber).apply()
                 }
             }
 
@@ -188,6 +190,8 @@ class UploadKtpFragment : Fragment() {
         {
 
             viewModel.registerUser(email, hp, password, nik, name, date, pin, ktp)
+
+
 
         } else {
             setToast("Registration data is not complete")

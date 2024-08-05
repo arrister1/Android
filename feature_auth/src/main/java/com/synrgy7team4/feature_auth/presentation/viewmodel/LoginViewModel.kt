@@ -1,5 +1,7 @@
 package com.synrgy7team4.feature_auth.presentation.viewmodel
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -21,6 +23,10 @@ class LoginViewModel(private val repository: AuthRepository): ViewModel() {
 
 
 
+    private val _token = MutableLiveData<String?>()
+    val token:LiveData<String?> = _token
+
+
     private val _isSuccessful = MutableLiveData<Boolean>()
     val isSuccessful:LiveData<Boolean> = _isSuccessful
 
@@ -37,7 +43,9 @@ class LoginViewModel(private val repository: AuthRepository): ViewModel() {
                 val loginRequest = LoginRequest(email, password)
                 val loginResponse = repository.login(loginRequest)
                 _isSuccessful.value = loginResponse.success
+                _token.value = loginResponse.data?.jwtToken
                 Log.d("LoginViewModel", "LoginRequest: $loginRequest")
+
 
 
             } catch (throwable: Throwable) {

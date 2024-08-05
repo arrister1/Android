@@ -70,6 +70,7 @@ dependencies {
 
     implementation(project(":feature_auth"))
     implementation(project(":feature_mutasi"))
+    implementation(project(":feature_dashboard"))
     implementation(project(":common"))
     implementation(project(":shared"))
     implementation("androidx.activity:activity:1.8.0")
