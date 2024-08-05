@@ -2,6 +2,7 @@ package com.synrgy7team4.feature_auth.presentation.register
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -59,8 +60,9 @@ class OtpVerification : Fragment() {
         }
 
         binding.submitOTPButton.setOnClickListener {
+            val deepLinkUri = Uri.parse("app://com.example.app/auth/password" )
 
-            view.findNavController().navigate(R.id.action_otpVerification_to_createPasswordFragment)
+            view.findNavController().navigate(deepLinkUri)
 //            view.findNavController().navigate(R.id.action_otpVerification_to_ktpVerificationBoardFragment)
         }
 

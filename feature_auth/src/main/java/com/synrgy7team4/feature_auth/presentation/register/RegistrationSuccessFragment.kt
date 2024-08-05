@@ -1,5 +1,6 @@
 package com.synrgy7team4.feature_auth.presentation.register
 
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -46,7 +47,9 @@ class RegistrationSuccessFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
        Handler(Looper.getMainLooper()).postDelayed({
-           findNavController().navigate(R.id.action_registrationSuccessFragment_to_homeFragment)
+           val deepLinkUri = Uri.parse("app://com.example.app/dashboard/home" )
+
+           // findNavController().navigate(R.id.action_registrationSuccessFragment_to_homeFragment)
        }, DELAY_MILLIS)
 
 //        binding.regisSuccessLayout.setOnClickListener {

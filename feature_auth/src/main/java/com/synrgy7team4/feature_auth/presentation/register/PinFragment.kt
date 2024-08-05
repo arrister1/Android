@@ -2,6 +2,7 @@ package com.synrgy7team4.feature_auth.presentation.register
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.findNavController
 import com.jer.shared.ViewModelFactoryProvider
 import com.synrgy7team4.common.databinding.PinInputBinding
@@ -45,6 +47,7 @@ class PinFragment : Fragment(), View.OnClickListener {
     private var input4: String? = null
     private var input5: String? = null
     private var input6: String? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -109,6 +112,7 @@ class PinFragment : Fragment(), View.OnClickListener {
     }
 
     private fun passNumber(numberList: ArrayList<String>) {
+
         clearPinDisplay()
 
         for (i in numberList.indices) {
@@ -144,8 +148,10 @@ class PinFragment : Fragment(), View.OnClickListener {
                         sharedPreferences.edit().putString("pin", passCode).apply()
 
 //                        setToast("Kamu berhasil membuat pin")
-                        requireView().findNavController().navigate(R.id.action_pinFragment_to_pinConfirmationFragment, bundle)
-                    }
+                        val deepLinkUri = Uri.parse("app://example/pinConfirmation?passCode=$passCode")
+
+
+                        requireView().findNavController().navigate(deepLinkUri)                    }
                 }
             }
         }

@@ -39,9 +39,9 @@ class LoginFragment : Fragment() {
         }
 
         binding.btnMasuk.setOnClickListener {
-            view.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+//            view.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+//
         }
-
         setupAccessibility()
 
     }

@@ -125,12 +125,14 @@ class UploadKtpFragment : Fragment() {
 
 
         binding.btnSend.setOnClickListener {
+            val deepLinkUri = Uri.parse("app://com.example.app/auth/registrationSuccess" )
+
             setToast("Mohon tunggu sebentar")
             sendRegisterRequest()
             viewModel.registerResult.observe(viewLifecycleOwner) { result ->
                 if (result!!.success) {
                     setToast(result.message)
-                    requireView().findNavController().navigate(R.id.action_uploadKtpFragment_to_registrationSuccessFragment)
+                    requireView().findNavController().navigate(deepLinkUri)
                 }
             }
 

@@ -26,6 +26,10 @@ val AuthKoin = module {
     single { provideHttpLoggingInterceptor() }
     single { provideService() }
 
+    single { ImplementAuthRepository(get(), get()) as AuthRepository }
+    single { ImplementLocalSource(get()) as AuthLocalSource }
+    single { ImplementAuthRemote(get()) as AuthRemoteSource }
+
     single<AuthRepository> {ImplementAuthRepository(authRemoteSource = get(), authLocalSource = get())}
     single<AuthRemoteSource> {ImplementAuthRemote(get())}
     single<AuthLocalSource> { ImplementLocalSource(get()) }

@@ -2,6 +2,7 @@ package com.synrgy7team4.feature_auth.presentation.register
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -56,12 +57,17 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //val passCode = arguments?.getString("passCode")
         sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
+
+        sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
+       // firstPassCode = sharedPreferences.getString("pin", "") ?: ""
+        firstPassCode = arguments?.getString("passCode") ?: ""
 
         pinNumberBinding = PinNumberBinding.bind(binding.pinNumber.root)
         pinInputBinding = PinInputBinding.bind(binding.pinInput.root)
 
-        firstPassCode = arguments?.getString("passCode") ?: ""
+        //firstPassCode = arguments?.getString("passCode") ?: ""
         initializeComponents()
 
 //        viewModel.error.observe(viewLifecycleOwner) {error->
@@ -180,6 +186,8 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
     }
 
     private fun matchPassCode() {
+        val deepLinkUri = Uri.parse("app://com.example.app/auth/registrationSuccess" )
+
         if (firstPassCode == passCode) {
 
 //            sharedPreferences.edit().putString("confirm_pin", passCode).apply()
@@ -187,7 +195,10 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
 //            setToast("Selamat! Registrasi Berhasil, \nTerimakasih Telah Melengkapi Data Kamu ")
             setToast("Kamu Berhasil Membuat Pin ")
 //            requireView().findNavController().navigate(R.id.action_pinConfirmationFragment_to_registrationSuccessFragment)
-            requireView().findNavController().navigate(R.id.action_pinConfirmationFragment_to_uploadKtpFragment)
+           // requireView().findNavController().navigate(R.id.action_pinConfirmationFragment_to_uploadKtpFragment)
+
+            requireView().findNavController().navigate(deepLinkUri)
+
         } else {
             Toast.makeText(requireContext(), "Password Tidak Cocok", Toast.LENGTH_SHORT).show()
             numberList.clear()
