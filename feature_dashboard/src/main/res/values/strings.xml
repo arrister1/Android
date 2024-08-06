@@ -28,7 +28,12 @@
     <string name="berita">Berita</string>
     <string name="masukan_berita">Masukan Berita</string>
     <string name="lanjut">Lanjut</string>
+    <string name="lanjutkan">Lanjutkan</string>
+    <string name="nomor_rekening">Nomor Rekening</string>
     <string name="dummy_bank_name_and_Account_number">Lumi Bank - 12345678910121315</string>
+    <string name="pastikan_detail_penerima_transfer_benar">Pastikan detail penerima transfer benar</string>
+    <string name="cek_detail_penerima">Cek Detail Penerima</string>
+    <string name="simpan_penerima">Simpan Penerima</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_dashboard">DashboardActivity</string>
