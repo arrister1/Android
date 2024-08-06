@@ -147,6 +147,15 @@
             android:id="@+id/action_uploadKtpFragment_to_registrationSuccessFragment"
             app:destination="@id/registrationSuccessFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/mutasiFragment2"
+        android:name="com.synrgy7team4.feature_mutasi.presentation.ui.MutasiFragment"
+        android:label="MutasiFragment" >
+        <deepLink
+            app:uri="myapp://mutasi"
+            app:action="android.intent.action.VIEW" />
+    </fragment>
+
 
 
 </navigation>

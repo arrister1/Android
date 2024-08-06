@@ -29,5 +29,10 @@
     <fragment
         android:id="@+id/mutasiFragment"
         android:name="com.synrgy7team4.feature_mutasi.presentation.ui.MutasiFragment"
-        android:label="MutasiFragment" />
+        android:label="MutasiFragment" >
+        <deepLink
+            app:uri="myapp://mutasi"
+            app:action="android.intent.action.VIEW" />
+
+    </fragment>
 </navigation>

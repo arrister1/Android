@@ -2,10 +2,13 @@ package com.synrgy7team4.feature_dashboard.presentation.ui.home
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -13,6 +16,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.jer.shared.ViewModelFactoryProvider
 import com.synrgy7team4.feature_dashboard.R
 import com.synrgy7team4.feature_dashboard.databinding.FragmentHomeBinding
@@ -104,10 +109,34 @@ class HomeFragment : Fragment() {
 
         binding.btnHistory.setOnClickListener {
 
-            val transaction = activity?.supportFragmentManager?.beginTransaction()
-            transaction?.replace(R.id.full_framelayout, MutasiFragment())
-            transaction?.disallowAddToBackStack()
-            transaction?.commit()        }
+            val deepLinkUri = Uri.parse("myapp://mutasi")
+            requireView().findNavController().navigate(deepLinkUri)
+//            Log.d("HomeFragment", "Attempting to load MutasiFragment")
+//
+//            val frameLayout = activity?.findViewById<FrameLayout>(R.id.full_framelayout)
+//            if (frameLayout != null) {
+//                Log.d("HomeFragment", "FrameLayout found: $frameLayout")
+//                findNavController().navigate(R.id.action_navigation_home_to_mutasiFragment)
+//            } else {
+//                Log.e("HomeFragment", "FrameLayout not found")
+//                Toast.makeText(requireContext(), "FrameLayout not found", Toast.LENGTH_SHORT).show()
+//            }
+        }
+//        binding.btnHistory.setOnClickListener {
+//            binding.btnHistory.setOnClickListener {
+//                findNavController().navigate(R.id.action_navigation_home_to_mutasiFragment)
+//            }
+////            val frameLayout = activity?.findViewById<FrameLayout>(R.id.full_framelayout)
+////            if (frameLayout != null) {
+////                activity?.supportFragmentManager?.beginTransaction()?.apply {
+////                    replace(R.id.full_framelayout, MutasiFragment())
+////                    disallowAddToBackStack()
+////                    commit()
+////                }
+////            } else {
+////                Toast.makeText(requireContext(), "FrameLayout not found", Toast.LENGTH_SHORT).show()
+////            }
+//        }
 
         binding.tvAccBalance.text = fullBalance
         binding.toggleBalance.setImageResource(com.synrgy7team4.common.R.drawable.ic_visibility_on)
