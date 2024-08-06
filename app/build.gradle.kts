@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId = "com.synrgy7team4.bankingapps"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -165,4 +165,6 @@ dependencies {
     implementation ("androidx.camera:camera-extensions:${camerax_version}")
 
     implementation ("com.google.firebase:firebase-ml-vision:24.0.3")
+    //sharedpref
+    implementation ("androidx.security:security-crypto:1.1.0-alpha03")
 }

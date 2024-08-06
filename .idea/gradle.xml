@@ -15,9 +15,6 @@
             <option value="$PROJECT_DIR$/feature_auth" />
             <option value="$PROJECT_DIR$/feature_dashboard" />
             <option value="$PROJECT_DIR$/feature_mutasi" />
-            <option value="$PROJECT_DIR$/feature_transfer" />
-            <option value="$PROJECT_DIR$/feature_transfer/data" />
-            <option value="$PROJECT_DIR$/feature_transfer/domain" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />
