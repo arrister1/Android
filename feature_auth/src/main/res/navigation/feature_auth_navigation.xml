@@ -47,8 +47,8 @@
         android:label="fragment_registration_success"
         tools:layout="@layout/fragment_registration_success" >
         <action
-            android:id="@+id/action_registrationSuccessFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_registrationSuccessFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <!--<activity
         android:id="@+id/mainActivity"

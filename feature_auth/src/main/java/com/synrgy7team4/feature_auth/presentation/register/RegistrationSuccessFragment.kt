@@ -1,6 +1,8 @@
 package com.synrgy7team4.feature_auth.presentation.register
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,15 +43,17 @@ class RegistrationSuccessFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
        setupAccessibility()
-        binding.regisSuccessLayout.setOnClickListener {
 
-
-            requireView().findNavController().navigate(R.id.action_registrationSuccessFragment_to_homeFragment)
-
-        }
-
-
-    }
+       Handler(Looper.getMainLooper()).postDelayed({
+           requireView().findNavController().navigate(R.id.action_registrationSuccessFragment_to_loginFragment)
+       }, 1500)
+   }
+//        binding.regisSuccessLayout.setOnClickListener {
+//
+//
+//            requireView().findNavController().navigate(R.id.action_registrationSuccessFragment_to_loginFragment)
+//
+//        }
 
     private fun setToast(msg: String) {
         Toast.makeText(requireActivity(),msg, Toast.LENGTH_SHORT).show()
@@ -60,5 +64,7 @@ class RegistrationSuccessFragment : Fragment() {
             tvRegisSuccess.contentDescription = getString(R.string.anda_berhasil_membuka_rekening)
         }
     }
+    }
 
-}
+
+

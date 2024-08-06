@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -20,14 +21,17 @@ class DashboardActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView
+        val navHostDashboard = supportFragmentManager.findFragmentById(com.synrgy7team4.feature_dashboard.R.id.nav_host_fragment_feature_dashboard) as NavHostFragment
+        val navController = navHostDashboard.navController
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        val appBarConfiguration = AppBarConfiguration(
+
+        /*val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
+                com.synrgy7team4.feature_dashboard.R.id.navigation_home, com.synrgy7team4.feature_dashboard.R.id.navigation_dashboard, com.synrgy7team4.feature_dashboard.R.id.navigation_notifications
             )
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
+
+        setupActionBarWithNavController(navController, appBarConfiguration)*/
         navView.setupWithNavController(navController)
     }
 }

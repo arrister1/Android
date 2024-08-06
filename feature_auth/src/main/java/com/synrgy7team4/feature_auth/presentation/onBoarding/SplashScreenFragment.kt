@@ -35,25 +35,24 @@ class SplashScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         AnimatorSet().apply {
             playSequentially(playMoveScaling(), playFadeAnimation())
             addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
                     super.onAnimationEnd(animation)
 
-                    requireView().findNavController().navigate(R.id.action_splashScreenFragment_to_onBoardingFragment)
-
-
-//                    val intent = Intent(this@SplashScreenFragment, MainActivity::class.java)
-//                    intent.putExtra("MOVE_FROM_SPLASH", true)
-//                    startActivity(intent)
-//                    finish()
+                    // Cek apakah view masih ada sebelum melakukan navigasi
+                    view?.let {
+                        it.findNavController().navigate(R.id.action_splashScreenFragment_to_onBoardingFragment)
+                    }
                 }
             })
             start()
         }
-
     }
+
+
 
     private fun playMoveScaling(): AnimatorSet {
         val imageSplash = binding.splashSlide

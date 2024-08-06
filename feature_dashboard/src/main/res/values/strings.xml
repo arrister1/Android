@@ -9,10 +9,14 @@
     <string name="akun">Akun</string>
     <string name="selamat_pagi">Selamat Pagi,</string>
     <string name="dummy_name">Nur Afina</string>
-    <string name="dummy_acc_number">7293********9283</string>
-    <string name="dummy_account_balance">3,492,203</string>
+    <string name="dummy_acc_number">7293109283</string>
+    <string name="dummy_account_balance">0.0</string>
     <string name="transfer">Transfer</string>
     <string name="riwayat">Riwayat</string>
     <string name="rp">Rp</string>
+    <string name="bayar_listrik">Bayar Listrik</string>
+    <string name="beli_pulsa">Beli Pulsa</string>
+    <string name="beli_paket_data">Beli Paket Data</string>
+    <string name="ewallet">EWallet</string>
 
 </resources>
