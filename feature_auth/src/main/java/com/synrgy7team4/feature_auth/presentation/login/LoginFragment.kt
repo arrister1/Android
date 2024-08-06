@@ -16,15 +16,18 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.jer.shared.ViewModelFactoryProvider
+import com.synrgy7team4.common.SharedPrefHelper
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentLoginBinding
 import com.synrgy7team4.feature_auth.presentation.viewmodel.LoginViewModel
 import com.synrgy7team4.feature_auth.presentation.viewmodel.RegisterViewModel
+import org.koin.android.ext.android.inject
 
 
 class LoginFragment : Fragment() {
 
     private val binding by lazy { FragmentLoginBinding.inflate(layoutInflater) }
+    private val sharedPrefHelper: SharedPrefHelper by inject()
     private val viewModel by viewModels<LoginViewModel> {
 
         val app = requireActivity().application as ViewModelFactoryProvider
@@ -54,7 +57,7 @@ class LoginFragment : Fragment() {
 
         setupAccessibility()
 
-        val sharedPreferences: SharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
+        //val sharedPreferences: SharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
 
 
         binding.btnBack.setOnClickListener{
@@ -62,7 +65,8 @@ class LoginFragment : Fragment() {
         }
 
         viewModel.token.observe(viewLifecycleOwner) { token ->
-            sharedPreferences.edit().putString("token", token).apply()
+            sharedPrefHelper.saveJwtToken(token)
+            //sharedPreferences.edit().putString("token", token).apply()
         }
 
 
@@ -74,6 +78,11 @@ class LoginFragment : Fragment() {
             setToast("User Login Successfully")
             view.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
         }
+
+//        viewModel.isSuccessful.observe(viewLifecycleOwner) {
+//            setToast("User Login Successfully")
+//            view.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+//        }
 
         viewModel.error.observe(viewLifecycleOwner) { notError ->
             if (!notError) {

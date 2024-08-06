@@ -19,7 +19,11 @@
         android:id="@+id/fingerprintVerifFragment"
         android:name="com.synrgy7team4.feature_auth.presentation.register.FingerprintVerifFragment"
         android:label="fragment_fingerprint_verif"
-        tools:layout="@layout/fragment_fingerprint_verif" />
+        tools:layout="@layout/fragment_fingerprint_verif" >
+        <action
+            android:id="@+id/action_fingerprintVerifFragment_to_registrationSuccessFragment"
+            app:destination="@id/registrationSuccessFragment" />
+    </fragment>
     <fragment
         android:id="@+id/pinFragment"
         android:name="com.synrgy7team4.feature_auth.presentation.register.PinFragment"
@@ -144,8 +148,8 @@
         android:label="fragment_upload_ktp"
         tools:layout="@layout/fragment_upload_ktp" >
         <action
-            android:id="@+id/action_uploadKtpFragment_to_registrationSuccessFragment"
-            app:destination="@id/registrationSuccessFragment" />
+            android:id="@+id/action_uploadKtpFragment_to_fingerprintVerifFragment"
+            app:destination="@id/fingerprintVerifFragment" />
     </fragment>
     <fragment
         android:id="@+id/mutasiFragment2"

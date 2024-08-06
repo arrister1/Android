@@ -110,7 +110,7 @@ class UploadKtpFragment : Fragment() {
             viewModel.registerResult.observe(viewLifecycleOwner) { result ->
                 if (result!!.success) {
                     setToast(result.message)
-                    requireView().findNavController().navigate(R.id.action_uploadKtpFragment_to_registrationSuccessFragment)
+                    requireView().findNavController().navigate(R.id.action_uploadKtpFragment_to_fingerprintVerifFragment)
 
                     sharedPreferences.edit().putString("accountNumber", result.data.accountNumber).apply()
                 }

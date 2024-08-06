@@ -20,9 +20,10 @@ import com.synrgy7team4.feature_auth.databinding.FragmentFingerprintVerifBinding
 import java.util.concurrent.Executor
 
 class FingerprintVerifFragment : Fragment() {
+
     private var _binding: FragmentFingerprintVerifBinding? = null
     private val binding get() = _binding!!
-    lateinit var info: String
+    var info: String = ""
 
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
@@ -40,92 +41,48 @@ class FingerprintVerifFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//         executor = ContextCompat.getMainExecutor(requireContext())
-//         biometricPrompt = BiometricPrompt(this, executor,
-//             object : BiometricPrompt.AuthenticationCallback() {
-//                 override fun onAuthenticationError(
-//                     errorCode: Int,
-//                     errString: CharSequence,
-//                 ) {
-//                     super.onAuthenticationError(errorCode, errString)
-//                     Toast.makeText(requireContext(),
-//                         "Authentication error: $errString", Toast.LENGTH_SHORT)
-//                         .show()
-//                 }
+        executor = ContextCompat.getMainExecutor(requireContext())
+        biometricPrompt = BiometricPrompt(this, executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationError(
+                    errorCode: Int,
+                    errString: CharSequence,
+                ) {
+                    super.onAuthenticationError(errorCode, errString)
+                    Toast.makeText(requireContext(),
+                        "Authentication error: $errString", Toast.LENGTH_SHORT)
+                        .show()
+                }
 
-//                 override fun onAuthenticationSucceeded(
-//                     result: BiometricPrompt.AuthenticationResult,
-//                 ) {
-//                     super.onAuthenticationSucceeded(result)
-//                     // DISINI KALO SUCCES BIOMETRICNYA, bisa kasih nav/intent disini
-//                     requireView().findNavController().navigate(R.id.action_fingerprintVerifFragment_to_pinFragment)
-//                     Toast.makeText(requireContext(),
-//                         "Authentication succeeded!", Toast.LENGTH_SHORT)
-//                         .show()
-//                 }
+                override fun onAuthenticationSucceeded(
+                    result: BiometricPrompt.AuthenticationResult,
+                ) {
+                    super.onAuthenticationSucceeded(result)
+                    // DISINI KALO SUCCES BIOMETRICNYA, bisa kasih nav/intent disini
+                    requireView().findNavController().navigate(R.id.action_fingerprintVerifFragment_to_registrationSuccessFragment)
+                    Toast.makeText(requireContext(),
+                        "Autentikasi Sukses!", Toast.LENGTH_SHORT)
+                        .show()
+                }
 
-//                 override fun onAuthenticationFailed() {
-//                     super.onAuthenticationFailed()
-//                     Toast.makeText(requireContext(), "Authentication failed",
-//                         Toast.LENGTH_SHORT)
-//                         .show()
-//                 }
-//             })
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    Toast.makeText(requireContext(), "Autentikasi Gagal",
+                        Toast.LENGTH_SHORT)
+                        .show()
+                }
+            })
 
-//        checkDeviceHasBiometric()
+        checkDeviceHasBiometric()
         binding.ivFingerprint.setOnClickListener {
-//            biometricPrompt.authenticate(promptInfo)
-            //requireView().findNavController().navigate(R.id.action_fingerprintVerifFragment_to_pinFragment)
-
+            biometricPrompt.authenticate(promptInfo)
         }
 
-//         binding.ivFingerprint.setOnClickListener {
-//             view.findNavController().navigate(R.id.action_fingerprintVerifFragment_to_pinFragment)
-//        }
-//        executor = ContextCompat.getMainExecutor(requireContext())
-//        biometricPrompt = BiometricPrompt(this, executor,
-//            object : BiometricPrompt.AuthenticationCallback() {
-//                override fun onAuthenticationError(
-//                    errorCode: Int,
-//                    errString: CharSequence,
-//                ) {
-//                    super.onAuthenticationError(errorCode, errString)
-//                    Toast.makeText(requireContext(),
-//                        "Authentication error: $errString", Toast.LENGTH_SHORT)
-//                        .show()
-//                }
-//
-//                override fun onAuthenticationSucceeded(
-//                    result: BiometricPrompt.AuthenticationResult,
-//                ) {
-//                    super.onAuthenticationSucceeded(result)
-//                    // DISINI KALO SUCCES BIOMETRICNYA, bisa kasih nav/intent disini
-//                    requireView().findNavController().navigate(R.id.action_fingerprintVerifFragment_to_pinFragment)
-//                    Toast.makeText(requireContext(),
-//                        "Authentication succeeded!", Toast.LENGTH_SHORT)
-//                        .show()
-//                }
-//
-//                override fun onAuthenticationFailed() {
-//                    super.onAuthenticationFailed()
-//                    Toast.makeText(requireContext(), "Authentication failed",
-//                        Toast.LENGTH_SHORT)
-//                        .show()
-//                }
-//            })
-//
-//        checkDeviceHasBiometric()
-//        binding.ivFingerprint.setOnClickListener {
-//            biometricPrompt.authenticate(promptInfo)
-//        }
-
-//
-//        promptInfo = BiometricPrompt.PromptInfo.Builder()
-//            .setTitle("Biometric login for Register")
-//            .setSubtitle("Log in using your biometric credential")
-//            .setNegativeButtonText("Use account password")
-//            .build()
-
+        promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle("Daftarkan sidik jari anda")
+            .setSubtitle("Masuk dengan sidik jari")
+            .setNegativeButtonText("Gunakan password akun")
+            .build()
 
 
     }
@@ -147,7 +104,7 @@ class FingerprintVerifFragment : Fragment() {
             }
             BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
                 Log.e("MY_APP_TAG", "Biometric features are currently unavailable.")
-                info = "Sensor FIngerprint sedang tidak bisa digunakan"
+                info = "Sensor sidik jari sedang tidak bisa digunakan"
 
             }
             BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
@@ -165,44 +122,4 @@ class FingerprintVerifFragment : Fragment() {
         binding.tvDescFingerprint.text = info
     }
 }
-
-//
-//
-//    }
-//
-//    fun checkDeviceHasBiometric() {
-//        val biometricManager = BiometricManager.from(requireContext())
-//        when (biometricManager.canAuthenticate(BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL)) {
-//            BiometricManager.BIOMETRIC_SUCCESS -> {
-//                Log.d("MY_APP_TAG", "App can authenticate using biometrics.")
-//                info = "Sentuh Sensor Fingerprint"
-//
-//
-//            }
-//            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> {
-//                Log.e("MY_APP_TAG", "No biometric features available on this device.")
-//                info = "Tidak ada Sensor Fingerprint di device ini"
-//
-//
-//            }
-//            BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
-//                Log.e("MY_APP_TAG", "Biometric features are currently unavailable.")
-//                info = "Sensor FIngerprint sedang tidak bisa digunakan"
-//
-//            }
-//            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
-//                // Prompts the user to create credentials that your app accepts.
-//                val enrollIntent = Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
-//                    putExtra(
-//                        Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED,
-//                        BIOMETRIC_STRONG or DEVICE_CREDENTIAL
-//                    )
-//                }
-//
-//                startActivityForResult(enrollIntent, 100)
-//            }
-//        }
-//        binding.tvDescFingerprint.text = info
-//    }
-
 

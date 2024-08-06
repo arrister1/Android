@@ -9,12 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.jer.shared.ViewModelFactoryProvider
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentRegistrationSuccessBinding
 import com.synrgy7team4.feature_auth.databinding.FragmentVerifikasiKtpBinding
 import com.synrgy7team4.feature_auth.presentation.viewmodel.RegisterViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class RegistrationSuccessFragment : Fragment() {
     private var _binding: FragmentRegistrationSuccessBinding? = null
@@ -44,9 +47,14 @@ class RegistrationSuccessFragment : Fragment() {
 
        setupAccessibility()
 
-       Handler(Looper.getMainLooper()).postDelayed({
+       lifecycleScope.launch {
+           delay(3000)
            requireView().findNavController().navigate(R.id.action_registrationSuccessFragment_to_loginFragment)
-       }, 1500)
+       }
+
+//       Handler(Looper.getMainLooper()).postDelayed({
+//           requireView().findNavController().navigate(R.id.action_registrationSuccessFragment_to_loginFragment)
+//       }, 2000)
    }
 //        binding.regisSuccessLayout.setOnClickListener {
 //
