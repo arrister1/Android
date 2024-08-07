@@ -58,7 +58,7 @@ class FingerprintVerifFragment : Fragment() {
                 ) {
                     super.onAuthenticationSucceeded(result)
                     // DISINI KALO SUCCES BIOMETRICNYA, bisa kasih nav/intent disini
-                    requireView().findNavController().navigate(R.id.action_fingerprintVerifFragment_to_pinFragment)
+                    requireView().findNavController().navigate(R.id.action_fingerprintVerifFragment_to_registrationSuccessFragment)
                     Toast.makeText(requireContext(),
                         "Authentication succeeded!", Toast.LENGTH_SHORT)
                         .show()

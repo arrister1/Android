@@ -16,7 +16,7 @@
     <!-- To use multiple models: android:value="ocr,model2,model3" -->
 
     <application
-        android:name=".Application"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"

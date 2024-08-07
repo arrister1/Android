@@ -9,4 +9,5 @@ import org.koin.dsl.module
 val AuthViewModelKoin = module {
     single { SharedPrefHelper(androidContext()) }
     viewModel { LoginViewModel(get()) }
+    viewModel { RegisterViewModel( get()) }
 }

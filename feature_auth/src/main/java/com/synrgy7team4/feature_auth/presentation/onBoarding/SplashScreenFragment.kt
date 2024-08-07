@@ -33,7 +33,15 @@ class SplashScreenFragment : Fragment() {
             playSequentially(playMoveScaling(), playFadeAnimation())
             addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
+                    super.onAnimationEnd(animation)
+
                     findNavController().navigate(R.id.action_splashScreenFragment_to_onBoardingFragment)
+
+
+//                    val intent = Intent(this@SplashScreenFragment, MainActivity::class.java)
+//                    intent.putExtra("MOVE_FROM_SPLASH", true)
+//                    startActivity(intent)
+//                    finish()
                 }
             })
             start()

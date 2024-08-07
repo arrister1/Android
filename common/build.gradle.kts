@@ -13,9 +13,13 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildFeatures{
+
+    buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
+
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -35,6 +39,8 @@ android {
 }
 
 dependencies {
+
+
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.7.0")

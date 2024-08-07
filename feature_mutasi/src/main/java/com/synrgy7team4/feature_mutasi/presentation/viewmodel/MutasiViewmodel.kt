@@ -60,6 +60,7 @@ class MutasiViewmodel(private val repository: Repository) : ViewModel() {
                         val filteredData = filterByDateRange(userData, startDate, endDate)
                         val groupedData = groupMutationsByDate(filteredData)
                         _mutationsbydate.value = groupedData
+                        _isLoading.value = false
                         Log.d("test",groupedData.toString())
                     }
                 } else {
@@ -92,38 +93,96 @@ class MutasiViewmodel(private val repository: Repository) : ViewModel() {
     }
 
     // Dummy data function for testing
-    fun loadDummyData() {
-        _mutations.value = listOf(
+    fun loadDummyData(startDate: String, endDate: String) {
+        // List of MutationData with additional entries
+        val mutationDataList = listOf(
             MutationData(
-                id = "1",
-                amount = 50000,
-                datetime = "2024-08-01T12:00:00Z",
-                type = "Transfer",
-                status = "Completed",
+                id = "123e4567-e89b-12d3-a456-426614174000",
+                amount = 5000000,
+                datetime = "2024-08-01T12:00:00",
+                type = "transfer",
+                status = "completed",
                 description = "Payment for groceries",
                 account_from = "123456789",
                 account_to = "987654321"
             ),
             MutationData(
-                id = "2",
-                amount = 20000,
-                datetime = "2024-08-02T15:30:00Z",
-                type = "Top-up",
-                status = "Completed",
+                id = "123e4567-e89b-12d3-a456-426614174001",
+                amount = 2000000,
+                datetime = "2024-08-02T15:30:00",
+                type = "top_up",
+                status = "completed",
                 description = "Top-up for mobile",
                 account_from = "123456789",
                 account_to = "112233445"
             ),
             MutationData(
-                id = "3",
-                amount = 75000,
-                datetime = "2024-08-03T09:15:00Z",
-                type = "Transfer",
-                status = "Pending",
+                id = "123e4567-e89b-12d3-a456-426614174002",
+                amount = 7500000,
+                datetime = "2024-08-03T09:15:00",
+                type = "transfer",
+                status = "pending",
                 description = "Payment for services",
                 account_from = "123456789",
                 account_to = "998877665"
+            ),
+            MutationData(
+                id = "123e4567-e89b-12d3-a456-426614174003",
+                amount = 15000000,
+                datetime = "2024-08-01T14:00:00",
+                type = "top_up",
+                status = "completed",
+                description = "ATM withdrawal",
+                account_from = "123456789",
+                account_to = "N/A"
+            ),
+            MutationData(
+                id = "123e4567-e89b-12d3-a456-426614174004",
+                amount = 3000000,
+                datetime = "2024-08-04T10:00:00",
+                type = "transfer",
+                status = "completed",
+                description = "Payment for utilities",
+                account_from = "987654321",
+                account_to = "123456789"
+            ),
+            MutationData(
+                id = "123e4567-e89b-12d3-a456-426614174005",
+                amount = 12000000,
+                datetime = "2024-08-03T16:30:00",
+                type = "top_up",
+                status = "completed",
+                description = "Top-up for subscription",
+                account_from = "123456789",
+                account_to = "556677889"
+            ),
+            MutationData(
+                id = "123e4567-e89b-12d3-a456-426614174006",
+                amount = 4500000,
+                datetime = "2024-08-05T11:00:00",
+                type = "transfer",
+                status = "completed",
+                description = "Payment for rent",
+                account_from = "112233445",
+                account_to = "123456789"
             )
         )
+
+        _isLoading.value = true
+        viewModelScope.launch {
+            try {
+                val filteredData = filterByDateRange(mutationDataList, startDate, endDate)
+                val groupedData = groupMutationsByDate(filteredData)
+                _mutationsbydate.value = groupedData
+                Log.d("test",groupedData.toString())
+                _isLoading.value = false
+            } catch (e: Exception) {
+                // Handle exception
+            }
+        }
+
+        // Group by date part of the datetime
+
     }
+
 }

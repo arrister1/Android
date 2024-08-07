@@ -4,15 +4,16 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class SharedPrefHelper(private val context: Context) {
-    private val sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+    private val sharedPreferences = context.getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
+
 
     fun getJwtToken(): String? {
-        return sharedPreferences.getString("jwt_token", null)
+        return sharedPreferences.getString("token", null)
     }
 
     fun saveJwtToken(token: String?) {
         val editor = sharedPreferences.edit()
-        editor.putString("jwt_token", token)
+        editor.putString("token", token)
         editor.apply()
     }
 }

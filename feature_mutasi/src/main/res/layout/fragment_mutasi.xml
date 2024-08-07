@@ -6,6 +6,15 @@
     android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.ui.MutasiFragment">
+    <ProgressBar
+        android:id="@+id/loading_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:visibility="gone"
+        android:layout_margin="16dp"
+        android:indeterminateDrawable="@drawable/custom_progress_drawable" />
     <ImageButton
         android:layout_width="50dp"
         android:layout_height="50dp"

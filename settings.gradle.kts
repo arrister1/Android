@@ -24,7 +24,5 @@ include(":feature_mutasi")
 include(":feature_dashboard")
 include(":common")
 
+include(":shared")
 //include(":feature_transfer")
-
-
-

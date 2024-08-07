@@ -73,7 +73,11 @@ class MutasiFragment : Fragment() {
             showDateEndPickerDialog(tvDateEnd) { selectedEndDate ->
                 lifecycleScope.launch {
                     // Call fetchFilteredUserData after the date is selected
-                    viewModel.fetchFilteredUserData(
+                    /*viewModel.fetchFilteredUserData(
+                        startDate,
+                        selectedEndDate
+                    )*/
+                    viewModel.loadDummyData(
                         startDate,
                         selectedEndDate
                     )
@@ -94,7 +98,11 @@ class MutasiFragment : Fragment() {
                 // Handle spinner selection
                 //viewModel.loadMutations() // Replace with actual account number if needed
                 lifecycleScope.launch {
-                    viewModel.fetchFilteredUserData(
+                    /*viewModel.fetchFilteredUserData(
+                        "2024-01-01T12:00:00",
+                        "2029-08-01T12:00:00"
+                    )*/
+                    viewModel.loadDummyData(
                         "2024-01-01T12:00:00",
                         "2029-08-01T12:00:00"
                     )
@@ -126,6 +134,7 @@ class MutasiFragment : Fragment() {
         // Optionally, observe loading and error states
         viewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
             // Show/hide loading indicator
+            binding.loadingIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
         })
 
         viewModel.error.observe(viewLifecycleOwner, Observer { error ->

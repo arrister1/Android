@@ -1,3 +1,4 @@
+/*
 package com.synrgy7team4.feature_auth.presentation.register
 
 import android.os.Bundle
@@ -61,4 +62,4 @@ class CreatePassword : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-}
+}*/
