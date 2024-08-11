@@ -4,25 +4,15 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import com.jer.shared.ViewModelFactoryProvider
 import com.synrgy7team4.feature_dashboard.R
 import com.synrgy7team4.feature_dashboard.databinding.FragmentHomeBinding
-import com.synrgy7team4.feature_mutasi.presentation.ui.MutasiFragment
-import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -105,6 +95,9 @@ class HomeFragment : Fragment() {
 
         binding.btnTransfer.setOnClickListener {
             showToast()
+
+//            val deepLinkUri = Uri.parse("myapp://transfer")
+//            requireView().findNavController().navigate(deepLinkUri)
         }
 
         binding.btnHistory.setOnClickListener {

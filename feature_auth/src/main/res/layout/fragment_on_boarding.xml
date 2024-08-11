@@ -23,21 +23,24 @@
         style="@style/BoldText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/selamat_datang"
-        android:textColor="@color/black"
-        android:textSize="24sp"
         android:layout_marginBottom="62dp"
+        android:text="@string/selamat_datang"
+        android:textColor="@color/textColorPrimary"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/btnPunya"
         app:layout_constraintEnd_toEndOf="@+id/btnPunya"
-        app:layout_constraintStart_toStartOf="@+id/btnPunya" />
+        app:layout_constraintStart_toStartOf="@+id/btnPunya"
+        app:layout_constraintTop_toBottomOf="@id/imageView2"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/btnPunya"
         style="@style/PrimaryActiveButton"
         android:layout_width="250dp"
         android:layout_height="60dp"
-        android:layout_marginTop="62dp"
+        android:layout_marginTop="72dp"
         android:text="@string/sudah_punya_rekening"
+        android:contentDescription="@string/sudah_punya_rekening"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
@@ -49,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/belum_punya_rekening"
+        android:contentDescription="@string/belum_punya_rekening"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnPunya" />

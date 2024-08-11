@@ -9,10 +9,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import com.jer.shared.ViewModelFactoryProvider
+import com.synrgy7team4.common.ViewModelFactoryProvider
+import android.view.accessibility.AccessibilityManager
+import android.view.accessibility.AccessibilityNodeInfo
+
 
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentInputEmailBinding
@@ -34,6 +38,8 @@ class InputEmailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = binding.root
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -88,6 +94,23 @@ class InputEmailFragment : Fragment() {
                 }
             }
         })
+
+        if(isTalkbackEnabled()){
+            binding.tiedtEmail.setAccessibilityDelegate(object : View.AccessibilityDelegate() {
+                 override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
+                    super.onInitializeAccessibilityNodeInfo(host, info)
+                    info?.text = null  // Hapus teks (hint) yang akan dibaca oleh TalkBack
+                }
+            })
+        }
+    }
+
+    private fun isTalkbackEnabled(): Boolean {
+        val am = requireContext().getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+        val isAccessibilityEnabled = am.isEnabled
+        val isTouchExplorationEnabled = am.isTouchExplorationEnabled
+        return isAccessibilityEnabled && isTouchExplorationEnabled
+
     }
 
     private fun setToast(msg: String) {
@@ -96,10 +119,10 @@ class InputEmailFragment : Fragment() {
 
     private fun setupAccessibility() {
         binding.apply {
-            btnBack.contentDescription = getString(R.string.tombol_kembali)
+            btnBack.contentDescription = getString(R.string.kembali)
             tvEmail.contentDescription = getString(R.string.email)
             tiedtEmail.contentDescription = getString(R.string.input_email)
-            btnNext.contentDescription = getString(R.string.tombol_lanjut)
+            btnNext.contentDescription = getString(R.string.lanjut)
         }
     }
 }

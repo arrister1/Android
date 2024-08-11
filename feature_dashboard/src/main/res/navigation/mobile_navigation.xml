@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_navigation_home_to_mutasiFragment"
             app:destination="@id/mutasiFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_savedAccountFragment2"
+            app:destination="@id/savedAccountFragment2" />
     </fragment>
 
     <fragment
@@ -40,6 +43,14 @@
 
     </fragment>
     <fragment
+        android:id="@+id/savedAccountFragment2"
+        android:name="com.synrgy7team4.feature_transfer.presentation.ui.transfer.SavedAccountFragment"
+        android:label="SavedAccountFragment" >
+        <deepLink
+            app:uri="myapp://transfer"
+            app:action="android.intent.action.VIEW" />
+    </fragment>
+  <fragment
         android:id="@+id/showQrisFragment"
         android:name="com.synrgy7team4.feature_dashboard.presentation.ui.qris.ShowQrisFragment"
         android:label="fragment_show_qris"

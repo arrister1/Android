@@ -10,12 +10,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
+import android.view.accessibility.AccessibilityManager
+import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import com.jer.shared.ViewModelFactoryProvider
+import com.synrgy7team4.common.ViewModelFactoryProvider
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentBiodataBinding
 import com.synrgy7team4.feature_auth.presentation.viewmodel.RegisterViewModel
@@ -107,6 +108,23 @@ class BiodataFragment : Fragment() {
             }
 
         })
+
+        if(isTalkbackEnabled()){
+            binding.edtName.setAccessibilityDelegate(object : View.AccessibilityDelegate() {
+                override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
+                    super.onInitializeAccessibilityNodeInfo(host, info)
+                    info?.text = null  // Hapus teks (hint) yang akan dibaca oleh TalkBack
+                }
+            })
+        }
+
+    }
+
+    private fun isTalkbackEnabled(): Boolean {
+        val am = requireContext().getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+        val isAccessibilityEnabled = am.isEnabled
+        val isTouchExplorationEnabled = am.isTouchExplorationEnabled
+        return isAccessibilityEnabled && isTouchExplorationEnabled
 
     }
 
