@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_home"
@@ -19,7 +19,11 @@
         android:id="@+id/navigation_dashboard"
         android:name="com.synrgy7team4.feature_dashboard.presentation.ui.qris.QrisFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_qris" />
+        tools:layout="@layout/fragment_qris" >
+        <action
+            android:id="@+id/action_navigation_dashboard_to_showQrisFragment"
+            app:destination="@id/showQrisFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_notifications"
@@ -35,4 +39,9 @@
             app:action="android.intent.action.VIEW" />
 
     </fragment>
+    <fragment
+        android:id="@+id/showQrisFragment"
+        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.qris.ShowQrisFragment"
+        android:label="fragment_show_qris"
+        tools:layout="@layout/fragment_show_qris" />
 </navigation>
