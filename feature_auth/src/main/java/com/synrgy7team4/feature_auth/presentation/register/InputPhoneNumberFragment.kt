@@ -9,10 +9,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.accessibility.AccessibilityManager
+import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import com.jer.shared.ViewModelFactoryProvider
+import com.synrgy7team4.common.ViewModelFactoryProvider
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentInputPhoneNumberBinding
 import com.synrgy7team4.feature_auth.presentation.viewmodel.RegisterViewModel
@@ -50,7 +52,7 @@ class InputPhoneNumberFragment : Fragment() {
         binding.btnNext.setOnClickListener {
             val hp = binding.tiedtPhoneNumber.text.toString()
             when {
-                hp.isEmpty() -> binding.tiedtPhoneNumber.error = "No Hp Tidak Boleh Kodong"
+                hp.isEmpty() -> binding.tiedtPhoneNumber.error = "No Hp Tidak Boleh Kosong"
                 else -> {
                     if (hp[0] != '8') {
                         binding.tiedtPhoneNumber.error = "Nomor HP harus diawali dengan angka 8"
@@ -96,6 +98,24 @@ class InputPhoneNumberFragment : Fragment() {
 
         })
 
+        if(isTalkbackEnabled()){
+            binding.tiedtPhoneNumber.setAccessibilityDelegate(object : View.AccessibilityDelegate() {
+                override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
+                    super.onInitializeAccessibilityNodeInfo(host, info)
+                    info?.text = null  // Hapus teks (hint) yang akan dibaca oleh TalkBack
+                }
+            })
+        }
+
+    }
+
+
+    private fun isTalkbackEnabled(): Boolean {
+        val am = requireContext().getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+        val isAccessibilityEnabled = am.isEnabled
+        val isTouchExplorationEnabled = am.isTouchExplorationEnabled
+        return isAccessibilityEnabled && isTouchExplorationEnabled
+
     }
 
     private fun setToast(msg: String) {
@@ -104,10 +124,10 @@ class InputPhoneNumberFragment : Fragment() {
 
     private fun setupAccessibility() {
         binding.apply {
-            btnBack.contentDescription = getString(R.string.tombol_kembali)
+            btnBack.contentDescription = getString(R.string.kembali)
             tvPhoneNumber.contentDescription = getString(R.string.no_hp)
             tiedtPhoneNumber.contentDescription = getString(R.string.input_nomor_hp)
-            btnNext.contentDescription = getString(R.string.tombol_lanjut)
+            btnNext.contentDescription = getString(R.string.lanjut)
         }
     }
 }

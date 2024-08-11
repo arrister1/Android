@@ -2,7 +2,7 @@ package com.synrgy7team4.bankingapps
 
 import android.app.Application
 import androidx.lifecycle.ViewModelProvider
-import com.jer.shared.ViewModelFactoryProvider
+import com.synrgy7team4.common.ViewModelFactoryProvider
 import com.synrgy7team4.feature_auth.di.AuthKoin
 
 import com.synrgy7team4.feature_auth.di.Module

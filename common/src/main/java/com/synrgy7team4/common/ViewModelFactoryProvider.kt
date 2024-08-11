@@ -1,4 +1,4 @@
-package com.jer.shared
+package com.synrgy7team4.common
 
 import androidx.lifecycle.ViewModelProvider
 

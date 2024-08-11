@@ -3,6 +3,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="masuk">Masuk</string>
     <string name="password">Password</string>
+    <string name="hide_password">Sembunyikan Password</string>
+    <string name="show_password">Tampilkan Password</string>
+
+
     <string name="email">Email</string>
     <string name="sudah_punya_rekening">Sudah Punya Rekening?</string>
     <string name="belum_punya_rekening">Belum Punya Rekening</string>
@@ -92,5 +96,8 @@
     <string name="tombol_upload_ktp">Tombol Upload KTP</string>
     <string name="silahkan_upload_dan_kirim_e_ktp_anda">Silahkan upload dan kirim E-KTP Anda!</string>
     <string name="teks_silahkan_upload_dan_kirim_e_ktp_anda">Teks Silahkan Upload dan Kirim E KTP Anda</string>
+    <string name="example_gmail_com">example@gmail.com</string>
+    <string name="kembali">Kembali</string>
+    <string name="pilih_tanggal">Pilih tanggal</string>
 
 </resources>

@@ -12,6 +12,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/kembali"
         android:src="@drawable/back_button_blue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,7 +33,10 @@
         android:id="@+id/space"
         android:layout_width="match_parent"
         android:layout_height="20dp"
+        android:contentDescription="@null"
         app:layout_constraintTop_toBottomOf="@+id/tv_email" />
+
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
@@ -40,15 +44,18 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/space"
+     app:layout_constraintTop_toBottomOf="@+id/space"
         tools:layout_editor_absoluteX="46dp">
 
         <EditText
             android:id="@+id/tiedtEmail"
+            android:contentDescription=""
+            android:accessibilityLiveRegion="none"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="example@gmail.com"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:hint="@string/example_gmail_com"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,6 +66,8 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="@string/lanjut"
+        android:contentDescription="@string/lanjut"
+        app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

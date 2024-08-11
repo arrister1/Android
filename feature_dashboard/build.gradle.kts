@@ -40,6 +40,8 @@ dependencies {
     implementation(project(":common"))
     implementation(project(":shared"))
     implementation(project(":feature_mutasi"))
+    implementation(project(":feature_transfer"))
+
 
 
     implementation("androidx.core:core-ktx:1.13.1")

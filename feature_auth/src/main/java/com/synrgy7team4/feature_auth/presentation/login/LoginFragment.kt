@@ -1,7 +1,6 @@
 package com.synrgy7team4.feature_auth.presentation.login
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,18 +8,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.accessibility.AccessibilityManager
+import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.jer.shared.ViewModelFactoryProvider
+import com.synrgy7team4.common.ViewModelFactoryProvider
 import com.synrgy7team4.common.SharedPrefHelper
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentLoginBinding
 import com.synrgy7team4.feature_auth.presentation.viewmodel.LoginViewModel
-import com.synrgy7team4.feature_auth.presentation.viewmodel.RegisterViewModel
 import org.koin.android.ext.android.inject
 
 
@@ -88,6 +86,27 @@ class LoginFragment : Fragment() {
             if (!notError) {
                 setToast("Email atau Password anda salah")
             }
+
+            if(isTalkbackEnabled()){
+                binding.edtEmail.setAccessibilityDelegate(object : View.AccessibilityDelegate() {
+                    override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
+                        super.onInitializeAccessibilityNodeInfo(host, info)
+                        info?.text = null  // Hapus teks (hint) yang akan dibaca oleh TalkBack
+                    }
+                })
+            }
+
+            binding.textInputLayout3.setEndIconContentDescription(R.string.hide_password)
+            binding.textInputLayout3.setEndIconOnClickListener {
+                val isPasswordVisible = binding.edtPassword.inputType == android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                val contentDescription = if(isPasswordVisible){
+                    getString(R.string.hide_password)
+                } else {
+                    getString(R.string.show_password)
+                }
+                binding.textInputLayout3.setEndIconContentDescription(contentDescription)
+
+            }
         }
 
 
@@ -151,15 +170,23 @@ class LoginFragment : Fragment() {
 
     }
 
+    private fun isTalkbackEnabled(): Boolean {
+        val am = requireContext().getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+        val isAccessibilityEnabled = am.isEnabled
+        val isTouchExplorationEnabled = am.isTouchExplorationEnabled
+        return isAccessibilityEnabled && isTouchExplorationEnabled
+
+    }
+
     private fun setupAccessibility() {
         binding.apply {
             textViewMasuk.contentDescription = getString(R.string.masuk)
-            btnBack.contentDescription = getString(R.string.tombol_kembali)
+            btnBack.contentDescription = getString(R.string.kembali)
             textViewEmail.contentDescription = getString(R.string.email)
             edtEmail.contentDescription = getString(R.string.input_email)
             textViewPw.contentDescription = getString(R.string.password)
             edtPassword.contentDescription = getString(R.string.input_password)
-            btnMasuk.contentDescription = getString(R.string.tombol_masuk)
+            btnMasuk.contentDescription = getString(R.string.masuk)
         }
     }
 

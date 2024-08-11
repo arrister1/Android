@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.jer.shared.ViewModelFactoryProvider
+import com.synrgy7team4.common.ViewModelFactoryProvider
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentCreatePasswordBinding
 import com.synrgy7team4.feature_auth.presentation.viewmodel.RegisterViewModel
@@ -117,6 +116,30 @@ class CreatePasswordFragment : Fragment() {
 //            view.postDelayed({
 //
 //            }, 2000) // Delay 2 seconds
+
+            binding.passwordLayout.setEndIconContentDescription(getString(R.string.hide_password))
+            binding.passwordConfirmationLayout.setEndIconContentDescription(getString(R.string.hide_password))
+
+            binding.passwordLayout.setEndIconOnClickListener {
+                val isPasswordVisible = binding.inputPassword.inputType == android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                val contentDescription = if(isPasswordVisible){
+                    getString(R.string.hide_password)
+                } else {
+                    getString(R.string.show_password)
+                }
+                binding.passwordLayout.setEndIconContentDescription(contentDescription)
+            }
+
+            binding.passwordConfirmationLayout.setEndIconOnClickListener {
+                val isPasswordVisible = binding.inputPasswordConfirmation.inputType == android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                val contentDescription = if(isPasswordVisible){
+                    getString(R.string.hide_password)
+                } else {
+                    getString(R.string.show_password)
+                }
+                binding.passwordConfirmationLayout.setEndIconContentDescription(contentDescription)
+            }
+
         }
 
 //        binding.submitCreatedPassword.setOnClickListener { getPassword() }

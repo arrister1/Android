@@ -1,44 +1,30 @@
 package com.synrgy7team4.feature_auth.presentation.register
 
-import android.Manifest
-import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import com.jer.shared.ViewModelFactoryProvider
+import com.synrgy7team4.common.ViewModelFactoryProvider
 
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentUploadKtpBinding
 import com.synrgy7team4.feature_auth.presentation.viewmodel.RegisterViewModel
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MultipartBody
 import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
 import java.io.IOException
-import java.io.InputStream
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 
 class UploadKtpFragment : Fragment() {
@@ -52,7 +38,6 @@ class UploadKtpFragment : Fragment() {
         val app = requireActivity().application as ViewModelFactoryProvider
         app.provideViewModelFactory()
     }
-
 
 
     private val pickImageLauncher =
@@ -100,8 +85,6 @@ class UploadKtpFragment : Fragment() {
         viewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
         }
-
-
 
         binding.btnSend.setOnClickListener {
 
@@ -194,7 +177,7 @@ class UploadKtpFragment : Fragment() {
 
 
         } else {
-            setToast("Registration data is not complete")
+            setToast("Anda harus upload KTP untuk melanjutkan proses registrasi")
         }
 
     }
