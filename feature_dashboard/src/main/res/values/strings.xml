@@ -6,6 +6,10 @@
     <string name="title_notifications">Notifications</string>
     <string name="beranda">Beranda</string>
     <string name="qris">QRIS</string>
+    <string name="qris_symbol">QRIS Symbol</string>
+    <string name="qr">QR</string>
+    <string name="scan_qr">Scan QR</string>
+    <string name="tunjukan_qr">Tunjukan QR</string>
     <string name="akun">Akun</string>
     <string name="selamat_pagi">Selamat Pagi,</string>
     <string name="dummy_name">Nur Afina</string>
@@ -15,8 +19,17 @@
     <string name="riwayat">Riwayat</string>
     <string name="rp">Rp</string>
     <string name="bayar_listrik">Bayar Listrik</string>
+    <string name="bayar">Bayar</string>
+    <string name="saldo">Saldo</string>
     <string name="beli_pulsa">Beli Pulsa</string>
     <string name="beli_paket_data">Beli Paket Data</string>
     <string name="ewallet">EWallet</string>
+    <string name="gallery_button">Gallery Button</string>
+    <string name="flash_button">Flash Button</string>
+    <string name="censored_account_no">7293 **** **** 9283</string>
+    <string name="balance_toggle_button">Balance Toggle Button</string>
+    <string name="tunjukan_qr_untuk_membayar">Tunjukkan QR untuk membayar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

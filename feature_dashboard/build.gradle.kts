@@ -43,6 +43,10 @@ dependencies {
     implementation(project(":feature_transfer"))
 
 
+    // QR Code Scanner
+    implementation("com.journeyapps:zxing-android-embedded:4.2.0")
+    implementation ("com.google.zxing:core:3.3.3")
+    implementation("com.github.yuriy-budiyev:code-scanner:2.3.0")
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.7.0")
