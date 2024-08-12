@@ -1,5 +1,5 @@
 <resources>
-    <string name="lumi">Lumi</string>
+    <string name="app_name">Lumi</string>
 
     <string name="_1">1</string>
     <string name="_2">2</string>

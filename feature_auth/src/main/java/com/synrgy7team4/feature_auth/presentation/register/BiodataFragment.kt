@@ -3,6 +3,7 @@ package com.synrgy7team4.feature_auth.presentation.register
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -63,6 +64,8 @@ class BiodataFragment : Fragment() {
         }
 
         binding.btnLanjut.setOnClickListener {
+            val deepLinkUri = Uri.parse("app://com.example.app/auth/ktpOnBoard" )
+
             val ktp = binding.edtKtp.text.toString()
             val name = binding.edtName.text.toString()
 
@@ -79,7 +82,9 @@ class BiodataFragment : Fragment() {
                         sharedPreferences.edit().putString("nik", ktp).apply()
                         sharedPreferences.edit().putString("name", name).apply()
                         setToast("Biodata kamu berhasil ditambahkan")
-                        view.findNavController().navigate(R.id.action_biodataFragment_to_pinFragment)
+                       // view.findNavController().navigate(R.id.action_biodataFragment_to_pinFragment)
+                        view.findNavController().navigate(deepLinkUri)
+
                     }
 
 //                    sharedPreferences.edit().putString("ktp", ktp).apply()

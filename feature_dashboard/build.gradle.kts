@@ -39,8 +39,8 @@ dependencies {
 
     implementation(project(":common"))
     implementation(project(":shared"))
-    implementation(project(":feature_mutasi"))
-    implementation(project(":feature_transfer"))
+//    implementation(project(":feature_mutasi"))
+//    implementation(project(":feature_transfer"))
 
 
     // QR Code Scanner

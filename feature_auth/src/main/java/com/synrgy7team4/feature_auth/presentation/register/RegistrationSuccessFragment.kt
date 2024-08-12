@@ -1,5 +1,6 @@
 package com.synrgy7team4.feature_auth.presentation.register
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.synrgy7team4.common.ViewModelFactoryProvider
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentRegistrationSuccessBinding
@@ -46,7 +48,9 @@ class RegistrationSuccessFragment : Fragment() {
 
        lifecycleScope.launch {
            delay(3000)
-           requireView().findNavController().navigate(R.id.action_registrationSuccessFragment_to_loginFragment)
+           val deepLinkUri = Uri.parse("app://com.example.app/auth/login" )
+           findNavController().navigate(deepLinkUri)
+           //requireView().findNavController().navigate(R.id.action_registrationSuccessFragment_to_loginFragment)
        }
 
 //       Handler(Looper.getMainLooper()).postDelayed({

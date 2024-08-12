@@ -1,6 +1,7 @@
 package com.synrgy7team4.feature_auth.presentation.login
 
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -73,8 +74,10 @@ class LoginFragment : Fragment() {
         }
 
         viewModel.isSuccessful.observe(viewLifecycleOwner) {
-            setToast("User Login Successfully")
-            view.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+            setToast("Anda Berhasil Masuk")
+            //view.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+            val deepLinkUri = Uri.parse("app://com.example.app/dashboard/home" )
+            view.findNavController().navigate(deepLinkUri)
         }
 
 //        viewModel.isSuccessful.observe(viewLifecycleOwner) {
@@ -96,17 +99,17 @@ class LoginFragment : Fragment() {
                 })
             }
 
-            binding.textInputLayout3.setEndIconContentDescription(R.string.hide_password)
-            binding.textInputLayout3.setEndIconOnClickListener {
-                val isPasswordVisible = binding.edtPassword.inputType == android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                val contentDescription = if(isPasswordVisible){
-                    getString(R.string.hide_password)
-                } else {
-                    getString(R.string.show_password)
-                }
-                binding.textInputLayout3.setEndIconContentDescription(contentDescription)
-
-            }
+//            binding.textInputLayout3.setEndIconContentDescription(R.string.hide_password)
+//            binding.textInputLayout3.setEndIconOnClickListener {
+//                val isPasswordVisible = binding.edtPassword.inputType == android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+//                val contentDescription = if(isPasswordVisible){
+//                    getString(R.string.hide_password)
+//                } else {
+//                    getString(R.string.show_password)
+//                }
+//                binding.textInputLayout3.setEndIconContentDescription(contentDescription)
+//
+//            }
         }
 
 

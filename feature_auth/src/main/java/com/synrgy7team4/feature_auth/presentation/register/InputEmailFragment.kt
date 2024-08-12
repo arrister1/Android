@@ -2,6 +2,7 @@ package com.synrgy7team4.feature_auth.presentation.register
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -53,6 +54,8 @@ class InputEmailFragment : Fragment() {
         }
 
         binding.btnNext.setOnClickListener {
+            val deepLinkUri = Uri.parse("app://com.example.app/auth/inputPhone" )
+
             val email = binding.tiedtEmail.text.toString()
             val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
 
@@ -67,7 +70,9 @@ class InputEmailFragment : Fragment() {
                         sharedPreferences.edit().putString("email", email).apply()
                         setToast("Akun $email Berhasil Terdaftar ")
                         requireView().findNavController()
-                            .navigate(R.id.action_inputEmailFragment_to_inputPhoneNumberFragment)
+                            .navigate(deepLinkUri)
+//                        requireView().findNavController()
+//                            .navigate(R.id.action_inputEmailFragment_to_inputPhoneNumberFragment)
 
                     }
 

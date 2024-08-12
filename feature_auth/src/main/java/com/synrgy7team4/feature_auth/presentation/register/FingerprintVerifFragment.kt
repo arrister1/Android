@@ -2,6 +2,7 @@ package com.synrgy7team4.feature_auth.presentation.register
 
 import android.content.Intent
 import android.hardware.biometrics.BiometricManager.Authenticators.DEVICE_CREDENTIAL
+import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
@@ -58,8 +59,12 @@ class FingerprintVerifFragment : Fragment() {
                     result: BiometricPrompt.AuthenticationResult,
                 ) {
                     super.onAuthenticationSucceeded(result)
+                    val deepLinkUri = Uri.parse("app://com.example.app/auth/pin"  )
+                    requireView().findNavController().navigate(deepLinkUri)
+
+
                     // DISINI KALO SUCCES BIOMETRICNYA, bisa kasih nav/intent disini
-                    requireView().findNavController().navigate(R.id.action_fingerprintVerifFragment_to_registrationSuccessFragment)
+                   // requireView().findNavController().navigate(R.id.action_fingerprintVerifFragment_to_registrationSuccessFragment)
                     Toast.makeText(requireContext(),
                         "Autentikasi Sukses!", Toast.LENGTH_SHORT)
                         .show()

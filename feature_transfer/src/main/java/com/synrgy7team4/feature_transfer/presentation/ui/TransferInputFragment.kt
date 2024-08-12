@@ -1,5 +1,6 @@
 package com.synrgy7team4.feature_transfer.presentation.ui.transfer
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,8 +12,12 @@ import androidx.navigation.findNavController
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.synrgy7team4.feature_transfer.R
+import com.synrgy7team4.feature_transfer.databinding.FragmentTransferInputBinding
 
 class TransferInputFragment : Fragment() {
+    private var _binding: FragmentTransferInputBinding? = null
+    private val binding get() = _binding!!
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,23 +30,33 @@ class TransferInputFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_transfer_input, container, false)
+        _binding = FragmentTransferInputBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+        return root
+
+        //return inflater.inflate(R.layout.fragment_transfer_input, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<MaterialButton>(R.id.submitForm).setOnClickListener {handleSubmitFormClick(view)}
+       binding.submitForm.setOnClickListener{
+           handleSubmitFormClick(view)
 
-        view.findViewById<ImageButton>(R.id.btn_back).setOnClickListener {
+           val pinNav = Uri.parse("app://com.example.app/trans/transferPin")
+           requireView().findNavController().navigate(pinNav)
+
+       }
+
+       binding.btnBack.setOnClickListener {
             view.findNavController().popBackStack()
         }
     }
 
     private fun handleSubmitFormClick(view:View)
     {
-        val nominal = view.findViewById<TextInputEditText>(R.id.amountInputText).text.toString()
-        val berita = view.findViewById<TextInputEditText>(R.id.inputNote).text
+        val nominal = binding.amountInputText.text.toString()
+        val berita = binding.inputNote.text
 
         if(!validateAmount(nominal))
             return

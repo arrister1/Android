@@ -2,6 +2,7 @@ package com.synrgy7team4.feature_auth.presentation.register
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -50,6 +51,8 @@ class InputPhoneNumberFragment : Fragment() {
 
 
         binding.btnNext.setOnClickListener {
+            val deepLinkUri = Uri.parse("app://com.example.app/auth/otp" )
+
             val hp = binding.tiedtPhoneNumber.text.toString()
             when {
                 hp.isEmpty() -> binding.tiedtPhoneNumber.error = "No Hp Tidak Boleh Kosong"
@@ -64,7 +67,9 @@ class InputPhoneNumberFragment : Fragment() {
                         sharedPreferences.edit().putString("hp", hp).apply()
                         setToast("Nomor $hp Kamu Berhasil Ditambahkan")
                         view.findNavController()
-                            .navigate(R.id.action_inputPhoneNumberFragment_to_otpVerification)
+                            .navigate(deepLinkUri)
+//                        view.findNavController()
+//                            .navigate(R.id.action_inputPhoneNumberFragment_to_otpVerification)
                     }
 
 //                    sharedPreferences.edit().putString("hp", hp).apply()

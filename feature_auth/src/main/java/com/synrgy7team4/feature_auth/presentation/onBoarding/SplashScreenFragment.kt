@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -35,6 +36,7 @@ class SplashScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val deepLinkUri = Uri.parse("app://com.example.app/auth/onBoarding")
 
         AnimatorSet().apply {
             playSequentially(playMoveScaling(), playFadeAnimation())
@@ -44,7 +46,9 @@ class SplashScreenFragment : Fragment() {
 
                     // Cek apakah view masih ada sebelum melakukan navigasi
                     view?.let {
-                        it.findNavController().navigate(R.id.action_splashScreenFragment_to_onBoardingFragment)
+                        view.findNavController().navigate(deepLinkUri)
+
+                        //  it.findNavController().navigate(R.id.action_splashScreenFragment_to_onBoardingFragment)
                     }
                 }
             })

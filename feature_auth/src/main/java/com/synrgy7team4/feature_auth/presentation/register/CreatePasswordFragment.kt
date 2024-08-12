@@ -2,6 +2,7 @@ package com.synrgy7team4.feature_auth.presentation.register
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -56,6 +57,8 @@ class CreatePasswordFragment : Fragment() {
 
 
         binding.submitCreatedPassword.setOnClickListener {
+            val deepLinkUri = Uri.parse("app://com.example.app/auth/biodata")
+
             // Navigate with a delay
             val password = binding.inputPassword.text.toString()
             val passwordConfirmation = binding.inputPasswordConfirmation.text.toString()
@@ -78,7 +81,9 @@ class CreatePasswordFragment : Fragment() {
                             sharedPreferences.edit().putString("password", password).apply()
 //                            sharedPreferences.edit().putString("confirm_password", passwordConfirmation).apply()
                             setToast("Kamu berhasil membuat password")
-                            view.findNavController().navigate(R.id.action_createPasswordFragment_to_biodataFragment)
+                           // view.findNavController().navigate(R.id.action_createPasswordFragment_to_biodataFragment)
+                            view.findNavController().navigate(deepLinkUri)
+
                         }
                     }
 
@@ -117,28 +122,28 @@ class CreatePasswordFragment : Fragment() {
 //
 //            }, 2000) // Delay 2 seconds
 
-            binding.passwordLayout.setEndIconContentDescription(getString(R.string.hide_password))
-            binding.passwordConfirmationLayout.setEndIconContentDescription(getString(R.string.hide_password))
+//            binding.passwordLayout.setEndIconContentDescription(getString(R.string.hide_password))
+//            binding.passwordConfirmationLayout.setEndIconContentDescription(getString(R.string.hide_password))
 
-            binding.passwordLayout.setEndIconOnClickListener {
-                val isPasswordVisible = binding.inputPassword.inputType == android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                val contentDescription = if(isPasswordVisible){
-                    getString(R.string.hide_password)
-                } else {
-                    getString(R.string.show_password)
-                }
-                binding.passwordLayout.setEndIconContentDescription(contentDescription)
-            }
+//            binding.passwordLayout.setEndIconOnClickListener {
+//                val isPasswordVisible = binding.inputPassword.inputType == android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+//                val contentDescription = if(isPasswordVisible){
+//                    getString(R.string.hide_password)
+//                } else {
+//                    getString(R.string.show_password)
+//                }
+//                binding.passwordLayout.setEndIconContentDescription(contentDescription)
+//            }
 
-            binding.passwordConfirmationLayout.setEndIconOnClickListener {
-                val isPasswordVisible = binding.inputPasswordConfirmation.inputType == android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                val contentDescription = if(isPasswordVisible){
-                    getString(R.string.hide_password)
-                } else {
-                    getString(R.string.show_password)
-                }
-                binding.passwordConfirmationLayout.setEndIconContentDescription(contentDescription)
-            }
+//            binding.passwordConfirmationLayout.setEndIconOnClickListener {
+//                val isPasswordVisible = binding.inputPasswordConfirmation.inputType == android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+//                val contentDescription = if(isPasswordVisible){
+//                    getString(R.string.hide_password)
+//                } else {
+//                    getString(R.string.show_password)
+//                }
+//                binding.passwordConfirmationLayout.setEndIconContentDescription(contentDescription)
+//            }
 
         }
 

@@ -30,7 +30,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/sameBankButton"
-        android:layout_width="160dp"
+        android:layout_width="150dp"
         android:layout_height="50dp"
         android:text="@string/sesama_bank"
         android:textSize="16sp"
@@ -46,7 +46,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/differentBankButton"
-        android:layout_width="160dp"
+        android:layout_width="150dp"
         android:layout_height="50dp"
         android:text="@string/antar_bank"
         android:textSize="16sp"

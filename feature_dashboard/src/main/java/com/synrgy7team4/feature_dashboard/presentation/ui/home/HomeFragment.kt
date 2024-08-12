@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -51,6 +52,13 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(HomeViewModel::class.java)
 
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Keluar dari aplikasi
+                requireActivity().finishAffinity()
+            }
+        })
+
         fullBalance = getString(R.string.dummy_account_balance)
         hiddenBalance = fullBalance.replace(Regex("\\d"), "*").replace(Regex("[,.]"), "")
 
@@ -67,14 +75,18 @@ class HomeFragment : Fragment() {
 
             viewModel.data.observe(viewLifecycleOwner) { data ->
                 if (data.success) {
-                    binding.tvAccBalance.text = data.data.toString()
+                    val balanceData = data.data.toString()
+                    binding.tvAccBalance.text = balanceData ?: "0"
+
+                    binding.tvAccNumber.text = getAccountNumber ?: "1234567890"
+
                     Toast.makeText(requireContext(), data.message, Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(requireContext(), "Failed to fetch data", Toast.LENGTH_SHORT).show()
                 }
             }
         } else {
-            Toast.makeText(requireContext(), "Missing token or account number", Toast.LENGTH_SHORT).show()
+//Toast.makeText(requireContext(), "Missing token or account number", Toast.LENGTH_SHORT).show()
         }
 
         binding.btnElectric.setOnClickListener {
@@ -94,15 +106,15 @@ class HomeFragment : Fragment() {
         }
 
         binding.btnTransfer.setOnClickListener {
-            showToast()
+            val transferNav = Uri.parse("app://com.example.app/trans/transferList")
+            requireView().findNavController().navigate(transferNav)
 
-//            val deepLinkUri = Uri.parse("myapp://transfer")
-//            requireView().findNavController().navigate(deepLinkUri)
+
         }
 
-        binding.btnHistory.setOnClickListener {
+        binding.btnMutasi.setOnClickListener {
 
-            val deepLinkUri = Uri.parse("myapp://mutasi")
+            val deepLinkUri = Uri.parse("app://com.example.app/mutasi/mutasi")
             requireView().findNavController().navigate(deepLinkUri)
 //            Log.d("HomeFragment", "Attempting to load MutasiFragment")
 //

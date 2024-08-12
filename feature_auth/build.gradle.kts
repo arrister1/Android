@@ -41,8 +41,8 @@ dependencies {
 
     implementation(project(":shared"))
     implementation(project(":common"))
-    implementation(project(":feature_dashboard"))
-    implementation(project(":feature_mutasi"))
+//    implementation(project(":feature_dashboard"))
+//    implementation(project(":feature_mutasi"))
 
 
 
