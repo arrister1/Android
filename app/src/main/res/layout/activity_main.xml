@@ -11,7 +11,7 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:id = "@+id/nav_host_fragment_feature_auth"
         app:defaultNavHost= "true"
-        app:navGraph= "@navigation/feature_auth_navigation"
+        app:navGraph= "@navigation/main_navigation"
         />
 
     <!--<TextView

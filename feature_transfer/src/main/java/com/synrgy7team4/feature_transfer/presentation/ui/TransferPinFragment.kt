@@ -1,7 +1,6 @@
-package com.synrgy7team4.feature_auth.presentation.register
+package com.example.feature_transfer.presentation.ui
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,34 +8,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import com.synrgy7team4.common.ViewModelFactoryProvider
 import com.synrgy7team4.common.databinding.PinInputBinding
 import com.synrgy7team4.common.databinding.PinNumberBinding
-import com.synrgy7team4.feature_auth.R
-import com.synrgy7team4.feature_auth.databinding.FragmentPinBinding
-import com.synrgy7team4.feature_auth.presentation.viewmodel.RegisterViewModel
+import com.synrgy7team4.feature_transfer.R
+import com.synrgy7team4.feature_transfer.databinding.FragmentTransferPinBinding
 
 
-class PinFragment : Fragment(), View.OnClickListener {
+class TransferPinFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentPinBinding? = null
+    private var _binding: FragmentTransferPinBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var pinNumberBinding : PinNumberBinding
     private lateinit var pinInputBinding : PinInputBinding
-
-
-    private lateinit var sharedPreferences: SharedPreferences
-
-    private val viewModel by viewModels<RegisterViewModel> {
-//        val app = requireActivity().application
-//        (app as MyApplication).viewModelFactory
-        val app = requireActivity().application as ViewModelFactoryProvider
-        app.provideViewModelFactory()
-    }
 
     private val numberList = ArrayList<String>()
     private var passCode = ""
@@ -46,40 +31,47 @@ class PinFragment : Fragment(), View.OnClickListener {
     private var input4: String? = null
     private var input5: String? = null
     private var input6: String? = null
+    private lateinit var savedPin: String
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentPinBinding.inflate(inflater, container, false)
+    ): View? {
+        // Inflate the layout for this fragment
+      //  return inflater.inflate(R.layout.fragment_pin, container, false)
+        _binding = FragmentTransferPinBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
+        val sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
+        savedPin = sharedPreferences.getString("pin", "") ?: ""
 
         pinNumberBinding = PinNumberBinding.bind(binding.pinNumber.root)
         pinInputBinding = PinInputBinding.bind(binding.pinInput.root)
 
         initializeComponents()
-
     }
 
     private fun initializeComponents() {
         binding.apply {
-            pinNumberBinding.btnNum1.setOnClickListener(this@PinFragment)
-            pinNumberBinding.btnNum2.setOnClickListener(this@PinFragment)
-            pinNumberBinding.btnNum3.setOnClickListener(this@PinFragment)
-            pinNumberBinding.btnNum4.setOnClickListener(this@PinFragment)
-            pinNumberBinding.btnNum5.setOnClickListener(this@PinFragment)
-            pinNumberBinding.btnNum6.setOnClickListener(this@PinFragment)
-            pinNumberBinding.btnNum7.setOnClickListener(this@PinFragment)
-            pinNumberBinding.btnNum8.setOnClickListener(this@PinFragment)
-            pinNumberBinding.btnNum9.setOnClickListener(this@PinFragment)
-            pinNumberBinding.btnNum0.setOnClickListener(this@PinFragment)
-            pinNumberBinding.btnDelete.setOnClickListener(this@PinFragment)
+            pinNumberBinding.btnNum1.setOnClickListener(this@TransferPinFragment)
+            pinNumberBinding.btnNum2.setOnClickListener(this@TransferPinFragment)
+            pinNumberBinding.btnNum3.setOnClickListener(this@TransferPinFragment)
+            pinNumberBinding.btnNum4.setOnClickListener(this@TransferPinFragment)
+            pinNumberBinding.btnNum5.setOnClickListener(this@TransferPinFragment)
+            pinNumberBinding.btnNum6.setOnClickListener(this@TransferPinFragment)
+            pinNumberBinding.btnNum7.setOnClickListener(this@TransferPinFragment)
+            pinNumberBinding.btnNum8.setOnClickListener(this@TransferPinFragment)
+            pinNumberBinding.btnNum9.setOnClickListener(this@TransferPinFragment)
+            pinNumberBinding.btnNum0.setOnClickListener(this@TransferPinFragment)
+            pinNumberBinding.btnDelete.setOnClickListener(this@TransferPinFragment)
         }
     }
 
@@ -95,7 +87,7 @@ class PinFragment : Fragment(), View.OnClickListener {
             pinNumberBinding.btnNum8.id -> addNumberToList("8")
             pinNumberBinding.btnNum9.id -> addNumberToList("9")
             pinNumberBinding.btnNum0.id -> addNumberToList("0")
-            pinNumberBinding.btnDelete.id-> {
+            pinNumberBinding.btnDelete.id -> {
                 if (numberList.isNotEmpty()) {
                     numberList.removeAt(numberList.size - 1)
                     passNumber(numberList)
@@ -105,8 +97,10 @@ class PinFragment : Fragment(), View.OnClickListener {
     }
 
     private fun addNumberToList(number: String) {
-        numberList.add(number)
-        passNumber(numberList)
+        if (numberList.size < 6) {
+            numberList.add(number)
+            passNumber(numberList)
+        }
     }
 
     private fun passNumber(numberList: ArrayList<String>) {
@@ -139,19 +133,7 @@ class PinFragment : Fragment(), View.OnClickListener {
                     pinInputBinding.tvPinInput6.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet_filled)
                     passCode = input1 + input2 + input3 + input4 + input5 + input6
                     if (passCode.length == 6) {
-//                        val bundle = Bundle().apply {
-//                            putString("passCode", passCode)
-//                        }
-                        sharedPreferences.edit().putString("pin", passCode).apply()
-
-
-                        val deepLinkUri = Uri.parse("app://com.example.app/auth/pinConfirmation")
-
-
-                        requireView().findNavController().navigate(deepLinkUri)
-
-//                        setToast("Kamu berhasil membuat pin")
-                        //requireView().findNavController().navigate(R.id.action_pinFragment_to_pinConfirmationFragment, bundle)
+                        validatePin()
                     }
                 }
             }
@@ -167,9 +149,21 @@ class PinFragment : Fragment(), View.OnClickListener {
         pinInputBinding.tvPinInput6.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet)
     }
 
-    private fun setToast(msg: String) {
-        Toast.makeText(requireActivity(),msg, Toast.LENGTH_SHORT).show()
+    private fun validatePin() {
+        val deepLinkUri = Uri.parse("app://com.example.app/trans/transDetail")
 
+        if (passCode == savedPin) {
+            // PIN benar, lanjutkan ke proses transaksi
+            requireView().findNavController().navigate(deepLinkUri)
+        } else {
+            setToast("PIN salah!")
+            clearPinDisplay()
+            numberList.clear()
+        }
+    }
+
+    private fun setToast(msg: String) {
+        Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {
@@ -177,3 +171,4 @@ class PinFragment : Fragment(), View.OnClickListener {
         _binding = null
     }
 }
+

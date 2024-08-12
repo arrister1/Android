@@ -11,12 +11,12 @@
     <string name="scan_qr">Scan QR</string>
     <string name="tunjukan_qr">Tunjukan QR</string>
     <string name="akun">Akun</string>
-    <string name="selamat_pagi">Selamat Pagi,</string>
+    <string name="selamat_pagi">Selamat Datang,</string>
     <string name="dummy_name">Nur Afina</string>
     <string name="dummy_acc_number">7293109283</string>
     <string name="dummy_account_balance">0.0</string>
     <string name="transfer">Transfer</string>
-    <string name="riwayat">Riwayat</string>
+    <string name="mutasi">Mutasi</string>
     <string name="rp">Rp</string>
     <string name="bayar_listrik">Bayar Listrik</string>
     <string name="bayar">Bayar</string>
@@ -31,5 +31,6 @@
     <string name="tunjukan_qr_untuk_membayar">Tunjukkan QR untuk membayar</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lumi">Lumi</string>
 
 </resources>

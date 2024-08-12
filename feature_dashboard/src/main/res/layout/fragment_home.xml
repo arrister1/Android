@@ -130,17 +130,17 @@
 <!--            app:layout_constraintTop_toBottomOf="@id/tv_acc_balance" />-->
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_history"
+            android:id="@+id/btn_mutasi"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_marginTop="10dp"
             android:layout_marginStart="5dp"
-            android:contentDescription="@string/riwayat"
+            android:contentDescription="@string/mutasi"
             app:cornerRadius="11dp"
             style="?attr/materialButtonOutlinedStyle"
             app:strokeColor = "@color/white"
             android:textColor="@color/white"
-            android:text="@string/riwayat"
+            android:text="@string/mutasi"
             android:textSize="10sp"
             app:layout_constraintStart_toEndOf="@id/btn_transfer"
             app:layout_constraintTop_toBottomOf="@id/tv_acc_balance" />
