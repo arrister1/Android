@@ -177,4 +177,10 @@
         <deepLink app:uri="app://com.example.app/trans/transDetail" />
 
     </fragment>
+    <fragment
+        android:id="@+id/fellowAccountBankInputFragment"
+        android:name="com.synrgy7team4.feature_transfer.presentation.ui.transfer.FellowAccountBankInputFragment"
+        android:label="FellowAccountBankInputFragment" >
+        <deepLink app:uri="app://com.example.app/trans/accInput" />
+    </fragment>
 </navigation>

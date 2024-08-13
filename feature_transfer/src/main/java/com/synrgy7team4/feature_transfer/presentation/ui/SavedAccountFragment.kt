@@ -17,8 +17,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.synrgy7team4.feature_transfer.R
+import com.synrgy7team4.feature_transfer.databinding.FragmentCheckReceiverDetailBinding
+import com.synrgy7team4.feature_transfer.databinding.FragmentFellowAccountBankInputBinding
+import com.synrgy7team4.feature_transfer.databinding.FragmentSavedAccountBinding
 
 class SavedAccountFragment : Fragment() {
+    private var _binding: FragmentSavedAccountBinding? = null
+    private val binding get() = _binding!!
 
     lateinit var adapter: CustomAdapter
 
@@ -40,8 +45,8 @@ class SavedAccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_saved_account, container, false)
-    }
+        _binding = FragmentSavedAccountBinding.inflate(inflater, container, false)
+        return binding.root    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -80,11 +85,18 @@ class SavedAccountFragment : Fragment() {
 
         view.findViewById<MaterialButton>(R.id.sameBankButton).setOnClickListener {handleSameBankButtonClick(view)}
         view.findViewById<MaterialButton>(R.id.differentBankButton).setOnClickListener {handleDifferentBankButtonClick(view)}
-        view.findViewById<MaterialButton>(R.id.addNewAccountInfo).setOnClickListener {handleAddNewAccountInfoClick()}
+        binding.addNewAccountInfo.setOnClickListener {
+            val addNewAccNav = Uri.parse(  "app://com.example.app/trans/accInput")
+            //handleAddNewAccountInfoClick()
+            requireView().findNavController().navigate(addNewAccNav)
+
+        }
 
         view.findViewById<ImageView>(R.id.btn_back).setOnClickListener {
             view.findNavController().popBackStack()
         }
+
+
     }
 
     private fun filter(text: String) {
