@@ -16,6 +16,7 @@
     <string name="top_up">Top Up</string>
     <string name="top_up_ke">Top Up Ke</string>
     <string name="_10_juli_2024">10 Juli 2024</string>
+    <string name="date_end">Sampai Tanggal</string>
     <string-array name="spinner_jenis_transaksi">
         <item>Semua</item>
         <item>Uang Masuk</item>

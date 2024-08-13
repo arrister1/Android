@@ -14,7 +14,11 @@
         android:indeterminate="true"
         android:visibility="gone"
         android:layout_margin="16dp"
-        android:indeterminateDrawable="@drawable/custom_progress_drawable" />
+        android:indeterminateDrawable="@drawable/custom_progress_drawable"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
     <ImageButton
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -155,7 +159,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:id="@+id/tv_tangal_akhir"
-                    android:text="@string/date_start"
+                    android:text="@string/date_end"
                     android:textSize="18sp"
                     android:fontFamily="@font/calibri"
                     android:textStyle="bold"

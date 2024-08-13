@@ -84,17 +84,20 @@ class MutasiFragment : Fragment() {
         calendarEndIcon.setOnClickListener {
             showDateEndPickerDialog(tvDateEnd) { selectedEndDate ->
                 lifecycleScope.launch {
+                    binding.loadingIndicator.visibility = View.VISIBLE
                     // Call fetchFilteredUserData after the date is selected
                     /*viewModel.fetchFilteredUserData(
                         startDate,
                         selectedEndDate
                     )*/
+
                     viewModel.loadDummyData(
                         startDate,
                         selectedEndDate
                     )
                     // Observe the ViewModel data
                     observeViewModel()
+                    binding.loadingIndicator.visibility = View.GONE
                 }
                 Log.d("test", "${binding.tvDateStart.text} sampai $selectedEndDate")
             }
