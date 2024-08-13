@@ -51,8 +51,8 @@ class OtpVerification : Fragment() {
 
         sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
 
-        val hp = sharedPreferences.getString("hp", "08123456789")
-        binding.tvNumber.text = hp
+        val email = sharedPreferences.getString("email", "")
+        binding.tvEmail.text = email
 
         binding.btnBack.setOnClickListener {
             view.findNavController().popBackStack()
