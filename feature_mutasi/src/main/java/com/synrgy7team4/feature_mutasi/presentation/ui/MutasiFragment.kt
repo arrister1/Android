@@ -1,6 +1,7 @@
 package com.synrgy7team4.feature_mutasi.presentation.ui
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.Bundle
@@ -19,6 +20,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.synrgy7team4.feature_mutasi.R
 import com.synrgy7team4.feature_mutasi.databinding.FragmentMutasiBinding
 import com.synrgy7team4.feature_mutasi.presentation.MutationAdapter
@@ -26,6 +28,7 @@ import com.synrgy7team4.feature_mutasi.presentation.viewmodel.MutasiViewmodel
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.Date
 import java.util.Locale
 
 
@@ -55,7 +58,16 @@ class MutasiFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnBack.setOnClickListener {
-            activity?.supportFragmentManager?.popBackStack()
+            /*activity?.supportFragmentManager?.popBackStack()*/
+            val intent = Intent(activity, Class.forName("com.synrgy7team4.feature_dashboard.presentation.DashboardActivity"))
+
+            // Set flags to clear existing tasks and start a new one
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+            // Optional: Pass data to the activity
+            intent.putExtra("EXTRA_KEY", "Hello from Fragment")
+            startActivity(intent)
+
         }
         tvDateStart = view.findViewById(R.id.tv_date_start)
         tvDateEnd = view.findViewById(R.id.tv_date_end)
@@ -142,24 +154,7 @@ class MutasiFragment : Fragment() {
         })
     }
 
-    /*private fun showDatePickerDialog(textView: TextView) {
-        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-            calendar.set(Calendar.YEAR, year)
-            calendar.set(Calendar.MONTH, month)
-            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            updateDateLabel(textView)
-        }
-
-        DatePickerDialog(
-            requireContext(),
-            dateSetListener,
-            calendar.get(Calendar.YEAR),
-            calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH)
-        ).show()
-    }*/
-
-    private fun showDateEndPickerDialog(textView: TextView, onDateSelected: (String) -> Unit) {
+    /*private fun showDateEndPickerDialog(textView: TextView, onDateSelected: (String) -> Unit) {
         val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             calendar.set(Calendar.YEAR, year)
             calendar.set(Calendar.MONTH, month)
@@ -177,7 +172,29 @@ class MutasiFragment : Fragment() {
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
         ).show()
+    }*/
+
+    private fun showDateEndPickerDialog(textView: TextView, onDateSelected: (String) -> Unit) {
+        // Create a MaterialDatePicker instance
+        val datePicker = MaterialDatePicker.Builder.datePicker()
+            .setTitleText("Select date")
+            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+            .build()
+
+        // Set the listener for date selection
+        datePicker.addOnPositiveButtonClickListener { selection ->
+            val selectedDateMillis = selection ?: return@addOnPositiveButtonClickListener
+            val selectedDate = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+                .format(Date(selectedDateMillis))
+
+            textView.text = LocalDateTime.parse(selectedDate, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")).toLocalDate().toString()
+            onDateSelected(selectedDate)
+        }
+
+        // Show the MaterialDatePicker
+        datePicker.show(parentFragmentManager, "DATE_PICKER_TAG")
     }
+
 
 
     private fun updateDateLabel(textView: TextView) {
