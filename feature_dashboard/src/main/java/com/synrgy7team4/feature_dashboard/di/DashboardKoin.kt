@@ -4,6 +4,8 @@ import com.synrgy7team4.feature_dashboard.data.Repository
 import com.synrgy7team4.feature_dashboard.data.remote.RemoteDataSource
 import com.synrgy7team4.feature_dashboard.data.remote.retrofit.provideConverterFactory
 import com.synrgy7team4.feature_dashboard.data.remote.retrofit.provideService
+import com.synrgy7team4.feature_dashboard.presentation.ui.home.HomeViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val DashboardKoin = module {
@@ -12,4 +14,6 @@ val DashboardKoin = module {
 
     factory {  RemoteDataSource(get()) }
     factory {  Repository(get()) }
+
+    viewModel{HomeViewModel(get())}
 }
