@@ -32,5 +32,14 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="lumi">Lumi</string>
+    <string name="syarat_ketentuan"><![CDATA[Syarat & Ketentuan]]></string>
+    <string name="rifky_eky">Rifky Eky</string>
+    <string name="rifkyeky_gmail_com">rifkyeky@gmail.com</string>
+    <string name="_62_81_56">+62 81*******56</string>
+    <string name="ubah_password">Ubah Password</string>
+    <string name="notifikasi">Notifikasi</string>
+    <string name="pusat_bantuan">Pusat Bantuan</string>
+    <string name="kebijakan_privasi">Kebijakan Privasi</string>
+    <string name="keluar_akun">Keluar Akun</string>
 
 </resources>
