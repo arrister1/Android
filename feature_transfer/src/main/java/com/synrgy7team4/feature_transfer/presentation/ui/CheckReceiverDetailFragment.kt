@@ -1,10 +1,12 @@
 package com.synrgy7team4.feature_transfer.presentation.ui.transfer
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.synrgy7team4.feature_transfer.databinding.FragmentCheckReceiverDetailBinding
 import com.synrgy7team4.feature_transfer.databinding.FragmentTransferDetailBinding
@@ -24,9 +26,10 @@ class CheckReceiverDetailFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        binding.btnClose.setOnClickListener {
-//            dismiss()
-//        }
+
+
+
+
     }
 
     override fun onDestroyView() {
