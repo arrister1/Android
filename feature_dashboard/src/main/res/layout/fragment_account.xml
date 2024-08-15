@@ -62,7 +62,8 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <ImageView
+            <ImageButton
+                android:id="@+id/img_btn_edit"
                 android:layout_width="23dp"
                 android:layout_height="23dp"
                 android:layout_gravity="center"
@@ -80,14 +81,18 @@
         app:layout_constraintTop_toBottomOf="@+id/cv_account">
 
         <LinearLayout
+            android:id="@+id/linearlay_ubah_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="6dp"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingVertical="4dp">
 
             <ImageView
-                android:layout_width="11.61dp"
+                android:layout_width="12dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_password"
                 app:tint="@color/primary_darkBlue" />
@@ -108,15 +113,24 @@
                 android:src="@drawable/ic_arrow_forward" />
         </LinearLayout>
 
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:dividerColor="@color/light_grey" />
+
         <LinearLayout
+            android:id="@+id/linearlay_notifikasi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="6dp"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingVertical="4dp">
 
             <ImageView
-                android:layout_width="11.61dp"
+                android:layout_width="12dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_notifications_active"
                 app:tint="@color/primary_darkBlue" />
@@ -137,15 +151,24 @@
                 android:src="@drawable/ic_arrow_forward" />
         </LinearLayout>
 
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:dividerColor="@color/light_grey" />
+
         <LinearLayout
+            android:id="@+id/linearlay_pusat_bantuan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="6dp"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingVertical="4dp">
 
             <ImageView
-                android:layout_width="11.61dp"
+                android:layout_width="12dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_contact_support"
                 app:tint="@color/primary_darkBlue" />
@@ -166,15 +189,24 @@
                 android:src="@drawable/ic_arrow_forward" />
         </LinearLayout>
 
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:dividerColor="@color/light_grey" />
+
         <LinearLayout
+            android:id="@+id/linearlay_syarat_ketentuan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="6dp"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingVertical="4dp">
 
             <ImageView
-                android:layout_width="11.61dp"
+                android:layout_width="12dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_article"
                 app:tint="@color/primary_darkBlue" />
@@ -195,15 +227,24 @@
                 android:src="@drawable/ic_arrow_forward" />
         </LinearLayout>
 
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:dividerColor="@color/light_grey" />
+
         <LinearLayout
+            android:id="@+id/linearlay_kebijakan_privasi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="6dp"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingVertical="4dp">
 
             <ImageView
-                android:layout_width="11.61dp"
+                android:layout_width="12dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_admin_panel_settings"
                 app:tint="@color/primary_darkBlue" />
@@ -224,15 +265,24 @@
                 android:src="@drawable/ic_arrow_forward" />
         </LinearLayout>
 
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:dividerColor="@color/light_grey" />
+
         <LinearLayout
+            android:id="@+id/linearlay_keluar_akun"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="6dp"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingVertical="4dp">
 
             <ImageView
-                android:layout_width="11.61dp"
+                android:layout_width="12dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_logout"
                 app:tint="@color/primary_darkBlue" />
@@ -252,6 +302,11 @@
                 android:layout_height="12.13dp"
                 android:src="@drawable/ic_arrow_forward" />
         </LinearLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:dividerColor="@color/light_grey" />
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
