@@ -26,6 +26,7 @@
             <ImageView
                 android:layout_width="43.33dp"
                 android:layout_height="43.33dp"
+                android:contentDescription="Gambar Profil"
                 android:src="@drawable/ic_account_circle"
                 app:tint="@color/primary_darkBlue" />
 
@@ -42,31 +43,30 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
                     android:text="@string/rifky_eky"
-                    android:textColor="#1C1C1C"
-                    android:textSize="16sp" />
+                    android:textColor="#1C1C1C" />
 
                 <TextView
                     style="@style/LightText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/rifkyeky_gmail_com"
-                    android:textColor="#1C1C1C"
-                    android:textSize="12sp" />
+                    android:textColor="#1C1C1C" />
 
                 <TextView
                     style="@style/LightText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/_62_81_56"
-                    android:textColor="#1C1C1C"
-                    android:textSize="12sp" />
+                    android:textColor="#1C1C1C" />
             </LinearLayout>
 
             <ImageButton
                 android:id="@+id/img_btn_edit"
-                android:layout_width="23dp"
-                android:layout_height="23dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:contentDescription="Edit Profil"
                 android:src="@drawable/ic_edit"
                 app:tint="@color/primary_darkBlue" />
         </LinearLayout>
@@ -86,6 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:clickable="true"
+            android:contentDescription="Ubah Password"
             android:focusable="true"
             android:gravity="center"
             android:orientation="horizontal"
@@ -124,6 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:clickable="true"
+            android:contentDescription="Notifikasi"
             android:focusable="true"
             android:gravity="center"
             android:orientation="horizontal"
@@ -162,6 +164,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:clickable="true"
+            android:contentDescription="Pusat Bantuan"
             android:focusable="true"
             android:gravity="center"
             android:orientation="horizontal"
@@ -200,6 +203,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:clickable="true"
+            android:contentDescription="Syarat dan Ketentuan"
             android:focusable="true"
             android:gravity="center"
             android:orientation="horizontal"
@@ -238,6 +242,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:clickable="true"
+            android:contentDescription="Kebijakan Privasi"
             android:focusable="true"
             android:gravity="center"
             android:orientation="horizontal"
@@ -276,6 +281,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:clickable="true"
+            android:contentDescription="Keluar Akun"
             android:focusable="true"
             android:gravity="center"
             android:orientation="horizontal"

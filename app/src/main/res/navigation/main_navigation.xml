@@ -177,4 +177,10 @@
         <deepLink app:uri="app://com.example.app/trans/transDetail" />
 
     </fragment>
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.account.AccountFragment"
+        android:label="AccountFragment">
+        <deepLink app:uri="app://com.example.app/dashboard/account" />
+    </fragment>
 </navigation>
