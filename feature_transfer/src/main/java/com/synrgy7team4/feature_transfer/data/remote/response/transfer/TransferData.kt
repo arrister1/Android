@@ -2,8 +2,9 @@ package com.synrgy7team4.feature_transfer.data.remote.response.transfer
 
 
 import com.google.gson.annotations.SerializedName
+import com.synrgy7team4.feature_transfer.domain.model.Transfer
 
-data class Data(
+data class TransferData(
     @SerializedName("accountFrom")
     val accountFrom: String,
     @SerializedName("accountTo")
@@ -27,3 +28,19 @@ data class Data(
     @SerializedName("type")
     val type: String
 )
+
+fun TransferData.toDomain(): Transfer{
+    return Transfer(
+        accountFrom  = accountFrom,
+        accountTo = accountTo,
+        amount = amount,
+        balance = balance,
+        datetime = datetime,
+        description = description,
+        id = id,
+        nameAccountFrom = nameAccountFrom,
+        nameAccountTo = nameAccountTo,
+        status = status,
+        type = type
+    )
+}

@@ -1,5 +1,6 @@
 package com.synrgy7team4.feature_dashboard.presentation.ui.home
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.synrgy7team4.common.SharedPrefHelper
 import com.synrgy7team4.feature_dashboard.R
 import com.synrgy7team4.feature_dashboard.databinding.FragmentHomeBinding
@@ -97,15 +99,24 @@ class HomeFragment : Fragment() {
         binding.toggleAcc.setOnClickListener {
             accNumVisibility()
         }
+
+        binding.btnTransfer.setOnClickListener {
+            val transferNav = Uri.parse("app://com.example.app/trans/transferList")
+           requireView().findNavController().navigate(transferNav)
+
+        }
     }
 
     private fun accNumVisibility() {
         if(isAccNumHidden){
             binding.tvAccNumber.text = fullAccNum
             binding.toggleAcc.setImageResource(com.synrgy7team4.common.R.drawable.ic_visibility_on)
+            binding.toggleAcc.contentDescription = "Tampilkan  Nomor Rekening"
         } else {
             binding.tvAccNumber.text = hiddenAccNum
             binding.toggleAcc.setImageResource(com.synrgy7team4.common.R.drawable.ic_visibility_off)
+            binding.toggleAcc.contentDescription = "Sembunyikan Nomor Rekening"
+
         }
         isAccNumHidden = !isAccNumHidden
     }
@@ -127,9 +138,13 @@ class HomeFragment : Fragment() {
         if (isBalanceHidden) {
             binding.tvAccBalance.text = fullBalance
             binding.toggleBalance.setImageResource(com.synrgy7team4.common.R.drawable.ic_visibility_on)
+            binding.toggleBalance.contentDescription = "Tampilkan Saldo"
+
         } else {
             binding.tvAccBalance.text = hiddenBalance
             binding.toggleBalance.setImageResource(com.synrgy7team4.common.R.drawable.ic_visibility_off)
+            binding.toggleBalance.contentDescription = "Sembunyikan Saldo"
+
         }
         isBalanceHidden = !isBalanceHidden
     }

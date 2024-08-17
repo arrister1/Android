@@ -99,5 +99,6 @@
     <string name="example_gmail_com">example@gmail.com</string>
     <string name="kembali">Kembali</string>
     <string name="pilih_tanggal">Pilih tanggal</string>
+    <string name="masukkan_tanggal_lahir">Masukkan tanggal lahir</string>
 
 </resources>

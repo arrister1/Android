@@ -98,6 +98,7 @@
         android:id="@+id/calendar"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/masukkan_tanggal_lahir"
         android:hint="dd-mm-yyyy"
         app:layout_constraintStart_toStartOf="@+id/tvTanggalLahir"
         app:layout_constraintTop_toBottomOf="@+id/tvTanggalLahir" />
