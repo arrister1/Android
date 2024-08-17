@@ -12,8 +12,8 @@ data class AccountRequest(
     val additionalProp3: String
 )
 
-fun AccountRequest.toDomain(): com.synrgy7team4.feature_transfer.domain.model.AccountRequest{
-    return com.synrgy7team4.feature_transfer.domain.model.AccountRequest(
+fun AccountRequest.toDomain(): com.synrgy7team4.feature_transfer.domain.model.AccountReq{
+    return com.synrgy7team4.feature_transfer.domain.model.AccountReq(
         additionalProp1 =additionalProp1,
         additionalProp2 =additionalProp2,
         additionalProp3 = additionalProp3

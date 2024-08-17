@@ -1,6 +1,8 @@
 package com.synrgy7team4.feature_transfer.domain.model
 
-data class TransferRequest(
+import com.synrgy7team4.feature_transfer.data.remote.request.TransferRequest
+
+data class TransferReq(
     val accountFrom: String,
     val accountTo: String,
     val amount: Int,
@@ -8,3 +10,5 @@ data class TransferRequest(
     val pin: String,
 
     )
+
+

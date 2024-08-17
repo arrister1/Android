@@ -156,12 +156,48 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
         val deepLinkUri = Uri.parse("app://com.example.app/auth/registrationSuccess" )
 
         if (firstPassCode == passCode) {
+            sendRegisterRequest()
             requireView().findNavController().navigate(deepLinkUri)
         } else {
             setToast("PIN mismatch!")
             clearPinDisplay()
             numberList.clear()
         }
+    }
+
+    private fun sendRegisterRequest() {
+        val email = sharedPreferences.getString("email", "budi@example.com")
+        val hp = sharedPreferences.getString("hp", "911")
+        val password = sharedPreferences.getString("password", "12345678")
+//        val confirm_password = sharedPreferences.getString("confirm_password", "12345678")
+        val nik = sharedPreferences.getString("nik", "")
+        val name = sharedPreferences.getString("name", "Budi")
+        val date = sharedPreferences.getString("date", "01-01-2000")
+        val pin = sharedPreferences.getString("pin", "111111")
+        val ktp = sharedPreferences.getString("ktp", "")
+//        val confirm_pin = sharedPreferences.getString("confirm_pin", "111111")
+
+        if (!email.isNullOrEmpty() &&
+            !hp.isNullOrEmpty() &&
+            !password.isNullOrEmpty() &&
+//            !confirm_password.isNullOrEmpty() &&
+            !nik.isNullOrEmpty() &&
+            !name.isNullOrEmpty() &&
+            !date.isNullOrEmpty() &&
+            !pin.isNullOrEmpty() &&
+            !ktp.isNullOrEmpty()
+//            !confirm_pin.isNullOrEmpty()
+        )
+        {
+
+            viewModel.registerUser(email, hp, password, nik, name, date, pin, ktp)
+
+
+
+        } else {
+            setToast("Anda harus upload KTP untuk melanjutkan proses registrasi")
+        }
+
     }
 
     private fun setToast(msg: String) {

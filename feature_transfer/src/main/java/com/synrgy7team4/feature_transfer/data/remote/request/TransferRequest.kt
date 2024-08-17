@@ -16,8 +16,8 @@ data class TransferRequest(
     val pin: String
 )
 
-fun TransferRequest.toDomain(): com.synrgy7team4.feature_transfer.domain.model.TransferRequest{
-    return com.synrgy7team4.feature_transfer.domain.model.TransferRequest(
+fun TransferRequest.toDomain(): com.synrgy7team4.feature_transfer.domain.model.TransferReq{
+    return com.synrgy7team4.feature_transfer.domain.model.TransferReq(
         accountFrom = accountFrom,
         accountTo = accountTo,
         amount = amount,

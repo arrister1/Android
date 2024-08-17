@@ -10,8 +10,8 @@ data class BalanceRequest(
     val newBalance: Int
 )
 
-fun BalanceRequest.toDomain(): com.synrgy7team4.feature_transfer.domain.model.BalanceRequest{
-    return com.synrgy7team4.feature_transfer.domain.model.BalanceRequest(
+fun BalanceRequest.toDomain(): com.synrgy7team4.feature_transfer.domain.model.BalanceReq{
+    return com.synrgy7team4.feature_transfer.domain.model.BalanceReq(
         accountNumber = accountNumber,
         newBalance = newBalance
     )
