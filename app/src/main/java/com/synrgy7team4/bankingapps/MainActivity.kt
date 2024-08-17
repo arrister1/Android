@@ -20,13 +20,13 @@ class MainActivity : AppCompatActivity() {
 
         val sharedPreferences: SharedPreferences = getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
         val token = sharedPreferences.getString("token", null)
+        sharedPreferences.edit().remove("isForgotPassword").apply()
 
-        if (token != null) {
-            navController.navigate(com.synrgy7team4.feature_auth.R.id.homeFragment)
-        } else {
-            navController.navigate(com.synrgy7team4.feature_auth.R.id.splashScreenFragment)
-
-        }
+//        if (token != null) {
+//            navController.navigate(com.synrgy7team4.feature_auth.R.id.homeFragment)
+//        } else {
+//            navController.navigate(com.synrgy7team4.feature_auth.R.id.splashScreenFragment)
+//        }
 //        navController.navigate(com.synrgy7team4.feature_auth.R.id.splashScreenFragment)
 
 

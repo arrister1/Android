@@ -1,8 +1,10 @@
 package com.synrgy7team4.feature_auth.data.remote.retrofit
 
 import com.synrgy7team4.feature_auth.data.Post
+import com.synrgy7team4.feature_auth.data.remote.request.ForgotPasswordRequest
 import com.synrgy7team4.feature_auth.data.remote.request.LoginRequest
 import com.synrgy7team4.feature_auth.data.remote.request.RegisterRequest
+import com.synrgy7team4.feature_auth.data.remote.response.ForgotPasswordResponse
 import com.synrgy7team4.feature_auth.data.remote.response.LoginResponse
 import com.synrgy7team4.feature_auth.data.remote.response.RegistResponse
 import retrofit2.Response
@@ -38,7 +40,18 @@ interface ApiService {
     ): LoginResponse
 //            LoginResponse
 
+    @POST("forget-password/send")
+    suspend fun sendForgotPassword(
+        @Body forgotPasswordRequest: ForgotPasswordRequest
+    ): ForgotPasswordResponse
 
+    @POST("forget-password/validate")
+    suspend fun validateForgotPassword(
+        @Body forgotPasswordRequest: ForgotPasswordRequest
+    ): ForgotPasswordResponse
 
-
+    @POST("forget-password/change-password")
+    suspend fun changePasswordForgotPassword(
+        @Body forgotPasswordRequest: ForgotPasswordRequest
+    ): ForgotPasswordResponse
 }

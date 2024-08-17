@@ -1,6 +1,7 @@
 package com.synrgy7team4.feature_auth.presentation.login
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -55,8 +56,8 @@ class LoginFragment : Fragment() {
 
         setupAccessibility()
 
-        //val sharedPreferences: SharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
-
+        val sharedPreferences: SharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
+        sharedPreferences.edit().remove("isForgotPassword").apply()
 
         binding.btnBack.setOnClickListener{
             view.findNavController().popBackStack()
@@ -66,7 +67,6 @@ class LoginFragment : Fragment() {
             sharedPrefHelper.saveJwtToken(token)
             //sharedPreferences.edit().putString("token", token).apply()
         }
-
 
         viewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
@@ -105,11 +105,14 @@ class LoginFragment : Fragment() {
                     getString(R.string.show_password)
                 }
                 binding.textInputLayout3.setEndIconContentDescription(contentDescription)
-
             }
         }
 
-
+        binding.forgotPassword.setOnClickListener {
+            sharedPreferences.edit().putString("isForgotPassword", "true").apply()
+            requireView().findNavController()
+                .navigate(R.id.action_loginFragment_to_inputEmailFragment)
+        }
 
         binding.btnMasuk.setOnClickListener {
             val email = binding.edtEmail.text.toString()

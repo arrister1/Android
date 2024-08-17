@@ -16,6 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.synrgy7team4.common.ViewModelFactoryProvider
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentCreatePasswordBinding
+import com.synrgy7team4.feature_auth.presentation.viewmodel.LoginViewModel
 import com.synrgy7team4.feature_auth.presentation.viewmodel.RegisterViewModel
 
 
@@ -27,10 +28,8 @@ class CreatePasswordFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var sharedPreferences: SharedPreferences
-    private val viewModel by viewModels<RegisterViewModel> {
-//        val app = requireActivity().application
-//        (app as MyApplication).viewModelFactory
 
+    private val viewModel by viewModels<LoginViewModel> {
         val app = requireActivity().application as ViewModelFactoryProvider
         app.provideViewModelFactory()
     }
@@ -52,7 +51,24 @@ class CreatePasswordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.isSuccessful.observe(viewLifecycleOwner) {
+            setToast("Simpan password baru berhasil")
+
+            view.findNavController().popBackStack(R.id.loginFragment, true)
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) { notError ->
+            if (!notError) {
+                setToast("Gagal simpan password baru")
+            }
+        }
+
         sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
+
+        if (sharedPreferences.getString("isForgotPassword", null) == "true")
+        {
+            binding.createPasswordText.text = "Buat Password Baru"
+        }
 
 
         binding.submitCreatedPassword.setOnClickListener {
@@ -75,10 +91,20 @@ class CreatePasswordFragment : Fragment() {
                             Snackbar.make(view, "Password tidak sama, mohon input kembali", Snackbar.LENGTH_SHORT).show()
 
                         } else {
-                            sharedPreferences.edit().putString("password", password).apply()
+                            if (sharedPreferences.getString("isForgotPassword", null) == "true")
+                            {
+                                val otp = sharedPreferences.getString("otp", "")
+                                if (otp != null) {
+                                    viewModel.changePasswordForgotPassword(otp , password)
+                                }
+                            }
+                            else
+                            {
+                                sharedPreferences.edit().putString("password", password).apply()
 //                            sharedPreferences.edit().putString("confirm_password", passwordConfirmation).apply()
-                            setToast("Kamu berhasil membuat password")
-                            view.findNavController().navigate(R.id.action_createPasswordFragment_to_biodataFragment)
+                                setToast("Kamu berhasil membuat password")
+                                view.findNavController().navigate(R.id.action_createPasswordFragment_to_biodataFragment)
+                            }
                         }
                     }
 

@@ -100,12 +100,23 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/forgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/forgot_password"
+        android:textColor="@color/primary_blue"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayout3"
+        app:layout_constraintStart_toStartOf="parent"/>
+
     <Button
         android:id="@+id/btnMasuk"
         style="@style/PrimaryActiveButton"
         android:layout_width="250dp"
         android:layout_height="60dp"
-        android:layout_margin="16dp"
+        android:layout_marginTop="80dp"
         android:text="@string/masuk"
         app:cornerRadius="12dp"
 

@@ -1,9 +1,11 @@
 package com.synrgy7team4.feature_auth.domain.repository
 
+import com.synrgy7team4.feature_auth.data.remote.request.ForgotPasswordRequest
 import com.synrgy7team4.feature_auth.data.remote.request.LoginRequest
 import com.synrgy7team4.feature_auth.data.remote.response.DataX
 import com.synrgy7team4.feature_auth.data.remote.response.RegistResponse
 import com.synrgy7team4.feature_auth.data.remote.request.RegisterRequest
+import com.synrgy7team4.feature_auth.data.remote.response.ForgotPasswordResponse
 import com.synrgy7team4.feature_auth.data.remote.response.LoginResponse
 import kotlinx.coroutines.flow.Flow
 
@@ -14,6 +16,11 @@ interface AuthRepository {
     suspend fun register(registerRequest: RegisterRequest): RegistResponse
 //    suspend fun register(registerBody: RegisterBody, context: Context, uri: Uri): Data
     suspend fun login(loginRequest: LoginRequest): LoginResponse
+
+    suspend fun sendForgotPassword(forgotPasswordRequest: ForgotPasswordRequest): ForgotPasswordResponse
+    suspend fun validateForgotPassword(forgotPasswordRequest: ForgotPasswordRequest): ForgotPasswordResponse
+    suspend fun changePasswordForgotPassword(forgotPasswordRequest: ForgotPasswordRequest): ForgotPasswordResponse
+
 //    suspend fun login(email: String, password: String): DataX
 //    suspend fun saveSession(userModel: UserModel)
 //    suspend fun saveSession(loginResponse: LoginResponse)

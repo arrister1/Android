@@ -12,10 +12,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.google.android.material.button.MaterialButton
+import com.synrgy7team4.common.ViewModelFactoryProvider
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentOtpVerificationBinding
+import com.synrgy7team4.feature_auth.presentation.viewmodel.LoginViewModel
 
 class OtpVerification : Fragment() {
 
@@ -23,6 +27,11 @@ class OtpVerification : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var sharedPreferences: SharedPreferences
+
+    private val viewModel by viewModels<LoginViewModel> {
+        val app = requireActivity().application as ViewModelFactoryProvider
+        app.provideViewModelFactory()
+    }
 
     private lateinit var inputCode1: EditText
     private lateinit var inputCode2: EditText
@@ -38,7 +47,7 @@ class OtpVerification : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
        // return inflater.inflate(R.layout.fragment_otp_verification, container, false)
         _binding = FragmentOtpVerificationBinding.inflate(inflater, container, false)
@@ -48,20 +57,40 @@ class OtpVerification : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.isSuccessful.observe(viewLifecycleOwner) {
+            sharedPreferences.edit().putString("otp", getOTP()).apply()
+            view.findNavController().navigate(R.id.action_otpVerification_to_createPasswordFragment)
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) { notError ->
+            if (!notError) {
+                setToast("Token not valid")
+            }
+        }
+
         sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
 
-        val hp = sharedPreferences.getString("hp", "08123456789")
+        var hp = sharedPreferences.getString("hp", "08123456789");
+        if (sharedPreferences.getString("isForgotPassword", null) == "true")
+        {
+            hp = sharedPreferences.getString("email", "email@email.com");
+        }
         binding.tvNumber.text = hp
 
         binding.btnBack.setOnClickListener {
             view.findNavController().popBackStack()
-
         }
 
         binding.submitOTPButton.setOnClickListener {
-
-            view.findNavController().navigate(R.id.action_otpVerification_to_createPasswordFragment)
+            if (sharedPreferences.getString("isForgotPassword", null) == "true")
+            {
+                viewModel.validateForgotPassword(getOTP())
+            }
+            else
+            {
+                view.findNavController().navigate(R.id.action_otpVerification_to_createPasswordFragment)
 //            view.findNavController().navigate(R.id.action_otpVerification_to_ktpVerificationBoardFragment)
+            }
         }
 
         binding.btnBack.setOnClickListener {
@@ -114,8 +143,14 @@ class OtpVerification : Fragment() {
         })
     }
 
-    private fun getOTP(){
-        Log.d("OTP","${inputCode1.text}${inputCode2.text}${inputCode3.text}${inputCode4.text}${inputCode5.text}${inputCode6.text}")
+    private fun getOTP(): String{
+        val otp = "${inputCode1.text}${inputCode2.text}${inputCode3.text}${inputCode4.text}${inputCode5.text}${inputCode6.text}"
+        Log.d("OTP",otp)
+        return otp
+    }
+
+    private fun setToast(msg: String) {
+        Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show()
     }
 }
 

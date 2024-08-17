@@ -2,10 +2,12 @@ package com.synrgy7team4.feature_auth.data.repository
 
 import com.synrgy7team4.feature_auth.data.local.AuthLocalSource
 import com.synrgy7team4.feature_auth.data.remote.AuthRemoteSource
+import com.synrgy7team4.feature_auth.data.remote.request.ForgotPasswordRequest
 import com.synrgy7team4.feature_auth.data.remote.request.LoginRequest
 import com.synrgy7team4.feature_auth.data.remote.response.DataX
 import com.synrgy7team4.feature_auth.data.remote.response.RegistResponse
 import com.synrgy7team4.feature_auth.data.remote.request.RegisterRequest
+import com.synrgy7team4.feature_auth.data.remote.response.ForgotPasswordResponse
 import com.synrgy7team4.feature_auth.data.remote.response.LoginResponse
 import com.synrgy7team4.feature_auth.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.Flow
@@ -33,6 +35,18 @@ class ImplementAuthRepository(
 
     override suspend fun login(loginRequest: LoginRequest): LoginResponse {
         return authRemoteSource.login(loginRequest)
+    }
+
+    override suspend fun sendForgotPassword(forgotPasswordRequest: ForgotPasswordRequest): ForgotPasswordResponse {
+        return authRemoteSource.sendForgotPassword(forgotPasswordRequest)
+    }
+
+    override suspend fun validateForgotPassword(forgotPasswordRequest: ForgotPasswordRequest): ForgotPasswordResponse {
+        return authRemoteSource.validateForgotPassword(forgotPasswordRequest)
+    }
+
+    override suspend fun changePasswordForgotPassword(forgotPasswordRequest: ForgotPasswordRequest): ForgotPasswordResponse {
+        return authRemoteSource.changePasswordForgotPassword(forgotPasswordRequest)
     }
 
     override suspend fun saveSession(dataX: DataX) {

@@ -42,5 +42,4 @@ fun provideRetrofit(
 
 fun provideService(): ApiService {
     return provideRetrofit(BASE_URL).create(ApiService::class.java)
-
 }
