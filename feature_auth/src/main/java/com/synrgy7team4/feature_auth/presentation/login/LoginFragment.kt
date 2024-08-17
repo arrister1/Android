@@ -90,15 +90,6 @@ class LoginFragment : Fragment() {
                 setToast("Email atau Password anda salah")
             }
 
-            if(isTalkbackEnabled()){
-                binding.edtEmail.setAccessibilityDelegate(object : View.AccessibilityDelegate() {
-                    override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
-                        super.onInitializeAccessibilityNodeInfo(host, info)
-                        info?.text = null  // Hapus teks (hint) yang akan dibaca oleh TalkBack
-                    }
-                })
-            }
-
 //            binding.textInputLayout3.setEndIconContentDescription(R.string.hide_password)
 //            binding.textInputLayout3.setEndIconOnClickListener {
 //                val isPasswordVisible = binding.edtPassword.inputType == android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
@@ -167,7 +158,14 @@ class LoginFragment : Fragment() {
 
         })
 
-
+        if(isTalkbackEnabled()){
+            binding.edtEmail.setAccessibilityDelegate(object : View.AccessibilityDelegate() {
+                override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
+                    super.onInitializeAccessibilityNodeInfo(host, info)
+                    info?.text = null  // Hapus teks (hint) yang akan dibaca oleh TalkBack
+                }
+            })
+        }
 
 
 

@@ -1,13 +1,13 @@
-package com.synrgy7team4.feature_transfer.data.remote.response.transfer
+package com.synrgy7team4.feature_transfer.data.remote.response.account
 
 
 import com.google.gson.annotations.SerializedName
 
-data class TransferResponse(
+data class AccountResponse(
     @SerializedName("data")
-    val `data`: TransferData,
+    val `data`: List<AccountData>,
     @SerializedName("errors")
-    val errors: Errors,
+    val errors: List<AccountError>,
     @SerializedName("message")
     val message: String,
     @SerializedName("success")

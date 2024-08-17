@@ -2,8 +2,9 @@ package com.synrgy7team4.feature_transfer.data.remote.response.user
 
 
 import com.google.gson.annotations.SerializedName
+import com.synrgy7team4.feature_transfer.domain.model.User
 
-data class Data(
+data class UserData(
     @SerializedName("account_number")
     val accountNumber: String,
     @SerializedName("account_pin")
@@ -21,3 +22,16 @@ data class Data(
     @SerializedName("no_ktp")
     val noKtp: String
 )
+
+fun UserData.toDomain(): User{
+    return User(
+        accountNumber = accountNumber,
+        accountPin = accountPin,
+        dateOfBirth = dateOfBirth,
+        ektpPhoto = ektpPhoto,
+        email = email,
+        name = name,
+        noHp = noHp,
+        noKtp = noKtp
+    )
+}

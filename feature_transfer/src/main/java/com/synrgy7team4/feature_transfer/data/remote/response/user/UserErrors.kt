@@ -3,7 +3,7 @@ package com.synrgy7team4.feature_transfer.data.remote.response.user
 
 import com.google.gson.annotations.SerializedName
 
-data class Errors(
+data class UserErrors(
     @SerializedName("account_number")
     val accountNumber: String,
     @SerializedName("account_pin")

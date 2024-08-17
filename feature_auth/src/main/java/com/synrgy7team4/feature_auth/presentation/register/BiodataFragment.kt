@@ -136,7 +136,16 @@ class BiodataFragment : Fragment() {
                     info?.text = null  // Hapus teks (hint) yang akan dibaca oleh TalkBack
                 }
             })
+
+            binding.calendar.setAccessibilityDelegate(object : View.AccessibilityDelegate() {
+                override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
+                    super.onInitializeAccessibilityNodeInfo(host, info)
+                    info?.text = null
+                }
+            })
         }
+        
+        
 
     }
 

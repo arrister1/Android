@@ -78,10 +78,7 @@ class FingerprintVerifFragment : Fragment() {
                 }
             })
 
-        checkDeviceHasBiometric()
-        binding.ivFingerprint.setOnClickListener {
-            biometricPrompt.authenticate(promptInfo)
-        }
+
 
         promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle("Daftarkan sidik jari anda")
@@ -89,6 +86,8 @@ class FingerprintVerifFragment : Fragment() {
             .setNegativeButtonText("Gunakan password akun")
             .build()
 
+        checkDeviceHasBiometric()
+        biometricPrompt.authenticate(promptInfo)
 
     }
 
