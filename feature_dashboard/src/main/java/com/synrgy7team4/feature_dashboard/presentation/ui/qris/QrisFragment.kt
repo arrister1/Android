@@ -35,6 +35,7 @@ import com.synrgy7team4.feature_dashboard.R
 import com.synrgy7team4.feature_dashboard.databinding.FragmentQrisBinding
 import com.synrgy7team4.feature_dashboard.presentation.ui.home.HomeViewModel
 import com.synrgy7team4.feature_dashboard.utility.QrUtility
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileInputStream
@@ -48,6 +49,8 @@ class QrisFragment : Fragment() {
     private var isHidden: Boolean = false
     private lateinit var fullBalance: String
     private lateinit var hiddenBalance: String
+    private val viewModel: HomeViewModel by viewModel()
+
 
 
     // This property is only valid between onCreateView and
@@ -78,8 +81,7 @@ class QrisFragment : Fragment() {
         sharedPreferences= requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
         val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
 
-        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
-            HomeViewModel::class.java)
+
 
 
         val activity = requireActivity()
@@ -204,9 +206,12 @@ class QrisFragment : Fragment() {
         tvGet.text = getPayText
 
 //        viewModel.fectData(getToken, getAccountNumber)
-        viewModel.data.observe(viewLifecycleOwner) { data ->
-            amountTextView.text = data.data.toString()
-            accountNo.text = getAccountNumber
+//        viewModel.userResponse.observe(viewLifecycleOwner) { data ->
+//            amountTextView.text = data.data.
+//        }
+
+        viewModel.accountNumber.observe(viewLifecycleOwner) {number ->
+            accountNo.text = number
         }
 
         val mQRBitmap = QrUtility.generateQR(getAccountNumber!!)

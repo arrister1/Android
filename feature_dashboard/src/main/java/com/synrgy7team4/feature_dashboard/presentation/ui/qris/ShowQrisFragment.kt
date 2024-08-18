@@ -57,8 +57,8 @@ class ShowQrisFragment : Fragment() {
         binding.tvGet.text = getPayText
 
 //        viewModel.fectData(getToken, getAccountNumber)
-        viewModel.data.observe(viewLifecycleOwner) { data ->
-            binding.amountTextView.text = data.data.toString()
+        viewModel.userResponse.observe(viewLifecycleOwner) { data ->
+            binding.amountTextView.text = data?.data.toString()
             binding.accountNo.text = getAccountNumber
         }
 

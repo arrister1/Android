@@ -168,6 +168,14 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
         val deepLinkUri = Uri.parse("app://com.example.app/auth/registrationSuccess" )
 
         if (firstPassCode == passCode) {
+
+            viewModel.registerResult.observe(viewLifecycleOwner) { result ->
+                if (result?.success == true) {
+                    setToast(result.message ?: "Registrasi berhasil")
+                    sharedPreferences.edit().putString("accountNumber", result.data.accountNumber).apply()
+                }
+            }
+            sendRegisterRequest()
             requireView().findNavController().navigate(deepLinkUri)
         } else {
             setToast("PIN mismatch!")

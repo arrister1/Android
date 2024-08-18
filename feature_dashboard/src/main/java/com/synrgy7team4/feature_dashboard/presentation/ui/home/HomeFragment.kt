@@ -84,10 +84,10 @@ class HomeFragment : Fragment() {
         }
 
         homeViewModel.fetchUserData(token)
-        } else{
+        } else {
             Toast.makeText(requireContext(), "Token is missing", Toast.LENGTH_SHORT).show()
 
-        
+        }
 
 
         binding.tvAccBalance.text = fullBalance
@@ -105,6 +105,26 @@ class HomeFragment : Fragment() {
            requireView().findNavController().navigate(transferNav)
 
         }
+
+        binding.navView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_qr -> {
+                    val qrNav = Uri.parse("app://com.example.app/dashboard/qris")
+                    requireView().findNavController().navigate(qrNav)
+                    true
+                }
+                R.id.navigation_profile -> {
+//                    val profileNav = Uri.parse("app://com.example.app/profile")
+//                    requireView().findNavController().navigate(profileNav)
+                    true
+                }
+                R.id.navigation_home -> {
+                    true
+                } else -> false
+            }
+        }
+
+
     }
 
     private fun accNumVisibility() {
