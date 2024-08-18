@@ -36,6 +36,7 @@ class VerifikasiKtpFragment : Fragment() {
 
     private fun delayAndNavigate() {
         val deepLinkUri = Uri.parse("app://com.example.app/auth/fingerprint"  )
+//        val deepLinkUri = Uri.parse("app://com.example.app/auth/pin"  )
 
         lifecycleScope.launch {
             delay(3000) // Delay for 10 seconds (10000 milliseconds)

@@ -28,9 +28,10 @@
     <string name="flash_button">Flash Button</string>
     <string name="censored_account_no">7293 **** **** 9283</string>
     <string name="balance_toggle_button">Balance Toggle Button</string>
-    <string name="tunjukan_qr_untuk_membayar">Tunjukkan QR untuk membayar</string>
+    <string name="tunjukan_qr_untuk">Tunjukkan QR untuk</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="lumi">Lumi</string>
+    <string name="menerima_transfer">menerima transfer</string>
 
 </resources>

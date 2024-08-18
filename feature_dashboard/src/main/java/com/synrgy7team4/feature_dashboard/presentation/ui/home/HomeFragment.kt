@@ -112,6 +112,25 @@ class HomeFragment : Fragment() {
 
         }
 
+        binding.navView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_qr -> {
+                    val transferNav = Uri.parse("app://com.example.app/dashboard/qris")
+                    requireView().findNavController().navigate(transferNav)
+                    true
+                }
+                R.id.navigation_home -> {
+                    val transferNav = Uri.parse("app://com.example.app/dashboard/home")
+                    requireView().findNavController().navigate(transferNav)
+                    true
+                }
+                R.id.navigation_profile -> {
+                    true
+                }
+                else -> false
+            }
+        }
+
         binding.btnMutasi.setOnClickListener {
 
             val deepLinkUri = Uri.parse("app://com.example.app/mutasi/mutasi")

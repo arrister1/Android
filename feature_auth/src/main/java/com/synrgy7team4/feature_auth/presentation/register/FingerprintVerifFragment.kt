@@ -90,6 +90,13 @@ class FingerprintVerifFragment : Fragment() {
             .build()
 
 
+        binding.btnSkip.setOnClickListener {
+            val deepLinkUri = Uri.parse("app://com.example.app/auth/pin"  )
+            requireView().findNavController().navigate(deepLinkUri)
+        }
+
+
+
     }
 
     fun checkDeviceHasBiometric() {

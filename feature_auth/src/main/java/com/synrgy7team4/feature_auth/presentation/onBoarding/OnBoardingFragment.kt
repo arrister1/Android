@@ -44,11 +44,14 @@ class OnBoardingFragment : Fragment() {
         binding.btnBlumPunya.setOnClickListener {
             //requireView().findNavController().navigate(R.id.action_onBoardingFragment_to_inputEmailFragment)
             val deepLinkUriRegis = Uri.parse("app://com.example.app/auth/inputEmail")
+//            val deepLinkUriRegis = Uri.parse("app://com.example.app/trans/showQR")
             requireView().findNavController().navigate(deepLinkUriRegis)
         }
         binding.btnPunya.setOnClickListener {
           //  requireView().findNavController().navigate(R.id.action_onBoardingFragment_to_loginFragment)
             val deepLinkUri = Uri.parse("app://com.example.app/auth/login")
+//            val deepLinkUri = Uri.parse("app://com.example.app/dashboard/qris")
+//            val deepLinkUri = Uri.parse("app://com.example.app/trans/qrTestFrag")
             requireView().findNavController().navigate(deepLinkUri)
         }
 

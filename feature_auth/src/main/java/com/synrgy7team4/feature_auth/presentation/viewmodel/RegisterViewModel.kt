@@ -43,25 +43,36 @@ class RegisterViewModel(private val authRepository: AuthRepository): ViewModel()
 
 
         viewModelScope.launch {
-            _isLoading.value = true
+//            _isLoading.value = true
 
-            try {
-                val registerRequest = RegisterRequest(email, hp, password, nik, name, date, pin, ektp_photo)
-                val response = authRepository.register(registerRequest)
+            _isLoading.value = false
 
-                _registerResult.postValue(response)
-                Log.d("RegisterViewModel", "RegisterRequest: $registerRequest")
+            val registerRequest = RegisterRequest(email, hp, password, nik, name, date, pin, ektp_photo)
+            val response = authRepository.register(registerRequest)
 
-            } catch (e: HttpException) {
-                val jsonInString = e.response()?.errorBody()?.string()
-                val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
-                val errorMessage = errorBody.message
-                _error.postValue(errorBody)
-                Log.e("RegisterViewModel", "HTTP Error: $errorMessage")
-            } finally {
-                _isLoading.value = false
+            _registerResult.postValue(response)
+            Log.d("RegisterViewModel", "RegisterRequest: $registerRequest")
 
-            }
+
+//            try {
+//                val registerRequest = RegisterRequest(
+//                    email,
+//                    hp, password, nik, name, date, pin, ektp_photo)
+//                val response = authRepository.register(registerRequest)
+//
+//                _registerResult.postValue(response)
+//                Log.d("RegisterViewModel", "RegisterRequest: $registerRequest")
+//
+//            } catch (e: HttpException) {
+//                val jsonInString = e.response()?.errorBody()?.string()
+//                val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+//                val errorMessage = errorBody.message
+//                _error.postValue(errorBody)
+//                Log.e("RegisterViewModel", "HTTP Error: $errorMessage")
+//            } finally {
+//                _isLoading.value = false
+//
+//            }
 
         }
 

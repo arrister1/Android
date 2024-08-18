@@ -177,4 +177,28 @@
         <deepLink app:uri="app://com.example.app/trans/transDetail" />
 
     </fragment>
+    <fragment
+        android:id="@+id/QRTestFragment"
+        android:name="com.synrgy7team4.feature_transfer.presentation.ui.QRTestFragment"
+        android:label="QRTestFragment">
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="app://com.example.app/trans/qrTestFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/showGenerateQRFragment"
+        android:name="com.synrgy7team4.feature_transfer.presentation.ui.ShowGenerateQRFragment"
+        android:label="ShowGenerateQRFragment">
+        <deepLink
+            android:id="@+id/deepLink2"
+            app:uri="app://com.example.app/trans/showQR" />
+    </fragment>
+    <fragment
+        android:id="@+id/showQrisFragment2"
+        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.qris.ShowQrisFragment"
+        android:label="ShowQrisFragment">
+        <deepLink
+            android:id="@+id/deepLink3"
+            app:uri="app://com.example.app/dashboard/showQris" />
+    </fragment>
 </navigation>

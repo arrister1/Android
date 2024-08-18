@@ -82,6 +82,11 @@
         <item name="android:background">@drawable/button_with_border2</item>
         <item name="android:textColor">@color/grey</item>
     </style>
+    
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_animation</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_animation</item>
+    </style>
 
 
 
