@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="25dp"
-        tools:context=".presentation.ui.transfer.FellowAccountBankInputFragment">
+        tools:context=".presentation.ui.FellowAccountBankInputFragment">
 
         <ImageView
             android:id="@+id/btn_back"

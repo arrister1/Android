@@ -1,4 +1,4 @@
-package com.synrgy7team4.feature_transfer.presentation.ui.transfer
+package com.synrgy7team4.feature_transfer.presentation.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

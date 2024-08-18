@@ -1,29 +1,40 @@
 package com.synrgy7team4.bankingapps
 
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.synrgy7team4.common.SharedPrefHelper
-import org.koin.android.ext.android.inject
+import com.synrgy7team4.bankingapps.databinding.ActivityMainBinding
+import com.synrgy7team4.common.NavigationHandler
+import org.koin.android.ext.android.getKoin
 
-class MainActivity : AppCompatActivity() {
-    private val sharedPrefHelper: SharedPrefHelper by inject()
+class MainActivity : AppCompatActivity(), NavigationHandler {
+    private lateinit var navController: NavController
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        getKoin().declare(this as NavigationHandler)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_feature_auth) as NavHostFragment
-        val navController = navHostFragment.navController
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
+    }
 
-        val splashUri = Uri.parse("app://com.example.app/auth/splashScreen")
-        val homeUri = Uri.parse("app://com.example.app/dashboard/home")
+    override fun navigateToOnBoarding() {
+        TODO("Not yet implemented")
+    }
 
-        if (sharedPrefHelper.getJwtToken() == null) {
-            navController.navigate(splashUri)
-        } else {
-            navController.navigate(homeUri)
-        }
+    override fun navigateToDashboard() {
+        navController.navigate(R.id.auth_to_dashboard_navigation)
+    }
+
+    override fun navigateToMutasi() {
+        TODO("Not yet implemented")
+    }
+
+    override fun navigateToTransfer() {
+        TODO("Not yet implemented")
     }
 }

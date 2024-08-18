@@ -34,16 +34,20 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
-
     }
 }
 
 dependencies {
-
-    implementation(project(":shared"))
+    val libs = rootProject.extra["libs"] as Map<*, *>
     implementation(project(":common"))
+    implementation(project(":di"))
+    implementation(project(":domain"))
+
+    // Navigation
+    implementation(libs["navigation-fragment-ktx"].toString())
+    implementation(libs["navigation-ui-ktx"].toString())
+
     implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.android.car.ui:car-ui-lib:2.6.0")
-
 }

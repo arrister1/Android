@@ -36,11 +36,10 @@ android {
 }
 
 dependencies {
-
+    val libs = rootProject.extra["libs"] as Map<*, *>
     implementation(project(":common"))
-    implementation(project(":shared"))
-//    implementation(project(":feature_mutasi"))
-//    implementation(project(":feature_transfer"))
+    implementation(project(":di"))
+    implementation(project(":domain"))
 
 
     // QR Code Scanner

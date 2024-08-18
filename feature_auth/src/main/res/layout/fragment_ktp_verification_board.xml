@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginHorizontal="20dp"
-    tools:context=".presentation.register.KtpVerificationBoardFragment">
+    tools:context=".ui.registerScreen.KtpVerificationBoardFragment">
 
     <TextView
         android:id="@+id/tv_verif_title"

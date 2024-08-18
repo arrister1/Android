@@ -1,13 +1,9 @@
 package com.synrgy7team4.bankingapps
 
 import android.app.Application
-import androidx.lifecycle.ViewModelProvider
-import com.synrgy7team4.common.ViewModelFactoryProvider
-import com.synrgy7team4.feature_auth.di.AuthKoin
-
-import com.synrgy7team4.feature_auth.di.Module
-
-import com.synrgy7team4.feature_auth.presentation.viewmodel.AuthViewModelKoin
+import com.synrgy7team4.bankingapps.di.appKoin
+import com.synrgy7team4.di.feature_auth.authKoin
+import com.synrgy7team4.feature_auth.viewmodel.authViewModelKoin
 import com.synrgy7team4.feature_dashboard.di.DashboardKoin
 import com.synrgy7team4.feature_dashboard.presentation.viewmodel.DashboardViewModelKoin
 import com.synrgy7team4.feature_mutasi.di.MutasiKoin
@@ -16,33 +12,21 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 
-class MyApplication : Application(), ViewModelFactoryProvider {
-
-    lateinit var module: Module
-    lateinit var viewModelFactory: ViewModelFactory
-
+class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-
-        module = Module(this)
-        viewModelFactory = ViewModelFactory(module)
-
         startKoin {
             androidLogger()
             androidContext(this@MyApplication)
             modules(
-
-                AuthKoin,
-                AuthViewModelKoin,
+                appKoin,
+                authKoin,
+                authViewModelKoin,
                 DashboardKoin,
                 MutasiKoin,
                 MutasiViewModelKoin,
                 DashboardViewModelKoin
             )
         }
-    }
-
-    override fun provideViewModelFactory(): ViewModelProvider.Factory {
-        return viewModelFactory
     }
 }

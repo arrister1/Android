@@ -1,4 +1,4 @@
-package com.synrgy7team4.feature_transfer.presentation.ui.transfer
+package com.synrgy7team4.feature_transfer.presentation.ui
 
 import android.net.Uri
 import android.os.Bundle
@@ -6,12 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.SearchView
 import android.widget.Toast
-import androidx.compose.ui.text.toUpperCase
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,10 +27,6 @@ class SavedAccountFragment : Fragment() {
         SavedAccountDataObject(123, "cccount 6", "MayBank", "986745623"),
         SavedAccountDataObject(123, "bccount 3", "BNI", "8679875634"),
     )
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,7 +52,7 @@ class SavedAccountFragment : Fragment() {
                 val transferInputNav = Uri.parse(  "app://com.example.app/trans/transferInput")
                 Toast.makeText(requireContext(), "${model.accountName} ${model.accountNo} ${model.bankName}", Toast.LENGTH_SHORT).show()
                 //findNavController().navigate(R.id.action_savedAccountFragment_to_transferInputFragment)
-                requireView().findNavController().navigate(transferInputNav)
+                findNavController().navigate(transferInputNav)
 
             }
         })
@@ -83,7 +76,7 @@ class SavedAccountFragment : Fragment() {
         view.findViewById<MaterialButton>(R.id.addNewAccountInfo).setOnClickListener {handleAddNewAccountInfoClick()}
 
         view.findViewById<ImageView>(R.id.btn_back).setOnClickListener {
-            view.findNavController().popBackStack()
+            findNavController().popBackStack()
         }
     }
 

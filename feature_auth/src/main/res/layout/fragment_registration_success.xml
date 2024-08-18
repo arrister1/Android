@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:id="@+id/regis_success_layout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.register.RegistrationSuccessFragment">
+    tools:context=".ui.registerScreen.RegistrationSuccessFragment">
 
     <ImageView
         android:id="@+id/iv_regis_success"

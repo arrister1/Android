@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="30dp"
-    tools:context=".presentation.register.BiodataFragment">
+    tools:context=".ui.registerScreen.BiodataFragment">
 
     <TextView
         android:id="@+id/tvBiodata"

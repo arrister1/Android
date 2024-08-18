@@ -38,9 +38,10 @@ android {
 }
 
 dependencies {
-
-
+    val libs = rootProject.extra["libs"] as Map<*, *>
     implementation(project(":common"))
+    implementation(project(":di"))
+    implementation(project(":domain"))
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.7.0")

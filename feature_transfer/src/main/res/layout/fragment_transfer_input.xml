@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_marginHorizontal="25dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.ui.transfer.TransferInputFragment">
+    tools:context=".presentation.ui.TransferInputFragment">
 
     <ImageView
         android:id="@+id/btn_back"

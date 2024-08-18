@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginHorizontal="60dp"
-    tools:context=".presentation.register.PinFragment">
+    tools:context=".ui.registerScreen.PinFragment">
 
     <TextView
         android:id="@+id/tv_pin_title"

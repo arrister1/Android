@@ -37,13 +37,14 @@ android {
 }
 
 dependencies {
+    val libs = rootProject.extra["libs"] as Map<*, *>
 
-
-
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("com.google.android.material:material:1.12.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.2.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    // Generated dependencies
+    implementation(libs["core-ktx"].toString())
+    implementation(libs["appcompat"].toString())
+    implementation(libs["material"].toString())
+    implementation(libs["activity"].toString())
+    testImplementation(libs["junit"].toString())
+    androidTestImplementation(libs["ext-junit"].toString())
+    androidTestImplementation(libs["espresso-core"].toString())
 }

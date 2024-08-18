@@ -1,4 +1,4 @@
-package com.example.feature_transfer.presentation.ui
+package com.synrgy7team4.feature_transfer.presentation.ui
 
 import android.content.Context
 import android.net.Uri
@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.navigation.findNavController
 import com.synrgy7team4.common.databinding.PinInputBinding
 import com.synrgy7team4.common.databinding.PinNumberBinding
-import com.synrgy7team4.feature_transfer.R
 import com.synrgy7team4.feature_transfer.databinding.FragmentTransferPinBinding
 
 
