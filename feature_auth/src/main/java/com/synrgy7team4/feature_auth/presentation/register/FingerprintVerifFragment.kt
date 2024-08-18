@@ -24,7 +24,7 @@ class FingerprintVerifFragment : Fragment() {
 
     private var _binding: FragmentFingerprintVerifBinding? = null
     private val binding get() = _binding!!
-    var info: String = ""
+    private var info: String = ""
 
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
@@ -34,20 +34,24 @@ class FingerprintVerifFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentFingerprintVerifBinding.inflate(inflater,container,false);
-        val view = binding.root;
-        return view;
+        _binding = FragmentFingerprintVerifBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (!checkDeviceHasBiometric()) {
+            navigateToNextScreen()
+            return
+        }
 
         executor = ContextCompat.getMainExecutor(requireContext())
         biometricPrompt = BiometricPrompt(this, executor,
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(
                     errorCode: Int,
-                    errString: CharSequence,
+                    errString: CharSequence
                 ) {
                     super.onAuthenticationError(errorCode, errString)
                     Toast.makeText(requireContext(),
@@ -56,18 +60,10 @@ class FingerprintVerifFragment : Fragment() {
                 }
 
                 override fun onAuthenticationSucceeded(
-                    result: BiometricPrompt.AuthenticationResult,
+                    result: BiometricPrompt.AuthenticationResult
                 ) {
                     super.onAuthenticationSucceeded(result)
-                    val deepLinkUri = Uri.parse("app://com.example.app/auth/pin"  )
-                    requireView().findNavController().navigate(deepLinkUri)
-
-
-                    // DISINI KALO SUCCES BIOMETRICNYA, bisa kasih nav/intent disini
-                   // requireView().findNavController().navigate(R.id.action_fingerprintVerifFragment_to_registrationSuccessFragment)
-                    Toast.makeText(requireContext(),
-                        "Autentikasi Sukses!", Toast.LENGTH_SHORT)
-                        .show()
+                    navigateToNextScreen()
                 }
 
                 override fun onAuthenticationFailed() {
@@ -78,10 +74,10 @@ class FingerprintVerifFragment : Fragment() {
                 }
             })
 
-        checkDeviceHasBiometric()
-        binding.ivFingerprint.setOnClickListener {
-            biometricPrompt.authenticate(promptInfo)
-        }
+//        checkDeviceHasBiometric()
+//        binding.ivFingerprint.setOnClickListener {
+//            biometricPrompt.authenticate(promptInfo)
+//        }
 
         promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle("Daftarkan sidik jari anda")
@@ -97,41 +93,52 @@ class FingerprintVerifFragment : Fragment() {
 
 
 
+        biometricPrompt.authenticate(promptInfo)
     }
 
-    fun checkDeviceHasBiometric() {
+    private fun checkDeviceHasBiometric(): Boolean {
         val biometricManager = BiometricManager.from(requireContext())
-        when (biometricManager.canAuthenticate(BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL)) {
+        return when (biometricManager.canAuthenticate(BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL)) {
             BiometricManager.BIOMETRIC_SUCCESS -> {
                 Log.d("MY_APP_TAG", "App can authenticate using biometrics.")
                 info = "Sentuh Sensor Fingerprint"
-
-
+                binding.tvDescFingerprint.text = info
+                true
             }
             BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> {
                 Log.e("MY_APP_TAG", "No biometric features available on this device.")
                 info = "Tidak ada Sensor Fingerprint di device ini"
-
-
+                false
             }
             BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
                 Log.e("MY_APP_TAG", "Biometric features are currently unavailable.")
                 info = "Sensor sidik jari sedang tidak bisa digunakan"
-
+                false
             }
             BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
-                // Prompts the user to create credentials that your app accepts.
                 val enrollIntent = Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
                     putExtra(
                         Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED,
                         BIOMETRIC_STRONG or DEVICE_CREDENTIAL
                     )
                 }
-
                 startActivityForResult(enrollIntent, 100)
+                false
+            }
+            else -> {
+                false
             }
         }
-        binding.tvDescFingerprint.text = info
+    }
+
+    private fun navigateToNextScreen() {
+        val deepLinkUri = Uri.parse("app://com.example.app/auth/pin")
+
+        requireView().findNavController().navigate(deepLinkUri)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
-

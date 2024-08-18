@@ -86,6 +86,18 @@ class UploadKtpFragment : Fragment() {
 
 
         binding.btnSend.setOnClickListener {
+            setToast("Mohon tunggu sebentar")
+           // sendRegisterRequest()
+            viewModel.registerResult.observe(viewLifecycleOwner) { result ->
+                if (result?.success == true) {
+                    setToast(result.message ?: "Registrasi berhasil")
+                    requireView().findNavController().navigate(deepLinkUri)
+                    sharedPreferences.edit().putString("accountNumber", result.data.accountNumber).apply()
+                }
+            }
+        }
+
+        binding.btnSend.setOnClickListener {
            // val deepLinkUri = Uri.parse("app://com.example.app/auth/registrationSuccess" )
             requireView().findNavController().navigate(deepLinkUri)
 

@@ -165,26 +165,10 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
     }
 
     private fun validatePin() {
-//        val deepLinkUri = Uri.parse("app://com.example.app/auth/registrationSuccess" )
-//        val deepLinkUri = Uri.parse("app://com.example.app/dashboard/home" )
-
         val deepLinkUri = Uri.parse("app://com.example.app/auth/registrationSuccess" )
 
-
         if (firstPassCode == passCode) {
-//            setToast("Kamu Berhasil Membuat Pin")
-            sendRegisterRequest()
-            viewModel.registerResult.observe(viewLifecycleOwner) { result ->
-                if (result!!.success) {
-                    setToast(result.message)
-                    //  requireView().findNavController().navigate(R.id.action_uploadKtpFragment_to_fingerprintVerifFragment)
-                    sharedPreferences.edit().putString("accountNumber", result.data.accountNumber).apply()
-                    requireView().findNavController().navigate(deepLinkUri)
-
-                }
-            }
             requireView().findNavController().navigate(deepLinkUri)
-
         } else {
             setToast("PIN mismatch!")
             clearPinDisplay()
