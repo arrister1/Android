@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/transfer_nav"
     app:startDestination="@id/savedAccountFragment">
-
     <fragment
         android:id="@+id/savedAccountFragment"
-        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.transfer.SavedAccountFragment"
-        android:label="SavedAccountFragment" >
+        android:name="com.synrgy7team4.feature_transfer.presentation.ui.transfer.SavedAccountFragment"
+        android:label="fragment_saved_account"
+        tools:layout="@layout/fragment_saved_account" >
         <action
             android:id="@+id/action_savedAccountFragment_to_transferInputFragment"
             app:destination="@id/transferInputFragment" />
     </fragment>
     <fragment
         android:id="@+id/transferInputFragment"
-        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.transfer.TransferInputFragment"
-        android:label="TransferInputFragment" />
+        android:name="com.synrgy7team4.feature_transfer.presentation.ui.transfer.TransferInputFragment"
+        android:label="fragment_transfer_input"
+        tools:layout="@layout/fragment_transfer_input" >
+        <action
+            android:id="@+id/action_transferInputFragment_to_transferPinFragment"
+            app:destination="@id/transferPinFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/transferPinFragment"
+        android:name="com.example.feature_transfer.presentation.ui.TransferPinFragment"
+        android:label="TransferPinFragment" />
 </navigation>

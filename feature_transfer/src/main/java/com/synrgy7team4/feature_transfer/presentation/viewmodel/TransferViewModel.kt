@@ -39,8 +39,14 @@ class TransferViewModel(private val useCase: TransferUseCase) : ViewModel() {
     private val _postAccountListResult = MutableLiveData<Resource<Unit>>()
     val postAccountListResult: LiveData<Resource<Unit>> get() = _postAccountListResult
 
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> get() = _error
+
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
     fun postTransfer(request: TransferReq) {
-        _transferResult.value = Resource.Loading()
+        _isLoading.value = true
         viewModelScope.launch {
             useCase.postTransfer(request).collect { result ->
                 _transferResult.value = result

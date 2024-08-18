@@ -1,24 +1,34 @@
 package com.example.feature_transfer.presentation.ui
 
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import android.content.Context
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.synrgy7team4.common.databinding.PinInputBinding
 import com.synrgy7team4.common.databinding.PinNumberBinding
 import com.synrgy7team4.feature_transfer.R
 import com.synrgy7team4.feature_transfer.databinding.FragmentTransferPinBinding
+import com.synrgy7team4.feature_transfer.domain.model.TransferReq
+import com.synrgy7team4.feature_transfer.presentation.viewmodel.TransferViewModel
 
 
 class TransferPinFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentTransferPinBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var sharedPreferences: SharedPreferences
+
+    private val viewModel: TransferViewModel by viewModel()
 
     private lateinit var pinNumberBinding : PinNumberBinding
     private lateinit var pinInputBinding : PinInputBinding
@@ -40,7 +50,7 @@ class TransferPinFragment : Fragment(), View.OnClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
       //  return inflater.inflate(R.layout.fragment_pin, container, false)
         _binding = FragmentTransferPinBinding.inflate(inflater, container, false)
@@ -50,13 +60,14 @@ class TransferPinFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
+        sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
         savedPin = sharedPreferences.getString("pin", "") ?: ""
 
         pinNumberBinding = PinNumberBinding.bind(binding.pinNumber.root)
         pinInputBinding = PinInputBinding.bind(binding.pinInput.root)
 
         initializeComponents()
+        observeViewModel()
     }
 
     private fun initializeComponents() {
@@ -133,7 +144,12 @@ class TransferPinFragment : Fragment(), View.OnClickListener {
                     pinInputBinding.tvPinInput6.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet_filled)
                     passCode = input1 + input2 + input3 + input4 + input5 + input6
                     if (passCode.length == 6) {
-                        validatePin()
+//                        validatePin()
+                        val accountDestinationNo = sharedPreferences.getString("accountDestinationNo", "") ?: ""
+                        val transferAmount = sharedPreferences.getInt("transferAmount", 0)
+                        val transferDescription = sharedPreferences.getString("transferDescription", "") ?: ""
+
+                        viewModel.postTransfer(TransferReq("accountFrom", accountDestinationNo, transferAmount, transferDescription, passCode))
                     }
                 }
             }
@@ -150,16 +166,31 @@ class TransferPinFragment : Fragment(), View.OnClickListener {
     }
 
     private fun validatePin() {
-        val deepLinkUri = Uri.parse("app://com.example.app/trans/transDetail")
-
         if (passCode == savedPin) {
             // PIN benar, lanjutkan ke proses transaksi
-            requireView().findNavController().navigate(deepLinkUri)
         } else {
             setToast("PIN salah!")
             clearPinDisplay()
             numberList.clear()
         }
+    }
+
+    private fun observeViewModel() {
+        viewModel.transferResult.observe(viewLifecycleOwner, Observer { mutations ->
+            //what to do here ?
+
+            val deepLinkUri = Uri.parse("app://com.example.app/trans/transDetail")
+            requireView().findNavController().navigate(deepLinkUri)
+        })
+
+        // Optionally, observe loading and error states
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
+            // Show/hide loading indicator
+        })
+
+        viewModel.error.observe(viewLifecycleOwner, Observer { error ->
+            // Show error message
+        })
     }
 
     private fun setToast(msg: String) {

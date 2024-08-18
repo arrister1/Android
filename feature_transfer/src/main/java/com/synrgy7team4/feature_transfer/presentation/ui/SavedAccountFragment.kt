@@ -1,5 +1,7 @@
 package com.synrgy7team4.feature_transfer.presentation.ui.transfer
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -24,8 +26,9 @@ import com.synrgy7team4.feature_transfer.databinding.FragmentSavedAccountBinding
 class SavedAccountFragment : Fragment() {
     private var _binding: FragmentSavedAccountBinding? = null
     private val binding get() = _binding!!
+    private lateinit var sharedPreferences: SharedPreferences
 
-    lateinit var adapter: CustomAdapter
+    private lateinit var adapter: CustomAdapter
 
     private var dummyData = listOf<SavedAccountDataObject>(
         SavedAccountDataObject(123, "account 1", "BCA", "123125412"),
@@ -46,10 +49,12 @@ class SavedAccountFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentSavedAccountBinding.inflate(inflater, container, false)
-        return binding.root    }
+        return binding.root}
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
 
         sortData();
 
@@ -61,10 +66,14 @@ class SavedAccountFragment : Fragment() {
         adapter.setOnClickListener(object :
             CustomAdapter.OnClickListener {
             override fun onClick(position: Int, model: SavedAccountDataObject) {
+                sharedPreferences.edit().putString("accountDestinationName", model.accountName).apply()
+                sharedPreferences.edit().putString("accountDestinationNo", model.accountNo).apply()
+                sharedPreferences.edit().putString("accountDestinationBankName", model.bankName).apply()
+
                 val transferInputNav = Uri.parse(  "app://com.example.app/trans/transferInput")
                 Toast.makeText(requireContext(), "${model.accountName} ${model.accountNo} ${model.bankName}", Toast.LENGTH_SHORT).show()
-                //findNavController().navigate(R.id.action_savedAccountFragment_to_transferInputFragment)
-                requireView().findNavController().navigate(transferInputNav)
+                findNavController().navigate(R.id.action_savedAccountFragment_to_transferInputFragment)
+//                requireView().findNavController().navigate(transferInputNav)
 
             }
         })

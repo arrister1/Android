@@ -1,5 +1,7 @@
 package com.synrgy7team4.feature_transfer.presentation.ui.transfer
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -18,6 +20,7 @@ class TransferInputFragment : Fragment() {
     private var _binding: FragmentTransferInputBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,12 +43,14 @@ class TransferInputFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
+
        binding.submitForm.setOnClickListener{
            handleSubmitFormClick(view)
 
            val pinNav = Uri.parse("app://com.example.app/trans/transferPin")
-           requireView().findNavController().navigate(pinNav)
-
+//           requireView().findNavController().navigate(pinNav)
+           requireView().findNavController().navigate(R.id.action_transferInputFragment_to_transferPinFragment)
        }
 
        binding.btnBack.setOnClickListener {
@@ -56,7 +61,10 @@ class TransferInputFragment : Fragment() {
     private fun handleSubmitFormClick(view:View)
     {
         val nominal = binding.amountInputText.text.toString()
-        val berita = binding.inputNote.text
+        val berita = binding.inputNote.text.toString()
+
+        sharedPreferences.edit().putInt("transferAmount", nominal.toInt()).apply()
+        sharedPreferences.edit().putString("transferDescription", berita).apply()
 
         if(!validateAmount(nominal))
             return

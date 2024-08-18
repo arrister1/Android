@@ -20,7 +20,6 @@ interface ApiService {
         @Body transferRequest: TransferRequest
     ) : TransferResponse
 
-
     //get user
     @GET("user/me")
     suspend fun getUserData(): UserResponse
