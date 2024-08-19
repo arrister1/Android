@@ -26,4 +26,10 @@
         app:destination="@id/feature_dashboard_navigation"
         app:popUpTo="@id/feature_auth_navigation"
         app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/dashboard_to_onboarding_navigation"
+        app:destination="@id/feature_auth_navigation"
+        app:popUpTo="@id/feature_dashboard_navigation"
+        app:popUpToInclusive="true" />
 </navigation>

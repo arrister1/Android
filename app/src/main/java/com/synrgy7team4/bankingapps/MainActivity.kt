@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity(), NavigationHandler {
     }
 
     override fun navigateToOnBoarding() {
-        TODO("Not yet implemented")
+        navController.navigate(R.id.dashboard_to_onboarding_navigation)
     }
 
     override fun navigateToDashboard() {
