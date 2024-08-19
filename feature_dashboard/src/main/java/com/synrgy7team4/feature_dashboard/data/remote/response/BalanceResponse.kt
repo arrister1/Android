@@ -9,5 +9,7 @@ data class BalanceResponse(
     @SerializedName("message")
     val message: String,
     @SerializedName("success")
-    val success: Boolean
+    val success: Boolean,
+    @SerializedName("errors")
+    val errors: Double
 )

@@ -75,22 +75,29 @@ class HomeFragment : Fragment() {
 
             fullAccNum = accountNumber
             hiddenAccNum = formatAccountNumber(fullAccNum)
+            homeViewModel.getBalance(fullAccNum)
             binding.tvAccNumber.text = if(isAccNumHidden) hiddenAccNum else fullAccNum
 
         }
+            homeViewModel.data.observe(viewLifecycleOwner) { balance ->
+                fullBalance = balance.toString()
+                binding.tvAccBalance.text = fullBalance
+            }
 
         homeViewModel.error.observe(viewLifecycleOwner) { errorMessage ->
             Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
         }
 
         homeViewModel.fetchUserData(token)
+
+
         } else {
             Toast.makeText(requireContext(), "Token is missing", Toast.LENGTH_SHORT).show()
 
         }
 
 
-        binding.tvAccBalance.text = fullBalance
+//        binding.tvAccBalance.text = fullBalance
         binding.toggleBalance.setImageResource(com.synrgy7team4.common.R.drawable.ic_visibility_on)
 
         binding.toggleBalance.setOnClickListener {

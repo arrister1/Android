@@ -1,5 +1,6 @@
 package com.synrgy7team4.feature_dashboard.presentation.ui.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,6 +15,9 @@ import retrofit2.HttpException
 class HomeViewModel(private val repository: Repository) : ViewModel() {
     private val _userResponse = MutableLiveData<UserResponse?>()
     val userResponse: LiveData<UserResponse?> get() = _userResponse
+
+    private val _data = MutableLiveData<Double>()
+    val data: LiveData<Double> = _data
 
     private val _userName = MutableLiveData<String>()
     val userName: LiveData<String> = _userName
@@ -43,7 +47,32 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
             }
         }
     }
+
+    fun getBalance(accountNumber: String) {
+        viewModelScope.launch {
+            try {
+                val response = repository.getBalance(accountNumber)
+                if (response.success) {
+                    val balanceResponse = response.data
+                    _data.postValue(balanceResponse)
+                    Log.d("HomeViewModel", "Balance Response: $response")
+
+                } else {
+                    _error.postValue("Error: ${response.message}")
+                }
+//                _data.postValue(response)
+            } catch (e: HttpException){
+                _error.postValue("An unexpected error occurred: ${e.message}")
+
+//                val errorBody = e.response()?.body()?.toString()
+//                _error.postValue("HTTP Error: ${e.message()} - $errorBody")
+            }
+
+        }
     }
+
+}
+
 
 //    private val _text = MutableLiveData<String>().apply {
 //        value = "This is home Fragment"
@@ -51,8 +80,7 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
 //    val text: LiveData<String> = _text
 //
 //
-//    private val _data = MutableLiveData<BalanceResponse>()
-//    val data: LiveData<BalanceResponse> = _data
+
 //
 //    private val _error = MutableLiveData<String>()
 //    val error: LiveData<String> = _error

@@ -20,7 +20,7 @@ interface ApiService {
 
     @GET("balance/get")
     suspend fun getBalance(
-        @Header("Authorization") token: String,
+//        @Header("Authorization") token: String,
         @Query("accountNumber") accountNumber: String
     ): BalanceResponse
 }

@@ -47,6 +47,7 @@ class QrisFragment : Fragment() {
     private var _binding: FragmentQrisBinding? = null
     private lateinit var sharedPreferences: SharedPreferences
     private var isHidden: Boolean = false
+    private lateinit var accountNumber: String
     private lateinit var fullBalance: String
     private lateinit var hiddenBalance: String
     private val viewModel: HomeViewModel by viewModel()
@@ -78,7 +79,7 @@ class QrisFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        sharedPreferences= requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
+        sharedPreferences= requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
 
 
@@ -122,7 +123,25 @@ class QrisFragment : Fragment() {
         fullBalance = getString(R.string.dummy_account_balance)
         hiddenBalance = fullBalance.replace(Regex("\\d"), "*").replace(Regex("[,.]"), "")
 
+        accountNumber = R.string.dummy_acc_number.toString()
 
+        val getToken = sharedPreferences.getString("jwt_token", null)
+        if (getToken != null) {
+
+
+            viewModel.accountNumber.observe(viewLifecycleOwner) {number ->
+
+                accountNumber = number
+                viewModel.getBalance(accountNumber)
+
+            }
+
+            viewModel.data.observe(viewLifecycleOwner) { balance ->
+                fullBalance = balance.toString()
+            }
+
+            viewModel.fetchUserData(getToken)
+        }
 
 
     }
@@ -192,34 +211,28 @@ class QrisFragment : Fragment() {
         dialog.window?.setGravity(Gravity.BOTTOM)
 
         val tvGet = dialog.findViewById<TextView>(R.id.tvGet)
-        val amountTextView = dialog.findViewById<TextView>(R.id.amountTextView)
         val accountNo = dialog.findViewById<TextView>(R.id.accountNo)
         val qrImageView = dialog.findViewById<ImageView>(R.id.qrImageView)
         val ivToggleBalance = dialog.findViewById<ImageView>(R.id.iv_toggle_balance)
         val ammount = dialog.findViewById<TextView>(R.id.ammount)
 
 
-        val getAccountNumber = sharedPreferences.getString("accountNumber", null)
         val getPayText = sharedPreferences.getString("payOrReceived", null)
-        val getToken = sharedPreferences.getString("token", null)
 
         tvGet.text = getPayText
+        accountNo.text = accountNumber
+        ammount.text = fullBalance
 
-//        viewModel.fectData(getToken, getAccountNumber)
-//        viewModel.userResponse.observe(viewLifecycleOwner) { data ->
-//            amountTextView.text = data.data.
-//        }
-
-        viewModel.accountNumber.observe(viewLifecycleOwner) {number ->
-            accountNo.text = number
-        }
-
-        val mQRBitmap = QrUtility.generateQR(getAccountNumber!!)
+        val mQRBitmap = QrUtility.generateQR(accountNumber)
         if (mQRBitmap != null) {
             qrImageView.setImageBitmap(mQRBitmap)
         } else {
             Toast.makeText(requireActivity(), "Failed to Generated QR Code", Toast.LENGTH_SHORT).show()
         }
+
+
+
+
 
         ivToggleBalance.setOnClickListener {
 //            balanceVisibility
