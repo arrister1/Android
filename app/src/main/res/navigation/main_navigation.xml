@@ -12,10 +12,14 @@
         tools:layout="@layout/fragment_splash" >
         <action
             android:id="@+id/action_splashFragment_to_feature_auth_navigation"
-            app:destination="@id/feature_auth_navigation" />
+            app:destination="@id/feature_auth_navigation"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_splashFragment_to_feature_dashboard_navigation"
-            app:destination="@id/feature_dashboard_navigation" />
+            app:destination="@id/feature_dashboard_navigation"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <include app:graph="@navigation/feature_auth_navigation" />

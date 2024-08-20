@@ -16,10 +16,14 @@ import androidx.navigation.fragment.findNavController
 import com.synrgy7team4.common.makeToast
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentInputEmailBinding
+import com.synrgy7team4.feature_auth.viewmodel.RegisterViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class InputEmailFragment : Fragment() {
     private var _binding: FragmentInputEmailBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel by viewModel<RegisterViewModel>()
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
@@ -35,6 +39,8 @@ class InputEmailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupAccessibility()
 
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+
         sharedPreferences =
             requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
 
@@ -44,18 +50,12 @@ class InputEmailFragment : Fragment() {
 
         binding.btnNext.setOnClickListener {
             val email = binding.tiedtEmail.text.toString()
-            val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
-
             when {
                 email.isEmpty() -> binding.tiedtEmail.error = "Email Tidak Boleh Kosong!"
-                !email.matches(emailPattern.toRegex()) -> binding.tiedtEmail.error =
-                    "Format email tidak sesuai. Contoh: user@domain.com"
+                !email.matches(emailPattern.toRegex()) -> binding.tiedtEmail.error = "Format Email Tidak Valid"
 
                 else -> {
-                    sharedPreferences.edit().putString("email", email).apply()
-                    makeToast(requireContext(), "Akun $email Berhasil Terdaftar ")
-                    requireView().findNavController()
-                        .navigate(R.id.action_inputEmailFragment_to_inputPhoneNumberFragment)
+                    viewModel.checkEmailAvailability(email)
                 }
             }
         }
@@ -64,17 +64,29 @@ class InputEmailFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
-                val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
                 if (!s.toString().matches(emailPattern.toRegex())) {
-                    binding.tiedtEmail.error = "Format email tidak sesuai. Contoh: user@domain.com"
+                    binding.tiedtEmail.error = "Format Email Tidak Valid"
                 } else {
                     binding.tiedtEmail.error = null
                 }
             }
         })
 
+        viewModel.isEmailAvailable.observe(viewLifecycleOwner) { isEmailAvailable ->
+            if (isEmailAvailable) {
+                val email = binding.tiedtEmail.text.toString()
+                sharedPreferences.edit().putString("email", email).apply()
+                makeToast(requireContext(), "Alamat Email Berhasil Terdaftar")
+                requireView().findNavController().navigate(R.id.action_inputEmailFragment_to_inputPhoneNumberFragment)
+            }
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) { error ->
+            makeToast(requireContext(), error.message)
+        }
+
         if (isTalkbackEnabled()) {
-            binding.tiedtEmail.setAccessibilityDelegate(object : View.AccessibilityDelegate() {
+            binding.tiedtEmail.accessibilityDelegate = object : View.AccessibilityDelegate() {
                 override fun onInitializeAccessibilityNodeInfo(
                     host: View,
                     info: AccessibilityNodeInfo
@@ -82,13 +94,12 @@ class InputEmailFragment : Fragment() {
                     super.onInitializeAccessibilityNodeInfo(host, info)
                     info.text = null  // Hapus teks (hint) yang akan dibaca oleh TalkBack
                 }
-            })
+            }
         }
     }
 
     private fun isTalkbackEnabled(): Boolean {
-        val am =
-            requireContext().getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+        val am = requireContext().getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
         val isAccessibilityEnabled = am.isEnabled
         val isTouchExplorationEnabled = am.isTouchExplorationEnabled
 

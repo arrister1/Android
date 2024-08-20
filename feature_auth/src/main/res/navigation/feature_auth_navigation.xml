@@ -127,6 +127,8 @@
         tools:layout="@layout/fragment_registration_success" >
         <action
             android:id="@+id/action_registrationSuccessFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/inputEmailFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

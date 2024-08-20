@@ -17,6 +17,8 @@ import androidx.navigation.findNavController
 import com.synrgy7team4.common.makeToast
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentBiodataBinding
+import com.synrgy7team4.feature_auth.viewmodel.RegisterViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -25,6 +27,7 @@ class BiodataFragment : Fragment() {
     private var _binding: FragmentBiodataBinding? = null
     private val binding get() = _binding!!
 
+    private val viewModel by viewModel<RegisterViewModel>()
     private lateinit var sharedPreferences: SharedPreferences
     private val calendar = Calendar.getInstance()
 
@@ -39,8 +42,7 @@ class BiodataFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sharedPreferences =
-            requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
+        sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
 
         binding.btnCalendar.setOnClickListener {
             showCalendar()
@@ -49,7 +51,6 @@ class BiodataFragment : Fragment() {
         binding.btnLanjut.setOnClickListener {
             val ktp = binding.edtKtp.text.toString()
             val name = binding.edtName.text.toString()
-
             when {
                 ktp.isEmpty() -> binding.edtKtp.error = "No KTP tidak boleh kosong"
                 name.isEmpty() -> binding.edtName.error = "Nama tidak boleh kosong"
@@ -58,11 +59,7 @@ class BiodataFragment : Fragment() {
                     if (ktp.length != 16) {
                         binding.edtKtp.error = "NIK harus berjumlah 16 digit"
                     } else {
-                        sharedPreferences.edit().putString("nik", ktp).apply()
-                        sharedPreferences.edit().putString("name", name).apply()
-                        makeToast(requireContext(), "Biodata kamu berhasil ditambahkan")
-                        view.findNavController()
-                            .navigate(R.id.action_biodataFragment_to_ktpVerificationBoardFragment)
+                        viewModel.checkKtpNumberAvailability(ktp)
                     }
                 }
             }
@@ -82,6 +79,21 @@ class BiodataFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
+        viewModel.isKtpNumberAvailable.observe(viewLifecycleOwner) { isKtpNumberAvailable ->
+            if (isKtpNumberAvailable) {
+                val ktp = binding.edtKtp.text.toString()
+                val name = binding.edtName.text.toString()
+                sharedPreferences.edit().putString("nik", ktp).apply()
+                sharedPreferences.edit().putString("name", name).apply()
+                makeToast(requireContext(), "Biodata kamu berhasil ditambahkan")
+                view.findNavController().navigate(R.id.action_biodataFragment_to_ktpVerificationBoardFragment)
+            }
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) { error ->
+            makeToast(requireContext(), error.message)
+        }
+
         if (isTalkbackEnabled()) {
             binding.edtName.accessibilityDelegate = object : View.AccessibilityDelegate() {
                 override fun onInitializeAccessibilityNodeInfo(
@@ -96,12 +108,11 @@ class BiodataFragment : Fragment() {
     }
 
     private fun isTalkbackEnabled(): Boolean {
-        val am =
-            requireContext().getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+        val am = requireContext().getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
         val isAccessibilityEnabled = am.isEnabled
         val isTouchExplorationEnabled = am.isTouchExplorationEnabled
-        return isAccessibilityEnabled && isTouchExplorationEnabled
 
+        return isAccessibilityEnabled && isTouchExplorationEnabled
     }
 
     private fun showCalendar() {

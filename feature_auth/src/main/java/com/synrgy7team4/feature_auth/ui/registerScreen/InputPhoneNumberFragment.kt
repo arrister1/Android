@@ -16,10 +16,14 @@ import androidx.navigation.fragment.findNavController
 import com.synrgy7team4.common.makeToast
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentInputPhoneNumberBinding
+import com.synrgy7team4.feature_auth.viewmodel.RegisterViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class InputPhoneNumberFragment : Fragment() {
     private var _binding: FragmentInputPhoneNumberBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel by viewModel<RegisterViewModel>()
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
@@ -56,10 +60,7 @@ class InputPhoneNumberFragment : Fragment() {
                     "Nomor HP harus berjumlah 11-13 digit"
 
                 else -> {
-                    sharedPreferences.edit().putString("hp", hp).apply()
-                    makeToast(requireContext(), "Nomor $hp Kamu Berhasil Ditambahkan")
-                    view.findNavController()
-                        .navigate(R.id.action_inputPhoneNumberFragment_to_otpVerification)
+                    viewModel.checkPhoneNumberAvailability(hp)
                 }
             }
         }
@@ -86,6 +87,19 @@ class InputPhoneNumberFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
+        viewModel.isPhoneNumberAvailable.observe(viewLifecycleOwner) { isPhoneNumberAvailable ->
+            if (isPhoneNumberAvailable) {
+                val hp = binding.tiedtPhoneNumber.text.toString()
+                sharedPreferences.edit().putString("hp", hp).apply()
+                makeToast(requireContext(), "Nomor Hp Kamu Berhasil Ditambahkan")
+                view.findNavController().navigate(R.id.action_inputPhoneNumberFragment_to_otpVerification)
+            }
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) { error ->
+            makeToast(requireContext(), error.message)
+        }
+
         if (isTalkbackEnabled()) {
             binding.tiedtPhoneNumber.accessibilityDelegate = object : View.AccessibilityDelegate() {
                 override fun onInitializeAccessibilityNodeInfo(
@@ -100,8 +114,7 @@ class InputPhoneNumberFragment : Fragment() {
     }
 
     private fun isTalkbackEnabled(): Boolean {
-        val am =
-            requireContext().getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+        val am = requireContext().getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
         val isAccessibilityEnabled = am.isEnabled
         val isTouchExplorationEnabled = am.isTouchExplorationEnabled
 

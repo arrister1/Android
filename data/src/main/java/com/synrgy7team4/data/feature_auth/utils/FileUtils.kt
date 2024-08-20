@@ -1,11 +1,17 @@
 package com.synrgy7team4.data.feature_auth.utils
 
+import com.synrgy7team4.data.feature_auth.datasource.remote.response.EmailCheckResponse
+import com.synrgy7team4.data.feature_auth.datasource.remote.response.KtpNumberCheckResponse
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.LoginData
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.LoginResponse
+import com.synrgy7team4.data.feature_auth.datasource.remote.response.PhoneNumberCheckResponse
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.RegisterData
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.RegisterResponse
+import com.synrgy7team4.domain.feature_auth.model.response.EmailCheckResponseDomain
+import com.synrgy7team4.domain.feature_auth.model.response.KtpNumberCheckResponseDomain
 import com.synrgy7team4.domain.feature_auth.model.response.LoginDataDomain
 import com.synrgy7team4.domain.feature_auth.model.response.LoginResponseDomain
+import com.synrgy7team4.domain.feature_auth.model.response.PhoneNumberCheckResponseDomain
 import com.synrgy7team4.domain.feature_auth.model.response.RegisterDataDomain
 import com.synrgy7team4.domain.feature_auth.model.response.RegisterResponseDomain
 
@@ -42,5 +48,23 @@ object FileUtils {
             accountNumber = accountNumber,
             accountPin = accountPin,
             ektpPhoto = ektpPhoto
+        )
+
+    fun EmailCheckResponse.toEmailCheckResponseDomain(): EmailCheckResponseDomain =
+        EmailCheckResponseDomain(
+            success = success,
+            data = data
+        )
+
+    fun PhoneNumberCheckResponse.toPhoneNumberCheckResponseDomain(): PhoneNumberCheckResponseDomain =
+        PhoneNumberCheckResponseDomain(
+            success = success,
+            data = data
+        )
+
+    fun KtpNumberCheckResponse.toKtpNumberCheckResponseDomain(): KtpNumberCheckResponseDomain =
+        KtpNumberCheckResponseDomain(
+            success = success,
+            data = data
         )
 }
