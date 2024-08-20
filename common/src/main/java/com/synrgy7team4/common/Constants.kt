@@ -3,7 +3,6 @@ package com.synrgy7team4.common
 class Constants {
 
     companion object {
-
         //const val BASE_URL = "https://staging-main-www.zoodmall.com/interface/"
 //        const val BASE_URL_AUTH = "https://virtserver.swaggerhub.com/IAMRECAL10/lumi-api/1.0.0/api/"
        // const val BASE_URL = "https://backend-dev-synrgy-team4.koyeb.app/api/"

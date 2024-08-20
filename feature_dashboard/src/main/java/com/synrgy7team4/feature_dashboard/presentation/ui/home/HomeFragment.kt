@@ -76,8 +76,14 @@ class HomeFragment : Fragment() {
             fullAccNum = accountNumber
             hiddenAccNum = formatAccountNumber(fullAccNum)
             binding.tvAccNumber.text = if(isAccNumHidden) hiddenAccNum else fullAccNum
+            homeViewModel.fetchBalance(token, accountNumber)
 
         }
+
+            homeViewModel.balance.observe(viewLifecycleOwner){ balance ->
+                fullBalance = "Rp ${balance.toString()}"
+                hiddenBalance = fullBalance.replace(Regex("\\d"), "*").replace(Regex("[,.]"), "")
+                binding.tvAccBalance.text = if (isBalanceHidden) hiddenBalance else fullBalance            }
 
         homeViewModel.error.observe(viewLifecycleOwner) { errorMessage ->
             Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()

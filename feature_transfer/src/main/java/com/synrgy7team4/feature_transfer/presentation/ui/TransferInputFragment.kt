@@ -49,8 +49,8 @@ class TransferInputFragment : Fragment() {
            handleSubmitFormClick(view)
 
            val pinNav = Uri.parse("app://com.example.app/trans/transferPin")
-//           requireView().findNavController().navigate(pinNav)
-           requireView().findNavController().navigate(R.id.action_transferInputFragment_to_transferPinFragment)
+            requireView().findNavController().navigate(pinNav)
+         //  requireView().findNavController().navigate(R.id.action_transferInputFragment_to_transferPinFragment)
        }
 
        binding.btnBack.setOnClickListener {

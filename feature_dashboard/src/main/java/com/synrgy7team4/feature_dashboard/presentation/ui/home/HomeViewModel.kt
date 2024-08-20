@@ -1,5 +1,6 @@
 package com.synrgy7team4.feature_dashboard.presentation.ui.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,6 +13,8 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class HomeViewModel(private val repository: Repository) : ViewModel() {
+    private val TAG = "HomeViewModel"
+
     private val _userResponse = MutableLiveData<UserResponse?>()
     val userResponse: LiveData<UserResponse?> get() = _userResponse
 
@@ -23,6 +26,11 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
+
+    //BALANCE
+    private val _balance = MutableLiveData<Double>()
+    val balance:LiveData<Double> get() = _balance
+
 
     fun fetchUserData(token: String) {
         viewModelScope.launch {
@@ -43,83 +51,24 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
             }
         }
     }
+
+    fun fetchBalance(token: String, accountNumber: String){
+        viewModelScope.launch {
+            try {
+                val response = repository.getBalance(token, accountNumber)
+                if (response.success){
+                    _balance.postValue(response.data)
+                    Log.d(TAG, "Balance fetched successfully: ${response.data}") // Log saat balance berhasil diambil
+
+                } else {
+                    _error.postValue("Error: ${response.message}")
+                }
+            } catch (e: Exception){
+                _error.postValue("Unexpected error ${e.message}")
+            }
+        }
     }
 
-//    private val _text = MutableLiveData<String>().apply {
-//        value = "This is home Fragment"
-//    }
-//    val text: LiveData<String> = _text
-//
-//
-//    private val _data = MutableLiveData<BalanceResponse>()
-//    val data: LiveData<BalanceResponse> = _data
-//
-//    private val _error = MutableLiveData<String>()
-//    val error: LiveData<String> = _error
-//
-//
-//    fun fectData(token: String, accountNumber: String ) {
-//
-//        viewModelScope.launch {
-//
-//            try {
-//                val response = provideService().getBalance("Bearer $token", accountNumber)
-//                _data.postValue(response)
-//
-//            } catch (e: HttpException){
-//                val errorBody = e.response()?.body()?.toString()
-//                _error.postValue("HTTP Error: ${e.message()} - $errorBody")
-//            } catch (e: Exception) {
-//                _error.postValue("An unexpected error occurred: ${e.message}")
-//            }
-//
-//
-//
-//        }
-//
-//    }
 
 
-
-
-
-
-//class HomeViewModel : ViewModel() {
-//
-//    private val _text = MutableLiveData<String>().apply {
-//        value = "This is home Fragment"
-//    }
-//    val text: LiveData<String> = _text
-//
-//
-//    private val _data = MutableLiveData<BalanceResponse>()
-//    val data: LiveData<BalanceResponse> = _data
-//
-//    private val _error = MutableLiveData<String>()
-//    val error: LiveData<String> = _error
-//
-//
-//    fun fectData(token: String, accountNumber: String ) {
-//
-//        viewModelScope.launch {
-//
-//            try {
-//                val response = provideService().getBalance("Bearer $token", accountNumber)
-//                _data.postValue(response)
-//
-//            } catch (e: HttpException){
-//                val errorBody = e.response()?.body()?.toString()
-//                _error.postValue("HTTP Error: ${e.message()} - $errorBody")
-//            } catch (e: Exception) {
-//                _error.postValue("An unexpected error occurred: ${e.message}")
-//            }
-//
-//
-//
-//        }
-//
-//    }
-//
-//
-//
-//}
+}
