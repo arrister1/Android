@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.synrgy7team4.feature_mutasi.R
@@ -58,7 +59,7 @@ class MutasiFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnBack.setOnClickListener {
-            /*activity?.supportFragmentManager?.popBackStack()*/
+           /* *//*activity?.supportFragmentManager?.popBackStack()*//*
             val intent = Intent(activity, Class.forName("com.synrgy7team4.feature_dashboard.presentation.DashboardActivity"))
 
             // Set flags to clear existing tasks and start a new one
@@ -66,8 +67,8 @@ class MutasiFragment : Fragment() {
 
             // Optional: Pass data to the activity
             intent.putExtra("EXTRA_KEY", "Hello from Fragment")
-            startActivity(intent)
-
+            startActivity(intent)*/
+            view.findNavController().popBackStack()
         }
         tvDateStart = view.findViewById(R.id.tv_date_start)
         tvDateEnd = view.findViewById(R.id.tv_date_end)
@@ -86,15 +87,15 @@ class MutasiFragment : Fragment() {
                 lifecycleScope.launch {
                     binding.loadingIndicator.visibility = View.VISIBLE
                     // Call fetchFilteredUserData after the date is selected
-                    viewModel.fetchFilteredUserData(
-                        startDate,
-                        selectedEndDate
-                    )
-
-                    /*viewModel.loadDummyData(
+                    /*viewModel.fetchFilteredUserData(
                         startDate,
                         selectedEndDate
                     )*/
+
+                    viewModel.loadDummyData(
+                        startDate,
+                        selectedEndDate
+                    )
                     // Observe the ViewModel data
                     observeViewModel()
                     binding.loadingIndicator.visibility = View.GONE
@@ -114,14 +115,14 @@ class MutasiFragment : Fragment() {
                 //viewModel.loadMutations() // Replace with actual account number if needed
                 lifecycleScope.launch {
                     binding.loadingIndicator.visibility = View.VISIBLE
-                    viewModel.fetchFilteredUserData(
-                        "2024-01-01T12:00:00",
-                        "2029-08-01T12:00:00"
-                    )
-                    /*viewModel.loadDummyData(
+                    /*viewModel.fetchFilteredUserData(
                         "2024-01-01T12:00:00",
                         "2029-08-01T12:00:00"
                     )*/
+                    viewModel.loadDummyData(
+                        "2024-01-01T12:00:00",
+                        "2029-08-01T12:00:00"
+                    )
                     // Observe the ViewModel data
                     observeViewModel()
                     binding.loadingIndicator.visibility = View.GONE

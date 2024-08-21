@@ -19,10 +19,12 @@ dependencyResolutionManagement {
 
 rootProject.name = "Banking Apps"
 include(":app")
+
+include(":common")
+include(":shared")
+
 include(":feature_auth")
 include(":feature_mutasi")
 include(":feature_dashboard")
-include(":common")
+include(":feature_transfer")
 
-include(":shared")
-//include(":feature_transfer")

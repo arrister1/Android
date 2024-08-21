@@ -2,6 +2,7 @@ package com.synrgy7team4.feature_auth.presentation.register
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,12 +11,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import com.jer.shared.ViewModelFactoryProvider
+import androidx.navigation.fragment.findNavController
+import com.synrgy7team4.common.ViewModelFactoryProvider
 import com.synrgy7team4.common.databinding.PinInputBinding
 import com.synrgy7team4.common.databinding.PinNumberBinding
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentPinBinding
-import com.synrgy7team4.feature_auth.databinding.FragmentVerifikasiKtpBinding
 import com.synrgy7team4.feature_auth.presentation.viewmodel.RegisterViewModel
 
 
@@ -138,13 +139,19 @@ class PinFragment : Fragment(), View.OnClickListener {
                     pinInputBinding.tvPinInput6.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet_filled)
                     passCode = input1 + input2 + input3 + input4 + input5 + input6
                     if (passCode.length == 6) {
-                        val bundle = Bundle().apply {
-                            putString("passCode", passCode)
-                        }
+//                        val bundle = Bundle().apply {
+//                            putString("passCode", passCode)
+//                        }
                         sharedPreferences.edit().putString("pin", passCode).apply()
 
+
+                        val deepLinkUri = Uri.parse("app://com.example.app/auth/pinConfirmation")
+
+
+                        requireView().findNavController().navigate(deepLinkUri)
+
 //                        setToast("Kamu berhasil membuat pin")
-                        requireView().findNavController().navigate(R.id.action_pinFragment_to_pinConfirmationFragment, bundle)
+                        //requireView().findNavController().navigate(R.id.action_pinFragment_to_pinConfirmationFragment, bundle)
                     }
                 }
             }

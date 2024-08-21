@@ -26,6 +26,7 @@ class MutationAdapter(private var groupedMutations: List<MutationGroupedByDate>)
     override fun onBindViewHolder(holder: DateViewHolder, position: Int) {
         val group = groupedMutations[position]
         holder.tvTanggal.text = group.date
+        holder.tvTanggal.contentDescription = group.date
 
         // Set up Transfer RecyclerView
         val transferAdapter = MutationItemAdapter(group.mutations.filter { it.type == "transfer" })

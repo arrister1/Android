@@ -55,7 +55,7 @@ class RegisterViewModel(private val authRepository: AuthRepository): ViewModel()
             } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
-                val errorMessage = errorBody.errors
+                val errorMessage = errorBody.message
                 _error.postValue(errorBody)
                 Log.e("RegisterViewModel", "HTTP Error: $errorMessage")
             } finally {

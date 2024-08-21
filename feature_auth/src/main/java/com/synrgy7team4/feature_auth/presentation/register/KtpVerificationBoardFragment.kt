@@ -1,5 +1,6 @@
 package com.synrgy7team4.feature_auth.presentation.register
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -31,8 +32,11 @@ class KtpVerificationBoardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val deepLinkUri = Uri.parse("app://com.example.app/auth/uploadKtp" )
 
         binding.btnNext.setOnClickListener {
+            view.findNavController().navigate(deepLinkUri)
+
             //view.findNavController().navigate(R.id.action_ktpVerificationBoardFragment_to_fotoKtpFragment)
         }
     }

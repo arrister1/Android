@@ -4,30 +4,39 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.findNavController
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentSplashScreenBinding
 
+
 class SplashScreenFragment : Fragment() {
 
-    private var _binding: FragmentSplashScreenBinding? = null
-    private val binding get() = _binding!!
+    private val binding by lazy { FragmentSplashScreenBinding.inflate(layoutInflater) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentSplashScreenBinding.inflate(inflater, container, false)
+        // Inflate the layout for this fragment
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val deepLinkUri = Uri.parse("app://com.example.app/auth/onBoarding")
 
         AnimatorSet().apply {
             playSequentially(playMoveScaling(), playFadeAnimation())
@@ -35,24 +44,27 @@ class SplashScreenFragment : Fragment() {
                 override fun onAnimationEnd(animation: Animator) {
                     super.onAnimationEnd(animation)
 
-                    findNavController().navigate(R.id.action_splashScreenFragment_to_onBoardingFragment)
+                    // Cek apakah view masih ada sebelum melakukan navigasi
+                    view?.let {
+                        view.findNavController().navigate(deepLinkUri)
 
-
-//                    val intent = Intent(this@SplashScreenFragment, MainActivity::class.java)
-//                    intent.putExtra("MOVE_FROM_SPLASH", true)
-//                    startActivity(intent)
-//                    finish()
+                        //  it.findNavController().navigate(R.id.action_splashScreenFragment_to_onBoardingFragment)
+                    }
                 }
             })
             start()
         }
     }
 
+
+
     private fun playMoveScaling(): AnimatorSet {
         val imageSplash = binding.splashSlide
 
         val moveAnimate = ObjectAnimator.ofFloat(imageSplash, View.TRANSLATION_Y, 2800f, -100f).setDuration(7000)
         val scalingAnimate = ObjectAnimator.ofFloat(imageSplash, View.SCALE_Y, 0f, 4f).setDuration(7000)
+
+
 
         return AnimatorSet().apply {
             playTogether(moveAnimate, scalingAnimate)
@@ -68,8 +80,5 @@ class SplashScreenFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+
 }

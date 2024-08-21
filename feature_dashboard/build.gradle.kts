@@ -9,7 +9,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 26
+        minSdk = 24
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,14 +38,20 @@ android {
 dependencies {
 
     implementation(project(":common"))
-
     implementation(project(":shared"))
-    implementation(project(":feature_mutasi"))
+//    implementation(project(":feature_mutasi"))
+//    implementation(project(":feature_transfer"))
 
+
+    // QR Code Scanner
+    implementation("com.journeyapps:zxing-android-embedded:4.2.0")
+    implementation ("com.google.zxing:core:3.3.3")
+    implementation("com.github.yuriy-budiyev:code-scanner:2.3.0")
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.android.material:material:1.12.0")
+    implementation(project(":feature_mutasi"))
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -115,6 +121,4 @@ dependencies {
     // Chucker
     debugImplementation("com.github.chuckerteam.chucker:library:4.0.0")
     releaseImplementation("com.github.chuckerteam.chucker:library-no-op:4.0.0")
-    //sharedpref
-    implementation ("androidx.security:security-crypto:1.1.0-alpha03")
 }

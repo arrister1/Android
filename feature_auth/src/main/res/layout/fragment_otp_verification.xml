@@ -13,6 +13,7 @@
         android:layout_height="35dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/back_button_blue"
+        android:contentDescription="@string/kembali"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,12 +41,13 @@
             />
 
     <TextView
-        android:id="@+id/tvNumber"
+        android:id="@+id/tvEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:text="08123456789"
-        android:textSize="16sp"
+        android:layout_marginHorizontal="5dp"
+        android:text="example@gmail.com"
+        android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/phoneNumberInformation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/phoneNumberInformation" />

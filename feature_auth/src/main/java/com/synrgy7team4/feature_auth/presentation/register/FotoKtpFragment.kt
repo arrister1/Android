@@ -92,7 +92,7 @@ class FotoKtpFragment : Fragment(), ImageCapture.OnImageSavedCallback {
         binding.btnCapture.setOnClickListener {
             //takePicture()
             //Biar lancar navigasinya dulu di emulator, uncomment kalo dah fiks, trus comment navigasi dibawahnya ini
-            requireView().findNavController().navigate(R.id.action_fotoKtpFragment_to_verifikasiKtpFragment)
+            //requireView().findNavController().navigate(R.id.action_fotoKtpFragment_to_verifikasiKtpFragment)
         }
         binding.btnBack.setOnClickListener {
             requireView().findNavController().popBackStack()
@@ -215,7 +215,7 @@ class FotoKtpFragment : Fragment(), ImageCapture.OnImageSavedCallback {
         // Handle the recognized text here
         val recognizedText = visionText.text
         print("Text recognized: $recognizedText")
-        requireView().findNavController().navigate(R.id.action_fotoKtpFragment_to_verifikasiKtpFragment)
+        //requireView().findNavController().navigate(R.id.action_fotoKtpFragment_to_verifikasiKtpFragment)
         Snackbar.make(binding.root, "Text recognized", Snackbar.LENGTH_LONG).show()
     }
 

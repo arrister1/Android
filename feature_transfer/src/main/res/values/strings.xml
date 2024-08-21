@@ -1,10 +1,57 @@
 <resources>
-    <string name="app_name">Banking Apps</string>
+    <string name="app_name">Lumi</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="masukkan_pin">Masukkan PIN</string>
-    <string name="gunakan_pin_lumi_anda">Gunakan PIN Lumi Anda</string>
-    <string name="dummy_recipient_name">Yumi</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_transfer">Transfer</string>
+    <string name="dummy_name">Nur Afina</string>
     <string name="dummy_bank_name">Lumi Bank</string>
+    <string name="dummy_acc_number">7293********9283</string>
+    <string name="uncensored_dummy_acc_number_no">12345678910121315</string>
+    <string name="dummy_account_balance">Rp 3,492,203</string>
+    <string name="transfer">Transfer</string>
+    <string name="riwayat">Riwayat</string>
+    <string name="nominal">Nominal</string>
+
+    <string name="menu_icon">Menu Icon</string>
+    <string name="user_avatar">User Avatar</string>
+    <string name="tombol_kembali">tombol kembali</string>
+    <string name="sesama_bank">Sesama Bank</string>
+    <string name="antar_bank">Antar Bank</string>
+    <string name="daftar_tersimpan">Daftar Tersimpan</string>
+    <string name="tambah_penerima_baru">Tambah Penerima Baru</string>
+    <string name="rekening_sumber">Rekening Sumber</string>
+    <string name="berita">Berita</string>
+    <string name="masukan_berita">Masukan Berita</string>
+    <string name="lanjut">Lanjut</string>
+    <string name="lanjutkan">Lanjutkan</string>
+    <string name="nomor_rekening">Nomor Rekening</string>
+    <string name="dummy_bank_name_and_Account_number">Lumi Bank - 12345678910121315</string>
+    <string name="pastikan_detail_penerima_transfer_benar">Pastikan detail penerima transfer benar</string>
+    <string name="cek_detail_penerima">Cek Detail Penerima</string>
+    <string name="simpan_penerima">Simpan Penerima</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="a">A</string>
+
+    <string name="atur_pin">Atur PIN</string>
+    <string name="masukkan_6_digit_pin">Masukkan 6 digit PIN</string>
+    <string name="pin">PIN</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_6">6</string>
+    <string name="_7">7</string>
+    <string name="_8">8</string>
+    <string name="_9">9</string>
+    <string name="_0">0</string>
+    <string name="masukkan_pin">Masukkan PIN</string>
+    <string name="gunakan_pin_lumi">Gunakan PIN Lumi Anda</string>
+
+    <string name="dummy_recipient_name">Yumi</string>
     <string name="dummy_acc_num">14567229011</string>
     <string name="rp">Rp</string>
     <string name="dummy_nominal">10,000</string>
@@ -19,13 +66,10 @@
     <string name="dummy_time">07:00:12 WIB</string>
     <string name="dots">.</string>
     <string name="nama_penerima_title">Nama Penerima</string>
-    <string name="dummy_name">Yumi</string>
     <string name="detail_transaksi">Detail Transaksi</string>
-    <string name="sesama_bank">Sesama Bank</string>
     <string name="total_transaksi">Total Transaksi</string>
     <string name="rp_10_000">Rp 10,000</string>
     <string name="dummy_sender">Nur Afina</string>
     <string name="dummy_sender_acc_num">7293 **** **** 9283</string>
     <string name="transfer_berhasil">Transfer Berhasil!</string>
-
 </resources>

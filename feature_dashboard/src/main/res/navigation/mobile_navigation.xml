@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_home"
@@ -13,31 +13,46 @@
         <action
             android:id="@+id/action_navigation_home_to_mutasiFragment"
             app:destination="@id/mutasiFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_savedAccountFragment2"
+            app:destination="@id/savedAccountFragment2" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.dashboard.DashboardFragment"
+        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.qris.QrisFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_qris" >
+        <action
+            android:id="@+id/action_navigation_dashboard_to_showQrisFragment"
+            app:destination="@id/showQrisFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
-    <fragment
-        android:id="@+id/qrisFragment"
-        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.qris.QrisFragment"
-        android:label="fragment_qris"
-        tools:layout="@layout/fragment_qris" />
-    <fragment
-        android:id="@+id/accountFragment"
         android:name="com.synrgy7team4.feature_dashboard.presentation.ui.account.AccountFragment"
-        android:label="fragment_account"
+        android:label="@string/title_notifications"
         tools:layout="@layout/fragment_account" />
     <fragment
         android:id="@+id/mutasiFragment"
         android:name="com.synrgy7team4.feature_mutasi.presentation.ui.MutasiFragment"
-        android:label="MutasiFragment" />
+        android:label="MutasiFragment" >
+        <deepLink
+            app:uri="myapp://mutasi"
+            app:action="android.intent.action.VIEW" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/savedAccountFragment2"
+        android:name="com.synrgy7team4.feature_transfer.presentation.ui.transfer.SavedAccountFragment"
+        android:label="SavedAccountFragment" >
+        <deepLink
+            app:uri="myapp://transfer"
+            app:action="android.intent.action.VIEW" />
+    </fragment>
+  <fragment
+        android:id="@+id/showQrisFragment"
+        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.qris.ShowQrisFragment"
+        android:label="fragment_show_qris"
+        tools:layout="@layout/fragment_show_qris" />
 </navigation>

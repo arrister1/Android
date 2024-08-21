@@ -61,6 +61,10 @@ class MutationItemAdapter(private val mutationList: List<MutationData>) : Recycl
             tvTransferKe.text = "Transfer ke ${mutation.account_to}"
             tvNominal.text = mutation.amount.toString()
 
+            tvTransfer.contentDescription = "Transfer" // Replace with appropriate string or value
+            tvTransferKe.contentDescription = "Transfer ke ${mutation.account_to}"
+            tvNominal.contentDescription = mutation.amount.toString()
+
         }
     }
 
@@ -73,6 +77,10 @@ class MutationItemAdapter(private val mutationList: List<MutationData>) : Recycl
             tvTopUp.text = "Top Up" // Replace with appropriate string or value
             tvTopUpKe.text = "Top Up ke ${mutation.account_to}"
             tvNominal.text = mutation.amount.toString()
+
+            tvTopUp.contentDescription = "Top Up" // Replace with appropriate string or value
+            tvTopUpKe.contentDescription = "Top Up ke ${mutation.account_to}"
+            tvNominal.contentDescription = mutation.amount.toString()
         }
     }
 }

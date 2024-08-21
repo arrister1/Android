@@ -5,8 +5,10 @@
          <item name="colorPrimary">@color/primary_blue</item>
          <item name="colorPrimaryDark">@color/primary_darkBlue</item>
          <item name="colorOnPrimary">@color/primary_lightBlue</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
 
-<!--        its Color Secondary-->
+
+        <!--        its Color Secondary-->
         <item name="colorSecondary">@color/secondary_red</item>
         <item name="colorSecondaryVariant">@color/secondary_green</item>
         <item name="colorOnSecondary">@color/secondary_yellow</item>

@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId = "com.synrgy7team4.bankingapps"
-        minSdk = 26
+        minSdk = 28
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -67,14 +67,14 @@ buildscript {
 }
 
 dependencies {
-
+    implementation(project(":common"))
+    implementation(project(":shared"))
     implementation(project(":feature_auth"))
     implementation(project(":feature_mutasi"))
     implementation(project(":feature_dashboard"))
-    //implementation(project(":feature_transfer"))
+    implementation(project(":feature_transfer"))
 
-    implementation(project(":common"))
-    implementation(project(":shared"))
+
     implementation("androidx.activity:activity:1.8.0")
     implementation("com.google.firebase:firebase-crashlytics:19.0.3")
 
@@ -166,7 +166,7 @@ dependencies {
     implementation ("androidx.camera:camera-view:${camerax_version}")
     implementation ("androidx.camera:camera-extensions:${camerax_version}")
 
-    implementation ("com.google.firebase:firebase-ml-vision:24.0.3")
+    /*implementation ("com.google.firebase:firebase-ml-vision:24.0.3")
     //sharedpref
-    implementation ("androidx.security:security-crypto:1.1.0-alpha03")
+    implementation ("androidx.security:security-crypto:1.1.0-alpha03")*/
 }

@@ -1,26 +1,36 @@
 <resources>
-    <string name="app_name">feature_dashboard</string>
+    <string name="app_name">Lumi</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="beranda">Beranda</string>
     <string name="qris">QRIS</string>
+    <string name="qris_symbol">QRIS Symbol</string>
+    <string name="qr">QR</string>
+    <string name="scan_qr">Scan QR</string>
+    <string name="tunjukan_qr">Tunjukan QR</string>
     <string name="akun">Akun</string>
-    <string name="selamat_pagi">Selamat Pagi,</string>
-    <string name="dummy_name">Nur Afina</string>
-    <string name="dummy_acc_number">7293********9283</string>
-    <string name="dummy_account_balance">0,00</string>
+    <string name="selamat_pagi">Selamat Datang,</string>
+    <string name="dummy_name">User</string>
+    <string name="dummy_acc_number">0000000000</string>
+    <string name="dummy_account_balance">0.0</string>
     <string name="transfer">Transfer</string>
-    <string name="riwayat">Riwayat</string>
-    <string name="title_activity_dashboard">DashboardActivity</string>
-    <string name="informasi_saldo">Informasi Saldo</string>
-    <string name="tampilkan_saldo">Tampilkan Saldo</string>
-    <string name="bayar_tagihan_listrik">Bayar Tagihan Listrik</string>
-    <string name="pulsa">Pulsa</string>
-    <string name="data">Data</string>
-    <string name="e_wallet">E-wallet</string>
+    <string name="mutasi">Mutasi</string>
     <string name="rp">Rp</string>
-
+    <string name="bayar_listrik">Bayar Listrik</string>
+    <string name="bayar">Bayar</string>
+    <string name="saldo">Saldo</string>
+    <string name="beli_pulsa">Beli Pulsa</string>
+    <string name="beli_paket_data">Beli Paket Data</string>
+    <string name="ewallet">EWallet</string>
+    <string name="gallery_button">Gallery Button</string>
+    <string name="flash_button">Flash Button</string>
+    <string name="censored_account_no">7293 **** **** 9283</string>
+    <string name="balance_toggle_button">Balance Toggle Button</string>
+    <string name="tunjukan_qr_untuk_membayar">Tunjukkan QR untuk membayar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lumi">Lumi</string>
 
 </resources>

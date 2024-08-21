@@ -2,6 +2,7 @@ package com.synrgy7team4.feature_auth.presentation.register
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,10 +10,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import com.jer.shared.ViewModelFactoryProvider
+import com.synrgy7team4.common.ViewModelFactoryProvider
+import android.view.accessibility.AccessibilityManager
+import android.view.accessibility.AccessibilityNodeInfo
+
 
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentInputEmailBinding
@@ -35,6 +40,8 @@ class InputEmailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View = binding.root
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupAccessibility()
@@ -47,6 +54,8 @@ class InputEmailFragment : Fragment() {
         }
 
         binding.btnNext.setOnClickListener {
+            val deepLinkUri = Uri.parse("app://com.example.app/auth/inputPhone" )
+
             val email = binding.tiedtEmail.text.toString()
             val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
 
@@ -61,7 +70,9 @@ class InputEmailFragment : Fragment() {
                         sharedPreferences.edit().putString("email", email).apply()
                         setToast("Akun $email Berhasil Terdaftar ")
                         requireView().findNavController()
-                            .navigate(R.id.action_inputEmailFragment_to_inputPhoneNumberFragment)
+                            .navigate(deepLinkUri)
+//                        requireView().findNavController()
+//                            .navigate(R.id.action_inputEmailFragment_to_inputPhoneNumberFragment)
 
                     }
 
@@ -88,6 +99,23 @@ class InputEmailFragment : Fragment() {
                 }
             }
         })
+
+        if(isTalkbackEnabled()){
+            binding.tiedtEmail.setAccessibilityDelegate(object : View.AccessibilityDelegate() {
+                 override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
+                    super.onInitializeAccessibilityNodeInfo(host, info)
+                    info?.text = null  // Hapus teks (hint) yang akan dibaca oleh TalkBack
+                }
+            })
+        }
+    }
+
+    private fun isTalkbackEnabled(): Boolean {
+        val am = requireContext().getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+        val isAccessibilityEnabled = am.isEnabled
+        val isTouchExplorationEnabled = am.isTouchExplorationEnabled
+        return isAccessibilityEnabled && isTouchExplorationEnabled
+
     }
 
     private fun setToast(msg: String) {
@@ -96,10 +124,10 @@ class InputEmailFragment : Fragment() {
 
     private fun setupAccessibility() {
         binding.apply {
-            btnBack.contentDescription = getString(R.string.tombol_kembali)
+            btnBack.contentDescription = getString(R.string.kembali)
             tvEmail.contentDescription = getString(R.string.email)
             tiedtEmail.contentDescription = getString(R.string.input_email)
-            btnNext.contentDescription = getString(R.string.tombol_lanjut)
+            btnNext.contentDescription = getString(R.string.lanjut)
         }
     }
 }

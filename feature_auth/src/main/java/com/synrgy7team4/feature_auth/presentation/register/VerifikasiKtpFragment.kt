@@ -1,5 +1,6 @@
 package com.synrgy7team4.feature_auth.presentation.register
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -29,13 +30,18 @@ class VerifikasiKtpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         delayAndNavigate()
     }
 
     private fun delayAndNavigate() {
+        val deepLinkUri = Uri.parse("app://com.example.app/auth/fingerprint"  )
+
         lifecycleScope.launch {
-            delay(5000) // Delay for 10 seconds (10000 milliseconds)
-            view?.findNavController()?.navigate(R.id.action_verifikasiKtpFragment_to_fingerprintVerifFragment)
+            delay(3000) // Delay for 10 seconds (10000 milliseconds)
+            requireView().findNavController().navigate(deepLinkUri)
+
+            //  requireView().findNavController().navigate(R.id.action_verifikasiKtpFragment_to_fingerprintVerifFragment)
         }
     }
 }

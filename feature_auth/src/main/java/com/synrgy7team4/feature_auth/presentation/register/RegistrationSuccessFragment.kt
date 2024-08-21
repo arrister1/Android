@@ -1,5 +1,6 @@
 package com.synrgy7team4.feature_auth.presentation.register
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,12 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import com.jer.shared.ViewModelFactoryProvider
+import androidx.navigation.fragment.findNavController
+import com.synrgy7team4.common.ViewModelFactoryProvider
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentRegistrationSuccessBinding
-import com.synrgy7team4.feature_auth.databinding.FragmentVerifikasiKtpBinding
 import com.synrgy7team4.feature_auth.presentation.viewmodel.RegisterViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class RegistrationSuccessFragment : Fragment() {
     private var _binding: FragmentRegistrationSuccessBinding? = null
@@ -41,15 +45,24 @@ class RegistrationSuccessFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
        setupAccessibility()
-        binding.regisSuccessLayout.setOnClickListener {
 
+       lifecycleScope.launch {
+           delay(3000)
+           val deepLinkUri = Uri.parse("app://com.example.app/auth/login" )
+           findNavController().navigate(deepLinkUri)
+           //requireView().findNavController().navigate(R.id.action_registrationSuccessFragment_to_loginFragment)
+       }
 
-            requireView().findNavController().navigate(R.id.action_registrationSuccessFragment_to_loginFragment)
-
-        }
-
-
-    }
+//       Handler(Looper.getMainLooper()).postDelayed({
+//           requireView().findNavController().navigate(R.id.action_registrationSuccessFragment_to_loginFragment)
+//       }, 2000)
+   }
+//        binding.regisSuccessLayout.setOnClickListener {
+//
+//
+//            requireView().findNavController().navigate(R.id.action_registrationSuccessFragment_to_loginFragment)
+//
+//        }
 
     private fun setToast(msg: String) {
         Toast.makeText(requireActivity(),msg, Toast.LENGTH_SHORT).show()
@@ -60,5 +73,7 @@ class RegistrationSuccessFragment : Fragment() {
             tvRegisSuccess.contentDescription = getString(R.string.anda_berhasil_membuka_rekening)
         }
     }
+    }
 
-}
+
+
