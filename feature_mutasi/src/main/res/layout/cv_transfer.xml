@@ -24,6 +24,7 @@
             android:layout_marginTop="5dp"
             android:id="@+id/tv_transfer"
             android:text="@string/transfer"
+            android:contentDescription="@string/jenis_transaksi"
             android:textSize="18sp"
             android:fontFamily="@font/calibri"
             android:textColor="@color/black"/>
@@ -35,6 +36,7 @@
             android:id="@+id/tv_transfer_ke"
             android:layout_marginBottom="5dp"
             android:text="@string/transfer_ke"
+            android:contentDescription="@string/transfer_ke"
             android:textSize="12sp"
             android:fontFamily="@font/calibri"
             android:textColor="@color/grey"/>
@@ -46,6 +48,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginStart="5dp"
             android:text="@string/gopay"
+            android:contentDescription="@string/jenis_dompet"
             android:textSize="12sp"
             android:fontFamily="@font/calibri"
             android:textColor="@color/grey"/>
@@ -55,6 +58,7 @@
             android:layout_marginEnd="10dp"
             android:id="@+id/tv_idr"
             android:text="@string/idr"
+            android:contentDescription="@string/rupiah"
             android:textSize="18sp"
             android:fontFamily="@font/calibri"
             android:textColor="@color/black"
@@ -66,6 +70,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/tv_nominal"
             android:text="@string/_21_800"
+            android:contentDescription="@string/nominal"
             android:textSize="18sp"
             android:fontFamily="@font/calibri"
             android:textColor="@color/black"

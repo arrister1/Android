@@ -11,12 +11,19 @@
     <string name="transfer">Transfer</string>
     <string name="transfer_ke">Transfer Ke</string>
     <string name="gopay">GOPAY</string>
+    <string name="jenis_dompet">Jenis Dompet</string>
     <string name="idr">-IDR</string>
+    <string name="nominal">Nominal</string>
+    <string name="rupiah">Rupiah</string>
     <string name="_21_800">21,800</string>
     <string name="top_up">Top Up</string>
     <string name="top_up_ke">Top Up Ke</string>
     <string name="_10_juli_2024">10 Juli 2024</string>
     <string name="date_end">Sampai Tanggal</string>
+    <string name="tanggal">tanggal</string>
+    <string name="tanggal_awal">Tanggal Awal</string>
+    <string name="dd_mm_yyyy">dd/mm/yyyy</string>
+    <string name="tanggal_akhir">Tanggal Akhir</string>
     <string-array name="spinner_jenis_transaksi">
         <item>Semua</item>
         <item>Uang Masuk</item>

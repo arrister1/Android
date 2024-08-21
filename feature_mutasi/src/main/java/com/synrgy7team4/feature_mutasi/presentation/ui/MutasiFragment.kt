@@ -86,15 +86,15 @@ class MutasiFragment : Fragment() {
                 lifecycleScope.launch {
                     binding.loadingIndicator.visibility = View.VISIBLE
                     // Call fetchFilteredUserData after the date is selected
-                    /*viewModel.fetchFilteredUserData(
-                        startDate,
-                        selectedEndDate
-                    )*/
-
-                    viewModel.loadDummyData(
+                    viewModel.fetchFilteredUserData(
                         startDate,
                         selectedEndDate
                     )
+
+                    /*viewModel.loadDummyData(
+                        startDate,
+                        selectedEndDate
+                    )*/
                     // Observe the ViewModel data
                     observeViewModel()
                     binding.loadingIndicator.visibility = View.GONE
@@ -113,16 +113,18 @@ class MutasiFragment : Fragment() {
                 // Handle spinner selection
                 //viewModel.loadMutations() // Replace with actual account number if needed
                 lifecycleScope.launch {
-                    /*viewModel.fetchFilteredUserData(
-                        "2024-01-01T12:00:00",
-                        "2029-08-01T12:00:00"
-                    )*/
-                    viewModel.loadDummyData(
+                    binding.loadingIndicator.visibility = View.VISIBLE
+                    viewModel.fetchFilteredUserData(
                         "2024-01-01T12:00:00",
                         "2029-08-01T12:00:00"
                     )
+                    /*viewModel.loadDummyData(
+                        "2024-01-01T12:00:00",
+                        "2029-08-01T12:00:00"
+                    )*/
                     // Observe the ViewModel data
                     observeViewModel()
+                    binding.loadingIndicator.visibility = View.GONE
                 }
             }
 
