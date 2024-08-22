@@ -1,6 +1,7 @@
 package com.synrgy7team4.feature_transfer.domain.usecase
 
 import com.synrgy7team4.common.Resource
+import com.synrgy7team4.feature_transfer.data.remote.response.account.AccountData
 import com.synrgy7team4.feature_transfer.domain.model.Account
 import com.synrgy7team4.feature_transfer.domain.model.AccountReq
 import com.synrgy7team4.feature_transfer.domain.model.BalanceReq
@@ -24,7 +25,7 @@ class TransferUseCase(private val repository: TransferRepository) {
         return repository.postBalance(request)
     }
 
-    fun getAccountList(): Flow<Resource<List<Account>>>{
+    fun getAccountList(): Flow<Resource<List<AccountData>>>{
         return repository.getAccountList()
     }
 

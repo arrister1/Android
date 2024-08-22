@@ -23,7 +23,7 @@ val TransferModule = module {
 
     single { RemoteDataSource(get()) }
 
-    single<TransferRepository> { TransferRepositoryImpl(get()) }
+    single { TransferRepositoryImpl(get()) }
 
     single { TransferUseCase(get()) }
 
