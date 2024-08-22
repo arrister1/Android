@@ -6,13 +6,14 @@ import com.synrgy7team4.feature_transfer.domain.model.AccountReq
 import com.synrgy7team4.feature_transfer.domain.model.BalanceReq
 import com.synrgy7team4.feature_transfer.domain.model.Transfer
 import com.synrgy7team4.feature_transfer.domain.model.TransferReq
+import com.synrgy7team4.feature_transfer.domain.model.TransferRes
 import com.synrgy7team4.feature_transfer.domain.model.User
 import com.synrgy7team4.feature_transfer.domain.repository.TransferRepository
 import kotlinx.coroutines.flow.Flow
 
 class TransferUseCase(private val repository: TransferRepository) {
 
-    fun postTransfer(request: TransferReq): Flow<Resource<Transfer>>{
+    fun postTransfer(request: TransferReq): Flow<Resource<TransferRes>>{
         return repository.postTransfer(request)
     }
 

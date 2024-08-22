@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.synrgy7team4.common.databinding.PinInputBinding
 import com.synrgy7team4.common.databinding.PinNumberBinding
 import com.synrgy7team4.feature_transfer.R
@@ -148,8 +149,16 @@ class TransferPinFragment : Fragment(), View.OnClickListener {
                         val accountDestinationNo = sharedPreferences.getString("accountDestinationNo", "") ?: ""
                         val transferAmount = sharedPreferences.getInt("transferAmount", 0)
                         val transferDescription = sharedPreferences.getString("transferDescription", "") ?: ""
+                        viewModel.getUserData()
 
-                        viewModel.postTransfer(TransferReq("accountFrom", accountDestinationNo, transferAmount, transferDescription, passCode))
+                        viewModel.userDataResult.observe(viewLifecycleOwner) { user ->
+                            val accnumb = user.data?.accountNumber
+                            if (accnumb != null) {
+                                viewModel.postTransfer(TransferReq(accnumb, accountDestinationNo, transferAmount, transferDescription, passCode))
+                            }
+
+                        }
+
                     }
                 }
             }
@@ -176,22 +185,30 @@ class TransferPinFragment : Fragment(), View.OnClickListener {
     }
 
     private fun observeViewModel() {
-        viewModel.transferResult.observe(viewLifecycleOwner, Observer { mutations ->
-            //what to do here ?
-
+        viewModel.transferResult.observe(viewLifecycleOwner, Observer { result ->
+            // Handle the transfer result
             val deepLinkUri = Uri.parse("app://com.example.app/trans/transDetail")
             requireView().findNavController().navigate(deepLinkUri)
         })
 
-        // Optionally, observe loading and error states
+        // Observe loading state to show/hide loading indicator
         viewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
-            // Show/hide loading indicator
+            if (isLoading) {
+                // Show loading indicator (e.g., ProgressBar)
+            } else {
+                // Hide loading indicator
+            }
         })
 
+        // Observe error state to display error messages
         viewModel.error.observe(viewLifecycleOwner, Observer { error ->
-            // Show error message
+            error?.let {
+                // Show the error message using a Toast, Snackbar, or Dialog
+                Snackbar.make(requireView(), it, Snackbar.LENGTH_LONG).show()
+            }
         })
     }
+
 
     private fun setToast(msg: String) {
         Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show()

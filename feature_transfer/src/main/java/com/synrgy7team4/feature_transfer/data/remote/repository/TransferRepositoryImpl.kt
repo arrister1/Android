@@ -1,5 +1,6 @@
 package com.synrgy7team4.feature_transfer.data.remote.repository
 
+import android.util.Log
 import com.synrgy7team4.common.Resource
 import com.synrgy7team4.feature_transfer.data.remote.RemoteDataSource
 import com.synrgy7team4.feature_transfer.data.remote.request.TransferRequest
@@ -11,6 +12,7 @@ import com.synrgy7team4.feature_transfer.domain.model.AccountReq
 import com.synrgy7team4.feature_transfer.domain.model.BalanceReq
 import com.synrgy7team4.feature_transfer.domain.model.Transfer
 import com.synrgy7team4.feature_transfer.domain.model.TransferReq
+import com.synrgy7team4.feature_transfer.domain.model.TransferRes
 import com.synrgy7team4.feature_transfer.domain.model.User
 import com.synrgy7team4.feature_transfer.domain.repository.TransferRepository
 import com.synrgy7team4.feature_transfer.domain.toEntity
@@ -22,23 +24,28 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 
 class TransferRepositoryImpl(private val remoteDataSource: RemoteDataSource): TransferRepository {
-    override fun postTransfer(request: TransferReq): Flow<Resource<Transfer>> {
+    override fun postTransfer(request: TransferReq): Flow<Resource<TransferRes>> {
         return remoteDataSource.postTransfer(request.toEntity())
             .map { resource ->
                 when(resource) {
                     is Resource.Success -> {
                         val domainData = resource.data?.toDomain()
                         if (domainData != null) {
+                            Log.e("repoimpl", "succ postTransfer: " + resource.data?.success)
+                            Log.e("repoimpl", "succ postTransfer: " + resource.data?.errors)
+                            Log.e("repoimpl", "succ postTransfer: " + resource.data?.message)
                             Resource.Success(domainData)
                         } else {
-                            Resource.Error("Trasnfer Data is null")
+                            Log.e("repoimpl", "Error postTransfer: " + resource.data?.errors.toString())
+                            Resource.Error(resource.data?.errors ?: "Unknown error on postTransfer")
                         }
                     }
 
                     is Resource.Error -> Resource.Error(resource.message ?: "Unknown error on postTransfer")
                     is Resource.Loading -> Resource.Loading()
                 }
-            }    }
+            }
+    }
 
     //PAKE EMIT
 //    override fun postTransfer(request: TransferReq): Flow<Resource<Transfer>> {

@@ -77,8 +77,8 @@ class TransferInputFragment : Fragment() {
         binding.submitForm.setOnClickListener{
            handleSubmitFormClick(view)
 
-           val pinNav = Uri.parse("app://com.example.app/trans/transferPin")
-            requireView().findNavController().navigate(pinNav)
+           /*val pinNav = Uri.parse("app://com.example.app/trans/transferPin")
+            requireView().findNavController().navigate(pinNav)*/
          //  requireView().findNavController().navigate(R.id.action_transferInputFragment_to_transferPinFragment)
        }
 
@@ -92,29 +92,44 @@ class TransferInputFragment : Fragment() {
         val nominal = binding.amountInputText.text.toString()
         val berita = binding.inputNote.text.toString()
 
+
+
+        if (!validateAmount(nominal)) {
+            return  // Stop execution if validation fails
+        }
+
+        // If validation passes, navigate to the next screen
         sharedPreferences.edit().putInt("transferAmount", nominal.toInt()).apply()
         sharedPreferences.edit().putString("transferDescription", berita).apply()
-
-        if(!validateAmount(nominal))
-            return
-
+        val pinNav = Uri.parse("app://com.example.app/trans/transferPin")
+        requireView().findNavController().navigate(pinNav)
         Toast.makeText(requireContext(), "$nominal $berita", Toast.LENGTH_SHORT).show()
+
     }
 
-    private fun validateAmount(amount:String): Boolean{
-        if(amount.isEmpty())
-        {
-            Toast.makeText(requireContext(), "nominal harus di isi !", Toast.LENGTH_SHORT).show()
+    private fun validateAmount(amount: String): Boolean {
+        if (amount.isNullOrEmpty()) {
+            Toast.makeText(requireContext(), "Nominal harus di isi!", Toast.LENGTH_SHORT).show()
             return false
         }
 
-        val nominal = Integer.parseInt(amount)
+        val nominal = amount.toIntOrNull() ?: 0
 
-        if(nominal < 10000)
-        {
-            Toast.makeText(requireContext(), "nominal harus di atas 10000 !", Toast.LENGTH_SHORT).show()
-            return false
+        return when {
+            nominal == 0 -> {
+                Toast.makeText(requireContext(), "Nominal harus di isi!", Toast.LENGTH_SHORT).show()
+                false
+            }
+            nominal < 1000 -> {
+                Toast.makeText(requireContext(), "Nominal harus di atas Rp. 1.000!", Toast.LENGTH_SHORT).show()
+                false
+            }
+            nominal > 5000000 -> {
+                Toast.makeText(requireContext(), "Nominal maksimal Rp. 5.000.000!", Toast.LENGTH_SHORT).show()
+                false
+            }
+            else -> true
         }
-        return true
     }
+
 }

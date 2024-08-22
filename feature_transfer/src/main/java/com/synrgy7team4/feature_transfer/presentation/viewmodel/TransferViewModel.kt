@@ -1,5 +1,6 @@
 package com.synrgy7team4.feature_transfer.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +11,7 @@ import com.synrgy7team4.feature_transfer.domain.model.AccountReq
 import com.synrgy7team4.feature_transfer.domain.model.BalanceReq
 import com.synrgy7team4.feature_transfer.domain.model.Transfer
 import com.synrgy7team4.feature_transfer.domain.model.TransferReq
+import com.synrgy7team4.feature_transfer.domain.model.TransferRes
 import com.synrgy7team4.feature_transfer.domain.model.User
 import com.synrgy7team4.feature_transfer.domain.usecase.TransferUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,8 +23,8 @@ import kotlinx.coroutines.launch
 
 class TransferViewModel(private val useCase: TransferUseCase) : ViewModel() {
 
-    private val _transferResult = MutableLiveData<Resource<Transfer>>()
-    val transferResult: LiveData<Resource<Transfer>> get() = _transferResult
+    private val _transferResult = MutableLiveData<Resource<TransferRes>>()
+    val transferResult: LiveData<Resource<TransferRes>> get() = _transferResult
 
     private val _balanceResult = MutableLiveData<Resource<Int>>()
     val balanceResult: LiveData<Resource<Int>> get() = _balanceResult
@@ -49,7 +51,20 @@ class TransferViewModel(private val useCase: TransferUseCase) : ViewModel() {
         _isLoading.value = true
         viewModelScope.launch {
             useCase.postTransfer(request).collect { result ->
-                _transferResult.value = result
+                when (result) {
+                    is Resource.Success -> {
+                        _transferResult.value = result
+                        Log.e("succ", "Error postTransfer: " + result)
+                    }
+                    is Resource.Error -> {
+                        Log.e("err", "Error postTransfer: " + result.data?.errors)
+                        _error.value = result.message ?: "An unexpected error occurred"
+                        Log.e("ViewModel", "Error postTransfer: ${result.message}")
+                    }
+                    is Resource.Loading -> {
+                        // Optional: You can handle loading state here if needed
+                    }
+                }
             }
         }
     }
