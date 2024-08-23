@@ -16,9 +16,6 @@ import kotlinx.coroutines.launch
 class RegisterViewModel(
     private val registerUseCase: RegisterUseCase
 ) : ViewModel() {
-    private val _registerResult = MutableLiveData<RegisterResponseDomain>()
-    val registerResult: LiveData<RegisterResponseDomain> = _registerResult
-
     private val _isEmailAvailable = MutableLiveData<Boolean>()
     val isEmailAvailable: LiveData<Boolean> = _isEmailAvailable
 
@@ -56,8 +53,7 @@ class RegisterViewModel(
                 ektp_photo = ektp_photo,
                 pin = pin
             )
-            val registerResponse = registerUseCase.register(registerRequest)
-            _registerResult.postValue(registerResponse)
+            registerUseCase.register(registerRequest)
         } catch (e: HttpExceptionUseCase) {
             _error.postValue(e)
         } catch (e: Exception) {

@@ -20,8 +20,6 @@ import androidx.navigation.fragment.findNavController
 import com.synrgy7team4.common.makeToast
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentUploadKtpBinding
-import com.synrgy7team4.feature_auth.viewmodel.RegisterViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 

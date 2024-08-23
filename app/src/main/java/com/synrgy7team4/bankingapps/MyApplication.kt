@@ -3,9 +3,9 @@ package com.synrgy7team4.bankingapps
 import android.app.Application
 import com.synrgy7team4.bankingapps.di.appKoin
 import com.synrgy7team4.di.feature_auth.authKoin
+import com.synrgy7team4.di.feature_dashboard.dashboardKoin
 import com.synrgy7team4.feature_auth.viewmodel.authViewModelKoin
-import com.synrgy7team4.feature_dashboard.di.DashboardKoin
-import com.synrgy7team4.feature_dashboard.presentation.viewmodel.DashboardViewModelKoin
+import com.synrgy7team4.feature_dashboard.viewmodel.dashboardViewModelKoin
 import com.synrgy7team4.feature_mutasi.di.MutasiKoin
 import com.synrgy7team4.feature_mutasi.presentation.viewmodel.MutasiViewModelKoin
 import org.koin.android.ext.koin.androidContext
@@ -22,10 +22,10 @@ class MyApplication : Application() {
                 appKoin,
                 authKoin,
                 authViewModelKoin,
-                DashboardKoin,
+                dashboardKoin,
+                dashboardViewModelKoin,
                 MutasiKoin,
                 MutasiViewModelKoin,
-                DashboardViewModelKoin
             )
         }
     }

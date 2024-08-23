@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".presentation.ui.account.AccountFragment">
+    tools:context=".ui.AccountFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_account"
@@ -24,9 +24,9 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/img_profil_pengguna"
                 android:layout_width="43.33dp"
                 android:layout_height="43.33dp"
-                android:contentDescription="Gambar Profil"
                 android:src="@drawable/ic_account_circle"
                 app:tint="@color/primary_darkBlue" />
 
@@ -38,6 +38,7 @@
                 android:paddingStart="8dp">
 
                 <TextView
+                    android:id="@+id/tv_nama_pengguna"
                     style="@style/RegulerText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -46,6 +47,7 @@
                     android:textColor="#1C1C1C" />
 
                 <TextView
+                    android:id="@+id/tv_email_pengguna"
                     style="@style/LightText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -53,6 +55,7 @@
                     android:textColor="#1C1C1C" />
 
                 <TextView
+                    android:id="@+id/tv_no_hp_pengguna"
                     style="@style/LightText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -61,12 +64,11 @@
             </LinearLayout>
 
             <ImageButton
-                android:id="@+id/img_btn_edit"
+                android:id="@+id/btn_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@android:color/transparent"
-                android:contentDescription="Edit Profil"
                 android:src="@drawable/ic_edit"
                 app:tint="@color/primary_darkBlue" />
         </LinearLayout>
@@ -86,7 +88,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:clickable="true"
-            android:contentDescription="Ubah Password"
             android:focusable="true"
             android:gravity="center"
             android:orientation="horizontal"
@@ -125,7 +126,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:clickable="true"
-            android:contentDescription="Notifikasi"
             android:focusable="true"
             android:gravity="center"
             android:orientation="horizontal"
@@ -164,7 +164,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:clickable="true"
-            android:contentDescription="Pusat Bantuan"
             android:focusable="true"
             android:gravity="center"
             android:orientation="horizontal"
@@ -203,7 +202,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:clickable="true"
-            android:contentDescription="Syarat dan Ketentuan"
             android:focusable="true"
             android:gravity="center"
             android:orientation="horizontal"
@@ -242,7 +240,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:clickable="true"
-            android:contentDescription="Kebijakan Privasi"
             android:focusable="true"
             android:gravity="center"
             android:orientation="horizontal"
@@ -281,7 +278,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:clickable="true"
-            android:contentDescription="Keluar Akun"
             android:focusable="true"
             android:gravity="center"
             android:orientation="horizontal"
@@ -314,18 +310,4 @@
             android:layout_height="1dp"
             app:dividerColor="@color/light_grey" />
     </LinearLayout>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:background="@drawable/bg_bottom_navbar"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/feature_dashboard_navigation"
-    app:startDestination="@id/navigation_home">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.home.HomeFragment"
+        android:id="@+id/homeFragment"
+        android:name="com.synrgy7team4.feature_dashboard.ui.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -18,8 +18,8 @@
             app:destination="@id/savedAccountFragment2" />
     </fragment>
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.qris.QrisFragment"
+        android:id="@+id/qrisFragment"
+        android:name="com.synrgy7team4.feature_dashboard.ui.qris.QrisFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_qris" >
         <action
@@ -27,8 +27,8 @@
             app:destination="@id/showQrisFragment" />
     </fragment>
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.account.AccountFragment"
+        android:id="@+id/accountFragment"
+        android:name="com.synrgy7team4.feature_dashboard.ui.AccountFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_account" />
     <fragment
@@ -49,7 +49,7 @@
     </fragment>
   <fragment
         android:id="@+id/showQrisFragment"
-        android:name="com.synrgy7team4.feature_dashboard.presentation.ui.qris.ShowQrisFragment"
+        android:name="com.synrgy7team4.feature_dashboard.ui.qris.ShowQrisFragment"
         android:label="fragment_show_qris"
         tools:layout="@layout/fragment_show_qris" />
 </navigation>

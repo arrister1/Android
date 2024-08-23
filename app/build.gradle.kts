@@ -52,8 +52,8 @@ dependencies {
     implementation(project(":di"))
     implementation(project(":domain"))
     implementation(project(":feature_auth"))
-    implementation(project(":feature_mutasi"))
     implementation(project(":feature_dashboard"))
+    implementation(project(":feature_mutasi"))
     implementation(project(":feature_transfer"))
 
     // Koin
@@ -63,6 +63,9 @@ dependencies {
     // Navigation
     implementation(libs["navigation-fragment-ktx"].toString())
     implementation(libs["navigation-ui-ktx"].toString())
+
+    // Datastore
+    implementation(libs["datastore-preferences"].toString())
 
     // Generated dependencies
     implementation(libs["core-ktx"].toString())

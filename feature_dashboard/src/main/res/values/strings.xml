@@ -30,7 +30,6 @@
     <string name="balance_toggle_button">Balance Toggle Button</string>
     <string name="tunjukan_qr_untuk_membayar">Tunjukkan QR untuk membayar</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="lumi">Lumi</string>
     <string name="syarat_ketentuan"><![CDATA[Syarat & Ketentuan]]></string>
     <string name="rifky_eky">Rifky Eky</string>
@@ -41,5 +40,6 @@
     <string name="pusat_bantuan">Pusat Bantuan</string>
     <string name="kebijakan_privasi">Kebijakan Privasi</string>
     <string name="keluar_akun">Keluar Akun</string>
-
+    <string name="profil_pengguna">Gambar Profil Pengguna</string>
+    <string name="edit_profil">Ubah Profil</string>
 </resources>

@@ -5,12 +5,15 @@ import com.synrgy7team4.data.feature_auth.datasource.remote.response.KtpNumberCh
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.LoginResponse
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.PhoneNumberCheckResponse
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.RegisterResponse
+import com.synrgy7team4.data.feature_auth.datasource.remote.response.UserGetResponse
 import com.synrgy7team4.domain.feature_auth.model.request.EmailCheckRequest
 import com.synrgy7team4.domain.feature_auth.model.request.KtpNumberCheckRequest
 import com.synrgy7team4.domain.feature_auth.model.request.LoginRequest
 import com.synrgy7team4.domain.feature_auth.model.request.PhoneNumberCheckRequest
 import com.synrgy7team4.domain.feature_auth.model.request.RegisterRequest
 import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface ApiService {
@@ -38,4 +41,9 @@ interface ApiService {
     suspend fun checkKtpNumberAvailability(
         @Body ktpNumberCheckRequest: KtpNumberCheckRequest
     ): KtpNumberCheckResponse
+
+    @GET("user/me")
+    suspend fun getUser(
+        @Header("Authorization") jwtToken: String
+    ): UserGetResponse
 }

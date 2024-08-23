@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.qris.QrisFragment">
+    tools:context=".ui.qris.QrisFragment">
 
     <com.budiyev.android.codescanner.CodeScannerView
         android:id="@+id/scanner_view"
@@ -37,7 +37,6 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="40dp"
-                android:contentDescription="@string/back"
                 android:id="@+id/btn_back"
                 android:background="@drawable/circular_background"
                 app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +46,6 @@
                 android:layout_height="20dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="50dp"
-                android:contentDescription="@string/back"
                 android:background="@drawable/baseline_arrow_back_ios_new_24"
                 android:clickable="false"
                 app:layout_constraintStart_toStartOf="parent"

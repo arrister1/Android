@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.accessibility.AccessibilityManager
 import android.view.accessibility.AccessibilityNodeInfo
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.synrgy7team4.common.NavigationHandler
 import com.synrgy7team4.common.makeSnackbar
@@ -17,6 +18,8 @@ import com.synrgy7team4.common.makeToast
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentLoginBinding
 import com.synrgy7team4.feature_auth.viewmodel.LoginViewModel
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -44,35 +47,6 @@ class LoginFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        viewModel.tokens.observe(viewLifecycleOwner) { (jwtToken, refreshToken) ->
-            viewModel.saveTokens(jwtToken, refreshToken)
-        }
-
-        viewModel.isLoading.observe(viewLifecycleOwner) {
-            showLoading(it)
-        }
-
-        viewModel.isSuccessful.observe(viewLifecycleOwner) {
-            makeToast(requireContext(), "Anda Berhasil Masuk")
-            navHandler.navigateToDashboard()
-        }
-
-        viewModel.error.observe(viewLifecycleOwner) { error ->
-            makeToast(requireContext(), error.message)
-
-            if (isTalkbackEnabled()) {
-                binding.edtEmail.accessibilityDelegate = object : View.AccessibilityDelegate() {
-                    override fun onInitializeAccessibilityNodeInfo(
-                        host: View,
-                        info: AccessibilityNodeInfo
-                    ) {
-                        super.onInitializeAccessibilityNodeInfo(host, info)
-                        info.text = null  // Hapus teks (hint) yang akan dibaca oleh TalkBack
-                    }
-                }
-            }
-        }
-
         binding.btnMasuk.setOnClickListener {
             val email = binding.edtEmail.text.toString()
             val password = binding.edtPassword.text.toString()
@@ -83,8 +57,7 @@ class LoginFragment : Fragment() {
                 password.isEmpty() -> binding.edtPassword.error = "Password tidak boleh kosong"
                 else -> {
                     if (!email.matches(emailPattern.toRegex())) {
-                        binding.edtEmail.error =
-                            "Format email tidak sesuai. Contoh: user@domain.com"
+                        binding.edtEmail.error = "Format email tidak sesuai. Contoh: user@domain.com"
                     }
                     if (password.contains(Regex("[^a-zA-Z0-9]"))) {
                         makeSnackbar(view, "Password tidak boleh mengandung simbol")
@@ -121,7 +94,52 @@ class LoginFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable?) {}
         })
+
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            showLoading(it)
+        }
+
+        viewModel.isSuccessful.observe(viewLifecycleOwner) { isSuccessful ->
+            if (isSuccessful) {
+                lifecycleScope.launch {
+                    awaitAll(
+                        viewModel.saveTokens(),
+                        viewModel.saveUserData()
+                    )
+                    navHandler.navigateToDashboard()
+                }
+            }
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) { error ->
+            makeToast(requireContext(), error.message)
+
+            if (isTalkbackEnabled()) {
+                binding.edtEmail.accessibilityDelegate = object : View.AccessibilityDelegate() {
+                    override fun onInitializeAccessibilityNodeInfo(
+                        host: View,
+                        info: AccessibilityNodeInfo
+                    ) {
+                        super.onInitializeAccessibilityNodeInfo(host, info)
+                        info?.text = null  // Hapus teks (hint) yang akan dibaca oleh TalkBack
+                    }
+                }
+            }
+
+            binding.textInputLayout3.setEndIconContentDescription(R.string.hide_password)
+            binding.textInputLayout3.setEndIconOnClickListener {
+                val isPasswordVisible =
+                    binding.edtPassword.inputType == android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                val contentDescription = if (isPasswordVisible) {
+                    getString(R.string.hide_password)
+                } else {
+                    getString(R.string.show_password)
+                }
+                binding.textInputLayout3.endIconContentDescription = contentDescription
+            }
+        }
     }
+
 
     private fun isTalkbackEnabled(): Boolean {
         val am =

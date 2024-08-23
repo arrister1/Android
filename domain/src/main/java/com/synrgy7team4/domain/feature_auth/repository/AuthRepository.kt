@@ -17,7 +17,4 @@ interface AuthRepository {
     suspend fun checkEmailAvailability(emailCheckRequest: EmailCheckRequest): EmailCheckResponseDomain
     suspend fun checkPhoneNumberAvailability(phoneNumberCheckRequest: PhoneNumberCheckRequest): PhoneNumberCheckResponseDomain
     suspend fun checkKtpNumberAvailability(ktpNumberCheckRequest: KtpNumberCheckRequest): KtpNumberCheckResponseDomain
-    suspend fun saveTokens(jwtToken: String, refreshToken: String)
-    suspend fun loadJwtToken(): String?
-    suspend fun deleteJwtToken()
 }

@@ -3,7 +3,7 @@ package com.synrgy7team4.data.feature_auth.datasource.remote.retrofit
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.google.gson.Gson
-import com.synrgy7team4.common.Constants.Companion.BASE_URL
+import com.synrgy7team4.data.Constants.Companion.BASE_URL
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_margin="20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.ui.qris.ShowQrisFragment">
+    tools:context=".ui.qris.ShowQrisFragment">
 
     <ImageView
         android:id="@+id/lumiLogo"

@@ -39,5 +39,8 @@ ext {
             "navigation-fragment-ktx": "androidx.navigation:navigation-fragment-ktx:${versions.navigation}",
             "navigation-ui-ktx"     : "androidx.navigation:navigation-ui-ktx:${versions.navigation}",
             "constraintlayout"      : "androidx.constraintlayout:constraintlayout:2.1.4",
+            "zxing-core"            : "com.google.zxing:core:3.3.3",
+            "zxing-android-embedded": "com.journeyapps:zxing-android-embedded:4.2.0",
+            "code-scanner"          : "com.github.yuriy-budiyev:code-scanner:2.3.0",
     ]
 }

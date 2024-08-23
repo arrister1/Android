@@ -15,14 +15,14 @@ data class LoginResponse(
 
 data class LoginData(
 	@field:SerializedName("email")
-	val email: String,
+	val email: String? = null,
 
 	@field:SerializedName("name")
-	val name: String,
+	val name: String? = null,
 
 	@field:SerializedName("jwt_token")
-	val jwtToken: String,
+	val jwtToken: String? = null,
 
 	@field:SerializedName("refresh_token")
-	val refreshToken: String
+	val refreshToken: String? = null
 )
