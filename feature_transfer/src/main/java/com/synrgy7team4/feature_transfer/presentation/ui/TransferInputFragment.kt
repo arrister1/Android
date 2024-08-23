@@ -15,10 +15,14 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.synrgy7team4.feature_transfer.R
 import com.synrgy7team4.feature_transfer.databinding.FragmentTransferInputBinding
+import com.synrgy7team4.feature_transfer.presentation.viewmodel.TransferViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TransferInputFragment : Fragment() {
     private var _binding: FragmentTransferInputBinding? = null
     private val binding get() = _binding!!
+    private val transferViewModel: TransferViewModel by viewModel()
+
 
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -44,6 +48,23 @@ class TransferInputFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
+
+        val accountDestinationName = sharedPreferences.getString("accountDestinationName", null)
+        val accountDestinationNo = sharedPreferences.getString("accountDestinationNo", null)
+        val accountDestinationBankName = sharedPreferences.getString("accountDestinationBankName", null)
+
+        val senderAccNo = sharedPreferences.getString("accountNo", null)
+        val senderName = sharedPreferences.getString("accountName", null)
+        val senderBalance = sharedPreferences.getString("accountBalance", null)
+
+
+        binding.accountName.text = accountDestinationName
+        binding.bankNameAndAccountNo.text = "${accountDestinationNo}"
+
+
+        binding.userAccountName.text = senderName
+        binding.userAccountNo.text = senderAccNo
+        binding.userAccountBalance.text =senderBalance
 
        binding.submitForm.setOnClickListener{
            handleSubmitFormClick(view)

@@ -67,7 +67,7 @@ class TransferPinFragment : Fragment(), View.OnClickListener {
         pinInputBinding = PinInputBinding.bind(binding.pinInput.root)
 
         initializeComponents()
-        observeViewModel()
+        //observeViewModel()
     }
 
     private fun initializeComponents() {
@@ -149,7 +149,7 @@ class TransferPinFragment : Fragment(), View.OnClickListener {
                         val transferAmount = sharedPreferences.getInt("transferAmount", 0)
                         val transferDescription = sharedPreferences.getString("transferDescription", "") ?: ""
 
-                        viewModel.postTransfer(TransferReq("accountFrom", accountDestinationNo, transferAmount, transferDescription, passCode))
+                       // viewModel.postTransfer(TransferReq("accountFrom", accountDestinationNo, transferAmount, transferDescription, passCode))
                     }
                 }
             }
@@ -175,23 +175,23 @@ class TransferPinFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    private fun observeViewModel() {
-        viewModel.transferResult.observe(viewLifecycleOwner, Observer { mutations ->
-            //what to do here ?
-
-            val deepLinkUri = Uri.parse("app://com.example.app/trans/transDetail")
-            requireView().findNavController().navigate(deepLinkUri)
-        })
-
-        // Optionally, observe loading and error states
-        viewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
-            // Show/hide loading indicator
-        })
-
-        viewModel.error.observe(viewLifecycleOwner, Observer { error ->
-            // Show error message
-        })
-    }
+//    private fun observeViewModel() {
+//        viewModel.transferResult.observe(viewLifecycleOwner, Observer { mutations ->
+//            //what to do here ?
+//
+//            val deepLinkUri = Uri.parse("app://com.example.app/trans/transDetail")
+//            requireView().findNavController().navigate(deepLinkUri)
+//        })
+//
+//        // Optionally, observe loading and error states
+//        viewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
+//            // Show/hide loading indicator
+//        })
+//
+//        viewModel.error.observe(viewLifecycleOwner, Observer { error ->
+//            // Show error message
+//        })
+//    }
 
     private fun setToast(msg: String) {
         Toast.makeText(requireActivity(), msg, Toast.LENGTH_SHORT).show()
