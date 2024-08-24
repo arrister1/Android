@@ -1,5 +1,7 @@
 package com.synrgy7team4.feature_dashboard.presentation.ui.home
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,7 +22,9 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by viewModel()
     private lateinit var  sharedPreferences: SharedPrefHelper
+    private lateinit var  sharedPreference: SharedPreferences
 
+    private var accountName: String = ""
     private lateinit var fullBalance: String
     private lateinit var hiddenBalance: String
     private lateinit var fullAccNum: String
@@ -51,7 +55,7 @@ class HomeFragment : Fragment() {
             }
         })
 
-        //sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
+        sharedPreference = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
         val token = sharedPreferences.getJwtToken()
 
         fullBalance = getString(R.string.dummy_account_balance)
@@ -64,7 +68,7 @@ class HomeFragment : Fragment() {
         homeViewModel.userName.observe(viewLifecycleOwner) { name ->
             binding.tvName.text = name
             binding.tvAccName.text = name
-
+            accountName = name
 //            binding.tvName.visibility = View.VISIBLE
 //            binding.tvAccName.visibility = View.VISIBLE
 
@@ -82,7 +86,7 @@ class HomeFragment : Fragment() {
         }
 
             homeViewModel.balance.observe(viewLifecycleOwner){ balance ->
-                fullBalance = "Rp ${balance.toString()}"
+                fullBalance = "Rp. ${balance.toString()}"
                 hiddenBalance = fullBalance.replace(Regex("\\d"), "*").replace(Regex("[,.]"), "")
                 binding.tvAccBalance.text = if (isBalanceHidden) hiddenBalance else fullBalance            }
 
@@ -97,8 +101,6 @@ class HomeFragment : Fragment() {
         }
 
 
-
-
         binding.tvAccBalance.text = fullBalance
         binding.toggleBalance.setImageResource(com.synrgy7team4.common.R.drawable.ic_visibility_on)
 
@@ -109,17 +111,23 @@ class HomeFragment : Fragment() {
             accNumVisibility()
         }
 
-        binding.btnTransfer.setOnClickListener {
-            val transferNav = Uri.parse("app://com.example.app/trans/transferList")
-           requireView().findNavController().navigate(transferNav)
-
-        }
-
         binding.btnMutasi.setOnClickListener {
             val mutasiNav = Uri.parse("app://com.example.app/mutasi/mutasi")
             requireView().findNavController().navigate(mutasiNav)
         }
 
+        binding.btnTransfer.setOnClickListener {
+            val transferNav = Uri.parse("app://com.example.app/trans/transferList")
+           requireView().findNavController().navigate(transferNav)
+
+            sharedPreference.edit().apply {
+                putString("accountName", accountName)
+                putString("accountNo", fullAccNum)
+                putString("accountBalance", fullBalance)
+                apply()
+            }
+
+        }
     }
 
     private fun accNumVisibility() {

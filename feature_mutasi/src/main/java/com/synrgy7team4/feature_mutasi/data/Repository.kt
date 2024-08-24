@@ -8,9 +8,9 @@ import retrofit2.Response
 class Repository(private val remoteDataSource: RemoteDataSource) {
     suspend fun getPostList() = remoteDataSource.getPosts()
 
-    suspend fun getMutations(accountNumber: String): Response<MutationResponse> {
-        return remoteDataSource.getMutationsByAcc(accountNumber)
+    suspend fun getMutations(accountNumber: String, token:String): Response<MutationResponse> {
+        return remoteDataSource.getMutationsByAcc(accountNumber, token)
     }
 
-    suspend fun getUserData() = remoteDataSource.getUserData()
+    suspend fun getUserData(token:String) = remoteDataSource.getUserData(token)
 }

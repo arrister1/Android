@@ -8,6 +8,5 @@ import org.koin.dsl.module
 val MutasiKoin = module {
 
 
-    factory {  RemoteDataSource(get()) }
-    factory {  Repository(get()) }
+
 }

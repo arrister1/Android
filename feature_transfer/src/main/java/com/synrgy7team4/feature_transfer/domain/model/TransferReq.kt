@@ -8,6 +8,9 @@ data class TransferReq(
     val amount: Int,
     val description: String,
     val pin: String,
+    val datetime: String,
+    val destinationBank: String
+
 
     )
 

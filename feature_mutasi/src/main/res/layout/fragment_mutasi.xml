@@ -13,26 +13,27 @@
         android:layout_centerInParent="true"
         android:indeterminate="true"
         android:visibility="gone"
-        android:layout_margin="16dp"
+
         android:indeterminateDrawable="@drawable/custom_progress_drawable"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
     <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         android:contentDescription="@string/back"
         android:id="@+id/btn_back"
         android:background="@drawable/circular_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
     <ImageButton
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="17dp"
         android:contentDescription="@string/back"
         android:background="@drawable/baseline_arrow_back_ios_new_24"
         android:clickable="false"
@@ -197,13 +198,14 @@
     
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         android:elevation="0dp"
         android:id="@+id/rv_mutasi"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cv_date"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/cv_mutasi_pertanggal"
         tools:itemCount="3">
     </androidx.recyclerview.widget.RecyclerView>

@@ -55,12 +55,15 @@ class MutationItemAdapter(private val mutationList: List<MutationData>) : Recycl
         private val tvTransfer: TextView = itemView.findViewById(R.id.tv_transfer)
         private val tvTransferKe: TextView = itemView.findViewById(R.id.tv_transfer_ke)
         private val tvNominal: TextView = itemView.findViewById(R.id.tv_nominal)
+        private val tvBank: TextView = itemView.findViewById(R.id.tv_bank)
+        private val tvIdr: TextView = itemView.findViewById(R.id.tv_idr)
 
         fun bind(mutation: MutationData) {
             tvTransfer.text = "Transfer" // Replace with appropriate string or value
             tvTransferKe.text = "Transfer ke ${mutation.account_to}"
             tvNominal.text = mutation.amount.toString()
-
+            tvBank.text = "Lumi Bank" //dummy
+            tvBank.contentDescription = "Lumi Bank" //dummy
             tvTransfer.contentDescription = "Transfer" // Replace with appropriate string or value
             tvTransferKe.contentDescription = "Transfer ke ${mutation.account_to}"
             tvNominal.contentDescription = mutation.amount.toString()
@@ -72,12 +75,16 @@ class MutationItemAdapter(private val mutationList: List<MutationData>) : Recycl
         private val tvTopUp: TextView = itemView.findViewById(R.id.tv_top_up)
         private val tvTopUpKe: TextView = itemView.findViewById(R.id.tv_top_up_ke)
         private val tvNominal: TextView = itemView.findViewById(R.id.tv_nominal)
+        private val tvBank: TextView = itemView.findViewById(R.id.tv_bank)
+        private val tvIdr: TextView = itemView.findViewById(R.id.tv_idr)
 
         fun bind(mutation: MutationData) {
             tvTopUp.text = "Top Up" // Replace with appropriate string or value
             tvTopUpKe.text = "Top Up ke ${mutation.account_to}"
             tvNominal.text = mutation.amount.toString()
+            tvBank.text = "Lumi Bank" //dummy
 
+            tvBank.contentDescription = "Lumi Bank" //dummy
             tvTopUp.contentDescription = "Top Up" // Replace with appropriate string or value
             tvTopUpKe.contentDescription = "Top Up ke ${mutation.account_to}"
             tvNominal.contentDescription = mutation.amount.toString()

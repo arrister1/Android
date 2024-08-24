@@ -10,9 +10,9 @@
     <string name="calendar_picker">Calendar Picker</string>
     <string name="transfer">Transfer</string>
     <string name="transfer_ke">Transfer Ke</string>
-    <string name="gopay">GOPAY</string>
+    <string name="gopay">Lumi Bank</string>
     <string name="jenis_dompet">Jenis Dompet</string>
-    <string name="idr">-IDR</string>
+    <string name="idr">- Rp. </string>
     <string name="nominal">Nominal</string>
     <string name="rupiah">Rupiah</string>
     <string name="_21_800">21,800</string>

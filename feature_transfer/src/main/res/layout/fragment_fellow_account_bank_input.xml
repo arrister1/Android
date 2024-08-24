@@ -33,7 +33,32 @@
             android:textColor="@color/primary_blue"
             android:textSize="24sp"
             app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tv_bank_name"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textColor="@color/primary_blue"
+            android:layout_marginTop="75dp"
+            android:textSize="16sp"
+            android:text="Nama Bank"
+            app:layout_constraintTop_toBottomOf="@+id/tv_sesama_bank"
+            app:layout_constraintStart_toStartOf="parent"
+            />
 
+        <Space
+            android:id="@+id/spacer"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_bank_name" />
+
+        <Spinner
+            android:id="@+id/bankDropdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/bank_list"
+            app:layout_constraintTop_toBottomOf="@id/spacer"
+            app:layout_constraintStart_toStartOf="parent"
+            />
         <TextView
             android:id="@+id/tv_nomor_rekening"
             style="@style/RegulerText"

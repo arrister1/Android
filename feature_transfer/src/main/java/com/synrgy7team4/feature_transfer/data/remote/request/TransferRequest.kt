@@ -13,7 +13,12 @@ data class TransferRequest(
     @SerializedName("description")
     val description: String,
     @SerializedName("pin")
-    val pin: String
+    val pin: String,
+    @SerializedName("datetime")
+    val datetime: String,
+    @SerializedName("destinationBank")
+    val destinationBank: String
+
 )
 
 fun TransferRequest.toDomain(): com.synrgy7team4.feature_transfer.domain.model.TransferReq{
@@ -22,7 +27,9 @@ fun TransferRequest.toDomain(): com.synrgy7team4.feature_transfer.domain.model.T
         accountTo = accountTo,
         amount = amount,
         description = description,
-        pin = pin
+        pin = pin,
+        datetime = datetime,
+        destinationBank = destinationBank
 
     )
 }

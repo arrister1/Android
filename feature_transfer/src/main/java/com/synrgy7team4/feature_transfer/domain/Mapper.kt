@@ -14,15 +14,15 @@ fun TransferReq.toEntity(): TransferRequest {
         accountTo = this.accountTo,
         amount = this.amount,
         description = this.description,
-        pin = this.pin
+        pin = this.pin,
+        datetime = this.datetime,
+        destinationBank = this.destinationBank
     )
 }
 
 fun AccountReq.toEntity(): AccountRequest {
     return AccountRequest(
-        additionalProp1 = this.additionalProp1,
-        additionalProp2 = this.additionalProp2,
-        additionalProp3 = this.additionalProp3
+        accountNumber = accountNumber,
     )
 }
 

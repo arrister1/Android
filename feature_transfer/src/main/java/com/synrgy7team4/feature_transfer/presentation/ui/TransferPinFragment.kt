@@ -20,6 +20,8 @@ import com.synrgy7team4.feature_transfer.R
 import com.synrgy7team4.feature_transfer.databinding.FragmentTransferPinBinding
 import com.synrgy7team4.feature_transfer.domain.model.TransferReq
 import com.synrgy7team4.feature_transfer.presentation.viewmodel.TransferViewModel
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 
 class TransferPinFragment : Fragment(), View.OnClickListener {
@@ -149,12 +151,16 @@ class TransferPinFragment : Fragment(), View.OnClickListener {
                         val accountDestinationNo = sharedPreferences.getString("accountDestinationNo", "") ?: ""
                         val transferAmount = sharedPreferences.getInt("transferAmount", 0)
                         val transferDescription = sharedPreferences.getString("transferDescription", "") ?: ""
-                        viewModel.getUserData()
-
-                        viewModel.userDataResult.observe(viewLifecycleOwner) { user ->
+                        val bankname = sharedPreferences.getString("bankname", "") ?: ""
+                        val currentDateTime = LocalDateTime.now(ZoneOffset.UTC)
+                        val dateTimePlus7Hours = currentDateTime.plusHours(14)
+                        val token = sharedPreferences.getString("token", "") ?: ""
+                        viewModel.getUserData(token)
+                        viewModel.userData.observe(viewLifecycleOwner) { user ->
                             val accnumb = user.data?.accountNumber
                             if (accnumb != null) {
-                                viewModel.postTransfer(TransferReq(accnumb, accountDestinationNo, transferAmount, transferDescription, passCode))
+                                viewModel.postTransfer(token, TransferReq(accnumb, accountDestinationNo, transferAmount, transferDescription, passCode, dateTimePlus7Hours.toString(),bankname ))
+
                             }
 
                         }
@@ -187,8 +193,17 @@ class TransferPinFragment : Fragment(), View.OnClickListener {
     private fun observeViewModel() {
         viewModel.transferResult.observe(viewLifecycleOwner, Observer { result ->
             // Handle the transfer result
-            val deepLinkUri = Uri.parse("app://com.example.app/trans/transDetail")
-            requireView().findNavController().navigate(deepLinkUri)
+            val id = result.data?.data?.id
+            sharedPreferences.edit().apply {
+                putString("lastidtransaction", id)
+                // putString("accountDestinationBankName", model.id)
+                apply()
+            }
+
+            if (result != null) {
+                val deepLinkUri = Uri.parse("app://com.example.app/trans/transDetail")
+                requireView().findNavController().navigate(deepLinkUri)
+            }
         })
 
         // Observe loading state to show/hide loading indicator

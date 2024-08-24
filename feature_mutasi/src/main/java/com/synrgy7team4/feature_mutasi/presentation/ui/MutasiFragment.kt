@@ -2,6 +2,7 @@ package com.synrgy7team4.feature_mutasi.presentation.ui
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.content.SharedPreferences
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.Bundle
@@ -22,11 +23,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.synrgy7team4.common.SharedPrefHelper
 import com.synrgy7team4.feature_mutasi.R
 import com.synrgy7team4.feature_mutasi.databinding.FragmentMutasiBinding
 import com.synrgy7team4.feature_mutasi.presentation.MutationAdapter
 import com.synrgy7team4.feature_mutasi.presentation.viewmodel.MutasiViewmodel
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Date
@@ -40,7 +43,7 @@ class MutasiFragment : Fragment() {
 
     private val viewModel: MutasiViewmodel by viewModel()
     private lateinit var adapter: MutationAdapter
-
+    private val sharedPrefHelper: SharedPrefHelper by inject()
     private lateinit var tvDateStart: TextView
     private lateinit var tvDateEnd: TextView
     private lateinit var startDate: String
@@ -57,7 +60,7 @@ class MutasiFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val token = sharedPrefHelper.getJwtToken() ?: ""
         binding.btnBack.setOnClickListener {
            /* *//*activity?.supportFragmentManager?.popBackStack()*//*
             val intent = Intent(activity, Class.forName("com.synrgy7team4.feature_dashboard.presentation.DashboardActivity"))
@@ -77,30 +80,26 @@ class MutasiFragment : Fragment() {
         val calendarEndIcon: CardView = view.findViewById(R.id.cv_date_end)
 
         calendarStartIcon.setOnClickListener {
-            showDateEndPickerDialog(tvDateStart){ selectedEndDate ->
-                startDate = selectedEndDate
+            showDateEndPickerDialog(tvDateStart) { selectedStartDate ->
+                startDate = "${selectedStartDate}.000000"
             }
-        }// Your ImageView id
+        }
 
         calendarEndIcon.setOnClickListener {
             showDateEndPickerDialog(tvDateEnd) { selectedEndDate ->
                 lifecycleScope.launch {
                     binding.loadingIndicator.visibility = View.VISIBLE
                     // Call fetchFilteredUserData after the date is selected
-                    /*viewModel.fetchFilteredUserData(
+                    viewModel.fetchFilteredUserData(
                         startDate,
-                        selectedEndDate
-                    )*/
-
-                    viewModel.loadDummyData(
-                        startDate,
-                        selectedEndDate
+                        "${selectedEndDate}.999999",
+                        token
                     )
                     // Observe the ViewModel data
                     observeViewModel()
                     binding.loadingIndicator.visibility = View.GONE
                 }
-                Log.d("test", "${binding.tvDateStart.text} sampai $selectedEndDate")
+                Log.d("test", "${startDate} sampai ${selectedEndDate}T23:59:59.999999")
             }
         }
 
@@ -115,14 +114,15 @@ class MutasiFragment : Fragment() {
                 //viewModel.loadMutations() // Replace with actual account number if needed
                 lifecycleScope.launch {
                     binding.loadingIndicator.visibility = View.VISIBLE
-                    /*viewModel.fetchFilteredUserData(
+                    viewModel.fetchFilteredUserData(
+                        "2024-01-01T12:00:00.00000",
+                        "2029-08-01T12:00:00.00000",
+                        token
+                    )
+                    /*viewModel.loadDummyData(
                         "2024-01-01T12:00:00",
                         "2029-08-01T12:00:00"
                     )*/
-                    viewModel.loadDummyData(
-                        "2024-01-01T12:00:00",
-                        "2029-08-01T12:00:00"
-                    )
                     // Observe the ViewModel data
                     observeViewModel()
                     binding.loadingIndicator.visibility = View.GONE

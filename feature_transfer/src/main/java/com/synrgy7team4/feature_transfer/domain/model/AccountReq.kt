@@ -1,8 +1,6 @@
 package com.synrgy7team4.feature_transfer.domain.model
 
 data class AccountReq (
-    val additionalProp1: String,
-    val additionalProp2: String,
-    val additionalProp3: String,
+    val accountNumber: String
 
     )

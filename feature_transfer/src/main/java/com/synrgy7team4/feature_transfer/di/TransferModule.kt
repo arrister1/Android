@@ -27,5 +27,6 @@ val TransferModule = module {
 
     single { TransferUseCase(get()) }
 
+
     viewModel { TransferViewModel(get()) }
 }
