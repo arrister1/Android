@@ -4,10 +4,10 @@ import android.app.Application
 import com.synrgy7team4.bankingapps.di.appKoin
 import com.synrgy7team4.di.feature_auth.authKoin
 import com.synrgy7team4.di.feature_dashboard.dashboardKoin
+import com.synrgy7team4.di.feature_mutasi.mutasiKoin
 import com.synrgy7team4.feature_auth.viewmodel.authViewModelKoin
 import com.synrgy7team4.feature_dashboard.viewmodel.dashboardViewModelKoin
-import com.synrgy7team4.feature_mutasi.di.MutasiKoin
-import com.synrgy7team4.feature_mutasi.presentation.viewmodel.MutasiViewModelKoin
+import com.synrgy7team4.feature_mutasi.viewmodel.mutasiViewModelKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -24,8 +24,8 @@ class MyApplication : Application() {
                 authViewModelKoin,
                 dashboardKoin,
                 dashboardViewModelKoin,
-                MutasiKoin,
-                MutasiViewModelKoin,
+                mutasiKoin,
+                mutasiViewModelKoin,
             )
         }
     }

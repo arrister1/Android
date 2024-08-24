@@ -8,13 +8,22 @@
     <string name="date_start">Dari Tanggal</string>
     <string name="calendar_picker">Calendar Picker</string>
     <string name="transfer">Transfer</string>
-    <string name="transfer_ke">Transfer Ke</string>
+    <string name="transfer_ke_bank_bca">Transfer Ke Bank BCA</string>
     <string name="gopay">GOPAY</string>
-    <string name="idr">-IDR</string>
+    <string name="idr">+ IDR 10.000</string>
     <string name="_21_800">21,800</string>
     <string name="top_up">Top Up</string>
     <string name="top_up_ke">Top Up Ke</string>
     <string name="_10_juli_2024">10 Juli 2024</string>
+    <string name="tanggal">Tanggal</string>
+    <string name="nominal">Nominal</string>
+    <string name="rupiah">Rupiah</string>
+    <string name="jenis_dompet">Jenis Dompet</string>
+    <string name="tanggal_awal">Tanggal Awal</string>
+    <string name="dd_mm_yyyy">dd/mm/yy</string>
+    <string name="date_end">Sampai Tanggal</string>
+    <string name="tanggal_akhir">Tanggal Akhir</string>
+    <string name="bank_bca">Bank BCA</string>
     <string-array name="spinner_jenis_transaksi">
         <item>Semua</item>
         <item>Uang Masuk</item>

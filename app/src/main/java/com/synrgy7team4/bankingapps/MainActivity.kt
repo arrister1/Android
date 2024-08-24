@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity(), NavigationHandler, TokenHandler, UserH
     }
 
     override fun navigateToMutasi() {
-        TODO("Not yet implemented")
+        navController.navigate(R.id.dashboard_to_mutasi_navigation)
     }
 
     override fun navigateToTransfer() {

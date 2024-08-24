@@ -22,6 +22,12 @@
             app:popUpToInclusive="true" />
     </fragment>
 
+    <fragment
+        android:id="@+id/mutasiFragment"
+        android:name="com.synrgy7team4.feature_mutasi.ui.mutasiScreen.MutasiFragment"
+        android:label="MutasiFragment"
+        tools:layout="@layout/fragment_mutasi" />
+
     <include app:graph="@navigation/feature_auth_navigation" />
     <include app:graph="@navigation/feature_dashboard_navigation" />
 
@@ -36,4 +42,8 @@
         app:destination="@id/feature_auth_navigation"
         app:popUpTo="@id/feature_dashboard_navigation"
         app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/dashboard_to_mutasi_navigation"
+        app:destination="@id/mutasiFragment"/>
 </navigation>
