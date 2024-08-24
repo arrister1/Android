@@ -46,4 +46,11 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.android.car.ui:car-ui-lib:2.6.0")
 
+    testImplementation("org.mockito:mockito-inline:2.13.0")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1")
+    testImplementation ("io.mockk:mockk-android:1.13.4")
+    testImplementation ("io.mockk:mockk-agent:1.13.4")
+    testImplementation ("androidx.arch.core:core-testing:2.2.0")
+    implementation ("org.slf4j:slf4j-nop:2.0.7")
+
 }
