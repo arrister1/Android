@@ -13,6 +13,7 @@ import com.synrgy7team4.feature_transfer.data.remote.request.TransferRequest
 import com.synrgy7team4.feature_transfer.data.remote.response.account.AccountData
 import com.synrgy7team4.feature_transfer.data.remote.response.account.AccountResponse
 import com.synrgy7team4.feature_transfer.data.remote.response.balance.BalanceResponse
+import com.synrgy7team4.feature_transfer.data.remote.response.mutations.Data
 import com.synrgy7team4.feature_transfer.data.remote.response.mutations.MutationsRespomse
 import com.synrgy7team4.feature_transfer.data.remote.response.transfer.TransferResponse
 import com.synrgy7team4.feature_transfer.data.remote.response.transschedule.TransSchedData
@@ -44,8 +45,8 @@ class TransferViewModel(private val repository: TransferRepositoryImpl) : ViewMo
     private val _scheduleResponse = MutableLiveData<TransSchedData>()
     val scheduleResponse: LiveData<TransSchedData> get() = _scheduleResponse
 
-    private val _mutationData = MutableLiveData<MutationsRespomse>()
-    val mutationData: LiveData<MutationsRespomse> get() = _mutationData
+    private val _mutationData = MutableLiveData<Data>()
+    val mutationData: LiveData<Data> get() = _mutationData
 
     private val _accountList = MutableLiveData<AccountResponse>()
     val accountList: LiveData<AccountResponse> get() = _accountList

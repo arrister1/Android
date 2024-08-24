@@ -16,6 +16,7 @@ import androidx.navigation.findNavController
 import com.synrgy7team4.common.databinding.PinInputBinding
 import com.synrgy7team4.common.databinding.PinNumberBinding
 import com.synrgy7team4.feature_transfer.R
+import com.synrgy7team4.feature_transfer.data.remote.request.TransferRequest
 import com.synrgy7team4.feature_transfer.databinding.FragmentTransferPinBinding
 import com.synrgy7team4.feature_transfer.domain.model.TransferReq
 import com.synrgy7team4.feature_transfer.presentation.viewmodel.TransferViewModel
@@ -67,7 +68,7 @@ class TransferPinFragment : Fragment(), View.OnClickListener {
         pinInputBinding = PinInputBinding.bind(binding.pinInput.root)
 
         initializeComponents()
-        //observeViewModel()
+        observeViewModel()
     }
 
     private fun initializeComponents() {
@@ -146,10 +147,22 @@ class TransferPinFragment : Fragment(), View.OnClickListener {
                     if (passCode.length == 6) {
 //                        validatePin()
                         val accountDestinationNo = sharedPreferences.getString("accountDestinationNo", "") ?: ""
+                        val accountFrom = sharedPreferences.getString("accountFrom", "") ?: ""
                         val transferAmount = sharedPreferences.getInt("transferAmount", 0)
                         val transferDescription = sharedPreferences.getString("transferDescription", "") ?: ""
+                        val token = sharedPreferences.getString("token", "") ?: ""
 
-                       // viewModel.postTransfer(TransferReq("accountFrom", accountDestinationNo, transferAmount, transferDescription, passCode))
+                        val transferRequest = TransferRequest(
+                            accountFrom = accountFrom,
+                            accountTo = accountDestinationNo,
+                            amount = transferAmount,
+                            description = transferDescription,
+                            pin = passCode
+                        )
+
+                        viewModel.postTransfer(token,transferRequest)
+
+                        // viewModel.postTransfer(TransferReq("accountFrom", accountDestinationNo, transferAmount, transferDescription, passCode))
                     }
                 }
             }
@@ -174,6 +187,26 @@ class TransferPinFragment : Fragment(), View.OnClickListener {
             numberList.clear()
         }
     }
+
+
+
+    private fun observeViewModel() {
+
+        viewModel.transferResponse.observe(viewLifecycleOwner, Observer { response ->
+            if (response != null) {
+                val deepLinkUri = Uri.parse("app://com.example.app/trans/transDetail")
+                requireView().findNavController().navigate(deepLinkUri)
+            }
+        })
+
+        viewModel.errorMessage.observe(viewLifecycleOwner, Observer { errorMessage ->
+            setToast(errorMessage)
+        })
+
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
+        })
+    }
+
 
 //    private fun observeViewModel() {
 //        viewModel.transferResult.observe(viewLifecycleOwner, Observer { mutations ->

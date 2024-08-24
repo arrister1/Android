@@ -6,6 +6,7 @@ import com.synrgy7team4.feature_transfer.data.remote.request.TransSchedule
 import com.synrgy7team4.feature_transfer.data.remote.request.TransferRequest
 import com.synrgy7team4.feature_transfer.data.remote.response.account.AccountResponse
 import com.synrgy7team4.feature_transfer.data.remote.response.balance.BalanceResponse
+import com.synrgy7team4.feature_transfer.data.remote.response.mutations.Data
 import com.synrgy7team4.feature_transfer.data.remote.response.mutations.MutationsRespomse
 import com.synrgy7team4.feature_transfer.data.remote.response.transfer.TransferResponse
 import com.synrgy7team4.feature_transfer.data.remote.response.transschedule.TransSchedData
@@ -57,7 +58,7 @@ interface ApiService {
     suspend fun getMutation(
         @Header("Authorization") token:String,
         @Query ("accountNumber")acountNumber: String
-    ) : MutationsRespomse
+    ) : Data
 
 
     // Account list(get+post)

@@ -9,6 +9,7 @@ import com.synrgy7team4.feature_transfer.data.remote.request.TransferRequest
 import com.synrgy7team4.feature_transfer.data.remote.response.account.AccountResponse
 import com.synrgy7team4.feature_transfer.data.remote.response.account.toDomain
 import com.synrgy7team4.feature_transfer.data.remote.response.balance.BalanceResponse
+import com.synrgy7team4.feature_transfer.data.remote.response.mutations.Data
 import com.synrgy7team4.feature_transfer.data.remote.response.mutations.MutationsRespomse
 import com.synrgy7team4.feature_transfer.data.remote.response.transfer.TransferResponse
 import com.synrgy7team4.feature_transfer.data.remote.response.transfer.toDomain
@@ -52,7 +53,7 @@ class TransferRepositoryImpl(private val remoteDataSource: RemoteDataSource) {
         return remoteDataSource.postBalance(token, balanceRequest)
     }
 
-    suspend fun getMutation(token: String, accountNumber: String): MutationsRespomse {
+    suspend fun getMutation(token: String, accountNumber: String): Data {
         return remoteDataSource.getMutation(token, accountNumber)
     }
 

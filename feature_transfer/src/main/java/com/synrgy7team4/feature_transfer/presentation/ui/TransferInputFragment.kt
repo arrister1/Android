@@ -49,25 +49,47 @@ class TransferInputFragment : Fragment() {
 
         sharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
 
+        val token = sharedPreferences.getString("authToken", "") ?: ""
+
         val accountDestinationName = sharedPreferences.getString("accountDestinationName", null)
         val accountDestinationNo = sharedPreferences.getString("accountDestinationNo", null)
-        val accountDestinationBankName = sharedPreferences.getString("accountDestinationBankName", null)
+       // val accountDestinationBankName = sharedPreferences.getString("accountDestinationBankName", null)
 
-        val senderAccNo = sharedPreferences.getString("accountNo", null)
-        val senderName = sharedPreferences.getString("accountName", null)
-        val senderBalance = sharedPreferences.getString("accountBalance", null)
+//        val senderAccNo = sharedPreferences.getString("accountNo", null)
+//        val senderName = sharedPreferences.getString("accountName", null)
+//        val senderBalance = sharedPreferences.getString("accountBalance", null)
 
 
         binding.accountName.text = accountDestinationName
         binding.bankNameAndAccountNo.text = "${accountDestinationNo}"
 
 
-        binding.userAccountName.text = senderName
-        binding.userAccountNo.text = senderAccNo
-        binding.userAccountBalance.text =senderBalance
+//        binding.userAccountName.text = senderName
+//        binding.userAccountNo.text = senderAccNo
+//        binding.userAccountBalance.text =senderBalance
+
+        transferViewModel.getUserData(token)
+
+        transferViewModel.userData.observe(viewLifecycleOwner) { user ->
+            user?.let {
+                binding.userAccountName.text = it.data?.name ?: "User"
+                val accountNumber = it.data?.accountNumber ?: "0000000"
+                binding.userAccountNo.text = accountNumber
+
+                // Ambil balance berdasarkan accountNumber
+                transferViewModel.getBalance(token, accountNumber)
+            }}
+
+
+        transferViewModel.balanceData.observe(viewLifecycleOwner){ balance ->
+            balance?.let {
+                binding.userAccountBalance.text = it.data?.toString()
+            }
+        }
 
        binding.submitForm.setOnClickListener{
            handleSubmitFormClick(view)
+
 
            val pinNav = Uri.parse("app://com.example.app/trans/transferPin")
             requireView().findNavController().navigate(pinNav)
@@ -81,11 +103,17 @@ class TransferInputFragment : Fragment() {
 
     private fun handleSubmitFormClick(view:View)
     {
+        val accountTo = binding.bankNameAndAccountNo.text.toString()
+        val accountFrom = binding.userAccountNo.text.toString()
+
         val nominal = binding.amountInputText.text.toString()
         val berita = binding.inputNote.text.toString()
 
         sharedPreferences.edit().putInt("transferAmount", nominal.toInt()).apply()
         sharedPreferences.edit().putString("transferDescription", berita).apply()
+        sharedPreferences.edit().putString("sourceAccountNo", accountFrom).apply()
+        sharedPreferences.edit().putString("accountDestinationNo", accountTo).apply()
+
 
         if(!validateAmount(nominal))
             return
