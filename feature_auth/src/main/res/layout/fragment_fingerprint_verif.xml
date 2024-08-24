@@ -4,14 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="30dp"
     tools:context=".ui.registerScreen.FingerprintVerifFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/text_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
         android:id="@+id/tv_judul_fingerprint"
-        android:text="Verifikasi Fingerprint"
+        android:text="Verifikasi Sidik Jari"
         android:fontFamily="@font/calibri"
         android:textSize="24dp"
         android:textFontWeight="700"
@@ -36,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:id="@+id/tv_desc_fingerprint"
-        android:text="Sentuh Sensor Fingerprint"
+        android:text="Sentuh Sensor Sidik Jari"
         android:fontFamily="@font/calibri"
         android:textSize="14sp"
         android:textFontWeight="200"
@@ -45,6 +51,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_fingerprint"
         />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_skip"

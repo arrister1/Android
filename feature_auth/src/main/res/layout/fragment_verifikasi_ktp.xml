@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="30dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.registerScreen.VerifikasiKtpFragment">
 
@@ -18,32 +19,44 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:id="@+id/tv_desc_verif_ktp"
-        android:text="Jangan tutup Aplikasi,"
-        android:fontFamily="@font/calibri"
-        android:textSize="18dp"
-        android:textFontWeight="200"
-        android:textColor="@color/textColorPrimary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:focusable="true"
         app:layout_constraintTop_toBottomOf="@id/iv_preliminary"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="e-KTP sedang di verifikasi"
-        android:fontFamily="@font/calibri"
-        android:textSize="18dp"
-        android:textFontWeight="200"
-        android:textColor="@color/textColorPrimary"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_desc_verif_ktp"
-        />
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:id="@+id/tv_desc_verif_ktp"
+            android:text="Jangan tutup Aplikasi,"
+            android:fontFamily="@font/calibri"
+            android:textSize="18dp"
+            android:textFontWeight="200"
+            android:textColor="@color/textColorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="e-KTP sedang di verifikasi"
+            android:fontFamily="@font/calibri"
+            android:textSize="18dp"
+            android:textFontWeight="200"
+            android:textColor="@color/textColorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_desc_verif_ktp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

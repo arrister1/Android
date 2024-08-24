@@ -70,9 +70,9 @@ class FingerprintVerifFragment : Fragment() {
             })
 
         checkDeviceHasBiometric()
-        binding.ivFingerprint.setOnClickListener {
-            biometricPrompt.authenticate(promptInfo)
-        }
+//        binding.ivFingerprint.setOnClickListener {
+//            biometricPrompt.authenticate(promptInfo)
+//        }
 
         binding.btnSkip.setOnClickListener {
             findNavController().navigate(R.id.action_fingerprintVerifFragment_to_pinFragment)
@@ -91,6 +91,8 @@ class FingerprintVerifFragment : Fragment() {
             BiometricManager.BIOMETRIC_SUCCESS -> {
                 Log.d("MY_APP_TAG", "App can authenticate using biometrics.")
                 info = "Sentuh Sensor Fingerprint"
+                binding.tvDescFingerprint.text = info
+                showBiometricPrompt()
             }
 
             BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> {
@@ -114,5 +116,19 @@ class FingerprintVerifFragment : Fragment() {
             }
         }
         binding.tvDescFingerprint.text = info
+    }
+
+    private fun showBiometricPrompt() {
+        promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle("Daftarkan sidik jari anda")
+            .setSubtitle("Sistem akan mendeteksi apabila perangkat anda memiliki sensor biometrik")
+            .setNegativeButtonText("Lewati")
+            .build()
+
+        biometricPrompt.authenticate(promptInfo)
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

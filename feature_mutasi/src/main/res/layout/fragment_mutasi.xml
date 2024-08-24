@@ -135,6 +135,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tiedt_tanggal_awal"
                         style="@style/RegulerText"
+                        android:contentDescription="@string/masukkan_tanggal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="date"
@@ -183,6 +184,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tiedt_tanggal_akhir"
                         style="@style/RegulerText"
+                        android:contentDescription="@string/masukkan_tanggal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="date"
@@ -200,6 +202,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_mutasi"
+            android:contentDescription="@string/daftar_riwayat_mutasi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

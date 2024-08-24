@@ -38,9 +38,9 @@ class OnBoardingFragment : Fragment() {
     private fun setupAccessibility() {
         binding.apply {
             imageView2.contentDescription = getString(R.string.logo_dari_lumi)
-            textViewWelcome.contentDescription = getString(R.string.teks_selamat_datang)
-            btnPunya.contentDescription = getString(R.string.tombol_sudah_punya_rekening)
-            btnBlumPunya.contentDescription = getString(R.string.tombol_belum_punya_rekening)
+            textViewWelcome.contentDescription = getString(R.string.selamat_datang)
+            btnPunya.contentDescription = getString(R.string.sudah_punya_rekening)
+            btnBlumPunya.contentDescription = getString(R.string.belum_punya_rekening)
         }
     }
 

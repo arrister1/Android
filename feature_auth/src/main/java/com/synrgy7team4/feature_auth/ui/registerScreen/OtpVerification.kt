@@ -48,7 +48,7 @@ class OtpVerification : Fragment() {
         binding.tvNumber.text = hp
 
         binding.btnBack.setOnClickListener {
-            findNavController().popBackStack()
+            view.findNavController().popBackStack()
         }
 
         binding.submitOTPButton.setOnClickListener {

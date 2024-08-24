@@ -98,6 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/calendar_format"
+        android:contentDescription="@string/masukkan_tanggal_lahir"
         android:layout_marginTop="5dp"
         android:textColor="@color/textColorSecondary"
         style="@style/RegulerText"

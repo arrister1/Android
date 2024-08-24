@@ -6,7 +6,7 @@
     <string name="back">back</string>
     <string name="jenis_transaksi">Jenis Transaksi</string>
     <string name="date_start">Dari Tanggal</string>
-    <string name="calendar_picker">Calendar Picker</string>
+    <string name="calendar_picker">Pilih tanggal</string>
     <string name="transfer">Transfer</string>
     <string name="transfer_ke_bank_bca">Transfer Ke Bank BCA</string>
     <string name="gopay">GOPAY</string>
@@ -24,6 +24,8 @@
     <string name="date_end">Sampai Tanggal</string>
     <string name="tanggal_akhir">Tanggal Akhir</string>
     <string name="bank_bca">Bank BCA</string>
+    <string name="masukkan_tanggal">Masukkan tanggal</string>
+    <string name="daftar_riwayat_mutasi">Daftar riwayat mutasi</string>
     <string-array name="spinner_jenis_transaksi">
         <item>Semua</item>
         <item>Uang Masuk</item>

@@ -12,8 +12,8 @@
     <string name="tunjukan_qr">Tunjukan QR</string>
     <string name="akun">Akun</string>
     <string name="selamat_pagi">Selamat Datang,</string>
-    <string name="dummy_name">Nur Afina</string>
-    <string name="dummy_acc_number">7293109283</string>
+    <string name="dummy_name">User</string>
+    <string name="dummy_acc_number">0000000000</string>
     <string name="dummy_account_balance">0.0</string>
     <string name="transfer">Transfer</string>
     <string name="mutasi">Mutasi</string>
@@ -42,4 +42,7 @@
     <string name="keluar_akun">Keluar Akun</string>
     <string name="profil_pengguna">Gambar Profil Pengguna</string>
     <string name="edit_profil">Ubah Profil</string>
+    <string name="fitur_ini_akan_segera_hadir">fitur ini akan segera hadir</string>
+    <string name="kembali">kembali</string>
+    <string name="qr_scanner">qr scanner</string>
 </resources>
