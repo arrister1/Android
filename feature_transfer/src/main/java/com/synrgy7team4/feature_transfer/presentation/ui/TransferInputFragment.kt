@@ -1,5 +1,7 @@
 package com.synrgy7team4.feature_transfer.presentation.ui
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,6 +16,7 @@ class TransferInputFragment : Fragment() {
     private var _binding: FragmentTransferInputBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var sharedPrefences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +38,12 @@ class TransferInputFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        sharedPrefences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+
+        val accountNoReceiver = sharedPrefences.getString("accountToTransfer", "123")
+        binding.accountNoReceiver.text = accountNoReceiver
 
        binding.submitForm.setOnClickListener{
            handleSubmitFormClick(view)

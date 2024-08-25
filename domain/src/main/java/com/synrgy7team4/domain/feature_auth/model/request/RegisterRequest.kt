@@ -8,5 +8,7 @@ data class RegisterRequest(
 	val no_ktp: String,
 	val date_of_birth: String,
 	val ektp_photo: String,
-	val pin: String
+	val pin: String,
+	val otp: String,
+	val is_verified: Boolean
 )

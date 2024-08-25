@@ -14,14 +14,18 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.synrgy7team4.common.makeToast
 import com.synrgy7team4.feature_auth.R
 import com.synrgy7team4.feature_auth.databinding.FragmentOtpVerificationBinding
+import com.synrgy7team4.feature_auth.viewmodel.RegisterViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OtpVerification : Fragment() {
     private var _binding: FragmentOtpVerificationBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var sharedPreferences: SharedPreferences
+    private val viewModel by viewModel<RegisterViewModel>()
 
     private lateinit var inputCode1: EditText
     private lateinit var inputCode2: EditText
@@ -29,6 +33,8 @@ class OtpVerification : Fragment() {
     private lateinit var inputCode4: EditText
     private lateinit var inputCode5: EditText
     private lateinit var inputCode6: EditText
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,23 +47,6 @@ class OtpVerification : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sharedPreferences =
-            requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
-
-        val hp = sharedPreferences.getString("hp", "08123456789")
-        binding.tvNumber.text = hp
-
-        binding.btnBack.setOnClickListener {
-            findNavController().popBackStack()
-        }
-
-        binding.submitOTPButton.setOnClickListener {
-            view.findNavController().navigate(R.id.action_otpVerification_to_createPasswordFragment)
-        }
-
-        binding.btnBack.setOnClickListener {
-            view.findNavController().popBackStack()
-        }
 
         inputCode1 = view.findViewById(R.id.inputCode1)
         inputCode2 = view.findViewById(R.id.inputCode2)
@@ -65,6 +54,47 @@ class OtpVerification : Fragment() {
         inputCode4 = view.findViewById(R.id.inputCode4)
         inputCode5 = view.findViewById(R.id.inputCode5)
         inputCode6 = view.findViewById(R.id.inputCode6)
+
+
+        sharedPreferences =
+            requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
+
+        val email = sharedPreferences.getString("email", "user@example.com")
+//        val hp = sharedPreferences.getString("hp", "88888888111")
+        binding.tvNumber.text = email
+        binding.btnBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        binding.submitOTPButton.setOnClickListener {
+            val otp = getOTP()
+            viewModel.verifyOtp(email.toString(), otp)
+
+//            view.findNavController().navigate(R.id.action_otpVerification_to_createPasswordFragment)
+        }
+        viewModel.verifyOtpResult.observe(viewLifecycleOwner) { otpResponse ->
+            val otp = getOTP()
+            if (otpResponse.success) {
+                Log.d("OTP", otp)
+                makeToast(requireContext(), otpResponse.message)
+                sharedPreferences.edit().putString("otp", otp).apply()
+//                    sharedPreferences.edit().putBoolean("isverified", otpResponse.success).apply()
+                view.findNavController().navigate(R.id.action_otpVerification_to_createPasswordFragment)
+            }
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) { error ->
+            makeToast(requireContext(), error.toString())
+        }
+
+
+
+
+        binding.btnBack.setOnClickListener {
+            view.findNavController().popBackStack()
+        }
+
+
 
         setupOTPInputs()
 
@@ -100,11 +130,10 @@ class OtpVerification : Fragment() {
         })
     }
 
-    private fun getOTP() {
-        Log.d(
-            "OTP",
-            "${inputCode1.text}${inputCode2.text}${inputCode3.text}${inputCode4.text}${inputCode5.text}${inputCode6.text}"
-        )
+    private fun getOTP(): String {
+
+        return "${inputCode1.text}${inputCode2.text}${inputCode3.text}${inputCode4.text}${inputCode5.text}${inputCode6.text}"
+
     }
 
     override fun onDestroyView() {

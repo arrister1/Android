@@ -3,7 +3,8 @@ package com.synrgy7team4.feature_mutasi.data.remote
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.google.gson.Gson
-import com.synrgy7team4.common.Constants.Companion.BASE_URL
+
+
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -11,7 +12,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
+
 object ApiConfig {
+    val BASE_URL = "https://lumibank-backend-edqo6jv53q-et.a.run.app/api/"
+
     fun provideApiService(context: Context, token: String): ApiService =
         Retrofit.Builder()
             .baseUrl(BASE_URL)

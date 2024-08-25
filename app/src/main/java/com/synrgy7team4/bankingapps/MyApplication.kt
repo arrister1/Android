@@ -7,7 +7,7 @@ import com.synrgy7team4.di.feature_dashboard.dashboardKoin
 import com.synrgy7team4.feature_auth.viewmodel.authViewModelKoin
 import com.synrgy7team4.feature_dashboard.viewmodel.dashboardViewModelKoin
 import com.synrgy7team4.feature_mutasi.di.MutasiKoin
-import com.synrgy7team4.feature_mutasi.presentation.viewmodel.MutasiViewModelKoin
+
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -25,7 +25,7 @@ class MyApplication : Application() {
                 dashboardKoin,
                 dashboardViewModelKoin,
                 MutasiKoin,
-                MutasiViewModelKoin,
+//                MutasiViewModelKoin,
             )
         }
     }

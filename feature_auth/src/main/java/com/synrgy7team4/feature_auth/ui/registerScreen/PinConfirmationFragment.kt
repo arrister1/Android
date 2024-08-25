@@ -59,6 +59,12 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
         viewModel.error.observe(viewLifecycleOwner) { error ->
             makeToast(requireContext(), error.toString())
         }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            showLoading(isLoading)
+        }
+
+
     }
 
     private fun initializeComponents() {
@@ -154,6 +160,8 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
         val date = sharedPreferences.getString("date", "01-01-2000")
         val pin = sharedPreferences.getString("pin", "111111")
         val ktp = sharedPreferences.getString("ktp", "")
+        val otp = sharedPreferences.getString("otp", "")
+//        val isVerified = sharedPreferences.getBoolean("isverified", true)
 
         if (!email.isNullOrEmpty() &&
             !hp.isNullOrEmpty() &&
@@ -162,7 +170,8 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
             !name.isNullOrEmpty() &&
             !date.isNullOrEmpty() &&
             !pin.isNullOrEmpty() &&
-            !ktp.isNullOrEmpty()
+            !ktp.isNullOrEmpty() &&
+            !otp.isNullOrEmpty()
         ) {
             viewModel.register(
                 email = email,
@@ -172,10 +181,12 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
                 name = name,
                 date = date,
                 pin = pin,
-                ektp_photo = ktp
+                ektp_photo = ktp,
+                otp = otp,
+                is_verified = true
             )
         } else {
-            makeToast(requireContext(), "Anda harus upload KTP untuk melanjutkan proses registrasi")
+            makeToast(requireContext(), "Anda harus mengulang proses registrasi")
         }
     }
 
@@ -197,6 +208,14 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
         pinInputBinding.tvPinInput4.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet)
         pinInputBinding.tvPinInput5.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet)
         pinInputBinding.tvPinInput6.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet)
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
     override fun onDestroyView() {

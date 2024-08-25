@@ -11,6 +11,8 @@ import com.synrgy7team4.data.feature_auth.datasource.remote.response.EmailCheckE
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.EmailCheckResponse
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.KtpNumberCheckErrorResponse
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.KtpNumberCheckResponse
+import com.synrgy7team4.data.feature_auth.datasource.remote.response.OtpErrorResponse
+import com.synrgy7team4.data.feature_auth.datasource.remote.response.OtpResponse
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.PhoneNumberCheckErrorResponse
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.PhoneNumberCheckResponse
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.RegisterErrorResponse
@@ -18,6 +20,9 @@ import com.synrgy7team4.domain.feature_auth.model.request.EmailCheckRequest
 import com.synrgy7team4.domain.feature_auth.model.request.KtpNumberCheckRequest
 import com.synrgy7team4.domain.feature_auth.model.request.LoginRequest
 import com.synrgy7team4.domain.feature_auth.model.request.PhoneNumberCheckRequest
+import com.synrgy7team4.domain.feature_auth.model.request.SendOtpRequest
+import com.synrgy7team4.domain.feature_auth.model.request.VerifyOtpRequest
+
 import retrofit2.HttpException
 
 class ImplementAuthRemoteDatasource(
@@ -33,11 +38,32 @@ class ImplementAuthRemoteDatasource(
         }
 
     override suspend fun register(registerRequest: RegisterRequest): RegisterResponse =
+
         try {
             apiService.register(registerRequest)
         } catch (e: HttpException) {
             val json = e.response()?.errorBody()?.string()
             val error = Gson().fromJson(json, RegisterErrorResponse::class.java)
+            throw HttpExceptionUseCase(e, "Register Failed: ${error.errors}")
+        }
+
+    override suspend fun sendOtp(sendOtpRequest: SendOtpRequest): OtpResponse =
+        try {
+            apiService.sendOtp(sendOtpRequest)
+        } catch (e: HttpException) {
+            val json = e.response()?.errorBody()?.string()
+            val error = Gson().fromJson(json, OtpErrorResponse::class.java)
+            throw HttpExceptionUseCase(e, error.message)
+        }
+
+
+
+    override suspend fun verifyOtp(verifyOtpRequest: VerifyOtpRequest): OtpResponse =
+        try {
+            apiService.verifyOtp(verifyOtpRequest)
+        } catch (e: HttpException) {
+            val json = e.response()?.errorBody()?.string()
+            val error = Gson().fromJson(json, OtpErrorResponse::class.java)
             throw HttpExceptionUseCase(e, error.message)
         }
 

@@ -15,5 +15,9 @@
     <fragment
         android:id="@+id/transferInputFragment"
         android:name="com.synrgy7team4.feature_dashboard.presentation.ui.transfer.TransferInputFragment"
-        android:label="TransferInputFragment" />
+        android:label="TransferInputFragment">
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="app://com.example.app/trans/transferInput" />
+    </fragment>
 </navigation>

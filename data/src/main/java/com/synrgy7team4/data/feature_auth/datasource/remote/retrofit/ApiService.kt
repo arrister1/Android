@@ -3,6 +3,7 @@ package com.synrgy7team4.data.feature_auth.datasource.remote.retrofit
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.EmailCheckResponse
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.KtpNumberCheckResponse
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.LoginResponse
+import com.synrgy7team4.data.feature_auth.datasource.remote.response.OtpResponse
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.PhoneNumberCheckResponse
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.RegisterResponse
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.UserGetResponse
@@ -11,6 +12,9 @@ import com.synrgy7team4.domain.feature_auth.model.request.KtpNumberCheckRequest
 import com.synrgy7team4.domain.feature_auth.model.request.LoginRequest
 import com.synrgy7team4.domain.feature_auth.model.request.PhoneNumberCheckRequest
 import com.synrgy7team4.domain.feature_auth.model.request.RegisterRequest
+import com.synrgy7team4.domain.feature_auth.model.request.SendOtpRequest
+import com.synrgy7team4.domain.feature_auth.model.request.VerifyOtpRequest
+
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -41,6 +45,16 @@ interface ApiService {
     suspend fun checkKtpNumberAvailability(
         @Body ktpNumberCheckRequest: KtpNumberCheckRequest
     ): KtpNumberCheckResponse
+
+    @POST("send-otp")
+    suspend fun sendOtp(
+        @Body sendOtpRequest: SendOtpRequest
+    ): OtpResponse
+
+    @POST("verify-otp")
+    suspend fun verifyOtp(
+        @Body verifyOtpRequest: VerifyOtpRequest
+    ): OtpResponse
 
     @GET("user/me")
     suspend fun getUser(

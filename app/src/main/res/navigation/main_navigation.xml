@@ -36,4 +36,12 @@
         app:destination="@id/feature_auth_navigation"
         app:popUpTo="@id/feature_dashboard_navigation"
         app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/transferInputFragment2"
+        android:name="com.synrgy7team4.feature_transfer.presentation.ui.TransferInputFragment"
+        android:label="TransferInputFragment">
+        <deepLink
+            android:id="@+id/deepLink2"
+            app:uri="app://com.example.app/trans/transferInput" />
+    </fragment>
 </navigation>

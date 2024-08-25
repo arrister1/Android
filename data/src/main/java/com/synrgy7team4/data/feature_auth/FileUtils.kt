@@ -4,6 +4,8 @@ import com.synrgy7team4.data.feature_auth.datasource.remote.response.EmailCheckR
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.KtpNumberCheckResponse
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.LoginData
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.LoginResponse
+import com.synrgy7team4.data.feature_auth.datasource.remote.response.OtpData
+import com.synrgy7team4.data.feature_auth.datasource.remote.response.OtpResponse
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.PhoneNumberCheckResponse
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.RegisterData
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.RegisterResponse
@@ -13,6 +15,8 @@ import com.synrgy7team4.domain.feature_auth.model.response.EmailCheckResponseDom
 import com.synrgy7team4.domain.feature_auth.model.response.KtpNumberCheckResponseDomain
 import com.synrgy7team4.domain.feature_auth.model.response.LoginDataDomain
 import com.synrgy7team4.domain.feature_auth.model.response.LoginResponseDomain
+import com.synrgy7team4.domain.feature_auth.model.response.OtpDataDomain
+import com.synrgy7team4.domain.feature_auth.model.response.OtpResponseDomain
 import com.synrgy7team4.domain.feature_auth.model.response.PhoneNumberCheckResponseDomain
 import com.synrgy7team4.domain.feature_auth.model.response.RegisterDataDomain
 import com.synrgy7team4.domain.feature_auth.model.response.RegisterResponseDomain
@@ -39,7 +43,7 @@ object FileUtils {
         RegisterResponseDomain(
             success = success,
             message = message,
-            data = data.toRegisterDataDomain()
+            data = data.toRegisterDataDomain(),
         )
 
     private fun RegisterData.toRegisterDataDomain(): RegisterDataDomain =
@@ -53,6 +57,20 @@ object FileUtils {
             accountPin = accountPin,
             ektpPhoto = ektpPhoto
         )
+
+    fun OtpResponse.toOtpResponseDomain(): OtpResponseDomain =
+        OtpResponseDomain(
+            success = success,
+            data = data,
+            message = message,
+            errors = errors
+        )
+
+//    private fun OtpData.toOtpDataDomain(): OtpDataDomain =
+//        OtpDataDomain(
+//            email = email ?: "",
+//            otp = otp ?: ""
+//        )
 
     fun EmailCheckResponse.toEmailCheckResponseDomain(): EmailCheckResponseDomain =
         EmailCheckResponseDomain(
