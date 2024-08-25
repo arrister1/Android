@@ -89,11 +89,23 @@ class MutasiFragment : Fragment() {
             }
         }
 
+//        viewModel.mutationData.observe(viewLifecycleOwner) { (mutations, accountNumber) ->
+//            mutations?.let {
+//                val filteredMutation = viewModel.filterMutationByType(mutations, transactionType)
+//                accountNumber?.let {
+//                    adapter = MutationPerDateAdapter(filteredMutation, accountNumber)
+//                    binding.rvMutasi.adapter = adapter
+//                    binding.rvMutasi.layoutManager = LinearLayoutManager(requireContext())
+//                }
+//            }
+//        }
+
         viewModel.mutationData.observe(viewLifecycleOwner) { (mutations, accountNumber) ->
             mutations?.let {
                 val filteredMutation = viewModel.filterMutationByType(mutations, transactionType)
+                val groupedMutations = viewModel.groupMutationsByDate(filteredMutation)
                 accountNumber?.let {
-                    adapter = MutationPerDateAdapter(filteredMutation, accountNumber)
+                    adapter = MutationPerDateAdapter(groupedMutations, accountNumber)
                     binding.rvMutasi.adapter = adapter
                     binding.rvMutasi.layoutManager = LinearLayoutManager(requireContext())
                 }
