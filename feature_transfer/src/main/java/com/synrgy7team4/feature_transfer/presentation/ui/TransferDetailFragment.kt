@@ -98,9 +98,9 @@ class TransferDetailFragment : Fragment() {
         } catch (e: Exception) {
             LocalDateTime.parse(datetime, formatterWith5Digits)
         }
-
+        val dateTimePlus7Hours = localDateTime.plusHours(7)
         val outputFormatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy", Locale("id", "ID"))
-        return localDateTime.format(outputFormatter)
+        return dateTimePlus7Hours.format(outputFormatter)
     }
 
     fun formatHourTime(datetime: String): String {
@@ -112,9 +112,9 @@ class TransferDetailFragment : Fragment() {
         } catch (e: Exception) {
             LocalDateTime.parse(datetime, formatterWith5Digits)
         }
-
+        val dateTimePlus7Hours = localDateTime.plusHours(7)
         val outputFormatter = DateTimeFormatter.ofPattern("HH.mm", Locale("id", "ID"))
-        return localDateTime.format(outputFormatter)
+        return dateTimePlus7Hours.format(outputFormatter)
     }
 
 

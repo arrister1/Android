@@ -16,6 +16,7 @@ import com.synrgy7team4.feature_transfer.databinding.TransSuccessRecipientBindin
 import com.synrgy7team4.feature_transfer.presentation.viewmodel.TransferViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
@@ -62,6 +63,7 @@ class TransferSuccessFragment : Fragment() {
                 binding.layoutSender.tvAccNum.text = it.accountFrom
 
                 binding.layoutTransDetail.tvTransTotal.text = "Rp. ${it.amount}"
+
                 binding.transStatus.tvTransDate.text = formatDateTime(it.datetime)
                 binding.transStatus.tvTransTime.text = formatHourTime(it.datetime)
             }}
@@ -76,9 +78,9 @@ class TransferSuccessFragment : Fragment() {
         } catch (e: Exception) {
             LocalDateTime.parse(datetime, formatterWith5Digits)
         }
-
+        val dateTimePlus7Hours = localDateTime.plusHours(7)
         val outputFormatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy", Locale("id", "ID"))
-        return localDateTime.format(outputFormatter)
+        return dateTimePlus7Hours.format(outputFormatter).plus(7)
     }
 
     fun formatHourTime(datetime: String): String {
@@ -90,9 +92,9 @@ class TransferSuccessFragment : Fragment() {
         } catch (e: Exception) {
             LocalDateTime.parse(datetime, formatterWith5Digits)
         }
-
+        val dateTimePlus7Hours = localDateTime.plusHours(7)
         val outputFormatter = DateTimeFormatter.ofPattern("HH.mm", Locale("id", "ID"))
-        return localDateTime.format(outputFormatter)
+        return dateTimePlus7Hours.format(outputFormatter).plus(7)
     }
 
 

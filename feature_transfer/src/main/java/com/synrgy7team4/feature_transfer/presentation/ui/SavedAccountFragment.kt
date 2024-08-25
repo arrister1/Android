@@ -82,10 +82,12 @@ class SavedAccountFragment : Fragment() {
         }
 
         adapter.setOnClickListener(object : CustomAdapter.OnClickListener {
-            override fun onClick(position: Int, model: AccountData) {
+            override fun onClick(position: Int, model: AccountData, bank: String) {
+
                 sharedPreferences.edit().apply {
                     putString("accountDestinationName", model.name)
                     putString("accountDestinationNo", model.accountNumber)
+                    putString("bankname", bank)
                    // putString("accountDestinationBankName", model.id)
                     apply()
                 }
@@ -101,6 +103,7 @@ class SavedAccountFragment : Fragment() {
 
             override fun onQueryTextChange(msg: String): Boolean {
                 //filter(msg)
+                adapter.getFilter().filter(msg)
                 return false
             }
         })

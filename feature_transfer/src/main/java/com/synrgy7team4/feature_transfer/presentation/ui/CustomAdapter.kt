@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,59 @@ import com.synrgy7team4.feature_transfer.data.remote.response.account.AccountDat
 class CustomAdapter(private val context: Context, private var mList: MutableList<Any>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var onClickListener: OnClickListener? = null
+    private var filteredList: MutableList<Any> = mList.toMutableList()
+
+    fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val query = constraint?.toString()?.lowercase() ?: ""
+
+                val newList = if (query.isEmpty()) {
+                    mList
+                } else {
+                    val tempList = mutableListOf<Any>()
+                    var currentSection: String? = null
+                    var sectionHasMatches = false
+
+                    for (item in mList) {
+                        if (item is String) {
+                            /*// This is a section header
+                            if (sectionHasMatches) {
+                                // Add the previous section header if it had matches
+                                tempList.add(currentSection!!)
+                            }*/
+                            currentSection = item
+                            sectionHasMatches = false
+                        } else if (item is AccountData) {
+                            if (item.name.lowercase().contains(query) ||
+                                item.accountNumber.contains(query) ||
+                                item.id.contains(query)) {
+                                if (!sectionHasMatches) {
+                                    // Add the section header if this is the first match
+                                    tempList.add(currentSection!!)
+                                    sectionHasMatches = true
+                                }
+                                tempList.add(item)
+                            }
+                        }
+                    }
+                    tempList
+                }
+
+                val filterResults = FilterResults()
+                filterResults.values = newList
+                return filterResults
+            }
+
+            @Suppress("UNCHECKED_CAST")
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                filteredList = results?.values as MutableList<Any>
+                notifyDataSetChanged()
+            }
+        }
+    }
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 1) {
@@ -25,33 +79,40 @@ class CustomAdapter(private val context: Context, private var mList: MutableList
 
     fun updateList(newList: List<Any>) {
         mList = newList.toMutableList()
+        filteredList = mList.toMutableList()
         notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == 1) {
-            val item = mList[position] as AccountData
+            val item = filteredList[position] as AccountData
             val accountHolder = holder as AccountInfoViewHolder
             accountHolder.accountName.text = item.name
+            accountHolder.accountName.contentDescription = item.name
             //accountHolder.bankName.text = item.id
             accountHolder.accountNo.text = item.accountNumber
+            accountHolder.accountNo.contentDescription = item.accountNumber
+            accountHolder.bankName.text = "Lumi Bank"
+            accountHolder.bankName.contentDescription = "Lumi Bank"
+
+            val bankName = accountHolder.bankName.text.toString()
 
             accountHolder.itemView.setOnClickListener {
-                onClickListener?.onClick(position, item)
+                onClickListener?.onClick(position, item, bankName)
             }
         } else {
-            val sectionTitle = mList[position] as String
+            val sectionTitle = filteredList[position] as String
             val sectionHolder = holder as SectionViewHolder
             sectionHolder.sectionText.text = sectionTitle
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (mList[position] is String) 0 else 1
+        return if (filteredList[position] is String) 0 else 1
     }
 
     override fun getItemCount(): Int {
-        return mList.size
+        return filteredList.size
     }
 
     fun setOnClickListener(listener: OnClickListener?) {
@@ -59,7 +120,7 @@ class CustomAdapter(private val context: Context, private var mList: MutableList
     }
 
     interface OnClickListener {
-        fun onClick(position: Int, model: AccountData)
+        fun onClick(position: Int, model: AccountData, bank:String)
     }
 
     class AccountInfoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

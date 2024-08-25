@@ -153,7 +153,7 @@ class TransferPinFragment : Fragment(), View.OnClickListener {
                         val transferDescription = sharedPreferences.getString("transferDescription", "") ?: ""
                         val bankname = sharedPreferences.getString("bankname", "") ?: ""
                         val currentDateTime = LocalDateTime.now(ZoneOffset.UTC)
-                        val dateTimePlus7Hours = currentDateTime.plusHours(14)
+                        val dateTimePlus7Hours = currentDateTime.plusHours(7)
                         val token = sharedPreferences.getString("token", "") ?: ""
                         viewModel.getUserData(token)
                         viewModel.userData.observe(viewLifecycleOwner) { user ->

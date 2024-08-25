@@ -86,7 +86,7 @@ class HomeFragment : Fragment() {
         }
 
             homeViewModel.balance.observe(viewLifecycleOwner){ balance ->
-                fullBalance = "Rp. ${balance.toString()}"
+                fullBalance = "${balance.toString()}"
                 hiddenBalance = fullBalance.replace(Regex("\\d"), "*").replace(Regex("[,.]"), "")
                 binding.tvAccBalance.text = if (isBalanceHidden) hiddenBalance else fullBalance            }
 

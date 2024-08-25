@@ -25,7 +25,7 @@ class TransferInputFragment : Fragment() {
 
 
     private lateinit var sharedPreferences: SharedPreferences
-
+    var balancenew:Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -84,7 +84,8 @@ class TransferInputFragment : Fragment() {
 
         transferViewModel.balanceData.observe(viewLifecycleOwner){ balance ->
             balance?.let {
-                binding.userAccountBalance.text = it.data?.toString()
+                binding.userAccountBalance.text = "Rp. ${it.data?.toString()}"
+                balancenew = it.data
             }
         }
 
@@ -114,13 +115,13 @@ class TransferInputFragment : Fragment() {
         sharedPreferences.edit().putString("transferDescription", berita).apply()
         val pinNav = Uri.parse("app://com.example.app/trans/transferPin")
         requireView().findNavController().navigate(pinNav)
-        Toast.makeText(requireContext(), "$nominal $berita", Toast.LENGTH_SHORT).show()
+        /*Toast.makeText(requireContext(), "$nominal $berita", Toast.LENGTH_SHORT).show()*/
     }
 
     private fun validateAmount(amount: String): Boolean {
         if (amount.isNullOrEmpty()) {
             binding.amountInputText.error = "Nominal harus di isi!"
-            Toast.makeText(requireContext(), "Nominal harus di isi!", Toast.LENGTH_SHORT).show()
+            /*Toast.makeText(requireContext(), "Nominal harus di isi!", Toast.LENGTH_SHORT).show()*/
             return false
         }
 
@@ -129,27 +130,33 @@ class TransferInputFragment : Fragment() {
         return when {
             nominal == 0 -> {
                 binding.amountInputText.error = "Nominal harus di isi!"
-                Toast.makeText(requireContext(), "Nominal harus di isi!", Toast.LENGTH_SHORT).show()
+                /*Toast.makeText(requireContext(), "Nominal harus di isi!", Toast.LENGTH_SHORT).show()*/
                 false
             }
 
             nominal < 1000 -> {
                 binding.amountInputText.error = "Nominal harus di atas Rp. 1.000!"
-                Toast.makeText(
+                /*Toast.makeText(
                     requireContext(),
                     "Nominal harus di atas Rp. 1.000!",
                     Toast.LENGTH_SHORT
-                ).show()
+                ).show()*/
+                false
+            }
+
+            nominal > balancenew -> {
+                binding.amountInputText.error = "Saldo tidak mencukupi"
+
                 false
             }
 
             nominal > 5000000 -> {
                 binding.amountInputText.error ="Nominal maksimal Rp. 5.000.000!"
-                Toast.makeText(
+                /*Toast.makeText(
                     requireContext(),
                     "Nominal maksimal Rp. 5.000.000!",
                     Toast.LENGTH_SHORT
-                ).show()
+                ).show()*/
                 false
             }
 
