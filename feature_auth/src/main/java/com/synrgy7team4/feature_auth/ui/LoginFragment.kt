@@ -75,6 +75,7 @@ class LoginFragment : Fragment() {
         binding.edtPassword.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.textInputLayout3.isEndIconVisible = s?.isNotEmpty() == true
                 when {
                     s.toString().contains(Regex("[^a-zA-Z0-9]")) -> {
                         makeSnackbar(view, "Password tidak boleh mengandung simbol")
@@ -131,11 +132,17 @@ class LoginFragment : Fragment() {
                 val isPasswordVisible =
                     binding.edtPassword.inputType == android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
                 val contentDescription = if (isPasswordVisible) {
+                    binding.edtPassword.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+
                     getString(R.string.hide_password)
                 } else {
+                    binding.edtPassword.inputType = android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+
                     getString(R.string.show_password)
                 }
                 binding.textInputLayout3.endIconContentDescription = contentDescription
+                binding.edtPassword.setSelection(binding.edtPassword.text?.length ?: 0)
+
             }
         }
     }

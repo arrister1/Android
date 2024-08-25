@@ -85,9 +85,9 @@
         android:id="@+id/textInputLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:passwordToggleEnabled="true"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp"
+        app:passwordToggleEnabled="true"
         app:layout_constraintTop_toBottomOf="@+id/textViewPw"
         tools:layout_editor_absoluteX="16dp">
 
