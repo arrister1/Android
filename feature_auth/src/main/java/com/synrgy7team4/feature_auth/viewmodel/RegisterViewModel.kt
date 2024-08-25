@@ -1,10 +1,10 @@
 package com.synrgy7team4.feature_auth.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.synrgy7team4.common.Log
 import com.synrgy7team4.domain.feature_auth.model.request.EmailCheckRequest
 import com.synrgy7team4.domain.feature_auth.model.request.KtpNumberCheckRequest
 import com.synrgy7team4.domain.feature_auth.model.request.PhoneNumberCheckRequest

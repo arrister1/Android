@@ -1,5 +1,6 @@
 package com.synrgy7team4.feature_auth.viewmodel
 
+import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.synrgy7team4.common.TokenHandler
 import com.synrgy7team4.common.UserHandler
@@ -13,9 +14,11 @@ import com.synrgy7team4.domain.feature_auth.model.response.KtpNumberCheckRespons
 import com.synrgy7team4.domain.feature_auth.model.response.PhoneNumberCheckResponseDomain
 import com.synrgy7team4.domain.feature_auth.model.response.RegisterDataDomain
 import com.synrgy7team4.domain.feature_auth.model.response.RegisterResponseDomain
+import com.synrgy7team4.domain.feature_auth.usecase.HttpExceptionUseCase
 import com.synrgy7team4.domain.feature_auth.usecase.LoginUseCase
 import com.synrgy7team4.domain.feature_auth.usecase.RegisterUseCase
 import com.synrgy7team4.domain.feature_auth.usecase.UserUseCase
+import io.mockk.every
 import junit.framework.TestCase.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -43,7 +46,7 @@ class RegisterViewModelTest {
     @Mock
     private lateinit var registerUseCase: RegisterUseCase
 
-    var registerRequest = RegisterRequest("", "", "", "", "", "", "", "")
+    var registerRequest = RegisterRequest("", "", "", "", "", "", "", "", "", true)
     var registerDataDomain = RegisterDataDomain("", "", "", "", "", "", "", "")
     var registerResponseDomain = RegisterResponseDomain(registerDataDomain, true, "")
 
@@ -70,11 +73,11 @@ class RegisterViewModelTest {
     }
 
     @Test
-    fun register() = runTest {
+    fun registerSuccess() = runTest {
         // Arrange
         Mockito.`when`(registerUseCase.register(registerRequest)).thenReturn(registerResponseDomain)
         // Assert
-        assertDoesNotThrow { viewModel.register("", "", "", "", "", "", "", "") }
+        assertDoesNotThrow { viewModel.register("", "", "", "", "", "", "", "", "", true) }
     }
 
     @Test
