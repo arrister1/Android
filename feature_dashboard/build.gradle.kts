@@ -79,5 +79,6 @@ dependencies {
     testImplementation (libs["mockk-android"].toString())
     testImplementation (libs["mockk-agent"].toString())
     testImplementation (libs["core-testing"].toString())
+    testImplementation (libs["junit-jupiter"].toString())
     implementation (libs["slf4j-nop"].toString())
 }

@@ -48,5 +48,6 @@ ext {
             "mockk-agent"           : "io.mockk:mockk-agent:1.13.4",
             "core-testing"          : "androidx.arch.core:core-testing:2.2.0",
             "slf4j-nop"          : "org.slf4j:slf4j-nop:2.0.7",
+            "junit-jupiter"          : "org.junit.jupiter:junit-jupiter:5.8.1"
     ]
 }

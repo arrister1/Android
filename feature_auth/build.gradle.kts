@@ -38,7 +38,6 @@ android {
 }
 
 dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
     val libs = rootProject.extra["libs"] as Map<*, *>
     implementation(project(":common"))
     implementation(project(":di"))
@@ -83,5 +82,6 @@ dependencies {
     testImplementation (libs["mockk-android"].toString())
     testImplementation (libs["mockk-agent"].toString())
     testImplementation (libs["core-testing"].toString())
+    testImplementation (libs["junit-jupiter"].toString())
     implementation (libs["slf4j-nop"].toString())
 }
