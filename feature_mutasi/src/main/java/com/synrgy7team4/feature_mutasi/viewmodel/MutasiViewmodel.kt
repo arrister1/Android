@@ -1,11 +1,11 @@
 package com.synrgy7team4.feature_mutasi.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.synrgy7team4.common.Log
 import com.synrgy7team4.common.TokenHandler
 import com.synrgy7team4.common.UserHandler
 import com.synrgy7team4.domain.feature_mutasi.model.response.MutationDataDomain
