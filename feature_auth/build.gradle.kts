@@ -38,6 +38,7 @@ android {
 }
 
 dependencies {
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
     val libs = rootProject.extra["libs"] as Map<*, *>
     implementation(project(":common"))
     implementation(project(":di"))
@@ -75,4 +76,12 @@ dependencies {
     testImplementation(libs["junit"].toString())
     androidTestImplementation(libs["ext-junit"].toString())
     androidTestImplementation(libs["espresso-core"].toString())
+
+    //testing
+    testImplementation(libs["mockito-inline"].toString())
+    testImplementation (libs["kotlinx-coroutines-test"].toString())
+    testImplementation (libs["mockk-android"].toString())
+    testImplementation (libs["mockk-agent"].toString())
+    testImplementation (libs["core-testing"].toString())
+    implementation (libs["slf4j-nop"].toString())
 }

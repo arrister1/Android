@@ -42,5 +42,11 @@ ext {
             "zxing-core"            : "com.google.zxing:core:3.3.3",
             "zxing-android-embedded": "com.journeyapps:zxing-android-embedded:4.2.0",
             "code-scanner"          : "com.github.yuriy-budiyev:code-scanner:2.3.0",
+            "mockito-inline"        : "org.mockito:mockito-inline:2.13.0",
+            "kotlinx-coroutines-test" : "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1",
+            "mockk-android"         : "io.mockk:mockk-android:1.13.4",
+            "mockk-agent"           : "io.mockk:mockk-agent:1.13.4",
+            "core-testing"          : "androidx.arch.core:core-testing:2.2.0",
+            "slf4j-nop"          : "org.slf4j:slf4j-nop:2.0.7",
     ]
 }
