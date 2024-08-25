@@ -65,7 +65,7 @@ class MutasiViewmodel(private val repository: Repository) : ViewModel() {
             parseDateTime(it.datetime).toLocalDate().toString()
         }
         return grouped.map { (date, mutations) ->
-            MutationGroupedByDate(date, mutations)
+            MutationGroupedByDate(date, mutations.asReversed())
         }
     }
 
@@ -79,7 +79,7 @@ class MutasiViewmodel(private val repository: Repository) : ViewModel() {
                     val userData = response.body()?.data
                     if (userData != null) {
                         val filteredData = filterByDateRange(userData, startDate, endDate)
-                        val groupedData = groupMutationsByDate(filteredData.asReversed())
+                        val groupedData = groupMutationsByDate(filteredData)
                         _mutationsbydate.value = groupedData.asReversed()
                         _isLoading.value = false
                         Log.d("test",groupedData.toString())
