@@ -12,6 +12,8 @@ import com.synrgy7team4.domain.feature_mutasi.model.response.MutationDataDomain
 import com.synrgy7team4.domain.feature_mutasi.usecase.HttpExceptionUseCase
 import com.synrgy7team4.domain.feature_mutasi.usecase.MutasiUseCase
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class MutasiViewmodel(
     private val mutasiUseCase: MutasiUseCase,
@@ -70,11 +72,36 @@ class MutasiViewmodel(
     fun filterMutationByType(
         mutationData: List<MutationDataDomain>,
         transactionType: String
-    ) : List<MutationDataDomain> =
-        when (transactionType) {
+    ): List<MutationDataDomain> {
+        Log.d("MutasiViewModel", "Filtering mutations by type: $transactionType")
+        val filteredData = when (transactionType) {
             "Semua" -> mutationData
             "Uang Masuk" -> mutationData.filter { it.accountFrom != _accountNumber.value!! }
             "Uang Keluar" -> mutationData.filter { it.accountFrom == _accountNumber.value!! }
             else -> throw Exception("Jenis transaksi tidak valid")
         }
+        Log.d("MutasiViewModel", "Filtered data size: ${filteredData.size}")
+        return filteredData
+    }
+
+//    fun filterMutationByType(
+//        mutationData: List<MutationDataDomain>,
+//        transactionType: String
+//    ) : List<MutationDataDomain> =
+//        when (transactionType) {
+//            "Semua" -> mutationData
+//            "Uang Masuk" -> mutationData.filter { it.accountFrom != _accountNumber.value!! }
+//            "Uang Keluar" -> mutationData.filter { it.accountFrom == _accountNumber.value!! }
+//            else -> throw Exception("Jenis transaksi tidak valid")
+//        }
+
+    fun groupMutationsByDate(mutations: List<MutationDataDomain>): Map<String, List<MutationDataDomain>> {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("d MMMM yyyy", Locale("id", "ID"))
+
+        return mutations.groupBy { mutation ->
+            val date = inputFormat.parse(mutation.datetime)
+            outputFormat.format(date)
+        }
+    }
 }
