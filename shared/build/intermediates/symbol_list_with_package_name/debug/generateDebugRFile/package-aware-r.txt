@@ -1,0 +1,2 @@
+com.jer.shared
+string hello_blank_fragment
