@@ -57,9 +57,6 @@ dependencies {
     // Pin
     implementation(libs["pin-view"].toString())
 
-    // Lottie
-    implementation("com.airbnb.android:lottie:3.4.0")
-
     // ViewModel
     implementation(libs["lifecycle-viewmodel-ktx"].toString())
 

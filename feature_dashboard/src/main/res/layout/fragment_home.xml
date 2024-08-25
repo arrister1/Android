@@ -6,42 +6,52 @@
     android:layout_height="match_parent"
     tools:context=".ui.HomeFragment">
 
-    <TextView
-        android:id="@+id/tv_good_morning"
-        style="@style/RegulerText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="20dp"
-        android:text="@string/selamat_pagi"
-        android:textColor="@color/textColorPrimary"
-        app:layout_constraintEnd_toStartOf="@id/tv_name"
-        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_name"
-        style="@style/RegulerText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/dummy_name"
-        android:textColor="@color/textColorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toEndOf="@id/tv_good_morning"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/greeting_layout"
+        android:focusable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_good_morning"
+            style="@style/RegulerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/selamat_pagi"
+            android:textColor="@color/textColorPrimary"
+            app:layout_constraintEnd_toStartOf="@id/tv_name"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/RegulerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@string/dummy_name"
+            android:textColor="@color/textColorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@id/tv_good_morning"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/acc_layout"
         android:layout_width="364dp"
         android:layout_height="270dp"
-        android:layout_marginTop="10dp"
         android:background="@drawable/bg_acc_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_name">
+        app:layout_constraintTop_toBottomOf="@id/greeting_layout">
 
         <TextView
             android:id="@+id/tv_acc_name"
@@ -56,50 +66,76 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/toggle_acc"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="Tampilkan Nomor Rekening"
+            android:src="@drawable/ic_visibility_on"
+            app:layout_constraintStart_toStartOf="@id/tv_acc_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_acc_name"
+            />
+
         <TextView
             android:id="@+id/tv_acc_number"
-            style="@style/RegulerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:text="@string/dummy_acc_number"
+            style="@style/RegulerText"
+            android:textSize="12sp"
             android:textColor="@color/white"
-            android:textSize="10sp"
-            app:layout_constraintStart_toStartOf="@id/tv_acc_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_acc_name" />
-
-        <TextView
-            android:id="@+id/tv_rp"
-            style="@style/BoldText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/rp"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@id/tv_acc_number"
-            app:layout_constraintTop_toBottomOf="@id/tv_acc_number" />
-
-        <TextView
-            android:id="@+id/tv_acc_balance"
-            style="@style/BoldText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/dummy_account_balance"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toEndOf="@id/tv_rp"
-            app:layout_constraintTop_toBottomOf="@id/tv_acc_number" />
+            app:layout_constraintTop_toTopOf="@id/toggle_acc"
+            app:layout_constraintBottom_toBottomOf="@id/toggle_acc"
+            app:layout_constraintStart_toEndOf="@id/toggle_acc"/>
 
         <ImageView
             android:id="@+id/toggle_balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginTop="25dp"
             android:src="@drawable/ic_visibility_on"
-            app:layout_constraintBottom_toBottomOf="@id/tv_acc_balance"
-            app:layout_constraintStart_toEndOf="@id/tv_acc_balance"
-            app:layout_constraintTop_toTopOf="@id/tv_acc_balance"
-            app:layout_constraintVertical_bias="0.428" />
+            android:contentDescription="Tampilkan Saldo"
+            app:layout_constraintStart_toStartOf="@id/toggle_acc"
+            app:layout_constraintTop_toBottomOf="@id/toggle_acc"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/acc_balance_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            app:layout_constraintStart_toEndOf="@id/toggle_balance"
+            app:layout_constraintTop_toTopOf="@id/toggle_balance"
+            app:layout_constraintBottom_toBottomOf="@id/toggle_balance">
+
+            <TextView
+                android:id="@+id/tv_rp"
+                style="@style/BoldText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/rp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@color/white"
+                />
+
+            <TextView
+                android:id="@+id/tv_acc_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                style="@style/BoldText"
+                android:text="@string/dummy_account_balance"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toEndOf="@id/tv_rp"
+                app:layout_constraintTop_toTopOf="@id/tv_rp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_rp"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_transfer"
@@ -111,8 +147,8 @@
             android:text="@string/transfer"
             android:textSize="10sp"
             app:cornerRadius="11dp"
-            app:layout_constraintStart_toStartOf="@id/tv_rp"
-            app:layout_constraintTop_toBottomOf="@id/tv_acc_balance" />
+            app:layout_constraintStart_toStartOf="@id/toggle_balance"
+            app:layout_constraintTop_toBottomOf="@id/acc_balance_layout" />
 
         <!--        <Button-->
         <!--            android:id="@+id/btn_history"-->
@@ -139,7 +175,7 @@
             android:textSize="10sp"
             app:cornerRadius="11dp"
             app:layout_constraintStart_toEndOf="@id/btn_transfer"
-            app:layout_constraintTop_toBottomOf="@id/tv_acc_balance"
+            app:layout_constraintTop_toBottomOf="@id/acc_balance_layout"
             app:strokeColor="@color/white" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
