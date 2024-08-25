@@ -203,6 +203,7 @@
             style="@style/PrimaryActiveButton"
             android:layout_margin="70dp"
             android:text="Lanjut"
+            android:textSize="20sp"
             app:cornerRadius="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

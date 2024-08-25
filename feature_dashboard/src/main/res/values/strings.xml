@@ -42,6 +42,8 @@
     <string name="keluar_akun">Keluar Akun</string>
     <string name="profil_pengguna">Gambar Profil Pengguna</string>
     <string name="edit_profil">Ubah Profil</string>
+    <string name="tunjukan_qr_untuk">Menampilkan QR untuk</string>
+    <string name="menerima_transfer">Menerima Transfer</string>
     <string name="fitur_ini_akan_segera_hadir">fitur ini akan segera hadir</string>
     <string name="kembali">kembali</string>
     <string name="qr_scanner">qr scanner</string>

@@ -48,6 +48,7 @@ class InputPhoneNumberFragment : Fragment() {
 
         binding.btnNext.setOnClickListener {
             val hp = binding.tiedtPhoneNumber.text.toString()
+            val email = sharedPreferences.getString("email", "user@example.com")
             when {
                 hp.isEmpty() -> binding.tiedtPhoneNumber.error = "No Hp Tidak Boleh Kosong"
                 hp[0] != '8' -> binding.tiedtPhoneNumber.error =
@@ -61,6 +62,7 @@ class InputPhoneNumberFragment : Fragment() {
 
                 else -> {
                     viewModel.checkPhoneNumberAvailability(hp)
+                    viewModel.sendOtp(email.toString(), hp)
                 }
             }
         }
@@ -91,10 +93,17 @@ class InputPhoneNumberFragment : Fragment() {
             if (isPhoneNumberAvailable) {
                 val hp = binding.tiedtPhoneNumber.text.toString()
                 sharedPreferences.edit().putString("hp", hp).apply()
-                makeToast(requireContext(), "Nomor Hp Kamu Berhasil Ditambahkan")
-                view.findNavController().navigate(R.id.action_inputPhoneNumberFragment_to_otpVerification)
+//                makeToast(requireContext(), "Nomor Hp Kamu Berhasil Ditambahkan")
+                viewModel.sendOtpResult.observe(viewLifecycleOwner) { sendOtpResult ->
+                    if (sendOtpResult.success) {
+                        makeToast(requireContext(), sendOtpResult.message)
+                        view.findNavController().navigate(R.id.action_inputPhoneNumberFragment_to_otpVerification)
+                    }
+                }
             }
         }
+
+
 
         viewModel.error.observe(viewLifecycleOwner) { error ->
             makeToast(requireContext(), error.message)

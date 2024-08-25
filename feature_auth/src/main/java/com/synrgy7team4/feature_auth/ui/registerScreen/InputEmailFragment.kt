@@ -76,10 +76,15 @@ class InputEmailFragment : Fragment() {
             if (isEmailAvailable) {
                 val email = binding.tiedtEmail.text.toString()
                 sharedPreferences.edit().putString("email", email).apply()
-                makeToast(requireContext(), "Alamat Email Berhasil Terdaftar")
+
+                makeToast(requireContext(), "Email is available")
                 requireView().findNavController().navigate(R.id.action_inputEmailFragment_to_inputPhoneNumberFragment)
             }
         }
+
+
+
+
 
         viewModel.error.observe(viewLifecycleOwner) { error ->
             makeToast(requireContext(), error.message)
