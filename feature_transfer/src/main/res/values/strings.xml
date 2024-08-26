@@ -14,6 +14,12 @@
     <string name="riwayat">Riwayat</string>
     <string name="nominal">Nominal</string>
 
+    <string-array name="bank_list">
+        <item>BCA</item>
+        <item>BRI</item>
+        <item>BNI</item>
+        <item>Mandiri</item>
+    </string-array>
     <string name="menu_icon">Menu Icon</string>
     <string name="user_avatar">User Avatar</string>
     <string name="tombol_kembali">tombol kembali</string>
@@ -72,6 +78,5 @@
     <string name="dummy_sender">Nur Afina</string>
     <string name="dummy_sender_acc_num">7293 **** **** 9283</string>
     <string name="transfer_berhasil">Transfer Berhasil!</string>
-    <string name="lumi_bank">"Lumi Bank - "</string>
-    <string name="AccountNoReceiver">12345678</string>
+    <string name="lumi_bank">Lumi Bank</string>
 </resources>

@@ -1,13 +1,14 @@
 package com.synrgy7team4.data.feature_transfer.datasource.remote.retrofit
 
-import com.synrgy7team4.data.feature_transfer.datasource.remote.response.MutationGetResponse
+import com.synrgy7team4.data.feature_transfer.datasource.remote.response.AccountSaveResponse
+import com.synrgy7team4.data.feature_transfer.datasource.remote.response.AccountsResponse
 import com.synrgy7team4.data.feature_transfer.datasource.remote.response.BalanceGetResponse
 import com.synrgy7team4.data.feature_transfer.datasource.remote.response.BalanceSetResponse
-import com.synrgy7team4.data.feature_transfer.datasource.remote.response.AccountSaveResponse
+import com.synrgy7team4.data.feature_transfer.datasource.remote.response.MutationGetResponse
 import com.synrgy7team4.data.feature_transfer.datasource.remote.response.SavedAccountsGetResponse
 import com.synrgy7team4.data.feature_transfer.datasource.remote.response.TransferResponse
-import com.synrgy7team4.domain.feature_transfer.model.request.BalanceSetRequest
 import com.synrgy7team4.domain.feature_transfer.model.request.AccountSaveRequest
+import com.synrgy7team4.domain.feature_transfer.model.request.BalanceSetRequest
 import com.synrgy7team4.domain.feature_transfer.model.request.TransferRequest
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -50,4 +51,9 @@ interface ApiService {
         @Header("Authorization") token:String,
         @Query ("id") id: String
     ) : MutationGetResponse
+
+    @GET("accounts")
+    suspend fun checkAccount(
+        @Header("Authorization") token:String,
+    ) : List<AccountsResponse>
 }

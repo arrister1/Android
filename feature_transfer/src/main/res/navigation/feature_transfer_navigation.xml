@@ -23,15 +23,6 @@
         tools:layout="@layout/fragment_fellow_account_bank_input" >
     </fragment>
     <fragment
-        android:id="@+id/checkReceiverDetailFragment"
-        android:name="com.synrgy7team4.feature_transfer.ui.CheckReceiverDetailFragment"
-        android:label="fragment_check_receiver_detail"
-        tools:layout="@layout/fragment_check_receiver_detail" >
-        <action
-            android:id="@+id/action_checkReceiverDetailFragment_to_transferInputFragment"
-            app:destination="@id/transferInputFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/transferInputFragment"
         android:name="com.synrgy7team4.feature_transfer.ui.TransferInputFragment"
         android:label="fragment_transfer_input"
