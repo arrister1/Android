@@ -6,6 +6,7 @@ import com.synrgy7team4.domain.feature_transfer.model.request.TransferRequest
 import com.synrgy7team4.domain.feature_transfer.model.response.BalanceGetResponseDomain
 import com.synrgy7team4.domain.feature_transfer.model.response.BalanceSetResponseDomain
 import com.synrgy7team4.domain.feature_transfer.model.response.AccountSaveResponseDomain
+import com.synrgy7team4.domain.feature_transfer.model.response.AccountsResponseItemDomain
 import com.synrgy7team4.domain.feature_transfer.model.response.MutationGetResponseDomain
 import com.synrgy7team4.domain.feature_transfer.model.response.SavedAccountsGetResponseDomain
 import com.synrgy7team4.domain.feature_transfer.model.response.TransferResponseDomain
@@ -17,4 +18,5 @@ interface TransferRepository {
     suspend fun saveAccount(jwtToken: String, accountSaveRequest: AccountSaveRequest): AccountSaveResponseDomain
     suspend fun getSavedAccounts(jwtToken: String): SavedAccountsGetResponseDomain
     suspend fun getMutation(jwtToken: String, id: String): MutationGetResponseDomain
+    suspend fun checkAccount(token: String): List<AccountsResponseItemDomain>
 }

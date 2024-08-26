@@ -97,7 +97,7 @@ class RegisterViewModel(
                 no_hp = hp,
                 no_ktp = nik,
                 date_of_birth = date,
-                ektp_photo = ektp_photo,
+                ektp_photo = "data:image/png:base64,iVBORwBKGgoAAA",
                 pin = pin,
                 otp = otp,
                 is_verified = is_verified

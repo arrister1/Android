@@ -1,6 +1,7 @@
 package com.synrgy7team4.data.feature_transfer
 
 import com.synrgy7team4.data.feature_transfer.datasource.remote.response.AccountSaveResponse
+import com.synrgy7team4.data.feature_transfer.datasource.remote.response.AccountsResponse
 import com.synrgy7team4.data.feature_transfer.datasource.remote.response.BalanceGetResponse
 import com.synrgy7team4.data.feature_transfer.datasource.remote.response.BalanceSetResponse
 import com.synrgy7team4.data.feature_transfer.datasource.remote.response.MutationGetData
@@ -10,6 +11,7 @@ import com.synrgy7team4.data.feature_transfer.datasource.remote.response.SavedAc
 import com.synrgy7team4.data.feature_transfer.datasource.remote.response.TransferData
 import com.synrgy7team4.data.feature_transfer.datasource.remote.response.TransferResponse
 import com.synrgy7team4.domain.feature_transfer.model.response.AccountSaveResponseDomain
+import com.synrgy7team4.domain.feature_transfer.model.response.AccountsResponseItemDomain
 import com.synrgy7team4.domain.feature_transfer.model.response.BalanceGetResponseDomain
 import com.synrgy7team4.domain.feature_transfer.model.response.BalanceSetResponseDomain
 import com.synrgy7team4.domain.feature_transfer.model.response.MutationGetDataDomain
@@ -101,5 +103,14 @@ object FileUtils {
             id = id,
             accountFrom = accountFrom,
             status = status
+        )
+
+    fun AccountsResponse.toDomain(): AccountsResponseItemDomain =
+        AccountsResponseItemDomain(
+            balance = balance,
+            id = id,
+            accountNumber = accountNumber,
+            userName = userName,
+            userId = userId
         )
 }

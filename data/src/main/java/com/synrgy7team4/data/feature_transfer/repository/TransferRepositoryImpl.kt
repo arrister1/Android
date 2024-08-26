@@ -8,6 +8,7 @@ import com.synrgy7team4.domain.feature_transfer.model.request.TransferRequest
 import com.synrgy7team4.domain.feature_transfer.model.response.BalanceGetResponseDomain
 import com.synrgy7team4.domain.feature_transfer.model.response.BalanceSetResponseDomain
 import com.synrgy7team4.domain.feature_transfer.model.response.AccountSaveResponseDomain
+import com.synrgy7team4.domain.feature_transfer.model.response.AccountsResponseItemDomain
 import com.synrgy7team4.domain.feature_transfer.model.response.MutationGetResponseDomain
 import com.synrgy7team4.domain.feature_transfer.model.response.SavedAccountsGetResponseDomain
 import com.synrgy7team4.domain.feature_transfer.model.response.TransferResponseDomain
@@ -31,4 +32,7 @@ class TransferRepositoryImpl(private val remoteDatasource: RemoteDatasource) : T
 
     override suspend fun getMutation(jwtToken: String, id: String): MutationGetResponseDomain =
         remoteDatasource.getMutation(jwtToken, id).toDomain()
+
+    override suspend fun checkAccount(token: String): List<AccountsResponseItemDomain> =
+        remoteDatasource.checkAccount(token).map { it.toDomain() }
 }

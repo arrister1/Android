@@ -11,6 +11,7 @@ import com.synrgy7team4.domain.feature_transfer.model.request.AccountSaveRequest
 import com.synrgy7team4.domain.feature_transfer.model.request.BalanceSetRequest
 import com.synrgy7team4.domain.feature_transfer.model.request.TransferRequest
 import com.synrgy7team4.domain.feature_transfer.model.response.AccountSaveResponseDomain
+import com.synrgy7team4.domain.feature_transfer.model.response.AccountsResponseItemDomain
 import com.synrgy7team4.domain.feature_transfer.model.response.BalanceGetResponseDomain
 import com.synrgy7team4.domain.feature_transfer.model.response.BalanceSetResponseDomain
 import com.synrgy7team4.domain.feature_transfer.model.response.MutationGetDataDomain
@@ -50,6 +51,9 @@ class TransferViewModel(
     private val _balanceSetResult = MutableLiveData<BalanceSetResponseDomain>()
     val balanceSetResponse: LiveData<BalanceSetResponseDomain> = _balanceSetResult
 
+    private val _accountAllList = MutableLiveData<AccountsResponseItemDomain?>()
+    val accountAllList: LiveData<AccountsResponseItemDomain?> = _accountAllList
+
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
@@ -63,7 +67,14 @@ class TransferViewModel(
         userName = userHandler.loadUserName() ?: throw Exception("Nama pengguna tidak tersedia")
     }
 
-    fun transfer(pin: String, accountTo: String, amount: Int, description: String, datetime: String, destinationBank: String) = viewModelScope.launch {
+    fun transfer(
+        pin: String,
+        accountTo: String,
+        amount: Int,
+        description: String,
+        datetime: String,
+        destinationBank: String
+    ) = viewModelScope.launch {
         _isLoading.value = true
         try {
             Log.d("Andre", "pin: $pin")
@@ -87,11 +98,12 @@ class TransferViewModel(
         }
     }
 
-    fun saveAccount() = viewModelScope.launch {
+    fun saveAccount(accountNumber: String) = viewModelScope.launch {
         _isLoading.value = true
         try {
             val accountSaveRequest = AccountSaveRequest(accountNumber)
-            val accountSaveResponse = transferUseCase.saveAccount("Bearer $jwtToken", accountSaveRequest)
+            val accountSaveResponse =
+                transferUseCase.saveAccount("Bearer $jwtToken", accountSaveRequest)
             _accountSaveResponse.value = accountSaveResponse
         } catch (e: HttpExceptionUseCase) {
             _error.value = e
@@ -119,7 +131,8 @@ class TransferViewModel(
         _isLoading.value = true
         try {
             val balanceSetRequest = BalanceSetRequest(accountNumber, newBalance)
-            val balanceSetResponse = transferUseCase.setBalance("Bearer $jwtToken", balanceSetRequest)
+            val balanceSetResponse =
+                transferUseCase.setBalance("Bearer $jwtToken", balanceSetRequest)
             _balanceSetResult.value = balanceSetResponse
         } catch (e: HttpExceptionUseCase) {
             _error.value = e
@@ -149,6 +162,30 @@ class TransferViewModel(
         try {
             val response = transferUseCase.getMutation("Bearer $jwtToken", id)
             _mutationData.value = response.data!!
+        } catch (e: HttpExceptionUseCase) {
+            _error.value = e
+        } catch (e: Exception) {
+            _error.value = e
+        } finally {
+            _isLoading.value = false
+        }
+    }
+
+    fun cekAccountList(accountNumber: String) = viewModelScope.launch {
+        _isLoading.value = true
+        try {
+            val response = transferUseCase.checkAccount("Bearer $jwtToken")
+//            if (response.isNullOrEmpty()) {
+//                android.util.Log.e("YourTag", "Response is empty or null")
+//                _accountAllList.value = emptyList()
+//            } else {
+//                val filteredAccount = response.find { it?.accountNumber == accountNumber }
+//                android.util.Log.d("YourTag", "Filtered account: ${filteredAccount?.accountNumber}")
+//                _accountAllList.value = listOfNotNull(filteredAccount)
+//            }
+            val filteredAccount = response.find { it.accountNumber == accountNumber }
+            _accountAllList.value = filteredAccount
+            Log.d("Andre", _accountAllList.value.toString())
         } catch (e: HttpExceptionUseCase) {
             _error.value = e
         } catch (e: Exception) {

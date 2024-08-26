@@ -47,9 +47,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="NIK 16 Digit"
-            android:inputType="number"
-
-            />
+            android:maxLines="1"
+            android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -79,6 +78,7 @@
             android:id="@+id/edtName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:hint="Ex: Budi Sumanto" />
     </com.google.android.material.textfield.TextInputLayout>
 
