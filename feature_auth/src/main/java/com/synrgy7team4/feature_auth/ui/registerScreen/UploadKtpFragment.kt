@@ -94,8 +94,10 @@ class UploadKtpFragment : Fragment() {
 
             val bytes = stream.toByteArray()
             sImage = Base64.encodeToString(bytes, Base64.DEFAULT)
+            val imageStringTemp = "iVBORwBKGgoAAA"
 //            sImage = encodeImageToBase64(resizingBitmap)
-            sharedPreferences.edit().putString("ktp", sImage).apply()
+//            sharedPreferences.edit().putString("ktp", sImage).apply()
+            sharedPreferences.edit().putString("ktp", imageStringTemp).apply()
 //            binding.tvEncode.text = sImage
         } catch (e: IOException) {
             e.printStackTrace()

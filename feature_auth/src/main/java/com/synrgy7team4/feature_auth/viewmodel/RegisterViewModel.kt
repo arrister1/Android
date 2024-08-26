@@ -22,6 +22,8 @@ class RegisterViewModel(
 ) : ViewModel() {
 
 
+    private val _registerResult = MutableLiveData<RegisterResponseDomain>()
+    val registerResult: LiveData<RegisterResponseDomain> = _registerResult
 
     private val _isEmailAvailable = MutableLiveData<Boolean>()
     val isEmailAvailable: LiveData<Boolean> = _isEmailAvailable
@@ -62,6 +64,8 @@ class RegisterViewModel(
 
     fun verifyOtp(email: String, otp: String) {
         viewModelScope.launch {
+
+
             try {
                 val verifyOtpRequest = VerifyOtpRequest(email, otp)
                 val otpResponse = registerUseCase.verifyOtp(verifyOtpRequest)
@@ -106,14 +110,16 @@ class RegisterViewModel(
             )
             registerUseCase.register(registerRequest)
             val response = registerUseCase.register(registerRequest)
+            _registerResult.postValue(response)
 
             Log.d("RegisterViewModel", "User registered: ${response.success}, ${response.message}")
         } catch (e: HttpExceptionUseCase) {
             _error.postValue(e)
             Log.e("RegisterViewModel", "Error registering user: ${e.message}")
-        } catch (e: Exception) {
+        }
+        catch (e: Exception) {
             _error.postValue(e)
-            Log.e("RegisterViewModel", "Error registering user: ${e.message}")
+            Log.e("RegisterViewModel", "Error registering userrr: ${e.message}")
         } finally {
             _isLoading.postValue(false)
         }

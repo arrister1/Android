@@ -36,6 +36,7 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
     private var input6: String? = null
     private lateinit var firstPassCode: String
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,11 +55,22 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
         pinInputBinding = PinInputBinding.bind(binding.pinInput.root)
 
         firstPassCode = sharedPreferences.getString("pin", "") ?: ""
+
+
+        viewModel.registerResult.observe(viewLifecycleOwner) {result ->
+            if (result != null) {
+                if(result.success) {
+                    makeToast(requireContext(), "Registrasi Berhasil: ${result.message}")
+//                        findNavController().navigate(R.id.action_pinConfirmationFragment_to_registrationSuccessFragment)
+
+                }
+            }
+        }
         initializeComponents()
 
-        viewModel.error.observe(viewLifecycleOwner) { error ->
-            makeToast(requireContext(), error.toString())
-        }
+//        viewModel.error.observe(viewLifecycleOwner) { error ->
+//            makeToast(requireContext(), error.message ?: "Unknown error occurred")
+//        }
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             showLoading(isLoading)
@@ -152,13 +164,16 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
     }
 
     private fun sendRegisterRequest() {
+
+
+
         val email = sharedPreferences.getString("email", "budi@example.com")
         val hp = sharedPreferences.getString("hp", "911")
         val password = sharedPreferences.getString("password", "12345678")
         val nik = sharedPreferences.getString("nik", "")
         val name = sharedPreferences.getString("name", "Budi")
         val date = sharedPreferences.getString("date", "01-01-2000")
-        val pin = sharedPreferences.getString("pin", "111111")
+//        val pin = sharedPreferences.getString("pin", "111111")
         val ktp = sharedPreferences.getString("ktp", "")
         val otp = sharedPreferences.getString("otp", "")
 //        val isVerified = sharedPreferences.getBoolean("isverified", true)
@@ -169,7 +184,7 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
             !nik.isNullOrEmpty() &&
             !name.isNullOrEmpty() &&
             !date.isNullOrEmpty() &&
-            !pin.isNullOrEmpty() &&
+//            !pin.isNullOrEmpty() &&
             !ktp.isNullOrEmpty() &&
             !otp.isNullOrEmpty()
         ) {
@@ -180,7 +195,8 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
                 nik = nik,
                 name = name,
                 date = date,
-                pin = pin,
+                pin = firstPassCode,
+//                pin = pin,
                 ektp_photo = ktp,
                 otp = otp,
                 is_verified = true
@@ -192,8 +208,10 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
 
     private fun validatePin() {
         if (firstPassCode == passCode) {
-            findNavController().navigate(R.id.action_pinConfirmationFragment_to_registrationSuccessFragment)
+
+
             sendRegisterRequest()
+            findNavController().navigate(R.id.action_pinConfirmationFragment_to_registrationSuccessFragment)
         } else {
             makeToast(requireContext(), "PIN mismatch!")
             clearPinDisplay()

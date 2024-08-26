@@ -46,4 +46,12 @@
     <action
         android:id="@+id/dashboard_to_mutasi_navigation"
         app:destination="@id/mutasiFragment"/>
+    <fragment
+        android:id="@+id/transferInputFragment2"
+        android:name="com.synrgy7team4.feature_transfer.presentation.ui.TransferInputFragment"
+        android:label="TransferInputFragment">
+        <deepLink
+            android:id="@+id/deepLink2"
+            app:uri="app://com.example.app/trans/transferInput" />
+    </fragment>
 </navigation>

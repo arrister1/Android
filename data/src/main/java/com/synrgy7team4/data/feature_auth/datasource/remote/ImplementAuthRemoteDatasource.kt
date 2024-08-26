@@ -1,5 +1,6 @@
 package com.synrgy7team4.data.feature_auth.datasource.remote
 
+import android.util.Log
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.LoginErrorResponse
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.LoginResponse
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.RegisterResponse
@@ -40,11 +41,21 @@ class ImplementAuthRemoteDatasource(
     override suspend fun register(registerRequest: RegisterRequest): RegisterResponse =
 
         try {
-            apiService.register(registerRequest)
+            val response = apiService.register(registerRequest)
+            Log.d("RegisterResponse", "Response JSON: $response,  ${response.message}")
+            response
+
         } catch (e: HttpException) {
+
+
+            val jsonMessage = e.message
             val json = e.response()?.errorBody()?.string()
-            val error = Gson().fromJson(json, RegisterErrorResponse::class.java)
-            throw HttpExceptionUseCase(e, "Register Failed: ${error.errors}")
+            Log.e("RegisterError", "Response JSON: $json")
+//            val error = Gson().fromJson(json, RegisterErrorResponse::class.java)
+            val error = json?.let { Gson().fromJson(it, RegisterErrorResponse::class.java) }
+            val errorMessage = error?.errors
+//            Log.e("RegisterError", "Response JSON: ${error.errors}")
+            throw HttpExceptionUseCase(e, errorMessage)
         }
 
     override suspend fun sendOtp(sendOtpRequest: SendOtpRequest): OtpResponse =
