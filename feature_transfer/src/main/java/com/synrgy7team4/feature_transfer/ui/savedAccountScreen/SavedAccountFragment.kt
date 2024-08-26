@@ -63,7 +63,6 @@ class SavedAccountFragment : Fragment() {
 
         viewModel.savedAccountsData.observe(viewLifecycleOwner) { response ->
             response.data?.let { dataList ->
-                Log.d("Andre", "Test")
                 val sortedList = dataList.sortedBy { it?.name }
                 val transformedList = transformSortedListToMutableList(sortedList)
                 binding.savedAccountList.apply {
@@ -74,7 +73,6 @@ class SavedAccountFragment : Fragment() {
         }
 
         viewModel.error.observe(viewLifecycleOwner) { error ->
-            Log.d("Andre", error.toString())
             makeSnackbar(requireView(), error.toString())
         }
     }

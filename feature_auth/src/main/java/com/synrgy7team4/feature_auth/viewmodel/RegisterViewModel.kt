@@ -65,7 +65,6 @@ class RegisterViewModel(
             val verifyOtpRequest = VerifyOtpRequest(email, otp)
             val otpResponse = registerUseCase.verifyOtp(verifyOtpRequest)
             _verifyOtpResult.value = otpResponse
-            Log.d("Andre", otpResponse.message)
         } catch (e: HttpExceptionUseCase) {
             _error.value = e
         } catch (e: Exception) {

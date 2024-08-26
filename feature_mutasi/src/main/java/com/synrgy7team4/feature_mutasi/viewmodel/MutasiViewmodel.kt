@@ -45,7 +45,6 @@ class MutasiViewmodel(
     ) = viewModelScope.launch {
         _isLoading.value = true
         try {
-            Log.d("Andre", "Test")
             val jwtToken = tokenHandler.loadJwtToken() ?: throw Exception("JWT token tidak tersedia")
             _accountNumber.value = userHandler.loadAccountNumber() ?: throw Exception("Nomor akun tidak tersedia")
             _mutationData.value =
@@ -80,7 +79,6 @@ class MutasiViewmodel(
             "Uang Keluar" -> mutationData.filter { it.accountFrom == _accountNumber.value!! }
             else -> throw Exception("Jenis transaksi tidak valid")
         }
-        Log.d("MutasiViewModel", "Filtered data size: ${filteredData.size}")
         return filteredData
     }
 

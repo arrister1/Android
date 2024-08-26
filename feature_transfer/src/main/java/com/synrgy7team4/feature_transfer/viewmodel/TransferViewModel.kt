@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.synrgy7team4.common.Log
 import com.synrgy7team4.common.TokenHandler
 import com.synrgy7team4.common.UserHandler
 import com.synrgy7team4.domain.feature_transfer.model.request.AccountSaveRequest
@@ -65,6 +66,7 @@ class TransferViewModel(
     fun transfer(pin: String, accountTo: String, amount: Int, description: String, datetime: String, destinationBank: String) = viewModelScope.launch {
         _isLoading.value = true
         try {
+            Log.d("Andre", "pin: $pin")
             val transferRequest = TransferRequest(
                 accountFrom = accountNumber,
                 accountTo = accountTo,

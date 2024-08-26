@@ -1,31 +1,26 @@
 package com.synrgy7team4.feature_transfer.ui
 
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import android.content.Context
 import android.content.SharedPreferences
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
+import com.synrgy7team4.common.Log
 import com.synrgy7team4.common.databinding.PinInputBinding
 import com.synrgy7team4.common.databinding.PinNumberBinding
-import com.synrgy7team4.common.makeSnackbar
 import com.synrgy7team4.common.makeToast
 import com.synrgy7team4.feature_transfer.R
 import com.synrgy7team4.feature_transfer.databinding.FragmentTransferPinBinding
 import com.synrgy7team4.feature_transfer.viewmodel.TransferViewModel
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
@@ -168,7 +163,7 @@ class TransferPinFragment : Fragment(), View.OnClickListener {
                         val pin = sharedPreferencesRegister.getString("pin", "") ?: ""
                         lifecycleScope.launch {
                             awaitAll(viewModel.initializeData())
-                            if ( passCode == viewModel.accountPin){
+                            if ( passCode == pin){
                                 viewModel.transfer(
                                     pin = pin,
                                     accountTo = accountDestinationNo,

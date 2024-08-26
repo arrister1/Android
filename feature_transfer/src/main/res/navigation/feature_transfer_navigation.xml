@@ -62,7 +62,7 @@
         <action
             android:id="@+id/action_transferDetailFragment_to_savedAccountFragment"
             app:destination="@id/savedAccountFragment"
-            app:popUpTo="@id/transferDetailFragment"
+            app:popUpTo="@id/transferInputFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment

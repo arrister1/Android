@@ -58,7 +58,6 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
         initializeComponents()
 
         viewModel.registerResult.observe(viewLifecycleOwner) { result ->
-            Log.d("Andre", result.toString())
             if (result.success) {
                 findNavController().navigate(R.id.action_pinConfirmationFragment_to_registrationSuccessFragment)
             } else {
