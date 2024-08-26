@@ -108,10 +108,10 @@ class RegisterViewModel(
             Log.d("RegisterViewModel", "User registered: ${response.success}, ${response.message}")
         } catch (e: HttpExceptionUseCase) {
             _error.postValue(e)
-            Log.e("RegisterViewModel", "Error registering user: ${e.message}")
+//            Log.e("RegisterViewModel", "Error registering user: ${e.message}")
         } catch (e: Exception) {
             _error.postValue(e)
-            Log.e("RegisterViewModel", "Error registering user: ${e.message}")
+//            Log.e("RegisterViewModel", "Error registering user: ${e.message}")
         } finally {
             _isLoading.postValue(false)
         }

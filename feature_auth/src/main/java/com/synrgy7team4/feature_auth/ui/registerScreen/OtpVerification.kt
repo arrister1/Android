@@ -3,6 +3,7 @@ package com.synrgy7team4.feature_auth.ui.registerScreen
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -57,7 +58,7 @@ class OtpVerification : Fragment() {
             requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
 
         val email = sharedPreferences.getString("email", "user@example.com")
-//        val hp = sharedPreferences.getString("hp", "88888888111")
+        val hp = sharedPreferences.getString("hp", "88888888111")
         binding.tvNumber.text = email
         binding.btnBack.setOnClickListener {
             findNavController().popBackStack()
@@ -83,6 +84,31 @@ class OtpVerification : Fragment() {
 
         viewModel.error.observe(viewLifecycleOwner) { error ->
             makeToast(requireContext(), error.toString())
+        }
+
+        object : CountDownTimer(60000, 1000) {
+
+
+            override fun onTick(millisUntilFinished: Long) {
+                val seconds = millisUntilFinished / 1000
+                binding.countDown.text = "00:" + seconds
+            }
+
+            override fun onFinish() {
+                viewModel.sendOtp(email.toString(), hp.toString())
+                binding.countDown.text = "00:00 (otp sudah dikirim ulang)"
+            }
+        }.start()
+
+        binding.btnResendOtp.setOnClickListener {
+            viewModel.sendOtp(email.toString(), hp.toString())
+        }
+
+        viewModel.sendOtpResult.observe(viewLifecycleOwner) { otpResponse ->
+            if (otpResponse.success) {
+                Log.d("OTP", otpResponse.message)
+                makeToast(requireContext(), otpResponse.message)
+            }
         }
 
         binding.btnBack.setOnClickListener {

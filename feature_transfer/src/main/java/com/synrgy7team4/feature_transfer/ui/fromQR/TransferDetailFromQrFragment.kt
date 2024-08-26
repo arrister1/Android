@@ -1,17 +1,19 @@
-package com.synrgy7team4.feature_transfer.ui
+package com.synrgy7team4.feature_transfer.ui.fromQR
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Build
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
-import com.synrgy7team4.feature_transfer.databinding.FragmentTransferSuccessBinding
+import androidx.navigation.fragment.findNavController
+import com.synrgy7team4.feature_transfer.R
+import com.synrgy7team4.feature_transfer.databinding.FragmentTransferDetailBinding
+import com.synrgy7team4.feature_transfer.databinding.FragmentTransferDetailFromQrBinding
+import com.synrgy7team4.feature_transfer.databinding.TransSuccessDetailBinding
+import com.synrgy7team4.feature_transfer.databinding.TransSuccessRecipientBinding
 import com.synrgy7team4.feature_transfer.viewmodel.TransferViewModel
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
@@ -20,51 +22,61 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-@RequiresApi(Build.VERSION_CODES.O)
-class TransferSuccessFragment : Fragment() {
-    private var _binding: FragmentTransferSuccessBinding? = null
+
+class TransferDetailFromQrFragment : Fragment() {
+
+    private var _binding: FragmentTransferDetailFromQrBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: TransferViewModel by viewModel()
+    private val viewModel by viewModel<TransferViewModel>()
     private lateinit var sharedPreferences: SharedPreferences
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return FragmentTransferSuccessBinding.inflate(layoutInflater).also{
+    ): View? {
+        return FragmentTransferDetailFromQrBinding.inflate(layoutInflater).also {
             _binding = it
         }.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         sharedPreferences = requireActivity().getSharedPreferences("TransferPrefs", Context.MODE_PRIVATE)
 
         lifecycleScope.launch {
             awaitAll(viewModel.initializeData())
-            val id = sharedPreferences.getString("lastidtransaction", "") ?: ""
+            val id = sharedPreferences.getString("lastidtransactionFromQr", "") ?: ""
             viewModel.getMutation(id)
         }
-
-        binding.btnClose.setOnClickListener {
-            requireView().findNavController().popBackStack()
-        }
+        val destinationBinding = TransSuccessRecipientBinding.bind(binding.recipient.root)
+        val transactionSuccessBinding = TransSuccessDetailBinding.bind(binding.transDetail.root)
 
         viewModel.mutationData.observe(viewLifecycleOwner) { mutationData ->
-            mutationData?.let {
-                binding.layoutRecipient.tvName.text = mutationData.usernameTo
-                binding.layoutRecipient.tvBankNum.text = mutationData.accountTo
-                binding.layoutRecipient.tvBankName.text = "Lumi Bank"
+            destinationBinding.tvRecipientName.text = mutationData.usernameTo
+            destinationBinding.tvAccNum.text = mutationData.accountTo
+            destinationBinding.tvBank.text = "Lumi Bank"
 
-                binding.layoutSender.tvSenderName.text = mutationData.usernameFrom
-                binding.layoutSender.tvAccNum.text = mutationData.accountFrom
+            binding.tvNominal.text = mutationData.amount.toString()
 
-                binding.layoutTransDetail.tvTransTotal.text = "Rp. ${mutationData.amount}"
-                binding.transStatus.tvTransDate.text = formatDateTime(mutationData.datetime)
-                binding.transStatus.tvTransTime.text = formatHourTime(mutationData.datetime)
-            }
+            transactionSuccessBinding.transDate.text = formatDateTime(mutationData.datetime)
+            transactionSuccessBinding.transTime.text = formatHourTime(mutationData.datetime)
         }
+
+        binding.btnDetail.setOnClickListener {
+            findNavController().navigate(R.id.action_transferDetailFromQrFragment_to_transferSuccessFromQrFragment)
+        }
+
+        binding.btnShare.setOnClickListener {}
+
+        binding.btnDone.setOnClickListener {
+            findNavController().navigate(R.id.action_transferDetailFromQrFragment_to_savedAccountFragment)
+        }
+
+
     }
 
     private fun formatDateTime(datetime: String?): String {
@@ -77,7 +89,8 @@ class TransferSuccessFragment : Fragment() {
             LocalDateTime.parse(datetime, formatterWith5Digits)
         }
 
-        val outputFormatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy", Locale("id", "ID"))
+        val outputFormatter =
+            DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy", Locale("id", "ID"))
         return localDateTime.format(outputFormatter)
     }
 
@@ -94,4 +107,6 @@ class TransferSuccessFragment : Fragment() {
         val outputFormatter = DateTimeFormatter.ofPattern("HH.mm", Locale("id", "ID"))
         return localDateTime.format(outputFormatter)
     }
+
+
 }

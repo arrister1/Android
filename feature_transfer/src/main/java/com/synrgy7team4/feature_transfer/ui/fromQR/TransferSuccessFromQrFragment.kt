@@ -1,17 +1,15 @@
-package com.synrgy7team4.feature_transfer.ui
+package com.synrgy7team4.feature_transfer.ui.fromQR
 
-import android.content.Context
 import android.content.SharedPreferences
-import android.os.Build
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import com.synrgy7team4.feature_transfer.databinding.FragmentTransferSuccessBinding
+import com.synrgy7team4.feature_transfer.R
+import com.synrgy7team4.feature_transfer.databinding.FragmentTransferSuccessFromQrBinding
 import com.synrgy7team4.feature_transfer.viewmodel.TransferViewModel
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
@@ -20,30 +18,32 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-@RequiresApi(Build.VERSION_CODES.O)
-class TransferSuccessFragment : Fragment() {
-    private var _binding: FragmentTransferSuccessBinding? = null
+
+class TransferSuccessFromQrFragment : Fragment() {
+
+    private var _binding: FragmentTransferSuccessFromQrBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: TransferViewModel by viewModel()
     private lateinit var sharedPreferences: SharedPreferences
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return FragmentTransferSuccessBinding.inflate(layoutInflater).also{
+    ): View? {
+        return FragmentTransferSuccessFromQrBinding.inflate(layoutInflater).also{
             _binding = it
         }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sharedPreferences = requireActivity().getSharedPreferences("TransferPrefs", Context.MODE_PRIVATE)
 
         lifecycleScope.launch {
             awaitAll(viewModel.initializeData())
-            val id = sharedPreferences.getString("lastidtransaction", "") ?: ""
+            val id = sharedPreferences.getString("lastidtransactionFromQr", "") ?: ""
             viewModel.getMutation(id)
         }
 
@@ -66,6 +66,7 @@ class TransferSuccessFragment : Fragment() {
             }
         }
     }
+
 
     private fun formatDateTime(datetime: String?): String {
         val formatterWith6Digits = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
@@ -94,4 +95,6 @@ class TransferSuccessFragment : Fragment() {
         val outputFormatter = DateTimeFormatter.ofPattern("HH.mm", Locale("id", "ID"))
         return localDateTime.format(outputFormatter)
     }
+
+
 }

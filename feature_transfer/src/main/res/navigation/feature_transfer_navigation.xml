@@ -35,7 +35,7 @@
         android:id="@+id/transferInputFragment"
         android:name="com.synrgy7team4.feature_transfer.ui.TransferInputFragment"
         android:label="fragment_transfer_input"
-        tools:layout="@layout/fragment_transfer_input" >
+        tools:layout="@layout/fragment_transfer_input">
         <action
             android:id="@+id/action_transferInputFragment_to_transferPinFragment"
             app:destination="@id/transferPinFragment" />
@@ -70,4 +70,42 @@
         android:name="com.synrgy7team4.feature_transfer.ui.TransferSuccessFragment"
         android:label="fragment_transfer_success"
         tools:layout="@layout/fragment_transfer_success" />
+    <fragment
+        android:id="@+id/transferInputFromQRFragment"
+        android:name="com.synrgy7team4.feature_transfer.ui.fromQR.TransferInputFromQRFragment"
+        android:label="fragment_transfer_input_from_q_r"
+        tools:layout="@layout/fragment_transfer_input_from_q_r">
+        <deepLink
+            android:id="@+id/deepLink2"
+            app:uri="app://com.example.app/trans/transferInputFromQR" />
+        <action
+            android:id="@+id/action_transferInputFromQRFragment_to_transferPinFromQRFragment"
+            app:destination="@id/transferPinFromQRFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/transferPinFromQRFragment"
+        android:name="com.synrgy7team4.feature_transfer.ui.fromQR.TransferPinFromQRFragment"
+        android:label="fragment_transfer_pin_from_q_r"
+        tools:layout="@layout/fragment_transfer_pin_from_q_r" >
+        <action
+            android:id="@+id/action_transferPinFromQRFragment_to_transferDetailFromQrFragment"
+            app:destination="@id/transferDetailFromQrFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/transferDetailFromQrFragment"
+        android:name="com.synrgy7team4.feature_transfer.ui.fromQR.TransferDetailFromQrFragment"
+        android:label="fragment_transfer_detail_from_qr"
+        tools:layout="@layout/fragment_transfer_detail_from_qr" >
+        <action
+            android:id="@+id/action_transferDetailFromQrFragment_to_transferSuccessFromQrFragment"
+            app:destination="@id/transferSuccessFromQrFragment" />
+        <action
+            android:id="@+id/action_transferDetailFromQrFragment_to_savedAccountFragment"
+            app:destination="@id/savedAccountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/transferSuccessFromQrFragment"
+        android:name="com.synrgy7team4.feature_transfer.ui.fromQR.TransferSuccessFromQrFragment"
+        android:label="fragment_transfer_success_from_qr"
+        tools:layout="@layout/fragment_transfer_success_from_qr" />
 </navigation>

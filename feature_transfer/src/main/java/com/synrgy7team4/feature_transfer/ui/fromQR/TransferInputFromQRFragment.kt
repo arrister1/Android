@@ -1,47 +1,49 @@
-package com.synrgy7team4.feature_transfer.ui
+package com.synrgy7team4.feature_transfer.ui.fromQR
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.synrgy7team4.common.makeSnackbar
-import com.synrgy7team4.common.makeToast
 import com.synrgy7team4.feature_transfer.R
-import com.synrgy7team4.feature_transfer.databinding.FragmentTransferInputBinding
+import com.synrgy7team4.feature_transfer.databinding.FragmentTransferInputFromQRBinding
 import com.synrgy7team4.feature_transfer.viewmodel.TransferViewModel
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class TransferInputFragment : Fragment() {
-    private var _binding: FragmentTransferInputBinding? = null
+class TransferInputFromQRFragment : Fragment() {
+
+    private var _binding: FragmentTransferInputFromQRBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel by viewModel<TransferViewModel>()
 
     private lateinit var sharedPreferences: SharedPreferences
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return FragmentTransferInputBinding.inflate(layoutInflater).also {
+    ): View? {
+        return FragmentTransferInputFromQRBinding.inflate(layoutInflater).also {
             _binding = it
         }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         sharedPreferences =
             requireActivity().getSharedPreferences("TransferPrefs", Context.MODE_PRIVATE)
         lifecycleScope.launch {
@@ -52,13 +54,15 @@ class TransferInputFragment : Fragment() {
         }
 
 
-        val accountDestinationName = sharedPreferences.getString("accountDestinationName", null)
-        val accountDestinationNo = sharedPreferences.getString("accountDestinationNo", null)
+        val accountDestinationFromScan =
+            sharedPreferences.getString("accountDestinationFromScan", null)
+        val splitAccount = accountDestinationFromScan?.split(" ")
+        val accountNo = splitAccount?.get(0)
+        val username = splitAccount?.get(1)
 
-        binding.bankNameAndAccountNo.text = "Lumi Bank - $accountDestinationNo"
-        binding.accountName.text = accountDestinationName
-
-
+        binding.bankNameAndAccountNo.text = "Lumi Bank - $accountNo"
+        sharedPreferences.edit().putString("accountDestinationNoFromQR", accountNo).apply()
+        binding.accountName.text = username
 
         binding.btnBack.setOnClickListener {
             findNavController().popBackStack()
@@ -72,8 +76,10 @@ class TransferInputFragment : Fragment() {
             }
         }
 
-    }
 
+
+
+    }
 
 
 
@@ -85,9 +91,9 @@ class TransferInputFragment : Fragment() {
             return  // Stop execution if validation fails
         }
         // If validation passes, navigate to the next screen
-        sharedPreferences.edit().putInt("transferAmount", nominal.toInt()).apply()
-        sharedPreferences.edit().putString("transferDescription", berita).apply()
-        findNavController().navigate(R.id.action_transferInputFragment_to_transferPinFragment)
+        sharedPreferences.edit().putInt("transferAmountFromQR", nominal.toInt()).apply()
+        sharedPreferences.edit().putString("transferDescriptionFromQr", berita).apply()
+        findNavController().navigate(R.id.action_transferInputFromQRFragment_to_transferPinFromQRFragment)
     }
 
     private fun validateAmount(amount: String): Boolean {
@@ -129,4 +135,6 @@ class TransferInputFragment : Fragment() {
             else -> true
         }
     }
+
+
 }

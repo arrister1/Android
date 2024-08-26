@@ -24,8 +24,8 @@
     <string name="beli_pulsa">Beli Pulsa</string>
     <string name="beli_paket_data">Beli Paket Data</string>
     <string name="ewallet">EWallet</string>
-    <string name="gallery_button">Gallery Button</string>
-    <string name="flash_button">Flash Button</string>
+    <string name="gallery_button">Tombol Galeri</string>
+    <string name="flash_button">Tombol Flash</string>
     <string name="censored_account_no">7293 **** **** 9283</string>
     <string name="balance_toggle_button">Balance Toggle Button</string>
     <string name="tunjukan_qr_untuk_membayar">Tunjukkan QR untuk membayar</string>
@@ -47,4 +47,8 @@
     <string name="fitur_ini_akan_segera_hadir">fitur ini akan segera hadir</string>
     <string name="kembali">kembali</string>
     <string name="qr_scanner">qr scanner</string>
+    <string name="tombol_kembali">tombol kembali</string>
+    <string name="nomor_akun">nomor akun\n</string>
+    <string name="nominal_saldo">nominal saldo</string>
+    <string name="menampilkan_qr_untuk_membayar_atau_menerima_transfer">menampilkan QR untuk membayar atau menerima transfer</string>
 </resources>

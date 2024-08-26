@@ -101,5 +101,9 @@
     <string name="kembali">Kembali</string>
     <string name="pilih_tanggal">Pilih tanggal</string>
     <string name="masukkan_tanggal_lahir">masukkan tanggal lahir</string>
+    <string name="verifikasi">Verifikasi</string>
+    <string name="_08123456789">08123456789</string>
+    <string name="masukkan_kode_di_bawah_ini_untuk_melanjutkan">Masukkan kode di bawah ini untuk melanjutkan</string>
+    <string name="input_kode_otp">input kode OTP</string>
 
 </resources>

@@ -26,6 +26,7 @@
         android:fontFamily="@font/calibri"
         android:textColor="@color/primary_darkBlue"
         android:text="@string/censored_account_no"
+        android:contentDescription="@string/nomor_akun"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lumiLogo"/>
 
@@ -38,6 +39,7 @@
         android:fontFamily="@font/calibri"
         android:textColor="@color/primary_darkBlue"
         android:text="@string/saldo"
+        android:contentDescription="@string/saldo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/accountNo"/>
 
@@ -50,6 +52,7 @@
         android:fontFamily="@font/calibri"
         android:textColor="@color/primary_blue"
         android:text="@string/dummy_account_balance"
+        android:contentDescription="@string/nominal_saldo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/amountTextView"/>
 
@@ -73,6 +76,7 @@
         android:layout_marginEnd="3dp"
         android:fontFamily="@font/calibri"
         android:text="@string/tunjukan_qr_untuk"
+        android:contentDescription="@string/menampilkan_qr_untuk_membayar_atau_menerima_transfer"
         android:textSize="17sp"
         app:layout_constraintEnd_toStartOf="@+id/tvGet"
 

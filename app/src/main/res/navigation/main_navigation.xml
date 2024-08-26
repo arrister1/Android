@@ -56,11 +56,11 @@
         android:id="@+id/qris_to_transfer_navigation"
         app:destination="@id/transferInputFragment"/>
     <fragment
-        android:id="@+id/transferInputFragment2"
-        android:name="com.synrgy7team4.feature_transfer.presentation.ui.TransferInputFragment"
-        android:label="TransferInputFragment">
+        android:id="@+id/transferInputFromQRFragment2"
+        android:name="com.synrgy7team4.feature_transfer.ui.fromQR.TransferInputFromQRFragment"
+        android:label="TransferInputFromQRFragment">
         <deepLink
-            android:id="@+id/deepLink2"
-            app:uri="app://com.example.app/trans/transferInput" />
+            android:id="@+id/deepLink"
+            app:uri="app://com.example.app/trans/transferInputFromQR" />
     </fragment>
 </navigation>

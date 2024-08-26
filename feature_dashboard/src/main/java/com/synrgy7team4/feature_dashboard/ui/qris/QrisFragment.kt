@@ -1,10 +1,12 @@
 package com.synrgy7team4.feature_dashboard.ui.qris
 
+import android.Manifest
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.ColorDrawable
@@ -21,6 +23,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -51,9 +54,22 @@ class QrisFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private val viewModel by viewModel<HomeViewModel>()
     private var isHidden: Boolean = false
+    private lateinit var username: String
     private lateinit var accountNumber: String
     private lateinit var fullBalance: String
     private lateinit var hiddenBalance: String
+
+    private val requestCameraPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+            if (isGranted) {
+                // Izin kamera diberikan
+                Toast.makeText(requireContext(), "Izin kamera diberikan", Toast.LENGTH_SHORT).show()
+                codeScanner.startPreview()
+            } else {
+                // Izin kamera ditolak
+                Toast.makeText(requireContext(), "Izin kamera ditolak", Toast.LENGTH_SHORT).show()
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,20 +85,23 @@ class QrisFragment : Fragment() {
         val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
         val activity = requireActivity()
 
-        sharedPreferences= requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        sharedPreferences= requireActivity().getSharedPreferences("TransferPrefs", Context.MODE_PRIVATE)
 
         codeScanner = CodeScanner(activity, scannerView)
         codeScanner.decodeCallback = DecodeCallback { textResultScan ->
             activity.runOnUiThread {
                 Toast.makeText(activity, textResultScan.text, Toast.LENGTH_LONG).show()
-                sharedPreferences.edit().putString("accountToTransfer", textResultScan.text).apply()
-                val deepLinkToTrans = Uri.parse("app://com.example.app/trans/transferInput")
+                sharedPreferences.edit().putString("accountDestinationFromScan", textResultScan.text).apply()
+                val deepLinkToTrans = Uri.parse("app://com.example.app/trans/transferInputFromQR")
                 view.findNavController().navigate(deepLinkToTrans)
             }
         }
-        scannerView.setOnClickListener {
-            codeScanner.startPreview()
-        }
+//        scannerView.setOnClickListener {
+////            codeScanner.startPreview()
+//        }
+
+        checkCameraPermissionAndOpenCamera()
+
 
         binding.payButton.setOnClickListener {
             sharedPreferences.edit().putString("payOrReceived", "membayar" ).apply()
@@ -110,10 +129,12 @@ class QrisFragment : Fragment() {
         hiddenBalance = fullBalance.replace(Regex("\\d"), "*").replace(Regex("[,.]"), "")
 
         accountNumber = R.string.dummy_acc_number.toString()
+        username = R.string.dummy_name.toString()
 
 
         viewModel.userData.observe(viewLifecycleOwner) {userData ->
             accountNumber = userData.accountNumber
+            username = userData.name
         }
         viewModel.getUserData()
 
@@ -125,6 +146,27 @@ class QrisFragment : Fragment() {
 
 
 
+    }
+
+    private fun checkCameraPermissionAndOpenCamera() {
+        when {
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                // Izin sudah diberikan, langsung buka kamera
+                codeScanner.startPreview()
+            }
+            shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
+                // Tampilkan alasan mengapa izin dibutuhkan dan kemudian minta izin
+                Toast.makeText(requireContext(), "Izin kamera diperlukan untuk mengambil gambar", Toast.LENGTH_SHORT).show()
+                requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+            }
+            else -> {
+                // Minta izin langsung
+                requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+            }
+        }
     }
 
     private fun openGallery() {
@@ -159,7 +201,10 @@ class QrisFragment : Fragment() {
         val inputStream: InputStream = BufferedInputStream(FileInputStream(file))
         val bitmap = BitmapFactory.decodeStream(inputStream)
         val decoded = scanQRImage(bitmap)
-        Toast.makeText(requireContext(), "Decoded string=$decoded", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "$decoded", Toast.LENGTH_SHORT).show()
+        sharedPreferences.edit().putString("accountDestinationFromScan", decoded).apply()
+        val deepLinkToTrans = Uri.parse("app://com.example.app/trans/transferInputFromQR")
+        view?.findNavController()?.navigate(deepLinkToTrans)
     }
 
     private fun scanQRImage(bMap: Bitmap): String? {
@@ -205,7 +250,7 @@ class QrisFragment : Fragment() {
         accountNo.text = accountNumber
         ammount.text = fullBalance
 
-        val mQRBitmap = QRUtility.generateQR(accountNumber)
+        val mQRBitmap = QRUtility.generateQR("$accountNumber $username")
         if (mQRBitmap != null) {
             qrImageView.setImageBitmap(mQRBitmap)
         } else {
