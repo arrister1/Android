@@ -3,8 +3,6 @@ plugins {
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
 }
-apply(from = "../shared_dependencies.gradle")
-
 
 android {
     namespace = "com.synrgy7team4.feature_transfer"
@@ -38,18 +36,38 @@ android {
 }
 
 dependencies {
+    implementation("androidx.appcompat:appcompat:1.7.0")
     val libs = rootProject.extra["libs"] as Map<*, *>
     implementation(project(":common"))
     implementation(project(":di"))
     implementation(project(":domain"))
 
+    // Koin
+    implementation(platform(libs["koin-bom"].toString()))
+    implementation(libs["koin-android"].toString())
+
     // Navigation
     implementation(libs["navigation-fragment-ktx"].toString())
     implementation(libs["navigation-ui-ktx"].toString())
 
-    implementation("com.google.android.material:material:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("com.android.car.ui:car-ui-lib:2.6.0")
+    // ViewModel
+    implementation(libs["lifecycle-viewmodel-ktx"].toString())
+
+    // LiveData
+    implementation(libs["lifecycle-livedata-ktx"].toString())
+
+    // Lifecycle Compiler
+    kapt(libs["lifecycle-compiler"].toString())
+
+    // Generated dependencies
+    implementation(libs["core-ktx"].toString())
+    implementation(libs["appcompat"].toString())
+    implementation(libs["material"].toString())
+    implementation(libs["activity"].toString())
+    implementation(libs["constraintlayout"].toString())
+    testImplementation(libs["junit"].toString())
+    androidTestImplementation(libs["ext-junit"].toString())
+    androidTestImplementation(libs["espresso-core"].toString())
 
     //testing
     testImplementation(libs["mockito-inline"].toString())

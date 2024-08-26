@@ -6,4 +6,5 @@ interface NavigationHandler {
     fun navigateToDashboard()
     fun navigateToMutasi()
     fun navigateToTransfer()
+    fun navigateQrisToTransfer()
 }

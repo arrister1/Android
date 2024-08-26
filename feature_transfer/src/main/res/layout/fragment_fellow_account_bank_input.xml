@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="25dp"
-        tools:context=".presentation.ui.FellowAccountBankInputFragment">
+        tools:context=".ui.FellowAccountBankInputFragment">
 
         <ImageView
             android:id="@+id/btn_back"
@@ -24,16 +24,17 @@
         <TextView
             android:id="@+id/tv_sesama_bank"
             style="@style/BoldText"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="51dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:contentDescription="@string/sesama_bank"
             android:text="@string/sesama_bank"
             android:textAlignment="center"
             android:textColor="@color/primary_blue"
             android:textSize="24sp"
             app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/tv_nomor_rekening"
             style="@style/RegulerText"

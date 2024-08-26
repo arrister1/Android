@@ -110,7 +110,11 @@ class MainActivity : AppCompatActivity(), NavigationHandler, TokenHandler, UserH
     }
 
     override fun navigateToTransfer() {
-        TODO("Not yet implemented")
+        navController.navigate(R.id.dashboard_to_transfer_navigation)
+    }
+
+    override fun navigateQrisToTransfer() {
+        navController.navigate(R.id.qris_to_transfer_navigation)
     }
 
     // Implementasi TokenHandler

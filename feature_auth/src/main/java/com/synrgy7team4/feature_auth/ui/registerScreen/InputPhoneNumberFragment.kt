@@ -62,7 +62,9 @@ class InputPhoneNumberFragment : Fragment() {
 
                 else -> {
                     viewModel.checkPhoneNumberAvailability(hp)
-                    viewModel.sendOtp(email.toString(), hp)
+                    email?.let{
+                        viewModel.sendOtp(email, hp)
+                    }
                 }
             }
         }

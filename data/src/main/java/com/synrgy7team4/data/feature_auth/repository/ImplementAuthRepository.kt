@@ -31,10 +31,8 @@ class ImplementAuthRepository(
     override suspend fun sendOtp(sendOtpRequest: SendOtpRequest): OtpResponseDomain =
         authRemoteSource.sendOtp(sendOtpRequest).toOtpResponseDomain()
 
-
     override suspend fun verifyOtp(verifyOtpRequest: VerifyOtpRequest): OtpResponseDomain =
         authRemoteSource.verifyOtp(verifyOtpRequest).toOtpResponseDomain()
-
 
     override suspend fun login(loginRequest: LoginRequest): LoginResponseDomain =
         authRemoteSource.login(loginRequest).toLoginResponseDomain()

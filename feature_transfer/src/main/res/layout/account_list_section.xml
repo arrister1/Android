@@ -13,7 +13,6 @@
         android:textColor="@color/primary_blue"
         android:paddingVertical="10dp"
         android:paddingStart="20dp"
-        android:background="@color/material_dynamic_neutral95"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />

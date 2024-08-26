@@ -3,6 +3,7 @@ package com.synrgy7team4.feature_auth.ui.registerScreen
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,6 +57,15 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
         firstPassCode = sharedPreferences.getString("pin", "") ?: ""
         initializeComponents()
 
+        viewModel.registerResult.observe(viewLifecycleOwner) { result ->
+            Log.d("Andre", result.toString())
+            if (result.success) {
+                findNavController().navigate(R.id.action_pinConfirmationFragment_to_registrationSuccessFragment)
+            } else {
+                makeToast(requireContext(), "Registrasi Gagal")
+            }
+        }
+
         viewModel.error.observe(viewLifecycleOwner) { error ->
             makeToast(requireContext(), error.toString())
         }
@@ -63,8 +73,6 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             showLoading(isLoading)
         }
-
-
     }
 
     private fun initializeComponents() {
@@ -161,38 +169,22 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
         val pin = sharedPreferences.getString("pin", "111111")
         val ktp = sharedPreferences.getString("ktp", "")
         val otp = sharedPreferences.getString("otp", "")
-//        val isVerified = sharedPreferences.getBoolean("isverified", true)
 
-        if (!email.isNullOrEmpty() &&
-            !hp.isNullOrEmpty() &&
-            !password.isNullOrEmpty() &&
-            !nik.isNullOrEmpty() &&
-            !name.isNullOrEmpty() &&
-            !date.isNullOrEmpty() &&
-            !pin.isNullOrEmpty() &&
-            !ktp.isNullOrEmpty() &&
-            !otp.isNullOrEmpty()
-        ) {
-            viewModel.register(
-                email = email,
-                hp = hp,
-                password = password,
-                nik = nik,
-                name = name,
-                date = date,
-                pin = pin,
-                ektp_photo = ktp,
-                otp = otp,
-                is_verified = true
-            )
-        } else {
-            makeToast(requireContext(), "Anda harus mengulang proses registrasi")
-        }
+        viewModel.register(
+            email = email!!,
+            hp = hp!!,
+            password = password!!,
+            nik = nik!!,
+            name = name!!,
+            date = date!!,
+            pin = pin!!,
+            ektp_photo = ktp!!,
+            otp = otp!!
+        )
     }
 
     private fun validatePin() {
         if (firstPassCode == passCode) {
-            findNavController().navigate(R.id.action_pinConfirmationFragment_to_registrationSuccessFragment)
             sendRegisterRequest()
         } else {
             makeToast(requireContext(), "PIN mismatch!")

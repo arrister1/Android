@@ -20,9 +20,6 @@ import kotlinx.coroutines.launch
 class RegisterViewModel(
     private val registerUseCase: RegisterUseCase
 ) : ViewModel() {
-
-
-
     private val _isEmailAvailable = MutableLiveData<Boolean>()
     val isEmailAvailable: LiveData<Boolean> = _isEmailAvailable
 
@@ -38,43 +35,43 @@ class RegisterViewModel(
     private val _verifyOtpResult = MutableLiveData<OtpResponseDomain>()
     val verifyOtpResult: LiveData<OtpResponseDomain> = _verifyOtpResult
 
+    private val _registerResult = MutableLiveData<RegisterResponseDomain>()
+    val registerResult: LiveData<RegisterResponseDomain> = _registerResult
+
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
     private val _error = MutableLiveData<Exception>()
     val error: LiveData<Exception> = _error
 
-    fun sendOtp(email: String, hp:String) {
-        viewModelScope.launch {
-            try {
-                val sendOtpRequest = SendOtpRequest(email, hp)
-                val otpResponse = registerUseCase.sendOtp(sendOtpRequest)
-                _sendOtpResult.postValue(otpResponse)
-
-            } catch(e: HttpExceptionUseCase) {
-              _error.postValue(e)
-
-            } catch (e: Exception) {
-                _error.postValue(e)
-            }
+    fun sendOtp(email: String, hp: String) = viewModelScope.launch {
+        _isLoading.value = true
+        try {
+            val sendOtpRequest = SendOtpRequest(email, hp)
+            val otpResponse = registerUseCase.sendOtp(sendOtpRequest)
+            _sendOtpResult.postValue(otpResponse)
+        } catch (e: HttpExceptionUseCase) {
+            _error.value = e
+        } catch (e: Exception) {
+            _error.value = e
+        } finally {
+            _isLoading.value = false
         }
     }
 
-    fun verifyOtp(email: String, otp: String) {
-        viewModelScope.launch {
-            try {
-                val verifyOtpRequest = VerifyOtpRequest(email, otp)
-                val otpResponse = registerUseCase.verifyOtp(verifyOtpRequest)
-                _verifyOtpResult.postValue(otpResponse)
-                Log.d("RegisterViewModel", otpResponse.message)
-            } catch (e: HttpExceptionUseCase) {
-                _error.postValue(e)
-                Log.e("RegisterViewModel", "Error verifying OTP: ${e.message}")
-            } catch (e: Exception) {
-                _error.postValue(e)
-                Log.e("RegisterViewModel", "Error verifying OTP: ${e.message}")
-
-            }
+    fun verifyOtp(email: String, otp: String) = viewModelScope.launch {
+        _isLoading.value = true
+        try {
+            val verifyOtpRequest = VerifyOtpRequest(email, otp)
+            val otpResponse = registerUseCase.verifyOtp(verifyOtpRequest)
+            _verifyOtpResult.value = otpResponse
+            Log.d("Andre", otpResponse.message)
+        } catch (e: HttpExceptionUseCase) {
+            _error.value = e
+        } catch (e: Exception) {
+            _error.value = e
+        } finally {
+            _isLoading.value = false
         }
     }
 
@@ -87,10 +84,9 @@ class RegisterViewModel(
         date: String,
         pin: String,
         ektp_photo: String,
-        otp: String,
-        is_verified: Boolean
+        otp: String
     ) = viewModelScope.launch {
-        _isLoading.postValue(true)
+        _isLoading.value = true
         try {
             val registerRequest = RegisterRequest(
                 email = email,
@@ -102,11 +98,10 @@ class RegisterViewModel(
                 ektp_photo = ektp_photo,
                 pin = pin,
                 otp = otp,
-                is_verified = is_verified
+                is_verified = true
             )
-            registerUseCase.register(registerRequest)
             val response = registerUseCase.register(registerRequest)
-
+            _registerResult.value = response
             Log.d("RegisterViewModel", "User registered: ${response.success}, ${response.message}")
         } catch (e: HttpExceptionUseCase) {
             _error.postValue(e)
@@ -138,7 +133,8 @@ class RegisterViewModel(
         _isLoading.postValue(true)
         try {
             val phoneNumberCheckRequest = PhoneNumberCheckRequest(phoneNumber)
-            val phoneNumberCheckResponse = registerUseCase.checkPhoneNumberAvailability(phoneNumberCheckRequest)
+            val phoneNumberCheckResponse =
+                registerUseCase.checkPhoneNumberAvailability(phoneNumberCheckRequest)
             _isPhoneNumberAvailable.postValue(phoneNumberCheckResponse.success)
         } catch (e: HttpExceptionUseCase) {
             _error.postValue(e)
@@ -153,7 +149,8 @@ class RegisterViewModel(
         _isLoading.postValue(true)
         try {
             val ktpNumberCheckRequest = KtpNumberCheckRequest(ktpNumber)
-            val ktpNumberCheckResponse = registerUseCase.checkKtpNumberAvailability(ktpNumberCheckRequest)
+            val ktpNumberCheckResponse =
+                registerUseCase.checkKtpNumberAvailability(ktpNumberCheckRequest)
             _isKtpNumberAvailable.postValue(ktpNumberCheckResponse.success)
         } catch (e: HttpExceptionUseCase) {
             _error.postValue(e)

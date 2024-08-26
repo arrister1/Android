@@ -38,7 +38,6 @@ class ImplementAuthRemoteDatasource(
         }
 
     override suspend fun register(registerRequest: RegisterRequest): RegisterResponse =
-
         try {
             apiService.register(registerRequest)
         } catch (e: HttpException) {
@@ -55,8 +54,6 @@ class ImplementAuthRemoteDatasource(
             val error = Gson().fromJson(json, OtpErrorResponse::class.java)
             throw HttpExceptionUseCase(e, error.message)
         }
-
-
 
     override suspend fun verifyOtp(verifyOtpRequest: VerifyOtpRequest): OtpResponse =
         try {

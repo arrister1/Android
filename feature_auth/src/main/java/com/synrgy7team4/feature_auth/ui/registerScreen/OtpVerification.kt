@@ -34,8 +34,6 @@ class OtpVerification : Fragment() {
     private lateinit var inputCode5: EditText
     private lateinit var inputCode6: EditText
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,7 +45,6 @@ class OtpVerification : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         inputCode1 = view.findViewById(R.id.inputCode1)
         inputCode2 = view.findViewById(R.id.inputCode2)
         inputCode3 = view.findViewById(R.id.inputCode3)
@@ -68,7 +65,9 @@ class OtpVerification : Fragment() {
 
         binding.submitOTPButton.setOnClickListener {
             val otp = getOTP()
-            viewModel.verifyOtp(email.toString(), otp)
+            email?.let {
+                viewModel.verifyOtp(it, otp)
+            }
 
 //            view.findNavController().navigate(R.id.action_otpVerification_to_createPasswordFragment)
         }
@@ -78,7 +77,6 @@ class OtpVerification : Fragment() {
                 Log.d("OTP", otp)
                 makeToast(requireContext(), otpResponse.message)
                 sharedPreferences.edit().putString("otp", otp).apply()
-//                    sharedPreferences.edit().putBoolean("isverified", otpResponse.success).apply()
                 view.findNavController().navigate(R.id.action_otpVerification_to_createPasswordFragment)
             }
         }
@@ -87,18 +85,11 @@ class OtpVerification : Fragment() {
             makeToast(requireContext(), error.toString())
         }
 
-
-
-
         binding.btnBack.setOnClickListener {
             view.findNavController().popBackStack()
         }
 
-
-
         setupOTPInputs()
-
-        // view.findViewById<MaterialButton>(R.id.submitOTPButton).setOnClickListener{getOTP()}
     }
 
     private fun setupOTPInputs() {
@@ -131,9 +122,7 @@ class OtpVerification : Fragment() {
     }
 
     private fun getOTP(): String {
-
         return "${inputCode1.text}${inputCode2.text}${inputCode3.text}${inputCode4.text}${inputCode5.text}${inputCode6.text}"
-
     }
 
     override fun onDestroyView() {
