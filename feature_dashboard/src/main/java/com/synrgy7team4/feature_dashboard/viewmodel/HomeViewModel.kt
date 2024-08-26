@@ -22,8 +22,6 @@ class HomeViewModel(
     private val _userData = MutableLiveData<UserDataDomain>()
     val userData: LiveData<UserDataDomain> = _userData
 
-
-
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 

@@ -30,6 +30,7 @@
 
     <include app:graph="@navigation/feature_auth_navigation" />
     <include app:graph="@navigation/feature_dashboard_navigation" />
+    <include app:graph="@navigation/feature_transfer_navigation" />
 
     <action
         android:id="@+id/auth_to_dashboard_navigation"
@@ -46,6 +47,14 @@
     <action
         android:id="@+id/dashboard_to_mutasi_navigation"
         app:destination="@id/mutasiFragment"/>
+
+    <action
+        android:id="@+id/dashboard_to_transfer_navigation"
+        app:destination="@id/feature_transfer_navigation"/>
+
+    <action
+        android:id="@+id/qris_to_transfer_navigation"
+        app:destination="@id/transferInputFragment"/>
     <fragment
         android:id="@+id/transferInputFragment2"
         android:name="com.synrgy7team4.feature_transfer.presentation.ui.TransferInputFragment"

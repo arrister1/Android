@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/feature_transfer_navigation"
+    app:startDestination="@id/savedAccountFragment">
+    <fragment
+        android:id="@+id/savedAccountFragment"
+        android:name="com.synrgy7team4.feature_transfer.ui.savedAccountScreen.SavedAccountFragment"
+        android:label="fragment_saved_account"
+        tools:layout="@layout/fragment_saved_account" >
+        <action
+            android:id="@+id/action_savedAccountFragment_to_fellowAccountBankInputFragment"
+            app:destination="@id/fellowAccountBankInputFragment" />
+        <action
+            android:id="@+id/action_savedAccountFragment_to_transferInputFragment"
+            app:destination="@id/transferInputFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fellowAccountBankInputFragment"
+        android:name="com.synrgy7team4.feature_transfer.ui.FellowAccountBankInputFragment"
+        android:label="FellowAccountBankInputFragment"
+        tools:layout="@layout/fragment_fellow_account_bank_input" >
+    </fragment>
+    <fragment
+        android:id="@+id/checkReceiverDetailFragment"
+        android:name="com.synrgy7team4.feature_transfer.ui.CheckReceiverDetailFragment"
+        android:label="fragment_check_receiver_detail"
+        tools:layout="@layout/fragment_check_receiver_detail" >
+        <action
+            android:id="@+id/action_checkReceiverDetailFragment_to_transferInputFragment"
+            app:destination="@id/transferInputFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/transferInputFragment"
+        android:name="com.synrgy7team4.feature_transfer.ui.TransferInputFragment"
+        android:label="fragment_transfer_input"
+        tools:layout="@layout/fragment_transfer_input" >
+        <action
+            android:id="@+id/action_transferInputFragment_to_transferPinFragment"
+            app:destination="@id/transferPinFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/transferPinFragment"
+        android:name="com.synrgy7team4.feature_transfer.ui.TransferPinFragment"
+        android:label="TransferPinFragment"
+        tools:layout="@layout/fragment_transfer_pin" >
+        <action
+            android:id="@+id/action_transferPinFragment_to_transferDetailFragment"
+            app:destination="@id/transferDetailFragment"
+            app:popUpTo="@id/fellowAccountBankInputFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/transferDetailFragment"
+        android:name="com.synrgy7team4.feature_transfer.ui.TransferDetailFragment"
+        android:label="fragment_transfer_detail"
+        tools:layout="@layout/fragment_transfer_detail" >
+        <action
+            android:id="@+id/action_transferDetailFragment_to_transferSuccessFragment"
+            app:destination="@id/transferSuccessFragment" />
+        <action
+            android:id="@+id/action_transferDetailFragment_to_savedAccountFragment"
+            app:destination="@id/savedAccountFragment"
+            app:popUpTo="@id/transferInputFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/transferSuccessFragment"
+        android:name="com.synrgy7team4.feature_transfer.ui.TransferSuccessFragment"
+        android:label="fragment_transfer_success"
+        tools:layout="@layout/fragment_transfer_success" />
+</navigation>

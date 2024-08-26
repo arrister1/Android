@@ -1,0 +1,165 @@
+package com.synrgy7team4.feature_transfer.ui.savedAccountScreen
+
+import android.content.Context
+import android.content.SharedPreferences
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.synrgy7team4.common.makeSnackbar
+import com.synrgy7team4.domain.feature_transfer.model.response.SavedAccountGetDataDomain
+import com.synrgy7team4.feature_transfer.R
+import com.synrgy7team4.feature_transfer.databinding.FragmentSavedAccountBinding
+import com.synrgy7team4.feature_transfer.viewmodel.TransferViewModel
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
+class SavedAccountFragment : Fragment() {
+    private var _binding: FragmentSavedAccountBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel by viewModel<TransferViewModel>()
+    private lateinit var sharedPreferences: SharedPreferences
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return FragmentSavedAccountBinding.inflate(layoutInflater).also {
+                _binding = it
+        }.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        sharedPreferences = requireActivity().getSharedPreferences("TransferPrefs", Context.MODE_PRIVATE)
+        lifecycleScope.launch {
+            awaitAll(viewModel.initializeData())
+            viewModel.getSavedAccounts()
+        }
+
+        binding.btnBack.setOnClickListener { findNavController().popBackStack() }
+        binding.sameBankButton.setOnClickListener { handleSameBankButtonClick(view) }
+        binding.differentBankButton.setOnClickListener { handleDifferentBankButtonClick(view) }
+
+//        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(p0: String?): Boolean = false
+//            override fun onQueryTextChange(msg: String): Boolean {
+//                //filter(msg)
+//                return false
+//            }
+//        })
+
+        binding.addNewAccountInfo.setOnClickListener {
+            findNavController().navigate(R.id.action_savedAccountFragment_to_fellowAccountBankInputFragment)
+        }
+
+        viewModel.savedAccountsData.observe(viewLifecycleOwner) { response ->
+            response.data?.let { dataList ->
+                val sortedList = dataList.sortedBy { it?.name }
+                val transformedList = transformSortedListToMutableList(sortedList)
+                binding.savedAccountList.apply {
+                    adapter = SavedAccountAdapter(transformedList, sharedPreferences)
+                    layoutManager = LinearLayoutManager(context)
+                }
+            }
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) { error ->
+            makeSnackbar(requireView(), error.toString())
+        }
+    }
+
+    private fun transformSortedListToMutableList(list: List<SavedAccountGetDataDomain?>): MutableList<Any> {
+        val mutableList = mutableListOf<Any>()
+        var currentSection = ""
+
+        for (account in list) {
+            val firstLetter = account?.name?.get(0).toString().uppercase()
+            if (currentSection != firstLetter) {
+                currentSection = firstLetter
+                mutableList.add(firstLetter)
+            }
+            account?.let {
+                mutableList.add(account)
+            }
+        }
+        return mutableList
+    }
+
+    private fun handleSameBankButtonClick(view: View) {
+        binding.differentBankButton.apply {
+            setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    com.synrgy7team4.common.R.color.white
+                )
+            )
+            setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    com.synrgy7team4.common.R.color.primary_blue
+                )
+            )
+        }
+
+        binding.sameBankButton.apply {
+            setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    com.synrgy7team4.common.R.color.primary_blue
+                )
+            )
+            setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    com.synrgy7team4.common.R.color.white
+                )
+            )
+        }
+    }
+
+    private fun handleDifferentBankButtonClick(view: View) {
+        binding.differentBankButton.apply {
+            setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    com.synrgy7team4.common.R.color.primary_blue
+                )
+            )
+            setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    com.synrgy7team4.common.R.color.white
+                )
+            )
+        }
+
+        binding.sameBankButton.apply {
+            setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    com.synrgy7team4.common.R.color.white
+                )
+            )
+            setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    com.synrgy7team4.common.R.color.primary_blue
+                )
+            )
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}

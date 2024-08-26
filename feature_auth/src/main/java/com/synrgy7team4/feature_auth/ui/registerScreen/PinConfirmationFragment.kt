@@ -3,6 +3,7 @@ package com.synrgy7team4.feature_auth.ui.registerScreen
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +37,6 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
     private var input6: String? = null
     private lateinit var firstPassCode: String
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -68,6 +68,11 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
         }
         initializeComponents()
 
+
+
+        viewModel.error.observe(viewLifecycleOwner) { error ->
+            makeToast(requireContext(), error.toString())
+        }
 //        viewModel.error.observe(viewLifecycleOwner) { error ->
 //            makeToast(requireContext(), error.message ?: "Unknown error occurred")
 //        }
@@ -75,8 +80,6 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             showLoading(isLoading)
         }
-
-
     }
 
     private fun initializeComponents() {
@@ -164,9 +167,6 @@ class PinConfirmationFragment : Fragment(), View.OnClickListener {
     }
 
     private fun sendRegisterRequest() {
-
-
-
         val email = sharedPreferences.getString("email", "budi@example.com")
         val hp = sharedPreferences.getString("hp", "911")
         val password = sharedPreferences.getString("password", "12345678")

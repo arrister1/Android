@@ -2,7 +2,7 @@ package com.synrgy7team4.data.feature_mutasi.datasource.remote
 
 import com.synrgy7team4.data.feature_mutasi.datasource.remote.response.MutationGetResponse
 import com.synrgy7team4.data.feature_mutasi.datasource.remote.retrofit.ApiService
-import com.synrgy7team4.domain.feature_mutasi.usecase.HttpExceptionUseCase
+import com.synrgy7team4.domain.feature_transfer.usecase.HttpExceptionUseCase
 import retrofit2.HttpException
 
 class ImplementMutationRemoteDatasource(
