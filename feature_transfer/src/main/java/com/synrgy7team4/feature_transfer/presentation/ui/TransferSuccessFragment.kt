@@ -67,6 +67,8 @@ class TransferSuccessFragment : Fragment() {
                 binding.transStatus.tvTransDate.text = formatDateTime(it.datetime)
                 binding.transStatus.tvTransTime.text = formatHourTime(it.datetime)
             }}
+
+
     }
 
     fun formatDateTime(datetime: String): String {

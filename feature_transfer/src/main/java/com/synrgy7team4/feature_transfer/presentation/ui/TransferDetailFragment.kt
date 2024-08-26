@@ -1,6 +1,7 @@
 package com.synrgy7team4.feature_transfer.presentation.ui
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
@@ -76,6 +77,7 @@ class TransferDetailFragment : Fragment() {
 
         binding.btnShare.setOnClickListener {
 
+
         }
 
         binding.btnDone.setOnClickListener {
@@ -115,6 +117,16 @@ class TransferDetailFragment : Fragment() {
         val dateTimePlus7Hours = localDateTime.plusHours(7)
         val outputFormatter = DateTimeFormatter.ofPattern("HH.mm", Locale("id", "ID"))
         return dateTimePlus7Hours.format(outputFormatter)
+    }
+
+    private fun shareImage(context: Context, imageUri: Uri) {
+        val shareIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_STREAM, imageUri)
+            type = "image/png"
+        }
+        context.startActivity(Intent.createChooser(shareIntent, "Bagikan Screenshot"))
+
     }
 
 

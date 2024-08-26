@@ -1,5 +1,6 @@
 package com.synrgy7team4.feature_transfer.presentation.viewmodel
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -36,6 +37,8 @@ import kotlinx.coroutines.launch
 
 
 class TransferViewModel(private val useCase: TransferUseCase) : ViewModel() {
+    private var screenshotUri: Uri? = null
+
     private val _userData = MutableLiveData<UserResponse>()
     val userData: LiveData<UserResponse> get() = _userData
 
@@ -238,6 +241,14 @@ class TransferViewModel(private val useCase: TransferUseCase) : ViewModel() {
                 handleException(e)
             }
         }
+    }
+
+    fun setScreenshotUri(uri: Uri?) {
+        screenshotUri = uri
+    }
+
+    fun getScreenshotUri(): Uri? {
+        return screenshotUri
     }
 }
 

@@ -94,14 +94,20 @@ class FellowAccountBankInputFragment : Fragment() {
             }
         }
 
-
-
+        binding.btnBack.setOnClickListener {
+            view.findNavController().popBackStack()
+        }
 
         binding.btnNext.setOnClickListener {
+            val accountNumber = binding.tiedtNomorRekening.text.toString()
+            if(accountNumber.isNotEmpty()){
+                sharedPreferences.edit().apply(){
+                    putString("accountNumber", accountNumber)
+                    apply()
+                }
+            }
 
-
-
-            val etUserName = binding.tiedtNomorRekening as EditText
+            val  etUserName = binding.tiedtNomorRekening as EditText
             val strUserName = etUserName.text.toString()
             if (TextUtils.isEmpty(strUserName)) {
                 etUserName.error = "This Cant be Empty"
@@ -119,6 +125,13 @@ class FellowAccountBankInputFragment : Fragment() {
                 dialog.show()
 
 
+                val displayAcc =  sharedPreferences.getString("bankName", null)
+                val displayNum = sharedPreferences.getString("accountNumber", null)
+
+                showReceiverDetail.tvBankNameAccountBankReceiver.text =
+                    "${displayAcc} - ${displayNum}"
+
+
                 showReceiverDetail.btnClose.setOnClickListener {
                     dialog.dismiss()
                 }
@@ -131,10 +144,11 @@ class FellowAccountBankInputFragment : Fragment() {
 
                 showReceiverDetail.btnSaveReceiver.setOnClickListener {
                     transferViewModel.postAccount(token, AccountRequest(strUserName))
-                    val transferInputNav = Uri.parse(  "app://com.example.app/trans/transferInput")
-                    requireView().findNavController().navigate(transferInputNav)
+                    Toast.makeText(requireContext(),
+                                       "Data penerima berhasil disimpan",
+                                       Toast.LENGTH_SHORT
+                                   ).show()
 
-                    dialog.dismiss()
                 }
 
             }
