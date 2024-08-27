@@ -21,6 +21,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.synrgy7team4.common.makeToast
@@ -108,11 +109,15 @@ class FellowAccountBankInputFragment : Fragment() {
             }
         }
 
+        binding.btnBack.setOnClickListener {
+            view.findNavController().popBackStack()
+        }
+
         binding.btnNext.setOnClickListener {
             val etUserName = binding.tiedtNomorRekening as EditText
             val strUserName = etUserName.text.toString()
             if (TextUtils.isEmpty(strUserName)) {
-                etUserName.error = "This Cant be Empty"
+                etUserName.error = "Nomor Rekening tidak boleh kosong!"
                 return@setOnClickListener
             } else {
                 lifecycleScope.launch {

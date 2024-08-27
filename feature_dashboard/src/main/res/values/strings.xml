@@ -51,4 +51,8 @@
     <string name="nomor_akun">nomor akun\n</string>
     <string name="nominal_saldo">nominal saldo</string>
     <string name="menampilkan_qr_untuk_membayar_atau_menerima_transfer">menampilkan QR untuk membayar atau menerima transfer</string>
+    <string name="dummy_balance">0.0</string>
+    <string name="tampilkan_saldo">Tampilkan Saldo</string>
+    <string name="sembunyikan_saldo">Sembunyikan Saldo</string>
+    <string name="tampilkan_nomor_rekening">Tampilkan Nomor Rekening</string>
 </resources>

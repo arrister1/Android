@@ -57,7 +57,7 @@ class MutasiViewmodel(
                         startDate = startDate!!,
                         endDate = endDate!!,
                         type = type
-                    ).data
+                    ).data?.asReversed()
                 }
         } catch (e: HttpExceptionUseCase) {
             _error.value = e

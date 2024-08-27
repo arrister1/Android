@@ -9,5 +9,7 @@ data class SavedAccountsGetResponseDomain(
 data class SavedAccountGetDataDomain(
 	val name: String? = null,
 	val id: String? = null,
-	val accountNumber: String? = null
+	val accountNumber: String? = null,
+	val destinationBank: String? = null
+
 )

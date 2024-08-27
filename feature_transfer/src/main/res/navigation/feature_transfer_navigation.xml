@@ -21,6 +21,9 @@
         android:name="com.synrgy7team4.feature_transfer.ui.FellowAccountBankInputFragment"
         android:label="FellowAccountBankInputFragment"
         tools:layout="@layout/fragment_fellow_account_bank_input" >
+        <action
+            android:id="@+id/action_fellowAccountBankInputFragment_to_transferInputFragment"
+            app:destination="@id/transferInputFragment" />
     </fragment>
     <fragment
         android:id="@+id/transferInputFragment"

@@ -22,12 +22,12 @@ class HomeFragment : Fragment() {
     private val viewModel by viewModel<HomeViewModel>()
 
     private lateinit var hiddenBalance: String
-    private var isBalanceHidden: Boolean = false
-    private var userBalance: String = "0.0"
+    private var isBalanceHidden: Boolean = true
+    private var userBalance: String = "0"
 
     private lateinit var fullAccNum: String
     private lateinit var hiddenAccNum: String
-    private var isAccNumHidden: Boolean = false
+    private var isAccNumHidden: Boolean = true
 
 
     override fun onCreateView(
@@ -42,8 +42,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getUserData()
-
-        binding.toggleBalance.setImageResource(com.synrgy7team4.common.R.drawable.ic_visibility_on)
 
         binding.toggleBalance.setOnClickListener {
             balanceVisibility()
@@ -63,8 +61,9 @@ class HomeFragment : Fragment() {
 
         viewModel.userBalance.observe(viewLifecycleOwner) { balance ->
             userBalance = balance.toString()
-            binding.tvAccBalance.text = userBalance
             hiddenBalance = userBalance.replace(Regex("\\d"), "*").replace(Regex("[,.]"), "")
+            updateBalanceVisibility()
+
         }
 
         viewModel.userData.observe(viewLifecycleOwner) { userData ->
@@ -73,8 +72,8 @@ class HomeFragment : Fragment() {
             hiddenAccNum = formatAccountNumber(fullAccNum)
             binding.tvName.text = userData.name
             binding.tvAccName.text = userData.name
-            binding.tvAccNumber.text = if(isAccNumHidden) hiddenAccNum else fullAccNum
-        }
+            updateAccNumVisibility()
+                }
 
         viewModel.error.observe(viewLifecycleOwner) { error ->
             makeToast(requireContext(), error.message)
@@ -97,24 +96,34 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun updateBalanceVisibility(){
+        binding.tvAccBalance.text = if (isBalanceHidden) hiddenBalance else userBalance
+        binding.toggleBalance.setImageResource(
+            if (isBalanceHidden) com.synrgy7team4.common.R.drawable.ic_visibility_on
+            else com.synrgy7team4.common.R.drawable.ic_visibility_off
+        )
+        binding.toggleBalance.contentDescription = if (isBalanceHidden) getString(R.string.tampilkan_saldo) else getString(
+            R.string.sembunyikan_saldo
+        )
+    }
+
+    private fun updateAccNumVisibility() {
+        binding.tvAccNumber.text = if (isAccNumHidden) hiddenAccNum else fullAccNum
+        binding.toggleAcc.setImageResource(
+            if (isAccNumHidden) com.synrgy7team4.common.R.drawable.ic_visibility_on
+            else com.synrgy7team4.common.R.drawable.ic_visibility_off
+        )
+        binding.toggleAcc.contentDescription = if (isAccNumHidden) getString(R.string.tampilkan_nomor_rekening) else "Sembunyikan Nomor Rekening"
+    }
+
     private fun showToast() {
         Toast.makeText(requireContext(),
             getString(R.string.fitur_ini_akan_segera_hadir), Toast.LENGTH_SHORT).show()
     }
 
     private fun accNumVisibility() {
-
-        if(isAccNumHidden){
-            binding.tvAccNumber.text = fullAccNum
-            binding.toggleAcc.setImageResource(com.synrgy7team4.common.R.drawable.ic_visibility_on)
-            binding.toggleAcc.contentDescription = "Tampilkan  Nomor Rekening"
-        } else {
-            binding.tvAccNumber.text = hiddenAccNum
-            binding.toggleAcc.setImageResource(com.synrgy7team4.common.R.drawable.ic_visibility_off)
-            binding.toggleAcc.contentDescription = "Sembunyikan Nomor Rekening"
-
-        }
         isAccNumHidden = !isAccNumHidden
+        updateAccNumVisibility()
     }
 
     private fun formatAccountNumber(accNum: String): String {
@@ -129,14 +138,9 @@ class HomeFragment : Fragment() {
         }    }
 
     private fun balanceVisibility() {
-        if (isBalanceHidden) {
-            binding.tvAccBalance.text = userBalance
-            binding.toggleBalance.setImageResource(com.synrgy7team4.common.R.drawable.ic_visibility_on)
-        } else {
-            binding.tvAccBalance.text = hiddenBalance
-            binding.toggleBalance.setImageResource(com.synrgy7team4.common.R.drawable.ic_visibility_off)
-        }
         isBalanceHidden = !isBalanceHidden
+        updateBalanceVisibility()
+
     }
 
     override fun onDestroyView() {

@@ -19,6 +19,7 @@
         <item>BRI</item>
         <item>BNI</item>
         <item>Mandiri</item>
+        <item>Lumi</item>
     </string-array>
     <string name="menu_icon">Menu Icon</string>
     <string name="user_avatar">User Avatar</string>
