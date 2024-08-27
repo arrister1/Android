@@ -127,7 +127,7 @@ class FellowAccountBankInputFragment : Fragment() {
             }
         }
     }
-
+//
     private fun showDialogReceiverAccountCheck(userName: String?, accountNumber: String?) {
         val dialog = Dialog(requireActivity())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
