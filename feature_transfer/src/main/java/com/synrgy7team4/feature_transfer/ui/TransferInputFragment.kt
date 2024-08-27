@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -54,11 +56,10 @@ class TransferInputFragment : Fragment() {
 
         val accountDestinationName = sharedPreferences.getString("accountDestinationName", null)
         val accountDestinationNo = sharedPreferences.getString("accountDestinationNo", null)
+        val bankName = sharedPreferences.getString("bankname", "Lumi Bank")
 
-        binding.bankNameAndAccountNo.text = "Lumi Bank - $accountDestinationNo"
-        binding.accountName.text = accountDestinationName
-
-
+        binding.bankNameAndAccountNo.text = "$bankName - $accountDestinationNo"
+        binding.accountName.text = accountDestinationName ?: "Rekening Tujuan Baru"
 
         binding.btnBack.setOnClickListener {
             findNavController().popBackStack()
@@ -77,22 +78,36 @@ class TransferInputFragment : Fragment() {
 
 
 
+
+
     private fun handleSubmitFormClick() {
         val nominal = binding.amountInputText.text.toString()
         val berita = binding.inputNote.text.toString()
 
-        if (!validateAmount(nominal)) {
-            return  // Stop execution if validation fails
+        val isAmountValid = validateAmount(nominal)
+        val isDescriptionValid = validateDescription(berita)
+
+        if (isAmountValid && isDescriptionValid) {
+            // If both validations pass, navigate to the next screen
+            sharedPreferences.edit().putInt("transferAmount", nominal.toInt()).apply()
+            sharedPreferences.edit().putString("transferDescription", berita).apply()
+            findNavController().navigate(R.id.action_transferInputFragment_to_transferPinFragment)
         }
-        // If validation passes, navigate to the next screen
-        sharedPreferences.edit().putInt("transferAmount", nominal.toInt()).apply()
-        sharedPreferences.edit().putString("transferDescription", berita).apply()
-        findNavController().navigate(R.id.action_transferInputFragment_to_transferPinFragment)
+    }
+
+
+    private fun validateDescription(description: String): Boolean {
+        return if (description.isBlank()) {
+            Toast.makeText(requireContext(), "Berita tidak boleh kosong!", Toast.LENGTH_SHORT).show()
+            false
+        } else {
+            binding.inputNote.error = null
+            true
+        }
     }
 
     private fun validateAmount(amount: String): Boolean {
-        if (amount.isNullOrEmpty()) {
-            binding.amountInputText.error = "Nominal harus di isi!"
+        if (amount.isBlank()) {
             Toast.makeText(requireContext(), "Nominal harus di isi!", Toast.LENGTH_SHORT).show()
             return false
         }
@@ -101,32 +116,61 @@ class TransferInputFragment : Fragment() {
 
         return when {
             nominal == 0 -> {
-                binding.amountInputText.error = "Nominal harus di isi!"
                 Toast.makeText(requireContext(), "Nominal harus di isi!", Toast.LENGTH_SHORT).show()
                 false
             }
-
             nominal < 1000 -> {
-                binding.amountInputText.error = "Nominal harus di atas Rp. 1.000!"
-                Toast.makeText(
-                    requireContext(),
-                    "Nominal harus di atas Rp. 1.000!",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(requireContext(), "Nominal harus di atas Rp. 1.000!", Toast.LENGTH_SHORT).show()
                 false
             }
-
             nominal > 5000000 -> {
-                binding.amountInputText.error = "Nominal maksimal Rp. 5.000.000!"
-                Toast.makeText(
-                    requireContext(),
-                    "Nominal maksimal Rp. 5.000.000!",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(requireContext(), "Nominal maksimal Rp. 5.000.000!", Toast.LENGTH_SHORT).show()
                 false
             }
-
-            else -> true
+            else -> {
+                binding.amountInputText.error = null
+                true
+            }
         }
     }
+
+//    private fun validateAmount(amount: String): Boolean {
+//        if (amount.isNullOrEmpty()) {
+//            binding.amountInputText.error = "Nominal harus di isi!"
+//            Toast.makeText(requireContext(), "Nominal harus di isi!", Toast.LENGTH_SHORT).show()
+//            return false
+//        }
+//
+//        val nominal = amount.toIntOrNull() ?: 0
+//
+//        return when {
+//            nominal == 0 -> {
+//                binding.amountInputText.error = "Nominal harus di isi!"
+//                Toast.makeText(requireContext(), "Nominal harus di isi!", Toast.LENGTH_SHORT).show()
+//                false
+//            }
+//
+//            nominal < 1000 -> {
+//                binding.amountInputText.error = "Nominal harus di atas Rp. 1.000!"
+//                Toast.makeText(
+//                    requireContext(),
+//                    "Nominal harus di atas Rp. 1.000!",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//                false
+//            }
+//
+//            nominal > 5000000 -> {
+//                binding.amountInputText.error = "Nominal maksimal Rp. 5.000.000!"
+//                Toast.makeText(
+//                    requireContext(),
+//                    "Nominal maksimal Rp. 5.000.000!",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//                false
+//            }
+//
+//            else -> true
+//        }
+//    }
 }

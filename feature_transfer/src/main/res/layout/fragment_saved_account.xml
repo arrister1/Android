@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="16dp"
+    android:paddingHorizontal="25dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.savedAccountScreen.SavedAccountFragment">
 
     <ImageView
@@ -15,99 +15,219 @@
         android:src="@drawable/back_button_blue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:text="@string/title_transfer"
-        android:textColor="@color/primary_blue"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/primary_blue"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/sameBankButton"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="@color/primary_blue"
         android:text="@string/sesama_bank"
-        android:textColor="@color/white"
         android:textSize="16sp"
         app:cornerRadius="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="15dp"
+        android:backgroundTint="@color/primary_blue"
+        android:textColor="@color/white"
         app:strokeColor="@color/primary_blue"
-        app:strokeWidth="1dp" />
+        app:strokeWidth="1dp"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/differentBankButton"
         android:layout_width="150dp"
         android:layout_height="50dp"
+        android:text="@string/antar_bank"
+        android:textSize="16sp"
+        app:cornerRadius="10dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="15dp"
         android:backgroundTint="@color/white"
-        android:text="@string/antar_bank"
         android:textColor="@color/primary_blue"
-        android:textSize="16sp"
-        app:cornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title"
         app:strokeColor="@color/primary_blue"
-        app:strokeWidth="1dp" />
+        app:strokeWidth="1dp"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/savedList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="10dp"
-        android:layout_marginStart="10dp"
-        android:paddingTop="5dp"
         android:text="@string/daftar_tersimpan"
         android:textColor="@color/primary_blue"
+        android:layout_marginVertical="10dp"
+        android:layout_marginStart="10dp"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/sameBankButton" />
+        android:paddingTop="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/sameBankButton"
+        app:layout_constraintStart_toStartOf="parent"/>
 
-<!--    <androidx.appcompat.widget.SearchView-->
-<!--        android:id="@+id/searchView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="40dp"-->
-<!--        android:layout_marginHorizontal="10dp"-->
-<!--        android:layout_marginVertical="10dp"-->
-<!--        android:background="@drawable/bg_white_rounded"-->
-<!--        android:iconifiedByDefault="false"-->
-<!--        android:padding="5dp"-->
-<!--        android:queryBackground="@android:color/transparent"-->
-<!--        android:queryHint="Cari nama atau no. rekening disini"-->
-<!--        android:searchIcon="@drawable/search_grey"-->
-<!--        android:submitBackground="@drawable/bg_white_rounded"-->
-<!--        app:layout_constraintCircleRadius="8dp"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/savedList" />-->
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginVertical="10dp"
+        android:layout_marginHorizontal="10dp"
+        android:padding="5dp"
+        android:searchIcon="@drawable/search_grey"
+        android:submitBackground="@drawable/bg_white_rounded"
+        android:background="@drawable/bg_white_rounded"
+        android:queryBackground="@android:color/transparent"
+        android:queryHint="Cari nama atau no. rekening disini"
+        android:iconifiedByDefault="false"
+        app:layout_constraintCircleRadius="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/savedList"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/saved_account_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toTopOf="@+id/addNewAccountInfo"
-        app:layout_constraintTop_toBottomOf="@id/savedList"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/addNewAccountInfo"
-        style="@style/PrimaryActiveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
         android:text="@string/tambah_penerima_baru"
+        style="@style/PrimaryActiveButton"
         app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:paddingHorizontal="16dp"-->
+<!--    tools:context=".ui.savedAccountScreen.SavedAccountFragment">-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/btn_back"-->
+<!--        android:layout_width="35dp"-->
+<!--        android:layout_height="35dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:src="@drawable/back_button_blue"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/title"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="50dp"-->
+<!--        android:text="@string/title_transfer"-->
+<!--        android:textColor="@color/primary_blue"-->
+<!--        android:textSize="24sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/sameBankButton"-->
+<!--        android:layout_width="150dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginStart="15dp"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:backgroundTint="@color/primary_blue"-->
+<!--        android:text="@string/sesama_bank"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="16sp"-->
+<!--        app:cornerRadius="10dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/title"-->
+<!--        app:strokeColor="@color/primary_blue"-->
+<!--        app:strokeWidth="1dp" />-->
+
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/differentBankButton"-->
+<!--        android:layout_width="150dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:layout_marginEnd="15dp"-->
+<!--        android:backgroundTint="@color/white"-->
+<!--        android:text="@string/antar_bank"-->
+<!--        android:textColor="@color/primary_blue"-->
+<!--        android:textSize="16sp"-->
+<!--        app:cornerRadius="10dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/title"-->
+<!--        app:strokeColor="@color/primary_blue"-->
+<!--        app:strokeWidth="1dp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/savedList"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginVertical="10dp"-->
+<!--        android:layout_marginStart="10dp"-->
+<!--        android:paddingTop="5dp"-->
+<!--        android:text="@string/daftar_tersimpan"-->
+<!--        android:textColor="@color/primary_blue"-->
+<!--        android:textSize="16sp"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/sameBankButton" />-->
+
+<!--&lt;!&ndash;    <androidx.appcompat.widget.SearchView&ndash;&gt;-->
+<!--&lt;!&ndash;        android:id="@+id/searchView"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_height="40dp"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_marginHorizontal="10dp"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_marginVertical="10dp"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:background="@drawable/bg_white_rounded"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:iconifiedByDefault="false"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:padding="5dp"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:queryBackground="@android:color/transparent"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:queryHint="Cari nama atau no. rekening disini"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:searchIcon="@drawable/search_grey"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:submitBackground="@drawable/bg_white_rounded"&ndash;&gt;-->
+<!--&lt;!&ndash;        app:layout_constraintCircleRadius="8dp"&ndash;&gt;-->
+<!--&lt;!&ndash;        app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
+<!--&lt;!&ndash;        app:layout_constraintTop_toBottomOf="@+id/savedList" />&ndash;&gt;-->
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/saved_account_list"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginBottom="20dp"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/addNewAccountInfo"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/savedList"/>-->
+
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/addNewAccountInfo"-->
+<!--        style="@style/PrimaryActiveButton"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="40dp"-->
+<!--        android:text="@string/tambah_penerima_baru"-->
+<!--        app:cornerRadius="12dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

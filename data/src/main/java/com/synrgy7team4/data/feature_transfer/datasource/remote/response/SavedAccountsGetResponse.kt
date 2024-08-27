@@ -21,5 +21,8 @@ data class SavedAccountGetData(
 	val id: String? = null,
 
 	@field:SerializedName("accountNumber")
-	val accountNumber: String? = null
+	val accountNumber: String? = null,
+
+	@field:SerializedName("destinationBank")
+	val destinationBank: String? = null
 )

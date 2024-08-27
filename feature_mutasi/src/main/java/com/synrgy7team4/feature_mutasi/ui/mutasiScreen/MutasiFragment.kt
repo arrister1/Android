@@ -29,8 +29,8 @@ class MutasiFragment : Fragment() {
     private val viewModel by viewModel<MutasiViewmodel>()
     private lateinit var adapter: MutationPerDateAdapter
 
-    private var startDate: String? = null
-    private var endDate: String? = null
+    private var startDate: String? = "2024-01-01"
+    private var endDate: String? = "2095-01-01"
     private var transactionType: String = "Semua"
 
     override fun onCreateView(

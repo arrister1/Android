@@ -1,12 +1,15 @@
 package com.synrgy7team4.feature_transfer.ui
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -67,7 +70,9 @@ class TransferDetailFragment : Fragment() {
             findNavController().navigate(R.id.action_transferDetailFragment_to_transferSuccessFragment)
         }
 
-        binding.btnShare.setOnClickListener {}
+        binding.btnShare.setOnClickListener {
+
+        }
 
         binding.btnDone.setOnClickListener {
             findNavController().navigate(R.id.action_transferDetailFragment_to_savedAccountFragment)
@@ -98,7 +103,10 @@ class TransferDetailFragment : Fragment() {
             LocalDateTime.parse(datetime, formatterWith5Digits)
         }
 
+        val dateTimePlus7Hours = localDateTime.plusHours(7)
         val outputFormatter = DateTimeFormatter.ofPattern("HH.mm", Locale("id", "ID"))
-        return localDateTime.format(outputFormatter)
+        return dateTimePlus7Hours.format(outputFormatter)
     }
+
+
 }

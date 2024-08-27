@@ -1,13 +1,19 @@
 package com.synrgy7team4.feature_transfer.ui
 
+import android.content.ContentValues
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -16,6 +22,9 @@ import com.synrgy7team4.feature_transfer.viewmodel.TransferViewModel
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -63,6 +72,7 @@ class TransferSuccessFragment : Fragment() {
                 binding.layoutTransDetail.tvTransTotal.text = "Rp. ${mutationData.amount}"
                 binding.transStatus.tvTransDate.text = formatDateTime(mutationData.datetime)
                 binding.transStatus.tvTransTime.text = formatHourTime(mutationData.datetime)
+
             }
         }
     }
@@ -90,8 +100,11 @@ class TransferSuccessFragment : Fragment() {
         } catch (e: Exception) {
             LocalDateTime.parse(datetime, formatterWith5Digits)
         }
-
+        val dateTimePlus7Hours = localDateTime.plusHours(7)
         val outputFormatter = DateTimeFormatter.ofPattern("HH.mm", Locale("id", "ID"))
-        return localDateTime.format(outputFormatter)
+        return dateTimePlus7Hours.format(outputFormatter)
     }
+
+
+
 }
