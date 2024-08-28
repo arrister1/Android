@@ -1,5 +1,6 @@
 package com.synrgy7team4.feature_transfer.ui.fromQR
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -41,6 +42,8 @@ class TransferSuccessFromQrFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        sharedPreferences = requireActivity().getSharedPreferences("TransferPrefs", Context.MODE_PRIVATE)
+
         lifecycleScope.launch {
             awaitAll(viewModel.initializeData())
             val id = sharedPreferences.getString("lastidtransactionFromQr", "") ?: ""
@@ -60,7 +63,8 @@ class TransferSuccessFromQrFragment : Fragment() {
                 binding.layoutSender.tvSenderName.text = mutationData.usernameFrom
                 binding.layoutSender.tvAccNum.text = mutationData.accountFrom
 
-                binding.layoutTransDetail.tvTransTotal.text = "Rp ${formatRupiah(mutationData.amount.toString())}"
+                binding.layoutTransDetail.tvTransTotal.text = "Rp. ${mutationData.amount}"
+//                binding.layoutTransDetail.tvTransTotal.text = "Rp ${formatRupiah(mutationData.amount.toString())}"
                 binding.transStatus.tvTransDate.text = formatDateTime(mutationData.datetime)
                 binding.transStatus.tvTransTime.text = formatHourTime(mutationData.datetime)
             }

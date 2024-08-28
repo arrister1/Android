@@ -50,32 +50,38 @@ class TransferInputFromQRFragment : Fragment() {
         }
 
 
-//        val accountDestinationFromScan =
-//            sharedPreferences.getString("accountDestinationFromScan", null)
-//        val splitAccount = accountDestinationFromScan?.split(" ")
-//        val accountNo = splitAccount?.get(0)
-//        val username = splitAccount?.get(1)
+
+//-----------------------
+
+        val accountDestinationFromScan =
+            sharedPreferences.getString("accountDestinationFromScan", null)
+        val bankName = sharedPreferences.getString("bankname", "Lumi Bank")
+
+        val splitAccount = accountDestinationFromScan?.split(" ")
+        val accountNo = splitAccount?.get(0)
+        val username = splitAccount?.get(1)
+
+        sharedPreferences.edit().putString("accountDestinationNoFromQR", accountNo).apply()
+        sharedPreferences.edit().putString("accountDestinationNameFromQR", accountNo).apply()
+        binding.bankNameAndAccountNo.text = "$bankName - $accountNo"
+        binding.accountName.text = username
+
+//        val accountDestinationFromScan = sharedPreferences.getString("accountDestinationFromScan", null)
+//        accountDestinationFromScan?.let {
+//            val lines = it.split("\n")
 //
-//        binding.bankNameAndAccountNo.text = "Lumi Bank - $accountNo"
-//        sharedPreferences.edit().putString("accountDestinationNoFromQR", accountNo).apply()
-//        binding.accountName.text = username
-
-        val accountDestinationFromScan = sharedPreferences.getString("accountDestinationFromScan", null)
-        accountDestinationFromScan?.let {
-            val lines = it.split("\n")
-
-            val nameLine = lines.getOrNull(0)
-            val accountNumberLine = lines.getOrNull(1)
-
-            // Extract the actual values
-            val username = nameLine?.substringAfter("Name: ")?.trim()
-            val accountNo = accountNumberLine?.substringAfter("Account Number: ")?.trim()
-
-
-            binding.bankNameAndAccountNo.text = "Lumi Bank - $accountNo"
-            sharedPreferences.edit().putString("accountDestinationNoFromQR", accountNo).apply()
-            binding.accountName.text = username
-        }
+//            val nameLine = lines.getOrNull(0)
+//            val accountNumberLine = lines.getOrNull(1)
+//
+//            // Extract the actual values
+//            val username = nameLine?.substringAfter("Name: ")?.trim()
+//            val accountNo = accountNumberLine?.substringAfter("Account Number: ")?.trim()
+//
+//
+//            binding.bankNameAndAccountNo.text = "Lumi Bank - $accountNo"
+//            sharedPreferences.edit().putString("accountDestinationNoFromQR", accountNo).apply()
+//            binding.accountName.text = username
+//        }
 
         binding.btnBack.setOnClickListener {
             findNavController().popBackStack()
@@ -100,13 +106,29 @@ class TransferInputFromQRFragment : Fragment() {
         val nominal = binding.amountInputText.text.toString()
         val berita = binding.inputNote.text.toString()
 
-        if (!validateAmount(nominal)) {
-            return  // Stop execution if validation fails
+        val isAmountValid = validateAmount(nominal)
+        val isDescriptionValid = validateDescription(berita)
+
+        if (isAmountValid && isDescriptionValid) {
+            // If both validations pass, navigate to the next screen
+            sharedPreferences.edit().putInt("transferAmountFromQR", nominal.toInt()).apply()
+            sharedPreferences.edit().putString("transferDescriptionFromQr", berita).apply()
+            findNavController().navigate(R.id.action_transferInputFromQRFragment_to_transferPinFromQRFragment)
         }
-        // If validation passes, navigate to the next screen
-        sharedPreferences.edit().putInt("transferAmountFromQR", nominal.toInt()).apply()
-        sharedPreferences.edit().putString("transferDescriptionFromQr", berita).apply()
-        findNavController().navigate(R.id.action_transferInputFromQRFragment_to_transferPinFromQRFragment)
+
+
+
+    }
+
+
+    private fun validateDescription(description: String): Boolean {
+        return if (description.isBlank()) {
+            Toast.makeText(requireContext(), "Berita tidak boleh kosong!", Toast.LENGTH_SHORT).show()
+            false
+        } else {
+            binding.inputNote.error = null
+            true
+        }
     }
 
     private fun validateAmount(amount: String): Boolean {

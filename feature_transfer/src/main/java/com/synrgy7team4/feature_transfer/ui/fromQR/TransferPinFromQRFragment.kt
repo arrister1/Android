@@ -86,7 +86,7 @@ class TransferPinFromQRFragment : Fragment(), View.OnClickListener {
             if (result.success == true) {
                 val id = result.data?.id
                 sharedPreferences.edit().apply {
-                    putString("lastidtransaction", id)
+                    putString("lastidtransactionFromQr", id)
                     apply()
                 }
                 findNavController().navigate(R.id.action_transferPinFromQRFragment_to_transferDetailFromQrFragment)
