@@ -121,7 +121,7 @@ class InputEmailFragment : Fragment() {
         }
 
         viewModel.error.observe(viewLifecycleOwner) { error ->
-            makeToast(requireContext(), error.message)
+            makeToast(requireContext(), "Email belum terdaftar atau tidak valid")
         }
     }
 

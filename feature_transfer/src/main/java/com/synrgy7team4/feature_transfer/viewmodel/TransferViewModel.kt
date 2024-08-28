@@ -54,6 +54,9 @@ class TransferViewModel(
     private val _accountAllList = MutableLiveData<AccountsResponseItemDomain?>()
     val accountAllList: LiveData<AccountsResponseItemDomain?> = _accountAllList
 
+    private val _screenshotPath = MutableLiveData<String>()
+    val screenshotPath: LiveData<String> = _screenshotPath
+
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
@@ -219,5 +222,12 @@ class TransferViewModel(
         } finally {
             _isLoading.value = false
         }
+    }
+
+
+
+    // Fungsi untuk menyimpan path tangkapan layar
+    fun saveScreenshotPath(path: String) {
+        _screenshotPath.value = path
     }
 }
