@@ -98,6 +98,10 @@ class SavedAccountFragment : Fragment() {
     }
 
     private fun handleSameBankButtonClick() {
+        sharedPreferences.edit().apply {
+            putString("differentbank", "false")
+            apply()
+        }
         binding.differentBankButton.apply {
             setBackgroundColor(
                 ContextCompat.getColor(
@@ -130,6 +134,10 @@ class SavedAccountFragment : Fragment() {
     }
 
     private fun handleDifferentBankButtonClick() {
+        sharedPreferences.edit().apply {
+            putString("differentbank", "true")
+            apply()
+        }
         binding.differentBankButton.apply {
             setBackgroundColor(
                 ContextCompat.getColor(
