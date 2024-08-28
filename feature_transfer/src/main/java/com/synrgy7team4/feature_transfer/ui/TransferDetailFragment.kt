@@ -3,14 +3,17 @@ package com.synrgy7team4.feature_transfer.ui
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -22,6 +25,7 @@ import com.synrgy7team4.feature_transfer.viewmodel.TransferViewModel
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -55,6 +59,14 @@ class TransferDetailFragment : Fragment() {
         val destinationBinding = TransSuccessRecipientBinding.bind(binding.recipient.root)
         val transactionSuccessBinding = TransSuccessDetailBinding.bind(binding.transDetail.root)
 
+        viewModel.screenshotPath.observe(viewLifecycleOwner) { path ->
+            if (path != null) {
+                // Gunakan path untuk menampilkan atau memproses tangkapan layar
+              //  displayScreenshot(path)
+                shareScreenshot(path)
+            }
+        }
+
         viewModel.mutationData.observe(viewLifecycleOwner) { mutationData ->
             destinationBinding.tvRecipientName.text = mutationData.usernameTo
             destinationBinding.tvAccNum.text = mutationData.accountTo
@@ -70,14 +82,45 @@ class TransferDetailFragment : Fragment() {
             findNavController().navigate(R.id.action_transferDetailFragment_to_transferSuccessFragment)
         }
 
-        binding.btnShare.setOnClickListener {
-
+        binding.btnShare.setOnClickListener  {
+            val screenshotPath = viewModel.screenshotPath.value
+            if (screenshotPath != null) {
+                if (File(screenshotPath).exists()) {
+                    shareScreenshot(screenshotPath)
+                } else {
+                    Toast.makeText(context, "File tangkapan layar tidak ditemukan", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(context, "Tangkapan layar belum tersedia", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.btnDone.setOnClickListener {
-            findNavController().popBackStack(R.id.savedAccountFragment, false)
-        }
+            findNavController().popBackStack(R.id.transferDetailFragment, false)
+            findNavController().navigate(R.id.action_transferDetailFragment_to_savedAccountFragment)        }
     }
+
+//    private fun displayScreenshot(path: String) {
+//
+//    }
+private fun shareScreenshot(path: String) {
+    val file = File(path)
+    val uri = FileProvider.getUriForFile(
+        requireContext(),
+        "${requireContext().packageName}.provider",
+        file
+    )
+
+    val shareIntent = Intent().apply {
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_STREAM, uri)
+        type = "image/png"
+        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    }
+
+    startActivity(Intent.createChooser(shareIntent, "Bagikan tangkapan layar melalui"))
+    }
+
     private fun formatDateTime(datetime: String?): String {
         val formatterWith6Digits = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
         val formatterWith5Digits = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSS")
@@ -106,7 +149,6 @@ class TransferDetailFragment : Fragment() {
         val dateTimePlus7Hours = localDateTime.plusHours(7)
         val outputFormatter = DateTimeFormatter.ofPattern("HH.mm", Locale("id", "ID"))
         return dateTimePlus7Hours.format(outputFormatter)
-    }
+    }}
 
 
-}

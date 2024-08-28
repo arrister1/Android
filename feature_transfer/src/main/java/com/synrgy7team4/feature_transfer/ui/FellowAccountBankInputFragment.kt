@@ -155,9 +155,9 @@ class FellowAccountBankInputFragment : Fragment() {
         }
 
         btnNext.setOnClickListener {
-            val transferInputNav = Uri.parse("app://com.example.app/trans/transferInput")
+           // val transferInputNav = Uri.parse("app://com.example.app/trans/transferInput")
             dialog.dismiss()
-            findNavController().navigate(transferInputNav)
+            findNavController().navigate(R.id.action_fellowAccountBankInputFragment_to_transferInputFragment)
         }
 
         btnSaveReceiver.setOnClickListener {

@@ -53,6 +53,28 @@ class TransferPinFromQRFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        sharedPreferences = requireActivity().getSharedPreferences("TransferPrefs", Context.MODE_PRIVATE)
+//
+//        pinNumberBinding = PinNumberBinding.bind(binding.pinNumber.root)
+//        pinInputBinding = PinInputBinding.bind(binding.pinInput.root)
+//
+//        initializeComponents()
+//
+//        viewModel.transferResult.observe(viewLifecycleOwner) { result ->
+//            if (result.success!!) {
+//                val id = result.data?.id
+//                sharedPreferences.edit().apply {
+//                    putString("lastidtransactionFromQR", id)
+//                    apply()
+//                }
+//                findNavController().navigate(R.id.action_transferPinFromQRFragment_to_transferDetailFromQrFragment)
+//            } else {
+//                makeToast(requireContext(), "Transfer gagal: ${result.message}")
+//                clearPinDisplay()
+//                numberList.clear()
+//            }
+//        }
+
         sharedPreferences = requireActivity().getSharedPreferences("TransferPrefs", Context.MODE_PRIVATE)
 
         pinNumberBinding = PinNumberBinding.bind(binding.pinNumber.root)
@@ -61,10 +83,10 @@ class TransferPinFromQRFragment : Fragment(), View.OnClickListener {
         initializeComponents()
 
         viewModel.transferResult.observe(viewLifecycleOwner) { result ->
-            if (result.success!!) {
+            if (result.success == true) {
                 val id = result.data?.id
                 sharedPreferences.edit().apply {
-                    putString("lastidtransactionFromQR", id)
+                    putString("lastidtransaction", id)
                     apply()
                 }
                 findNavController().navigate(R.id.action_transferPinFromQRFragment_to_transferDetailFromQrFragment)
@@ -74,7 +96,6 @@ class TransferPinFromQRFragment : Fragment(), View.OnClickListener {
                 numberList.clear()
             }
         }
-
         viewModel.error.observe(viewLifecycleOwner) { error ->
             makeToast(requireContext(), "Error: ${error.message}")
             clearPinDisplay()

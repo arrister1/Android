@@ -73,8 +73,10 @@ class TransferDetailFromQrFragment : Fragment() {
         binding.btnShare.setOnClickListener {}
 
         binding.btnDone.setOnClickListener {
-            findNavController().popBackStack(R.id.savedAccountFragment, false)
-        }
+            findNavController().popBackStack(R.id.transferDetailFromQrFragment, false)
+            findNavController().navigate(R.id.action_transferDetailFromQrFragment_to_savedAccountFragment)        }
+
+    }
 
 
     }
@@ -109,4 +111,3 @@ class TransferDetailFromQrFragment : Fragment() {
     }
 
 
-}

@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -12,6 +13,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
@@ -57,6 +59,8 @@ class TransferSuccessFragment : Fragment() {
         }
 
         binding.btnClose.setOnClickListener {
+            val screenshotPath = takeScreenshot(binding.root)
+            viewModel.saveScreenshotPath(screenshotPath)
             requireView().findNavController().popBackStack()
         }
 
@@ -103,6 +107,23 @@ class TransferSuccessFragment : Fragment() {
         val dateTimePlus7Hours = localDateTime.plusHours(7)
         val outputFormatter = DateTimeFormatter.ofPattern("HH.mm", Locale("id", "ID"))
         return dateTimePlus7Hours.format(outputFormatter)
+    }
+
+    private fun takeScreenshot(view: View): String {
+        val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        view.draw(canvas)
+
+        // Simpan bitmap ke file
+        val filename = "screenshot_${System.currentTimeMillis()}.png"
+        val file = File(requireContext().externalCacheDir, filename)
+        val fos = FileOutputStream(file)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
+        fos.flush()
+        fos.close()
+
+        Toast.makeText(context, "Screenshot saved", Toast.LENGTH_SHORT).show()
+        return file.absolutePath
     }
 
 
