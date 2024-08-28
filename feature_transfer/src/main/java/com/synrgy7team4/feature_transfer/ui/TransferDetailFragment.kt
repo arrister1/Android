@@ -17,6 +17,8 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.synrgy7team4.common.formatRupiah
+import com.synrgy7team4.common.formatRupiah
 import com.synrgy7team4.feature_transfer.R
 import com.synrgy7team4.feature_transfer.databinding.FragmentTransferDetailBinding
 import com.synrgy7team4.feature_transfer.databinding.TransSuccessDetailBinding
@@ -72,7 +74,7 @@ class TransferDetailFragment : Fragment() {
             destinationBinding.tvAccNum.text = mutationData.accountTo
             destinationBinding.tvBank.text = "Lumi Bank"
 
-            binding.tvNominal.text = mutationData.amount.toString()
+            binding.tvNominal.text = formatRupiah(mutationData.amount.toString())
 
             transactionSuccessBinding.transDate.text = formatDateTime(mutationData.datetime)
             transactionSuccessBinding.transTime.text = formatHourTime(mutationData.datetime)
@@ -149,6 +151,7 @@ private fun shareScreenshot(path: String) {
         val dateTimePlus7Hours = localDateTime.plusHours(7)
         val outputFormatter = DateTimeFormatter.ofPattern("HH.mm", Locale("id", "ID"))
         return dateTimePlus7Hours.format(outputFormatter)
-    }}
+    }
 
 
+}

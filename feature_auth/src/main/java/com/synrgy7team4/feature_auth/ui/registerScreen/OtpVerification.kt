@@ -143,47 +143,7 @@ class OtpVerification : Fragment() {
 
         }
 
-//        object : CountDownTimer(60000, 1000) {
-//
-//
-//            override fun onTick(millisUntilFinished: Long) {
-//                val seconds = millisUntilFinished / 1000
-//                binding.countDown.text = "00:" + seconds
-//            }
-//
-//            override fun onFinish() {
-//                viewModel.sendOtp(email.toString(), hp.toString())
-//                binding.countDown.text = "00:00 (otp sudah dikirim ulang)"
-//            }
-//        }.start()
 
-//        countDownTimer = object : CountDownTimer(60000, 2000) {
-//            override fun onTick(millisUntilFinished: Long) {
-//                val seconds = millisUntilFinished / 1000
-//                binding.countDown.text = "00:$seconds"
-//            }
-//
-//            override fun onFinish() {
-//                if (isForgotPassword) {
-//                    email?.let { viewModel.sendForgetPass(it) }
-//                } else {
-//                    viewModel.sendOtp(email.toString(), hp.toString())
-//                }
-//                binding.countDown.text = "00:00"
-//            }
-//        }.start()
-
-//        binding.btnResendOtp.setOnClickListener {
-//            countDownTimer?.cancel()
-//
-//            val email = sharedPreferences.getString("email", "")
-//            val hp = sharedPreferences.getString("hp", "")
-//            if (isForgotPassword) {
-//                email?.let { it1 -> viewModel.sendForgetPass(it1) }
-//            } else {
-//                viewModel.sendOtp(email.toString(), hp.toString())
-//            }
-//        }
 
         viewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)

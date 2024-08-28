@@ -5,8 +5,6 @@ import android.view.View
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 
-//fun makeToast(context: Context, message: String?) =
-//    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 fun makeToast(context: Context, message: String?) {
     if (!message.isNullOrEmpty()) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
@@ -17,6 +15,11 @@ fun makeToast(context: Context, message: String?) {
 
 fun makeSnackbar(view: View, message: CharSequence) =
     Snackbar.make(view, message, Snackbar.LENGTH_LONG).show()
+
+fun formatRupiah(number: String): String {
+    val numberFormat = String.format("%,d", number.toDouble().toInt())
+    return numberFormat
+}
 
 object Log {
     fun d(tag: String, msg: String): Int {
