@@ -127,14 +127,21 @@ class TransferViewModel(
 
     fun getSavedAccounts() = viewModelScope.launch {
         _isLoading.value = true
-        try {
-            if (tokenHandler.isTokenExpired()) {
+         try {
+             if (tokenHandler.isTokenExpired()) {
                 tokenHandler.handlingTokenExpire()
             } else {
-                _savedAccountsData.value = transferUseCase.getSavedAccounts("Bearer $jwtToken")
+                 // Assuming transferUseCase.getSavedAccounts can return null
+            val response = transferUseCase.getSavedAccounts("Bearer $jwtToken") ?: SavedAccountsGetResponseDomain()
+            _savedAccountsData.value = response
             }
         } catch (e: HttpExceptionUseCase) {
             _error.value = e
+            _savedAccountsData.value = SavedAccountsGetResponseDomain(
+                data = emptyList(),
+                success = false,
+                message = "An error occurred: ${e.message}"
+            )
         } catch (e: Exception) {
             _error.value = e
         } finally {
