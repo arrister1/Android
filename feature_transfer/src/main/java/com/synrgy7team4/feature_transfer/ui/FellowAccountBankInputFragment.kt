@@ -182,7 +182,7 @@ class FellowAccountBankInputFragment : Fragment() {
         val btnNext = dialog.findViewById<TextView>(R.id.btn_next)
         val btnSaveReceiver = dialog.findViewById<TextView>(R.id.btn_save_receiver)
 
-    val selectedBank = sharedPreferences.getString("bankname","BCA")
+    val selectedBank = sharedPreferences.getString("bankname","Lumi")
     tvAccountNameReceiver.text = userName
     tvBankNameAccountBankReceiver.text = "${selectedBank} - ${accountNumber}"
 
