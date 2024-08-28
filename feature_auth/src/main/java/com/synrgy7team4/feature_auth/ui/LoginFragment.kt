@@ -1,6 +1,7 @@
 package com.synrgy7team4.feature_auth.ui
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,6 +12,7 @@ import android.view.accessibility.AccessibilityManager
 import android.view.accessibility.AccessibilityNodeInfo
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.synrgy7team4.common.NavigationHandler
 import com.synrgy7team4.common.makeSnackbar
@@ -43,6 +45,9 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupAccessibility()
 
+        val sharedPreferences: SharedPreferences = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
+        sharedPreferences.edit().remove("isForgotPassword").apply()
+
         binding.btnBack.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -70,6 +75,14 @@ class LoginFragment : Fragment() {
                     }
                 }
             }
+        }
+
+        binding.forgotPassword.setOnClickListener {
+            val action = LoginFragmentDirections.actionLoginFragmentToInputEmailFragment(isForgotPasswordMode = true)
+            findNavController().navigate(action)
+//            sharedPreferences.edit().putString("isForgotPassword", "true").apply()
+//            requireView().findNavController()
+//                .navigate(R.id.action_loginFragment_to_inputEmailFragment)
         }
 
         binding.edtPassword.addTextChangedListener(object : TextWatcher {

@@ -13,15 +13,26 @@
         <action
             android:id="@+id/action_onBoardingFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+
         <action
             android:id="@+id/action_onBoardingFragment_to_inputEmailFragment"
             app:destination="@id/inputEmailFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.synrgy7team4.feature_auth.ui.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_inputEmailFragment"
+            app:destination="@id/inputEmailFragment" >
+            <argument
+                android:name="isForgotPasswordMode"
+                app:argType="boolean"
+                android:defaultValue="false" />
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/inputEmailFragment"
         android:name="com.synrgy7team4.feature_auth.ui.registerScreen.InputEmailFragment"
@@ -30,6 +41,9 @@
         <action
             android:id="@+id/action_inputEmailFragment_to_inputPhoneNumberFragment"
             app:destination="@id/inputPhoneNumberFragment" />
+        <action
+            android:id="@+id/action_inputEmailFragment_to_otpVerification"
+            app:destination="@id/otpVerification" />
     </fragment>
     <fragment
         android:id="@+id/inputPhoneNumberFragment"
@@ -47,6 +61,9 @@
         <action
             android:id="@+id/action_otpVerification_to_createPasswordFragment"
             app:destination="@id/createPasswordFragment" />
+        <action
+            android:id="@+id/action_otpVerification_to_createPasswordFragment2"
+            app:destination="@id/createPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/createPasswordFragment"
@@ -56,6 +73,9 @@
         <action
             android:id="@+id/action_createPasswordFragment_to_biodataFragment"
             app:destination="@id/biodataFragment" />
+        <action
+            android:id="@+id/action_createPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/biodataFragment"

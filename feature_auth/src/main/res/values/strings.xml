@@ -105,5 +105,8 @@
     <string name="_08123456789">08123456789</string>
     <string name="masukkan_kode_di_bawah_ini_untuk_melanjutkan">Masukkan kode di bawah ini untuk melanjutkan</string>
     <string name="input_kode_otp">input kode OTP</string>
+    <string name="kirim_otp">Kirim OTP</string>
+    <string name="masukkan_6_digit_kode_yang_telah_dikirimkan_ke_email_anda">Masukkan 6 digit kode yang telah dikirimkan ke Email Anda</string>
+    <string name="kode_otp_telah_dikirimkan_ke_email_anda">Kode OTP telah dikirimkan ke Email Anda</string>
 
 </resources>

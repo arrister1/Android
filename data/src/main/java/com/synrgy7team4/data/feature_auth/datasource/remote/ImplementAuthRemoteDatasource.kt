@@ -18,11 +18,13 @@ import com.synrgy7team4.data.feature_auth.datasource.remote.response.PhoneNumber
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.PhoneNumberCheckResponse
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.RegisterErrorResponse
 import com.synrgy7team4.domain.feature_auth.model.request.EmailCheckRequest
+import com.synrgy7team4.domain.feature_auth.model.request.ForgotPasswordRequest
 import com.synrgy7team4.domain.feature_auth.model.request.KtpNumberCheckRequest
 import com.synrgy7team4.domain.feature_auth.model.request.LoginRequest
 import com.synrgy7team4.domain.feature_auth.model.request.PhoneNumberCheckRequest
 import com.synrgy7team4.domain.feature_auth.model.request.SendOtpRequest
 import com.synrgy7team4.domain.feature_auth.model.request.VerifyOtpRequest
+import com.synrgy7team4.feature_auth.data.remote.response.ForgotPasswordResponse
 
 import retrofit2.HttpException
 
@@ -100,5 +102,32 @@ class ImplementAuthRemoteDatasource(
             val json = e.response()?.errorBody()?.string()
             val error = Gson().fromJson(json, KtpNumberCheckErrorResponse::class.java)
             throw HttpExceptionUseCase(e, error.errors)
+        }
+
+    override suspend fun sendForgetPass(sendForgetPass: ForgotPasswordRequest): ForgotPasswordResponse =
+        try {
+            apiService.sendForgetPass(sendForgetPass)
+        } catch (e: HttpException) {
+            val json = e.response()?.errorBody()?.string()
+            val error = Gson().fromJson(json, OtpErrorResponse::class.java)
+            throw HttpExceptionUseCase(e, error.message)
+        }
+
+    override suspend fun validateForgetPass(validateForgetPass: ForgotPasswordRequest): ForgotPasswordResponse =
+        try {
+            apiService.validateForgetPass(validateForgetPass)
+        } catch (e: HttpException) {
+            val json = e.response()?.errorBody()?.string()
+            val error = Gson().fromJson(json, OtpErrorResponse::class.java)
+            throw HttpExceptionUseCase(e, error.message)
+        }
+
+    override suspend fun setNewPass(setNewPass: ForgotPasswordRequest): ForgotPasswordResponse =
+        try {
+            apiService.setNewPass(setNewPass)
+        } catch (e: HttpException) {
+            val json = e.response()?.errorBody()?.string()
+            val error = Gson().fromJson(json, OtpErrorResponse::class.java)
+            throw HttpExceptionUseCase(e, error.message)
         }
 }

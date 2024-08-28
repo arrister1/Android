@@ -45,35 +45,35 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:layout_marginTop="20dp"
-            android:text="Kode OTP telah dikirimkan ke "
-            android:contentDescription="Kode OTP telah dikirimkan ke Email Anda"
+            android:text="@string/masukkan_6_digit_kode_yang_telah_dikirimkan_ke_email_anda"
+            android:contentDescription="@string/kode_otp_telah_dikirimkan_ke_email_anda"
             app:layout_constraintTop_toBottomOf="@id/verifikasi"
             app:layout_constraintStart_toStartOf="parent"
             />
 
-        <TextView
-            android:id="@+id/tvNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/_08123456789"
-            android:textSize="16sp"
+<!--        <TextView-->
+<!--            android:id="@+id/tvNumber"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/_08123456789"-->
+<!--            android:textSize="18sp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/phoneNumberInformation"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/phoneNumberInformation"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/phoneNumberInformation"/>-->
 
 
-            app:layout_constraintStart_toStartOf="@+id/phoneNumberInformation"
-            app:layout_constraintTop_toBottomOf="@+id/phoneNumberInformation" />
-
-
-        <TextView
-            android:id="@+id/phoneNumberInformation2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_marginTop="0dp"
-            android:text="@string/masukkan_kode_di_bawah_ini_untuk_melanjutkan"
-            android:contentDescription="@string/masukkan_kode_di_bawah_ini_untuk_melanjutkan"
-            app:layout_constraintTop_toBottomOf="@id/tvNumber"
-            app:layout_constraintStart_toStartOf="parent"
-            />
+<!--        <TextView-->
+<!--            android:id="@+id/phoneNumberInformation2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="16sp"-->
+<!--            android:layout_marginTop="0dp"-->
+<!--            android:text="@string/masukkan_kode_di_bawah_ini_untuk_melanjutkan"-->
+<!--            android:contentDescription="@string/masukkan_kode_di_bawah_ini_untuk_melanjutkan"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tvNumber"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            />-->
 
 
 
@@ -210,7 +210,6 @@
             android:layout_margin="70dp"
             android:text="Lanjut"
             android:contentDescription="@string/tombol_lanjut"
-            android:textSize="20sp"
             app:cornerRadius="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

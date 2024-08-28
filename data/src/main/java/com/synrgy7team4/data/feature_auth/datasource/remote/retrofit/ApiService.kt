@@ -8,12 +8,14 @@ import com.synrgy7team4.data.feature_auth.datasource.remote.response.PhoneNumber
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.RegisterResponse
 import com.synrgy7team4.data.feature_auth.datasource.remote.response.UserGetResponse
 import com.synrgy7team4.domain.feature_auth.model.request.EmailCheckRequest
+import com.synrgy7team4.domain.feature_auth.model.request.ForgotPasswordRequest
 import com.synrgy7team4.domain.feature_auth.model.request.KtpNumberCheckRequest
 import com.synrgy7team4.domain.feature_auth.model.request.LoginRequest
 import com.synrgy7team4.domain.feature_auth.model.request.PhoneNumberCheckRequest
 import com.synrgy7team4.domain.feature_auth.model.request.RegisterRequest
 import com.synrgy7team4.domain.feature_auth.model.request.SendOtpRequest
 import com.synrgy7team4.domain.feature_auth.model.request.VerifyOtpRequest
+import com.synrgy7team4.feature_auth.data.remote.response.ForgotPasswordResponse
 
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -55,6 +57,22 @@ interface ApiService {
     suspend fun verifyOtp(
         @Body verifyOtpRequest: VerifyOtpRequest
     ): OtpResponse
+
+    @POST("forget-password/send")
+    suspend fun sendForgetPass(
+        @Body sendForgetPassRequest: ForgotPasswordRequest
+    ) : ForgotPasswordResponse
+
+    @POST("forget-password/validate")
+    suspend fun validateForgetPass(
+        @Body validateForgetPass: ForgotPasswordRequest
+    ) : ForgotPasswordResponse
+
+    @POST("forget-password/change-password")
+    suspend fun setNewPass(
+        @Body setNewPassRequest: ForgotPasswordRequest
+    ) : ForgotPasswordResponse
+
 
     @GET("user/me")
     suspend fun getUser(

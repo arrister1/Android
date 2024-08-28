@@ -2,12 +2,14 @@ package com.synrgy7team4.data.feature_auth.repository
 
 import com.synrgy7team4.data.feature_auth.datasource.remote.AuthRemoteDatasource
 import com.synrgy7team4.data.feature_auth.FileUtils.toEmailCheckResponseDomain
+import com.synrgy7team4.data.feature_auth.FileUtils.toForgotPasswordResponseDomain
 import com.synrgy7team4.data.feature_auth.FileUtils.toKtpNumberCheckResponseDomain
 import com.synrgy7team4.data.feature_auth.FileUtils.toLoginResponseDomain
 import com.synrgy7team4.data.feature_auth.FileUtils.toPhoneNumberCheckResponseDomain
 import com.synrgy7team4.data.feature_auth.FileUtils.toRegisterResponseDomain
 import com.synrgy7team4.data.feature_auth.FileUtils.toOtpResponseDomain
 import com.synrgy7team4.domain.feature_auth.model.request.EmailCheckRequest
+import com.synrgy7team4.domain.feature_auth.model.request.ForgotPasswordRequest
 import com.synrgy7team4.domain.feature_auth.model.request.KtpNumberCheckRequest
 import com.synrgy7team4.domain.feature_auth.model.request.LoginRequest
 import com.synrgy7team4.domain.feature_auth.model.request.PhoneNumberCheckRequest
@@ -21,6 +23,7 @@ import com.synrgy7team4.domain.feature_auth.model.response.OtpResponseDomain
 import com.synrgy7team4.domain.feature_auth.model.response.PhoneNumberCheckResponseDomain
 import com.synrgy7team4.domain.feature_auth.model.response.RegisterResponseDomain
 import com.synrgy7team4.domain.feature_auth.repository.AuthRepository
+import com.synrgy7team4.feature_auth.data.remote.response.ForgotPasswordResponseDomain
 
 class ImplementAuthRepository(
     private val authRemoteSource: AuthRemoteDatasource
@@ -45,4 +48,15 @@ class ImplementAuthRepository(
 
     override suspend fun checkKtpNumberAvailability(ktpNumberCheckRequest: KtpNumberCheckRequest): KtpNumberCheckResponseDomain =
         authRemoteSource.checkKtpNumberAvailability(ktpNumberCheckRequest).toKtpNumberCheckResponseDomain()
+
+    override suspend fun sendForgetPass(sendForgetPass: ForgotPasswordRequest): ForgotPasswordResponseDomain =
+        authRemoteSource.sendForgetPass(sendForgetPass).toForgotPasswordResponseDomain()
+
+    override suspend fun validateForgetPass(validateForgetPass: ForgotPasswordRequest): ForgotPasswordResponseDomain =
+        authRemoteSource.validateForgetPass(validateForgetPass).toForgotPasswordResponseDomain()
+
+
+    override suspend fun setNewPass(setNewPass: ForgotPasswordRequest): ForgotPasswordResponseDomain =
+        authRemoteSource.setNewPass(setNewPass).toForgotPasswordResponseDomain()
+
 }
