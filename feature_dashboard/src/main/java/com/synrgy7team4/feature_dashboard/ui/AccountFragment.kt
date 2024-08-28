@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.synrgy7team4.common.NavigationHandler
 import com.synrgy7team4.common.makeToast
 import com.synrgy7team4.feature_dashboard.R
@@ -35,6 +36,10 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getUserData()
+
+        binding.linearlayNotifikasi.setOnClickListener {
+            findNavController().navigate(R.id.action_accountFragment_to_notificationFragment)
+        }
 
         binding.linearlayKeluarAkun.setOnClickListener {
             makeToast(requireContext(),"Anda berhasil keluar")

@@ -23,10 +23,19 @@
         android:id="@+id/accountFragment"
         android:name="com.synrgy7team4.feature_dashboard.ui.AccountFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/action_accountFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
+    </fragment>
     <fragment
         android:id="@+id/showQrisFragment"
         android:name="com.synrgy7team4.feature_dashboard.ui.qris.ShowQrisFragment"
         android:label="fragment_show_qris"
         tools:layout="@layout/fragment_show_qris" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.synrgy7team4.feature_dashboard.ui.notificationScreen.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
 </navigation>
