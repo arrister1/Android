@@ -26,4 +26,18 @@ jobs:
       - run: echo "Building Debug APK."
       - name: Build with Gradle
         run: ./gradlew build
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
+      - name: Build Release APK
+        run: ./gradlew assembleRelease
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-debug.apk
+          path: app/build/outputs/apk/debug/app-debug.apk
+      - name: Upload Release APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-release-unsigned.apk
+          path: app/build/outputs/apk/release/app-release-unsigned.apk
       - run: echo "Build status report=${{ job.status }}."
