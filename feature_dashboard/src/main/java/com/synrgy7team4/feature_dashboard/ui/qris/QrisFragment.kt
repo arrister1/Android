@@ -36,6 +36,7 @@ import com.google.zxing.RGBLuminanceSource
 import com.google.zxing.Reader
 import com.google.zxing.Result
 import com.google.zxing.common.HybridBinarizer
+import com.synrgy7team4.common.formatRupiah
 import com.synrgy7team4.common.makeToast
 import com.synrgy7team4.feature_dashboard.R
 import com.synrgy7team4.feature_dashboard.databinding.FragmentQrisBinding
@@ -128,7 +129,7 @@ class QrisFragment : Fragment() {
         }
 
         viewModel.userBalance.observe(viewLifecycleOwner) { balance ->
-            userBalance = balance.toString()
+            userBalance = formatRupiah(balance.toString())
             hiddenBalance = userBalance.replace(Regex("\\d"), "*").replace(Regex("[,.]"), "")
         }
     }

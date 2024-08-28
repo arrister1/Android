@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.synrgy7team4.common.formatRupiah
 import com.synrgy7team4.feature_transfer.R
 import com.synrgy7team4.feature_transfer.databinding.FragmentTransferInputFromQRBinding
 import com.synrgy7team4.feature_transfer.viewmodel.TransferViewModel
@@ -26,11 +27,6 @@ class TransferInputFromQRFragment : Fragment() {
     private val viewModel by viewModel<TransferViewModel>()
 
     private lateinit var sharedPreferences: SharedPreferences
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -89,7 +85,7 @@ class TransferInputFromQRFragment : Fragment() {
 
         viewModel.balanceData.observe(viewLifecycleOwner) { balance ->
             balance?.let {
-                binding.userAccountBalance.text = it.data.toString()
+                binding.userAccountBalance.text = "Rp ${formatRupiah(it.data.toString())}"
             }
         }
 

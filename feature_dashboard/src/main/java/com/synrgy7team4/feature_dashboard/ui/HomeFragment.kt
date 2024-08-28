@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.synrgy7team4.common.NavigationHandler
+import com.synrgy7team4.common.formatRupiah
 import com.synrgy7team4.common.makeToast
 import com.synrgy7team4.feature_dashboard.R
 import com.synrgy7team4.feature_dashboard.databinding.FragmentHomeBinding
@@ -60,10 +61,9 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.userBalance.observe(viewLifecycleOwner) { balance ->
-            userBalance = balance.toString()
+            userBalance = formatRupiah(balance.toString())
             hiddenBalance = userBalance.replace(Regex("\\d"), "*").replace(Regex("[,.]"), "")
             updateBalanceVisibility()
-
         }
 
         viewModel.userData.observe(viewLifecycleOwner) { userData ->
@@ -140,7 +140,6 @@ class HomeFragment : Fragment() {
     private fun balanceVisibility() {
         isBalanceHidden = !isBalanceHidden
         updateBalanceVisibility()
-
     }
 
     override fun onDestroyView() {

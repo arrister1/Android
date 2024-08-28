@@ -1,19 +1,17 @@
 package com.synrgy7team4.feature_transfer.ui
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.synrgy7team4.common.formatRupiah
 import com.synrgy7team4.feature_transfer.R
 import com.synrgy7team4.feature_transfer.databinding.FragmentTransferDetailBinding
 import com.synrgy7team4.feature_transfer.databinding.TransSuccessDetailBinding
@@ -60,7 +58,7 @@ class TransferDetailFragment : Fragment() {
             destinationBinding.tvAccNum.text = mutationData.accountTo
             destinationBinding.tvBank.text = "Lumi Bank"
 
-            binding.tvNominal.text = mutationData.amount.toString()
+            binding.tvNominal.text = formatRupiah(mutationData.amount.toString())
 
             transactionSuccessBinding.transDate.text = formatDateTime(mutationData.datetime)
             transactionSuccessBinding.transTime.text = formatHourTime(mutationData.datetime)

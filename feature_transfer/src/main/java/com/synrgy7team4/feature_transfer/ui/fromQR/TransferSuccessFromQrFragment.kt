@@ -2,13 +2,13 @@ package com.synrgy7team4.feature_transfer.ui.fromQR
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import com.synrgy7team4.feature_transfer.R
+import com.synrgy7team4.common.formatRupiah
 import com.synrgy7team4.feature_transfer.databinding.FragmentTransferSuccessFromQrBinding
 import com.synrgy7team4.feature_transfer.viewmodel.TransferViewModel
 import kotlinx.coroutines.awaitAll
@@ -60,7 +60,7 @@ class TransferSuccessFromQrFragment : Fragment() {
                 binding.layoutSender.tvSenderName.text = mutationData.usernameFrom
                 binding.layoutSender.tvAccNum.text = mutationData.accountFrom
 
-                binding.layoutTransDetail.tvTransTotal.text = "Rp. ${mutationData.amount}"
+                binding.layoutTransDetail.tvTransTotal.text = "Rp ${formatRupiah(mutationData.amount.toString())}"
                 binding.transStatus.tvTransDate.text = formatDateTime(mutationData.datetime)
                 binding.transStatus.tvTransTime.text = formatHourTime(mutationData.datetime)
             }

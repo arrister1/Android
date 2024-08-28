@@ -2,21 +2,15 @@ package com.synrgy7team4.feature_transfer.ui
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.net.Uri
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.synrgy7team4.common.makeSnackbar
-import com.synrgy7team4.common.makeToast
+import com.synrgy7team4.common.formatRupiah
 import com.synrgy7team4.feature_transfer.R
 import com.synrgy7team4.feature_transfer.databinding.FragmentTransferInputBinding
 import com.synrgy7team4.feature_transfer.viewmodel.TransferViewModel
@@ -69,7 +63,7 @@ class TransferInputFragment : Fragment() {
 
         viewModel.balanceData.observe(viewLifecycleOwner) { balance ->
             balance?.let {
-                binding.userAccountBalance.text = it.data.toString()
+                binding.userAccountBalance.text = "Rp ${formatRupiah(it.data.toString())}"
             }
         }
 
