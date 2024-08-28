@@ -124,7 +124,7 @@ class TransferInputFragment : Fragment() {
                 false
             }
             nominal > 5000000 -> {
-                Toast.makeText(requireContext(), "Nominal maksimal Rp. 5.000.000!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Nominal maksimal Rp. 25.000.000!", Toast.LENGTH_SHORT).show()
                 false
             }
             else -> {
@@ -134,43 +134,6 @@ class TransferInputFragment : Fragment() {
         }
     }
 
-//    private fun validateAmount(amount: String): Boolean {
-//        if (amount.isNullOrEmpty()) {
-//            binding.amountInputText.error = "Nominal harus di isi!"
-//            Toast.makeText(requireContext(), "Nominal harus di isi!", Toast.LENGTH_SHORT).show()
-//            return false
-//        }
-//
-//        val nominal = amount.toIntOrNull() ?: 0
-//
-//        return when {
-//            nominal == 0 -> {
-//                binding.amountInputText.error = "Nominal harus di isi!"
-//                Toast.makeText(requireContext(), "Nominal harus di isi!", Toast.LENGTH_SHORT).show()
-//                false
-//            }
-//
-//            nominal < 1000 -> {
-//                binding.amountInputText.error = "Nominal harus di atas Rp. 1.000!"
-//                Toast.makeText(
-//                    requireContext(),
-//                    "Nominal harus di atas Rp. 1.000!",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//                false
-//            }
-//
-//            nominal > 5000000 -> {
-//                binding.amountInputText.error = "Nominal maksimal Rp. 5.000.000!"
-//                Toast.makeText(
-//                    requireContext(),
-//                    "Nominal maksimal Rp. 5.000.000!",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//                false
-//            }
-//
-//            else -> true
-//        }
-//    }
+
 }
+

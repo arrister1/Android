@@ -59,11 +59,11 @@ class CreatePasswordFragment : Fragment() {
 
         if (isForgotPassword) {
             viewModel.setNewPassResult.observe(viewLifecycleOwner) { result ->
-               // view.findNavController().navigate(R.id.action_createPasswordFragment_to_loginFragment)
+                view.findNavController().navigate(R.id.action_createPasswordFragment_to_loginFragment)
                 if (result.status) {
                     makeToast(requireContext(), "Password berhasil diubah")
 
-                    view.findNavController().navigate(R.id.action_createPasswordFragment_to_loginFragment)
+                    //view.findNavController().navigate(R.id.action_createPasswordFragment_to_loginFragment)
                 } else {
                     makeToast(requireContext(), result.message ?: "Gagal mengubah password")
                 }

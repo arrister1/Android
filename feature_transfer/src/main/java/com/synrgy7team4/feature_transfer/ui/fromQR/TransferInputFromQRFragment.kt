@@ -54,15 +54,32 @@ class TransferInputFromQRFragment : Fragment() {
         }
 
 
-        val accountDestinationFromScan =
-            sharedPreferences.getString("accountDestinationFromScan", null)
-        val splitAccount = accountDestinationFromScan?.split(" ")
-        val accountNo = splitAccount?.get(0)
-        val username = splitAccount?.get(1)
+//        val accountDestinationFromScan =
+//            sharedPreferences.getString("accountDestinationFromScan", null)
+//        val splitAccount = accountDestinationFromScan?.split(" ")
+//        val accountNo = splitAccount?.get(0)
+//        val username = splitAccount?.get(1)
+//
+//        binding.bankNameAndAccountNo.text = "Lumi Bank - $accountNo"
+//        sharedPreferences.edit().putString("accountDestinationNoFromQR", accountNo).apply()
+//        binding.accountName.text = username
 
-        binding.bankNameAndAccountNo.text = "Lumi Bank - $accountNo"
-        sharedPreferences.edit().putString("accountDestinationNoFromQR", accountNo).apply()
-        binding.accountName.text = username
+        val accountDestinationFromScan = sharedPreferences.getString("accountDestinationFromScan", null)
+        accountDestinationFromScan?.let {
+            val lines = it.split("\n")
+
+            val nameLine = lines.getOrNull(0)
+            val accountNumberLine = lines.getOrNull(1)
+
+            // Extract the actual values
+            val username = nameLine?.substringAfter("Name: ")?.trim()
+            val accountNo = accountNumberLine?.substringAfter("Account Number: ")?.trim()
+
+
+            binding.bankNameAndAccountNo.text = "Lumi Bank - $accountNo"
+            sharedPreferences.edit().putString("accountDestinationNoFromQR", accountNo).apply()
+            binding.accountName.text = username
+        }
 
         binding.btnBack.setOnClickListener {
             findNavController().popBackStack()

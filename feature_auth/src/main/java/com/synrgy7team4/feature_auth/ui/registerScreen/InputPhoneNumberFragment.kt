@@ -91,6 +91,10 @@ class InputPhoneNumberFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            showLoading(it)
+        }
+
         viewModel.isPhoneNumberAvailable.observe(viewLifecycleOwner) { isPhoneNumberAvailable ->
             if (isPhoneNumberAvailable) {
                 val hp = binding.tiedtPhoneNumber.text.toString()
@@ -138,6 +142,14 @@ class InputPhoneNumberFragment : Fragment() {
             tvPhoneNumber.contentDescription = getString(R.string.no_hp)
             tiedtPhoneNumber.contentDescription = getString(R.string.input_nomor_hp)
             btnNext.contentDescription = getString(R.string.lanjut)
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 
