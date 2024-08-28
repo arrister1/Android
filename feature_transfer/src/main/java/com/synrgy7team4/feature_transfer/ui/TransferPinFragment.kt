@@ -11,10 +11,9 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.synrgy7team4.common.Log
+import com.synrgy7team4.common.makeToast
 import com.synrgy7team4.common.databinding.PinInputBinding
 import com.synrgy7team4.common.databinding.PinNumberBinding
-import com.synrgy7team4.common.makeToast
 import com.synrgy7team4.feature_transfer.R
 import com.synrgy7team4.feature_transfer.databinding.FragmentTransferPinBinding
 import com.synrgy7team4.feature_transfer.viewmodel.TransferViewModel
@@ -33,7 +32,6 @@ class TransferPinFragment : Fragment(), View.OnClickListener {
     private lateinit var pinNumberBinding: PinNumberBinding
     private lateinit var pinInputBinding: PinInputBinding
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var sharedPreferencesRegister: SharedPreferences
 
     private val numberList = ArrayList<String>()
     private var input1: String? = null
@@ -42,6 +40,7 @@ class TransferPinFragment : Fragment(), View.OnClickListener {
     private var input4: String? = null
     private var input5: String? = null
     private var input6: String? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,8 +53,36 @@ class TransferPinFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        sharedPreferences = requireActivity().getSharedPreferences("TransferPrefs", Context.MODE_PRIVATE)
+//
+//        pinNumberBinding = PinNumberBinding.bind(binding.pinNumber.root)
+//        pinInputBinding = PinInputBinding.bind(binding.pinInput.root)
+//
+//        initializeComponents()
+//
+//        viewModel.transferResult.observe(viewLifecycleOwner) { result ->
+//            if (result.success!!) {
+//                val id = result.data?.id
+//                sharedPreferences.edit().apply {
+//                    putString("lastidtransaction", id)
+//                    apply()
+//                }
+//                findNavController().navigate(R.id.action_transferPinFragment_to_transferDetailFragment)
+//            } else {
+//                makeToast(requireContext(), "Transfer gagal: ${result.message}")
+//                clearPinDisplay()
+//                numberList.clear()
+//            }
+//        }
+//
+//        viewModel.error.observe(viewLifecycleOwner) { error ->
+//            makeToast(requireContext(), "Error: ${error.message}")
+//            clearPinDisplay()
+//            numberList.clear()
+//        }
+//    }
+
         sharedPreferences = requireActivity().getSharedPreferences("TransferPrefs", Context.MODE_PRIVATE)
-        sharedPreferencesRegister = requireActivity().getSharedPreferences("RegisterPrefs", Context.MODE_PRIVATE)
 
         pinNumberBinding = PinNumberBinding.bind(binding.pinNumber.root)
         pinInputBinding = PinInputBinding.bind(binding.pinInput.root)
@@ -63,16 +90,24 @@ class TransferPinFragment : Fragment(), View.OnClickListener {
         initializeComponents()
 
         viewModel.transferResult.observe(viewLifecycleOwner) { result ->
-            val id = result.data?.id
-            sharedPreferences.edit().apply {
-                putString("lastidtransaction", id)
-                apply()
+            if (result.success == true) {
+                val id = result.data?.id
+                sharedPreferences.edit().apply {
+                    putString("lastidtransaction", id)
+                    apply()
+                }
+                findNavController().navigate(R.id.action_transferPinFragment_to_transferDetailFragment)
+            } else {
+                makeToast(requireContext(), "Transfer gagal: ${result.message}")
+                clearPinDisplay()
+                numberList.clear()
             }
-            findNavController().navigate(R.id.action_transferPinFragment_to_transferDetailFragment)
         }
 
         viewModel.error.observe(viewLifecycleOwner) { error ->
-            makeToast(requireContext(), error.message)
+            makeToast(requireContext(), "Error: ${error.message}")
+            clearPinDisplay()
+            numberList.clear()
         }
     }
 
@@ -129,58 +164,53 @@ class TransferPinFragment : Fragment(), View.OnClickListener {
                     input1 = numberList[0]
                     pinInputBinding.tvPinInput1.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet_filled)
                 }
-
                 1 -> {
                     input2 = numberList[1]
                     pinInputBinding.tvPinInput2.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet_filled)
                 }
-
                 2 -> {
                     input3 = numberList[2]
                     pinInputBinding.tvPinInput3.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet_filled)
                 }
-
                 3 -> {
                     input4 = numberList[3]
                     pinInputBinding.tvPinInput4.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet_filled)
                 }
-
                 4 -> {
                     input5 = numberList[4]
                     pinInputBinding.tvPinInput5.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet_filled)
                 }
-
                 5 -> {
                     input6 = numberList[5]
                     pinInputBinding.tvPinInput6.setBackgroundResource(com.synrgy7team4.common.R.drawable.pin_bullet_filled)
                     val passCode = input1 + input2 + input3 + input4 + input5 + input6
                     if (passCode.length == 6) {
-                        val accountDestinationNo = sharedPreferences.getString("accountDestinationNo", "") ?: ""
-                        val transferAmount = sharedPreferences.getInt("transferAmount", 0)
-                        val transferDescription = sharedPreferences.getString("transferDescription", "") ?: ""
-                        val currentDateTime = LocalDateTime.now(ZoneOffset.UTC)
-                        val dateTimePlus7Hours = currentDateTime.plusHours(14)
-                        val pin = sharedPreferencesRegister.getString("pin", "") ?: ""
-                        lifecycleScope.launch {
-                            awaitAll(viewModel.initializeData())
-                            if ( passCode == pin){
-                                viewModel.transfer(
-                                    pin = pin,
-                                    accountTo = accountDestinationNo,
-                                    amount = transferAmount,
-                                    description = transferDescription,
-                                    datetime = dateTimePlus7Hours.toString(),
-                                    destinationBank = "Lumi Bank"
-                                )
-                            } else {
-                                makeToast(requireContext(), "PIN salah")
-                                clearPinDisplay()
-                                numberList.clear()
-                            }
-                        }
+                        initiateTransfer(passCode)
                     }
                 }
             }
+        }
+    }
+
+    private fun initiateTransfer(pin: String) {
+        val accountDestinationNo = sharedPreferences.getString("accountDestinationNo", "") ?: ""
+        val accountDestinationName = sharedPreferences.getString("accountDestinationName", "") ?: ""
+        val transferAmount = sharedPreferences.getInt("transferAmount", 0)
+        val transferDescription = sharedPreferences.getString("transferDescription", "") ?: ""
+        val destinationBank = sharedPreferences.getString("bankname", "Lumi Bank") ?: "Lumi Bank"
+        val currentDateTime = LocalDateTime.now(ZoneOffset.UTC)
+        val dateTimePlus7Hours = currentDateTime.plusHours(14)
+
+        lifecycleScope.launch {
+            awaitAll(viewModel.initializeData())
+            viewModel.transfer(
+                pin = pin,
+                accountTo = accountDestinationNo,
+                amount = transferAmount,
+                description = transferDescription,
+                datetime = dateTimePlus7Hours.toString(),
+                destinationBank = destinationBank,
+            )
         }
     }
 
@@ -198,3 +228,4 @@ class TransferPinFragment : Fragment(), View.OnClickListener {
         _binding = null
     }
 }
+

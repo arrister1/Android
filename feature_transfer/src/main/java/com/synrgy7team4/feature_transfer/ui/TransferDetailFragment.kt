@@ -75,7 +75,7 @@ class TransferDetailFragment : Fragment() {
         }
 
         binding.btnDone.setOnClickListener {
-            findNavController().navigate(R.id.action_transferDetailFragment_to_savedAccountFragment)
+            findNavController().popBackStack(R.id.savedAccountFragment, false)
         }
     }
     private fun formatDateTime(datetime: String?): String {

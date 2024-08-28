@@ -128,18 +128,6 @@ class LoginFragment : Fragment() {
         viewModel.error.observe(viewLifecycleOwner) { error ->
             makeToast(requireContext(), error.message)
 
-            if (isTalkbackEnabled()) {
-                binding.edtEmail.accessibilityDelegate = object : View.AccessibilityDelegate() {
-                    override fun onInitializeAccessibilityNodeInfo(
-                        host: View,
-                        info: AccessibilityNodeInfo
-                    ) {
-                        super.onInitializeAccessibilityNodeInfo(host, info)
-                        info?.text = null  // Hapus teks (hint) yang akan dibaca oleh TalkBack
-                    }
-                }
-            }
-
             binding.textInputLayout3.setEndIconContentDescription(R.string.hide_password)
             binding.textInputLayout3.setEndIconOnClickListener {
                 val isPasswordVisible =
@@ -156,6 +144,18 @@ class LoginFragment : Fragment() {
                 binding.textInputLayout3.endIconContentDescription = contentDescription
                 binding.edtPassword.setSelection(binding.edtPassword.text?.length ?: 0)
 
+            }
+        }
+
+        if (isTalkbackEnabled()) {
+            binding.edtEmail.accessibilityDelegate = object : View.AccessibilityDelegate() {
+                override fun onInitializeAccessibilityNodeInfo(
+                    host: View,
+                    info: AccessibilityNodeInfo
+                ) {
+                    super.onInitializeAccessibilityNodeInfo(host, info)
+                    info?.text = null  // Hapus teks (hint) yang akan dibaca oleh TalkBack
+                }
             }
         }
     }
