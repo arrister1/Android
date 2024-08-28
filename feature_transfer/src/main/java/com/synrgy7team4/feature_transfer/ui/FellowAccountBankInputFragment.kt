@@ -79,35 +79,70 @@ class FellowAccountBankInputFragment : Fragment() {
             Toast.makeText(requireContext(), "Error: ${error.message}", Toast.LENGTH_SHORT).show()
         }
 
+//        val spinner = binding.bankDropdown
+//        val spinnerAdapter = ArrayAdapter.createFromResource(
+//            requireContext(),
+//            R.array.bank_list, // Use your string-array resource
+//            android.R.layout.simple_spinner_item
+//        )
+//        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//        spinner.adapter = spinnerAdapter
+//        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(
+//                parent: AdapterView<*>,
+//                view: View?,
+//                position: Int,
+//                id: Long
+//            ) {
+//                // Get the selected item
+//                val selectedBank = parent.getItemAtPosition(position).toString()
+//
+//                // Save the selected item to SharedPreferences
+//                sharedPreferences.edit().apply {
+//                    putString("bankname", selectedBank)
+//                    apply()
+//                }
+//            }
+//
+//            override fun onNothingSelected(parent: AdapterView<*>) {
+//                // Optionally handle cases where no selection is made
+//            }
         val spinner = binding.bankDropdown
-        val spinnerAdapter = ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.bank_list, // Use your string-array resource
-            android.R.layout.simple_spinner_item
-        )
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = spinnerAdapter
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                // Get the selected item
-                val selectedBank = parent.getItemAtPosition(position).toString()
+        val id = sharedPreferences.getString("differentbank", "")
+        if (id=="true") {
+            val spinnerAdapter = ArrayAdapter.createFromResource(
+                requireContext(),
+                R.array.bank_list, // Use your string-array resource
+                android.R.layout.simple_spinner_item
+            )
+            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = spinnerAdapter
+            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    // Get the selected item
+                    val selectedBank = parent.getItemAtPosition(position).toString()
 
-                // Save the selected item to SharedPreferences
-                sharedPreferences.edit().apply {
-                    putString("bankname", selectedBank)
-                    apply()
+                    // Save the selected item to SharedPreferences
+                    sharedPreferences.edit().apply {
+                        putString("bankname", selectedBank)
+                        apply()
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // Optionally handle cases where no selection is made
                 }
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // Optionally handle cases where no selection is made
-            }
+        } else {
+            spinner.visibility = View.GONE
+            binding.tvBankName.visibility = View.GONE
         }
+
 
         binding.btnBack.setOnClickListener {
             view.findNavController().popBackStack()
@@ -147,8 +182,12 @@ class FellowAccountBankInputFragment : Fragment() {
         val btnNext = dialog.findViewById<TextView>(R.id.btn_next)
         val btnSaveReceiver = dialog.findViewById<TextView>(R.id.btn_save_receiver)
 
+    val selectedBank = sharedPreferences.getString("bankname","BCA")
+    tvAccountNameReceiver.text = userName
+    tvBankNameAccountBankReceiver.text = "${selectedBank} - ${accountNumber}"
+
         tvAccountNameReceiver.text = userName
-        tvBankNameAccountBankReceiver.text = "Lumi Bank - ${accountNumber}"
+       // tvBankNameAccountBankReceiver.text = "Lumi Bank - ${accountNumber}"
 
         btnClose.setOnClickListener {
             dialog.dismiss()
