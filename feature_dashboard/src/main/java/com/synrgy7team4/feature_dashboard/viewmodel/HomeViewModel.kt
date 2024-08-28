@@ -8,11 +8,11 @@ import com.synrgy7team4.common.TokenHandler
 import com.synrgy7team4.common.UserHandler
 import com.synrgy7team4.domain.feature_auth.model.response.UserDataDomain
 import com.synrgy7team4.domain.feature_auth.usecase.HttpExceptionUseCase
-import com.synrgy7team4.domain.feature_dashboard.usecase.BalanceUseCase
+import com.synrgy7team4.domain.feature_dashboard.usecase.DashboardUseCase
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val balanceUseCase: BalanceUseCase,
+    private val dashboardUseCase: DashboardUseCase,
     private val tokenHandler: TokenHandler,
     private val userHandler: UserHandler
 ) : ViewModel() {
@@ -56,7 +56,7 @@ class HomeViewModel(
                 tokenHandler.handlingTokenExpire()
             } else {
                 val jwtToken = tokenHandler.loadJwtToken() ?: throw Exception("JWT token tidak tersedia")
-                val getUserBalance = balanceUseCase.getBalance("Bearer $jwtToken", _userData.value?.accountNumber!!).data
+                val getUserBalance = dashboardUseCase.getBalance("Bearer $jwtToken", _userData.value?.accountNumber!!).data
                 _userBalance.value = getUserBalance
             }
         } catch (e: HttpExceptionUseCase) {

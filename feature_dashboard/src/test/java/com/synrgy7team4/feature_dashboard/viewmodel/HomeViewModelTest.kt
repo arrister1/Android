@@ -5,7 +5,7 @@ import com.synrgy7team4.common.TokenHandler
 import com.synrgy7team4.common.UserHandler
 import com.synrgy7team4.domain.feature_auth.model.response.UserDataDomain
 import com.synrgy7team4.domain.feature_dashboard.model.response.BalanceGetResponseDomain
-import com.synrgy7team4.domain.feature_dashboard.usecase.BalanceUseCase
+import com.synrgy7team4.domain.feature_dashboard.usecase.DashboardUseCase
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -17,7 +17,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.jupiter.api.assertDoesNotThrow
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
@@ -29,7 +28,7 @@ class HomeViewModelTest {
     val rule = InstantTaskExecutorRule()
 
     private lateinit var viewModel: HomeViewModel
-    @Mock private lateinit var balanceUseCase: BalanceUseCase
+    @Mock private lateinit var dashboardUseCase: DashboardUseCase
     @Mock private lateinit var tokenHandler: TokenHandler
     @Mock private lateinit var userHandler: UserHandler
 
@@ -41,7 +40,7 @@ class HomeViewModelTest {
         val dispatcher = TestCoroutineDispatcher()
         Dispatchers.setMain(dispatcher)
         MockitoAnnotations.initMocks(this)
-        viewModel = HomeViewModel(balanceUseCase, tokenHandler, userHandler)
+        viewModel = HomeViewModel(dashboardUseCase, tokenHandler, userHandler)
     }
 
     @After
@@ -53,7 +52,7 @@ class HomeViewModelTest {
     fun getUserBalance() = runTest {
         // Arrange
         Mockito.`when`(tokenHandler.loadJwtToken()).thenReturn("")
-        Mockito.`when`(balanceUseCase.getBalance("", "")).thenReturn(balanceGetResponseDomain)
+        Mockito.`when`(dashboardUseCase.getBalance("", "")).thenReturn(balanceGetResponseDomain)
         // Act
         val result = viewModel.getUserBalance()
         // Assert
