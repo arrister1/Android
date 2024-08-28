@@ -1,10 +1,17 @@
 package com.synrgy7team4.bankingapps
 
+import android.app.Dialog
 import android.content.res.ColorStateList
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.Gravity
+import android.view.KeyEvent
 import android.view.View
+import android.view.ViewGroup
+import android.view.Window
+import android.view.WindowManager
+import android.widget.Button
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -16,14 +23,17 @@ import com.synrgy7team4.bankingapps.databinding.ActivityMainBinding
 import com.synrgy7team4.common.NavigationHandler
 import com.synrgy7team4.common.TokenHandler
 import com.synrgy7team4.common.UserHandler
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.android.inject
+import java.util.Date
 
 class MainActivity : AppCompatActivity(), NavigationHandler, TokenHandler, UserHandler {
     companion object {
         private val JWT_TOKEN_KEY = stringPreferencesKey("jwt_token")
+        private val JWT_TOKEN_RECEIPT_TIME_KEY = stringPreferencesKey("jwt_token_receipt_time")
         private val REFRESH_TOKEN_KEY = stringPreferencesKey("refresh_token")
 
         private val USER_NAME_KEY = stringPreferencesKey("user_name")
@@ -48,7 +58,8 @@ class MainActivity : AppCompatActivity(), NavigationHandler, TokenHandler, UserH
         getKoin().declare(this as TokenHandler)
         getKoin().declare(this as UserHandler)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
         // Mengatur kemunculan bottom navigasi pada fragment tertentu
@@ -98,7 +109,7 @@ class MainActivity : AppCompatActivity(), NavigationHandler, TokenHandler, UserH
 
     // Implementasi NavigationHandler
     override fun navigateToOnBoarding() {
-        navController.navigate(R.id.dashboard_to_onboarding_navigation)
+        navController.navigate(R.id.dashboard_to_auth_navigation)
     }
 
     override fun navigateToDashboard() {
@@ -122,6 +133,7 @@ class MainActivity : AppCompatActivity(), NavigationHandler, TokenHandler, UserH
         dataStore.edit {
             it[JWT_TOKEN_KEY] = jwtToken
             it[REFRESH_TOKEN_KEY] = refreshToken
+            it[JWT_TOKEN_RECEIPT_TIME_KEY] = Date().time.toString()
         }
     }
 
@@ -138,7 +150,26 @@ class MainActivity : AppCompatActivity(), NavigationHandler, TokenHandler, UserH
     override suspend fun deleteTokens() {
         dataStore.edit {
             it.remove(JWT_TOKEN_KEY)
+            it.remove(REFRESH_TOKEN_KEY)
+            it.remove(JWT_TOKEN_RECEIPT_TIME_KEY)
         }
+    }
+
+    override suspend fun isTokenExpired(): Boolean {
+        val expiredTime = 90 * 60 * 1000 // 1.5 jam dalam milidetik
+        val currentTime = Date().time
+
+        val tokenReceiptTime = dataStore.data.map { preferences ->
+            preferences[JWT_TOKEN_RECEIPT_TIME_KEY]?.toLongOrNull() ?: 0L
+        }.first()
+
+        return currentTime - tokenReceiptTime > expiredTime
+    }
+
+    override suspend fun handlingTokenExpire() {
+        deleteTokens()
+        deleteUserData()
+        showJwtTokenExpiredDialog()
     }
 
     // Implementasi UserHandler
@@ -240,6 +271,34 @@ class MainActivity : AppCompatActivity(), NavigationHandler, TokenHandler, UserH
             it.remove(DATE_OF_BIRTH_KEY)
             it.remove(KTP_NUMBER_KEY)
             it.remove(KTP_PHOTO_KEY)
+        }
+    }
+
+    private fun showJwtTokenExpiredDialog() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.fragment_token_expired)
+        dialog.show()
+
+        dialog.window?.apply {
+            setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
+            attributes?.windowAnimations = com.synrgy7team4.common.R.style.DialogAnimation
+            setGravity(Gravity.CENTER)
+            setFlags(
+                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+            )
+            clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+        }
+
+        dialog.setOnKeyListener { _, keyCode, event ->
+            keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP
+        }
+
+        dialog.findViewById<Button>(R.id.btn_kembali_ke_Onboarding).setOnClickListener {
+            navController.navigate(R.id.dashboard_to_auth_navigation)
+            dialog.dismiss()
         }
     }
 }

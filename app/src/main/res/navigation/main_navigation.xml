@@ -5,9 +5,13 @@
     android:id="@+id/main_navigation"
     app:startDestination="@id/splashFragment">
 
+    <include app:graph="@navigation/feature_auth_navigation" />
+    <include app:graph="@navigation/feature_dashboard_navigation" />
+    <include app:graph="@navigation/feature_transfer_navigation" />
+
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.synrgy7team4.bankingapps.SplashFragment"
+        android:name="com.synrgy7team4.bankingapps.splashScreen.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
@@ -28,9 +32,14 @@
         android:label="MutasiFragment"
         tools:layout="@layout/fragment_mutasi" />
 
-    <include app:graph="@navigation/feature_auth_navigation" />
-    <include app:graph="@navigation/feature_dashboard_navigation" />
-    <include app:graph="@navigation/feature_transfer_navigation" />
+    <fragment
+        android:id="@+id/transferInputFromQRFragment2"
+        android:name="com.synrgy7team4.feature_transfer.ui.fromQR.TransferInputFromQRFragment"
+        android:label="TransferInputFromQRFragment">
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="app://com.example.app/trans/transferInputFromQR" />
+    </fragment>
 
     <action
         android:id="@+id/auth_to_dashboard_navigation"
@@ -39,7 +48,7 @@
         app:popUpToInclusive="true" />
 
     <action
-        android:id="@+id/dashboard_to_onboarding_navigation"
+        android:id="@+id/dashboard_to_auth_navigation"
         app:destination="@id/feature_auth_navigation"
         app:popUpTo="@id/feature_dashboard_navigation"
         app:popUpToInclusive="true" />
@@ -55,12 +64,5 @@
     <action
         android:id="@+id/qris_to_transfer_navigation"
         app:destination="@id/transferInputFragment"/>
-    <fragment
-        android:id="@+id/transferInputFromQRFragment2"
-        android:name="com.synrgy7team4.feature_transfer.ui.fromQR.TransferInputFromQRFragment"
-        android:label="TransferInputFromQRFragment">
-        <deepLink
-            android:id="@+id/deepLink"
-            app:uri="app://com.example.app/trans/transferInputFromQR" />
-    </fragment>
+
 </navigation>

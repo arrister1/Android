@@ -6,4 +6,6 @@ interface TokenHandler {
     suspend fun loadJwtToken(): String?
     suspend fun loadRefreshToken(): String?
     suspend fun deleteTokens()
+    suspend fun isTokenExpired(): Boolean
+    suspend fun handlingTokenExpire()
 }

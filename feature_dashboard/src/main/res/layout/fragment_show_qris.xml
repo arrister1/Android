@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="650dp"
-    android:padding="20dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/dialog_bg"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp"
     tools:context=".ui.qris.ShowQrisFragment">
 
     <ImageView
@@ -14,47 +14,47 @@
         android:layout_height="30dp"
         android:contentDescription="@string/lumi"
         android:src="@drawable/logo_lumi"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/accountNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:textSize="17sp"
-        android:fontFamily="@font/calibri"
-        android:textColor="@color/primary_darkBlue"
-        android:text="@string/censored_account_no"
         android:contentDescription="@string/nomor_akun"
+        android:fontFamily="@font/calibri"
+        android:text="@string/censored_account_no"
+        android:textColor="@color/primary_darkBlue"
+        android:textSize="17sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lumiLogo"/>
+        app:layout_constraintTop_toBottomOf="@+id/lumiLogo" />
 
     <TextView
         android:id="@+id/amountTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:textSize="14sp"
-        android:fontFamily="@font/calibri"
-        android:textColor="@color/primary_darkBlue"
-        android:text="@string/saldo"
         android:contentDescription="@string/saldo"
+        android:fontFamily="@font/calibri"
+        android:text="@string/saldo"
+        android:textColor="@color/primary_darkBlue"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accountNo"/>
+        app:layout_constraintTop_toBottomOf="@+id/accountNo" />
 
     <TextView
         android:id="@+id/ammount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textSize="24sp"
-        android:fontFamily="@font/calibri"
-        android:textColor="@color/primary_blue"
-        android:text="@string/dummy_account_balance"
         android:contentDescription="@string/nominal_saldo"
+        android:fontFamily="@font/calibri"
+        android:text="@string/dummy_account_balance"
+        android:textColor="@color/primary_blue"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/amountTextView"/>
+        app:layout_constraintTop_toBottomOf="@+id/amountTextView" />
 
     <ImageView
         android:id="@+id/iv_toggle_balance"
@@ -74,24 +74,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="3dp"
-        android:fontFamily="@font/calibri"
-        android:text="@string/tunjukan_qr_untuk"
         android:contentDescription="@string/menampilkan_qr_untuk_membayar_atau_menerima_transfer"
-        android:textSize="17sp"
-        app:layout_constraintEnd_toStartOf="@+id/tvGet"
-
-        app:layout_constraintTop_toBottomOf="@+id/ammount" />
-
-    <TextView
-        android:id="@+id/tvGet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:fontFamily="@font/calibri"
+        android:text="@string/tunjukan_qr_untuk_menerima_transfer"
         android:textSize="17sp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/menerima_transfer"
-        app:layout_constraintEnd_toEndOf="@+id/qrImageView"
-        app:layout_constraintTop_toTopOf="@+id/showQrTextView" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ammount" />
 
     <ImageView
         android:id="@+id/qrImageView"
@@ -100,9 +89,9 @@
         android:layout_marginTop="20dp"
         android:contentDescription="@string/qr"
         android:src="@drawable/qr_code_dark"
-        app:layout_constraintTop_toBottomOf="@id/showQrTextView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/showQrTextView" />
 
     <ImageView
         android:layout_width="120dp"
@@ -110,8 +99,8 @@
         android:layout_marginTop="20dp"
         android:contentDescription="@string/qris_symbol"
         android:src="@drawable/qris_dark"
-        app:layout_constraintTop_toBottomOf="@+id/qrImageView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/qrImageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

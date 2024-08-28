@@ -28,7 +28,6 @@
     <string name="flash_button">Tombol Flash</string>
     <string name="censored_account_no">7293 **** **** 9283</string>
     <string name="balance_toggle_button">Balance Toggle Button</string>
-    <string name="tunjukan_qr_untuk_membayar">Tunjukkan QR untuk membayar</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="lumi">Lumi</string>
     <string name="syarat_ketentuan"><![CDATA[Syarat & Ketentuan]]></string>
@@ -42,8 +41,7 @@
     <string name="keluar_akun">Keluar Akun</string>
     <string name="profil_pengguna">Gambar Profil Pengguna</string>
     <string name="edit_profil">Ubah Profil</string>
-    <string name="tunjukan_qr_untuk">Menampilkan QR untuk</string>
-    <string name="menerima_transfer">Menerima Transfer</string>
+    <string name="tunjukan_qr_untuk_menerima_transfer">Menampilkan QR untuk menerima transfer</string>
     <string name="fitur_ini_akan_segera_hadir">fitur ini akan segera hadir</string>
     <string name="kembali">kembali</string>
     <string name="qr_scanner">qr scanner</string>

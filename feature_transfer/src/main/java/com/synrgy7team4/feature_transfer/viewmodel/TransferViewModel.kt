@@ -61,10 +61,14 @@ class TransferViewModel(
     val error: LiveData<Exception> = _error
 
     fun initializeData(): Deferred<Unit> = viewModelScope.async {
-        jwtToken = tokenHandler.loadJwtToken() ?: throw Exception("JWT token tidak tersedia")
-        accountNumber = userHandler.loadAccountNumber() ?: throw Exception("Nomor akun tidak tersedia")
-        accountPin = userHandler.loadAccountPin() ?: throw Exception("PIN akun tidak tersedia")
-        userName = userHandler.loadUserName() ?: throw Exception("Nama pengguna tidak tersedia")
+        if (tokenHandler.isTokenExpired()) {
+            tokenHandler.handlingTokenExpire()
+        } else {
+            jwtToken = tokenHandler.loadJwtToken() ?: throw Exception("JWT token tidak tersedia")
+            accountNumber = userHandler.loadAccountNumber() ?: throw Exception("Nomor akun tidak tersedia")
+            accountPin = userHandler.loadAccountPin() ?: throw Exception("PIN akun tidak tersedia")
+            userName = userHandler.loadUserName() ?: throw Exception("Nama pengguna tidak tersedia")
+        }
     }
 
     fun transfer(
@@ -77,18 +81,22 @@ class TransferViewModel(
     ) = viewModelScope.launch {
         _isLoading.value = true
         try {
-            Log.d("Andre", "pin: $pin")
-            val transferRequest = TransferRequest(
-                accountFrom = accountNumber,
-                accountTo = accountTo,
-                amount = amount,
-                description = description,
-                pin = pin,
-                datetime = datetime,
-                destinationBank = destinationBank
-            )
-            val transferResponse = transferUseCase.transfer("Bearer $jwtToken", transferRequest)
-            _transferResult.value = transferResponse
+            if (tokenHandler.isTokenExpired()) {
+                tokenHandler.handlingTokenExpire()
+            } else {
+                Log.d("Andre", "pin: $pin")
+                val transferRequest = TransferRequest(
+                    accountFrom = accountNumber,
+                    accountTo = accountTo,
+                    amount = amount,
+                    description = description,
+                    pin = pin,
+                    datetime = datetime,
+                    destinationBank = destinationBank
+                )
+                val transferResponse = transferUseCase.transfer("Bearer $jwtToken", transferRequest)
+                _transferResult.value = transferResponse
+            }
         } catch (e: HttpExceptionUseCase) {
             _error.value = e
         } catch (e: Exception) {
@@ -101,10 +109,13 @@ class TransferViewModel(
     fun saveAccount(accountNumber: String) = viewModelScope.launch {
         _isLoading.value = true
         try {
-            val accountSaveRequest = AccountSaveRequest(accountNumber)
-            val accountSaveResponse =
-                transferUseCase.saveAccount("Bearer $jwtToken", accountSaveRequest)
-            _accountSaveResponse.value = accountSaveResponse
+            if (tokenHandler.isTokenExpired()) {
+                tokenHandler.handlingTokenExpire()
+            } else {
+                val accountSaveRequest = AccountSaveRequest(accountNumber)
+                val accountSaveResponse = transferUseCase.saveAccount("Bearer $jwtToken", accountSaveRequest)
+                _accountSaveResponse.value = accountSaveResponse
+            }
         } catch (e: HttpExceptionUseCase) {
             _error.value = e
         } catch (e: Exception) {
@@ -117,7 +128,11 @@ class TransferViewModel(
     fun getSavedAccounts() = viewModelScope.launch {
         _isLoading.value = true
         try {
-            _savedAccountsData.value = transferUseCase.getSavedAccounts("Bearer $jwtToken")
+            if (tokenHandler.isTokenExpired()) {
+                tokenHandler.handlingTokenExpire()
+            } else {
+                _savedAccountsData.value = transferUseCase.getSavedAccounts("Bearer $jwtToken")
+            }
         } catch (e: HttpExceptionUseCase) {
             _error.value = e
         } catch (e: Exception) {
@@ -146,8 +161,12 @@ class TransferViewModel(
     fun getBalance() = viewModelScope.launch {
         _isLoading.value = true
         try {
-            val balanceGetResponse = transferUseCase.getBalance("Bearer $jwtToken", accountNumber)
-            _balanceData.value = balanceGetResponse
+            if (tokenHandler.isTokenExpired()) {
+                tokenHandler.handlingTokenExpire()
+            } else {
+                val balanceGetResponse = transferUseCase.getBalance("Bearer $jwtToken", accountNumber)
+                _balanceData.value = balanceGetResponse
+            }
         } catch (e: HttpExceptionUseCase) {
             _error.value = e
         } catch (e: Exception) {
@@ -160,8 +179,12 @@ class TransferViewModel(
     fun getMutation(id: String) = viewModelScope.launch {
         _isLoading.value = true
         try {
-            val response = transferUseCase.getMutation("Bearer $jwtToken", id)
-            _mutationData.value = response.data!!
+            if (tokenHandler.isTokenExpired()) {
+                tokenHandler.handlingTokenExpire()
+            } else {
+                val response = transferUseCase.getMutation("Bearer $jwtToken", id)
+                _mutationData.value = response.data!!
+            }
         } catch (e: HttpExceptionUseCase) {
             _error.value = e
         } catch (e: Exception) {
@@ -174,18 +197,14 @@ class TransferViewModel(
     fun cekAccountList(accountNumber: String) = viewModelScope.launch {
         _isLoading.value = true
         try {
-            val response = transferUseCase.checkAccount("Bearer $jwtToken")
-//            if (response.isNullOrEmpty()) {
-//                android.util.Log.e("YourTag", "Response is empty or null")
-//                _accountAllList.value = emptyList()
-//            } else {
-//                val filteredAccount = response.find { it?.accountNumber == accountNumber }
-//                android.util.Log.d("YourTag", "Filtered account: ${filteredAccount?.accountNumber}")
-//                _accountAllList.value = listOfNotNull(filteredAccount)
-//            }
-            val filteredAccount = response.find { it.accountNumber == accountNumber }
-            _accountAllList.value = filteredAccount
-            Log.d("Andre", _accountAllList.value.toString())
+            if (tokenHandler.isTokenExpired()) {
+                tokenHandler.handlingTokenExpire()
+            } else {
+                val response = transferUseCase.checkAccount("Bearer $jwtToken")
+                val filteredAccount = response.find { it.accountNumber == accountNumber }
+                _accountAllList.value = filteredAccount
+                Log.d("Andre", _accountAllList.value.toString())
+            }
         } catch (e: HttpExceptionUseCase) {
             _error.value = e
         } catch (e: Exception) {

@@ -90,8 +90,6 @@
         app:layout_constraintTop_toBottomOf="@+id/savedList"
         app:layout_constraintStart_toStartOf="parent"/>
 
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/saved_account_list"
         android:layout_width="match_parent"

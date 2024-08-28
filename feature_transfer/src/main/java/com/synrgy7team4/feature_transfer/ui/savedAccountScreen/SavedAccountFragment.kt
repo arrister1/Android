@@ -3,7 +3,6 @@ package com.synrgy7team4.feature_transfer.ui.savedAccountScreen
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,11 +24,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SavedAccountFragment : Fragment() {
     private var _binding: FragmentSavedAccountBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: SavedAccountAdapter
-    private var savedAccountList: MutableList<Any> = mutableListOf() //TAMBAHAN
 
     private val viewModel by viewModel<TransferViewModel>()
+    private var savedAccountList: MutableList<Any> = mutableListOf()
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var adapter: SavedAccountAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,20 +47,18 @@ class SavedAccountFragment : Fragment() {
             viewModel.getSavedAccounts()
         }
 
-        //tambahan
         adapter = SavedAccountAdapter(savedAccountList, sharedPreferences, requireContext(), savedAccountList)
         binding.savedAccountList.adapter = adapter
         binding.savedAccountList.layoutManager = LinearLayoutManager(context)
 
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
-        binding.sameBankButton.setOnClickListener { handleSameBankButtonClick(view) }
-        binding.differentBankButton.setOnClickListener { handleDifferentBankButtonClick(view) }
+        binding.sameBankButton.setOnClickListener { handleSameBankButtonClick() }
+        binding.differentBankButton.setOnClickListener { handleDifferentBankButtonClick() }
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean = false
             override fun onQueryTextChange(msg: String): Boolean {
                 adapter.getFilter().filter(msg)
-                //filter(msg)
                 return false
             }
         })
@@ -69,17 +66,6 @@ class SavedAccountFragment : Fragment() {
         binding.addNewAccountInfo.setOnClickListener {
             findNavController().navigate(R.id.action_savedAccountFragment_to_fellowAccountBankInputFragment)
         }
-
-//        viewModel.savedAccountsData.observe(viewLifecycleOwner) { response ->
-//            response.data?.let { dataList ->
-//                val sortedList = dataList.sortedBy { it?.name }
-//                val transformedList = transformSortedListToMutableList(sortedList)
-//                binding.savedAccountList.apply {
-//                    adapter = SavedAccountAdapter(transformedList, sharedPreferences)
-//                    layoutManager = LinearLayoutManager(context)
-//                }
-//            }
-//        }
 
         viewModel.savedAccountsData.observe(viewLifecycleOwner) { response ->
             response.data?.let { dataList ->
@@ -111,7 +97,7 @@ class SavedAccountFragment : Fragment() {
         return mutableList
     }
 
-    private fun handleSameBankButtonClick(view: View) {
+    private fun handleSameBankButtonClick() {
         binding.differentBankButton.apply {
             setBackgroundColor(
                 ContextCompat.getColor(
@@ -143,7 +129,7 @@ class SavedAccountFragment : Fragment() {
         }
     }
 
-    private fun handleDifferentBankButtonClick(view: View) {
+    private fun handleDifferentBankButtonClick() {
         binding.differentBankButton.apply {
             setBackgroundColor(
                 ContextCompat.getColor(

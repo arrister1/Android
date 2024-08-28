@@ -52,9 +52,13 @@ class HomeViewModel(
     fun getUserBalance() = viewModelScope.launch {
         _isLoading.value = true
         try {
-            val jwtToken = tokenHandler.loadJwtToken() ?: throw Exception("JWT token tidak tersedia")
-            val getUserBalance = balanceUseCase.getBalance("Bearer $jwtToken", _userData.value?.accountNumber!!).data
-            _userBalance.value = getUserBalance
+            if (tokenHandler.isTokenExpired()) {
+                tokenHandler.handlingTokenExpire()
+            } else {
+                val jwtToken = tokenHandler.loadJwtToken() ?: throw Exception("JWT token tidak tersedia")
+                val getUserBalance = balanceUseCase.getBalance("Bearer $jwtToken", _userData.value?.accountNumber!!).data
+                _userBalance.value = getUserBalance
+            }
         } catch (e: HttpExceptionUseCase) {
             _error.value = e
         } catch (e: Exception) {

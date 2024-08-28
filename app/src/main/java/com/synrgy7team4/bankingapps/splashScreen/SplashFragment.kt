@@ -1,4 +1,4 @@
-package com.synrgy7team4.bankingapps
+package com.synrgy7team4.bankingapps.splashScreen
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -9,18 +9,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.synrgy7team4.bankingapps.R
 import com.synrgy7team4.bankingapps.databinding.FragmentSplashBinding
-import com.synrgy7team4.common.TokenHandler
-import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashFragment : Fragment() {
     private var _binding: FragmentSplashBinding? = null
     private val binding get() = _binding!!
 
-    private val tokenHandler: TokenHandler by inject()
+    private val viewModel by viewModel<SplashViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,16 +36,18 @@ class SplashFragment : Fragment() {
             addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
                     super.onAnimationEnd(animation)
-                    lifecycleScope.launch {
-                        if (tokenHandler.loadJwtToken() == null) {
-                            findNavController().navigate(R.id.action_splashFragment_to_feature_auth_navigation)
-                        } else {
-                            findNavController().navigate(R.id.action_splashFragment_to_feature_dashboard_navigation)
-                        }
-                    }
+                    viewModel.checkJwtTokenExpire()
                 }
             })
             start()
+        }
+
+        viewModel.isJwtTokenExpired.observe(viewLifecycleOwner) { isExpired ->
+            if (isExpired) {
+                findNavController().navigate(R.id.action_splashFragment_to_feature_auth_navigation)
+            } else {
+                findNavController().navigate(R.id.action_splashFragment_to_feature_dashboard_navigation)
+            }
         }
     }
 

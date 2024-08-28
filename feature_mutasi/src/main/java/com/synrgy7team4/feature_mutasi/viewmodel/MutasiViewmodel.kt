@@ -5,7 +5,6 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.synrgy7team4.common.Log
 import com.synrgy7team4.common.TokenHandler
 import com.synrgy7team4.common.UserHandler
 import com.synrgy7team4.domain.feature_mutasi.model.response.MutationDataDomain
@@ -45,20 +44,27 @@ class MutasiViewmodel(
     ) = viewModelScope.launch {
         _isLoading.value = true
         try {
-            val jwtToken = tokenHandler.loadJwtToken() ?: throw Exception("JWT token tidak tersedia")
-            _accountNumber.value = userHandler.loadAccountNumber() ?: throw Exception("Nomor akun tidak tersedia")
-            _mutationData.value =
-                if (startDate == null && endDate == null) {
-                    mutasiUseCase.getAllMutations("Bearer $jwtToken", _accountNumber.value!!).data
-                } else {
-                    mutasiUseCase.getMutationsByDate(
-                        jwtToken = "Bearer $jwtToken",
-                        accountNumber = _accountNumber.value!!,
-                        startDate = startDate!!,
-                        endDate = endDate!!,
-                        type = type
-                    ).data?.asReversed()
-                }
+            if (tokenHandler.isTokenExpired()) {
+                tokenHandler.handlingTokenExpire()
+            } else {
+                val jwtToken = tokenHandler.loadJwtToken() ?: throw Exception("JWT token tidak tersedia")
+                _accountNumber.value = userHandler.loadAccountNumber() ?: throw Exception("Nomor akun tidak tersedia")
+                _mutationData.value =
+                    if (startDate == null && endDate == null) {
+                        mutasiUseCase.getAllMutations(
+                            "Bearer $jwtToken",
+                            _accountNumber.value!!
+                        ).data
+                    } else {
+                        mutasiUseCase.getMutationsByDate(
+                            jwtToken = "Bearer $jwtToken",
+                            accountNumber = _accountNumber.value!!,
+                            startDate = startDate!!,
+                            endDate = endDate!!,
+                            type = type
+                        ).data?.asReversed()
+                    }
+            }
         } catch (e: HttpExceptionUseCase) {
             _error.value = e
         } catch (e: Exception) {
@@ -71,27 +77,13 @@ class MutasiViewmodel(
     fun filterMutationByType(
         mutationData: List<MutationDataDomain>,
         transactionType: String
-    ): List<MutationDataDomain> {
-        Log.d("MutasiViewModel", "Filtering mutations by type: $transactionType")
-        val filteredData = when (transactionType) {
+    ): List<MutationDataDomain> =
+        when (transactionType) {
             "Semua" -> mutationData
             "Uang Masuk" -> mutationData.filter { it.accountFrom != _accountNumber.value!! }
             "Uang Keluar" -> mutationData.filter { it.accountFrom == _accountNumber.value!! }
             else -> throw Exception("Jenis transaksi tidak valid")
         }
-        return filteredData
-    }
-
-//    fun filterMutationByType(
-//        mutationData: List<MutationDataDomain>,
-//        transactionType: String
-//    ) : List<MutationDataDomain> =
-//        when (transactionType) {
-//            "Semua" -> mutationData
-//            "Uang Masuk" -> mutationData.filter { it.accountFrom != _accountNumber.value!! }
-//            "Uang Keluar" -> mutationData.filter { it.accountFrom == _accountNumber.value!! }
-//            else -> throw Exception("Jenis transaksi tidak valid")
-//        }
 
     fun groupMutationsByDate(mutations: List<MutationDataDomain>): Map<String, List<MutationDataDomain>> {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())

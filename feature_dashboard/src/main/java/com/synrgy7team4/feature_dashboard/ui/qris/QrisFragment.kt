@@ -28,7 +28,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.budiyev.android.codescanner.CodeScanner
-import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
 import com.google.zxing.BinaryBitmap
 import com.google.zxing.LuminanceSource
@@ -37,6 +36,7 @@ import com.google.zxing.RGBLuminanceSource
 import com.google.zxing.Reader
 import com.google.zxing.Result
 import com.google.zxing.common.HybridBinarizer
+import com.synrgy7team4.common.makeToast
 import com.synrgy7team4.feature_dashboard.R
 import com.synrgy7team4.feature_dashboard.databinding.FragmentQrisBinding
 import com.synrgy7team4.feature_dashboard.viewmodel.HomeViewModel
@@ -50,14 +50,15 @@ class QrisFragment : Fragment() {
     private var _binding: FragmentQrisBinding? = null
     private val binding get() = _binding!!
 
+    private val viewModel by viewModel<HomeViewModel>()
+    private var isBalanceHidden: Boolean = true
+    private lateinit var username: String
+    private lateinit var hiddenBalance: String
+    private lateinit var userBalance: String
+    private lateinit var hiddenAccNum: String
+    private lateinit var accountNumber: String
     private lateinit var codeScanner: CodeScanner
     private lateinit var sharedPreferences: SharedPreferences
-    private val viewModel by viewModel<HomeViewModel>()
-    private var isHidden: Boolean = false
-    private lateinit var username: String
-    private lateinit var accountNumber: String
-    private lateinit var fullBalance: String
-    private lateinit var hiddenBalance: String
 
     private val requestCameraPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
@@ -82,37 +83,31 @@ class QrisFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
-        val activity = requireActivity()
+        sharedPreferences = requireActivity().getSharedPreferences("TransferPrefs", Context.MODE_PRIVATE)
 
-        sharedPreferences= requireActivity().getSharedPreferences("TransferPrefs", Context.MODE_PRIVATE)
+        viewModel.getUserData()
 
-        codeScanner = CodeScanner(activity, scannerView)
+        codeScanner = CodeScanner(requireActivity(), binding.scannerView)
         codeScanner.decodeCallback = DecodeCallback { textResultScan ->
-            activity.runOnUiThread {
-                Toast.makeText(activity, textResultScan.text, Toast.LENGTH_LONG).show()
-                sharedPreferences.edit().putString("accountDestinationFromScan", textResultScan.text).apply()
+            requireActivity().runOnUiThread {
+                makeToast(requireContext(), textResultScan.text)
+                sharedPreferences.edit()
+                    .putString("accountDestinationFromScan", textResultScan.text).apply()
+
                 val deepLinkToTrans = Uri.parse("app://com.example.app/trans/transferInputFromQR")
-                view.findNavController().navigate(deepLinkToTrans)
+                findNavController().navigate(deepLinkToTrans)
             }
         }
-//        scannerView.setOnClickListener {
-////            codeScanner.startPreview()
-//        }
-
         checkCameraPermissionAndOpenCamera()
 
-
         binding.payButton.setOnClickListener {
-            sharedPreferences.edit().putString("payOrReceived", "membayar" ).apply()
-            showDialogQRGeneratePage(viewModel)
-//            findNavController().navigate(R.id.action_navigation_dashboard_to_showQrisFragment)
+            sharedPreferences.edit().putString("payOrReceived", "membayar").apply()
+            showDialogQRGeneratePage()
         }
 
         binding.transferButton.setOnClickListener {
-            sharedPreferences.edit().putString("payOrReceived", "menerima transfer" ).apply()
-            showDialogQRGeneratePage(viewModel)
-//            findNavController().navigate(R.id.action_navigation_dashboard_to_showQrisFragment)
+            sharedPreferences.edit().putString("payOrReceived", "menerima transfer").apply()
+            showDialogQRGeneratePage()
         }
 
         binding.btnBack.setOnClickListener {
@@ -123,29 +118,19 @@ class QrisFragment : Fragment() {
             openGallery()
         }
 
-
-
-        fullBalance = getString(R.string.dummy_account_balance)
-        hiddenBalance = fullBalance.replace(Regex("\\d"), "*").replace(Regex("[,.]"), "")
-
         accountNumber = R.string.dummy_acc_number.toString()
         username = R.string.dummy_name.toString()
 
-
-        viewModel.userData.observe(viewLifecycleOwner) {userData ->
-            accountNumber = userData.accountNumber
+        viewModel.userData.observe(viewLifecycleOwner) { userData ->
+            viewModel.getUserBalance()
+            hiddenAccNum = formatAccountNumber(userData.accountNumber)
             username = userData.name
         }
-        viewModel.getUserData()
-
 
         viewModel.userBalance.observe(viewLifecycleOwner) { balance ->
-            fullBalance = balance.toString()
+            userBalance = balance.toString()
+            hiddenBalance = userBalance.replace(Regex("\\d"), "*").replace(Regex("[,.]"), "")
         }
-        viewModel.getUserBalance()
-
-
-
     }
 
     private fun checkCameraPermissionAndOpenCamera() {
@@ -157,11 +142,17 @@ class QrisFragment : Fragment() {
                 // Izin sudah diberikan, langsung buka kamera
                 codeScanner.startPreview()
             }
+
             shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
                 // Tampilkan alasan mengapa izin dibutuhkan dan kemudian minta izin
-                Toast.makeText(requireContext(), "Izin kamera diperlukan untuk mengambil gambar", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Izin kamera diperlukan untuk mengambil gambar",
+                    Toast.LENGTH_SHORT
+                ).show()
                 requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA)
             }
+
             else -> {
                 // Minta izin langsung
                 requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA)
@@ -174,35 +165,38 @@ class QrisFragment : Fragment() {
         resultLauncherGallery.launch(galleryIntent)
     }
 
-    private var resultLauncherGallery = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val data: Intent? = result.data
+    private var resultLauncherGallery =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
 
-            val imageUri = data!!.data!!
-            val imagePath = convertMediaUriToPath(imageUri)
-            val imgFile = File(imagePath)
-            scanImageQRCode(imgFile)
-        } else {
-            Toast.makeText(requireContext(), "Result Not Found", Toast.LENGTH_LONG).show()
+                val imageUri = data!!.data!!
+                val imagePath = convertMediaUriToPath(imageUri)
+                val imgFile = File(imagePath)
+                scanImageQRCode(imgFile)
+            } else {
+                Toast.makeText(requireContext(), "Result Not Found", Toast.LENGTH_LONG).show()
+            }
         }
-    }
 
-    private fun convertMediaUriToPath(uri: Uri):String {
-        val proj = arrayOf<String>(MediaStore.Images.Media.DATA)
+    private fun convertMediaUriToPath(uri: Uri): String {
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
         val cursor = context?.contentResolver?.query(uri, proj, null, null, null)
         val columnIndex = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
         cursor.moveToFirst()
         val path = cursor.getString(columnIndex)
         cursor.close()
+
         return path
     }
 
-    private fun scanImageQRCode(file: File){
+    private fun scanImageQRCode(file: File) {
         val inputStream: InputStream = BufferedInputStream(FileInputStream(file))
         val bitmap = BitmapFactory.decodeStream(inputStream)
         val decoded = scanQRImage(bitmap)
         Toast.makeText(requireContext(), "$decoded", Toast.LENGTH_SHORT).show()
         sharedPreferences.edit().putString("accountDestinationFromScan", decoded).apply()
+
         val deepLinkToTrans = Uri.parse("app://com.example.app/trans/transferInputFromQR")
         view?.findNavController()?.navigate(deepLinkToTrans)
     }
@@ -221,34 +215,40 @@ class QrisFragment : Fragment() {
 
         } catch (e: Exception) {
             Log.e("QrTest", "Error decoding qr code", e)
-            Toast.makeText(requireContext(), "Error decoding QR Code, Mohon pilih gambar QR Code yang benar!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Error decoding QR Code, Mohon pilih gambar QR Code yang benar!",
+                Toast.LENGTH_SHORT
+            ).show()
         }
         return contents
     }
 
-
-    private fun showDialogQRGeneratePage(viewModel: HomeViewModel) {
-        val dialog: Dialog = Dialog(requireActivity())
+    private fun showDialogQRGeneratePage() {
+        val dialog = Dialog(requireActivity())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.fragment_show_qris)
         dialog.show()
-        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         dialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
-        dialog.window?.attributes?.windowAnimations = com.synrgy7team4.common.R.style.DialogAnimation
+        dialog.window?.attributes?.windowAnimations =
+            com.synrgy7team4.common.R.style.DialogAnimation
         dialog.window?.setGravity(Gravity.BOTTOM)
 
-        val tvGet = dialog.findViewById<TextView>(R.id.tvGet)
+        val tvShowQR = dialog.findViewById<TextView>(R.id.showQrTextView)
         val accountNo = dialog.findViewById<TextView>(R.id.accountNo)
         val qrImageView = dialog.findViewById<ImageView>(R.id.qrImageView)
         val ivToggleBalance = dialog.findViewById<ImageView>(R.id.iv_toggle_balance)
         val ammount = dialog.findViewById<TextView>(R.id.ammount)
 
-
         val getPayText = sharedPreferences.getString("payOrReceived", null)
 
-        tvGet.text = getPayText
-        accountNo.text = accountNumber
-        ammount.text = fullBalance
+        tvShowQR.text = "Menampilakn QRIS untuk $getPayText"
+        accountNo.text = hiddenAccNum
+        ammount.text = "Rp $hiddenBalance"
 
         val mQRBitmap = QRUtility.generateQR("$accountNumber $username")
         if (mQRBitmap != null) {
@@ -257,22 +257,28 @@ class QrisFragment : Fragment() {
             Toast.makeText(requireActivity(), "Failed to Generated QR Code", Toast.LENGTH_SHORT).show()
         }
 
-
-
-
-
         ivToggleBalance.setOnClickListener {
-
-            if (isHidden) {
-                ammount.text = fullBalance
+            if (isBalanceHidden) {
+                ammount.text = "Rp $userBalance"
                 ivToggleBalance.setImageResource(com.synrgy7team4.common.R.drawable.ic_visibility_on)
             } else {
-                ammount.text = hiddenBalance
+                ammount.text = "Rp $hiddenBalance"
                 ivToggleBalance.setImageResource(com.synrgy7team4.common.R.drawable.ic_visibility_off)
             }
-            isHidden = !isHidden
+            isBalanceHidden = !isBalanceHidden
         }
+    }
 
+    private fun formatAccountNumber(accNum: String): String {
+        val visibleDigits = 3
+        val length = accNum.length
+        return if (length > visibleDigits) {
+            val hiddenNum = "*".repeat(length - visibleDigits)
+            val visibleNum = accNum.takeLast(visibleDigits)
+            "$hiddenNum$visibleNum"
+        } else {
+            accNum
+        }
     }
 
     override fun onResume() {
