@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.synrgy7team4.domain.feature_auth.model.request.EmailCheckRequest
+import com.synrgy7team4.domain.feature_auth.model.request.ForgotPasswordRequest
 import com.synrgy7team4.domain.feature_auth.model.request.KtpNumberCheckRequest
 import com.synrgy7team4.domain.feature_auth.model.request.PhoneNumberCheckRequest
 import com.synrgy7team4.domain.feature_auth.model.request.RegisterRequest
@@ -15,6 +16,7 @@ import com.synrgy7team4.domain.feature_auth.model.response.OtpResponseDomain
 import com.synrgy7team4.domain.feature_auth.model.response.RegisterResponseDomain
 import com.synrgy7team4.domain.feature_auth.usecase.HttpExceptionUseCase
 import com.synrgy7team4.domain.feature_auth.usecase.RegisterUseCase
+import com.synrgy7team4.feature_auth.data.remote.response.ForgotPasswordResponseDomain
 import kotlinx.coroutines.launch
 
 class RegisterViewModel(
@@ -39,6 +41,15 @@ class RegisterViewModel(
 
     private val _verifyOtpResult = MutableLiveData<OtpResponseDomain>()
     val verifyOtpResult: LiveData<OtpResponseDomain> = _verifyOtpResult
+
+    private val _sendForgetPassResult = MutableLiveData<ForgotPasswordResponseDomain>()
+    val sendForgetPassResult: LiveData<ForgotPasswordResponseDomain> = _sendForgetPassResult
+
+    private val _validateForgetPassResult = MutableLiveData<ForgotPasswordResponseDomain>()
+    val validateForgetPassResult: LiveData<ForgotPasswordResponseDomain> = _validateForgetPassResult
+
+    private val _setNewPassResult = MutableLiveData<ForgotPasswordResponseDomain>()
+    val setNewPassResult: LiveData<ForgotPasswordResponseDomain> = _setNewPassResult
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -161,6 +172,51 @@ class RegisterViewModel(
             _error.postValue(e)
         } finally {
             _isLoading.postValue(false)
+        }
+    }
+
+    fun sendForgetPass(email: String) = viewModelScope.launch {
+        _isLoading.value = true
+        try {
+            val sendForgetPass = ForgotPasswordRequest(email)
+            val forgetPassResponse = registerUseCase.sendForgetPass(sendForgetPass)
+            _sendForgetPassResult.postValue(forgetPassResponse)
+        } catch (e: HttpExceptionUseCase) {
+            _error.value = e
+        } catch (e: Exception) {
+            _error.value = e
+        } finally {
+            _isLoading.value = false
+        }
+    }
+
+    fun validateForgetPass(email: String, otp: String) = viewModelScope.launch {
+        _isLoading.value = true
+        try {
+            val validateForgetPass = ForgotPasswordRequest(email, otp)
+            val validateForgetPassResponse = registerUseCase.validateForgetPass(validateForgetPass)
+            _sendForgetPassResult.postValue(validateForgetPassResponse)
+        } catch (e: HttpExceptionUseCase) {
+            _error.value = e
+        } catch (e: Exception) {
+            _error.value = e
+        } finally {
+            _isLoading.value = false
+        }
+    }
+
+    fun setNewPass(email: String, otp: String, newPass:String) = viewModelScope.launch {
+        _isLoading.value = true
+        try {
+            val setNewPass = ForgotPasswordRequest(email, otp, newPass)
+            val setNewPassResponse = registerUseCase.setNewPass(setNewPass)
+            _setNewPassResult.postValue(setNewPassResponse)
+        } catch (e: HttpExceptionUseCase) {
+            _error.value = e
+        } catch (e: Exception) {
+            _error.value = e
+        } finally {
+            _isLoading.value = false
         }
     }
 }

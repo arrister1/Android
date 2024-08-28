@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.synrgy7team4.common.NavigationHandler
+import com.synrgy7team4.common.makeToast
 import com.synrgy7team4.feature_dashboard.R
 import com.synrgy7team4.feature_dashboard.databinding.FragmentAccountBinding
 import com.synrgy7team4.feature_dashboard.viewmodel.AccountViewModel
@@ -36,6 +37,7 @@ class AccountFragment : Fragment() {
         viewModel.getUserData()
 
         binding.linearlayKeluarAkun.setOnClickListener {
+            makeToast(requireContext(),"Anda berhasil keluar")
             lifecycleScope.launch {
                 awaitAll(
                     viewModel.deleteTokens(),

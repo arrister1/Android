@@ -20,6 +20,8 @@ import com.synrgy7team4.domain.feature_auth.model.response.RegisterDataDomain
 import com.synrgy7team4.domain.feature_auth.model.response.RegisterResponseDomain
 import com.synrgy7team4.domain.feature_auth.model.response.UserDataDomain
 import com.synrgy7team4.domain.feature_auth.model.response.UserGetResponseDomain
+import com.synrgy7team4.feature_auth.data.remote.response.ForgotPasswordResponse
+import com.synrgy7team4.feature_auth.data.remote.response.ForgotPasswordResponseDomain
 
 object FileUtils {
     fun LoginResponse.toLoginResponseDomain(): LoginResponseDomain =
@@ -78,6 +80,12 @@ object FileUtils {
         KtpNumberCheckResponseDomain(
             success = success,
             data = data
+        )
+
+    fun ForgotPasswordResponse.toForgotPasswordResponseDomain(): ForgotPasswordResponseDomain =
+       ForgotPasswordResponseDomain(
+            status = status,
+            message = message
         )
 
     fun UserGetResponse.toUserGetResponseDomain(): UserGetResponseDomain =
