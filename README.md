@@ -1,18 +1,78 @@
-Lumi is a banking app optimized with accessibility features for visually impaired friends. With a user interface designed to be as simple as possible, we aim to address the needs and concerns of visually impaired users in carrying out their banking transactions.
+# 💡 LUMI – Accessible Mobile Banking App
 
-Made with love by:
-* Maxsimus Ernest
-* Moh. Irvan Andriansyah
-* Muh. Fajar Nasrulloh
-* Nurul Maulidha Effendi
-* Yudhi Winantoro
+LUMI is a mobile banking application designed with accessibility in mind, especially for users with visual impairments. Developed as a final capstone project by a cross-functional team (UI/UX, Android, Fullstack Web, BE, QA) during Synrgy Academy Batch 7, LUMI integrates key digital banking features with screen reader support and a modular architecture.
 
-Notes: If you want to try Lumi, you can access our latest branch in the "modularisasi" branch.
+---
 
-Thank you ^^
+## 🚀 Features
 
+- 🔐 Register, Login, Logout, Reset Password
+- 👁️ Toggle visibility for balance and account number
+- 💸 Transfer funds to 
+- 📄 View transaction history with filtering options
+- 📱 QR-based transactions (QRIS)
+- 🧑‍🦯 Accessibility support via TalkBack & screen readers
 
+---
 
+## 🧠 Architecture & Patterns
+
+- Clean Architecture
+- MVVM (Model–View–ViewModel)
+- Modularization (per feature/module)
+- Repository pattern & UseCase separation
+
+---
+
+## 🛠️ Tech Stack
+
+- **Language**: Kotlin
+- **Architecture**: MVVM + Clean Architecture + Modularization
+- **Dependency Injection**: KOIN
+- **Local Storage & Session**: Datastore
+- **Networking**: Retrofit
+- **Monitoring**: Firebase Crashlytics & Performance Monitoring
+- **Testing**: JUnit 
+
+---
+
+## 📸 Screenshots
+
+---
+
+## 🧪 How to Run
+
+1. Clone this repository
+   ```bash
+   git clone https://github.com/arrister1/Android.git
+   ```
+2. Open in Android Studio
+3. Add necessary keys/configs if needed
+4. Run on emulator or physical device (API 21+)
+
+---
+
+## 📚 Learning Highlights
+
+- Designed modular & scalable Android app architecture
+- Collaborated in a fast-paced agile team setting
+- Improved understanding of accessibility and screen reader support
+
+---
+
+## 🙋‍♂️ Team Members
+
+- Maxsimus Ernest
+- Moh. Irvan Andriansyah
+- Muh. Fajar Nasrulloh
+- Nurul Maulidha Effendi
+- Yudhi Winantoro
+
+---
+
+## 📄 License
+
+This project is created for educational purposes only.
 
 
 
