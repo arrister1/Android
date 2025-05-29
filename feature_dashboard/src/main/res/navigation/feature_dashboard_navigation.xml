@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/feature_dashboard_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.synrgy7team4.feature_dashboard.ui.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/qrisFragment"
+        android:name="com.synrgy7team4.feature_dashboard.ui.qris.QrisFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_qris">
+        <action
+            android:id="@+id/action_navigation_dashboard_to_showQrisFragment"
+            app:destination="@id/showQrisFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.synrgy7team4.feature_dashboard.ui.AccountFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/action_accountFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/showQrisFragment"
+        android:name="com.synrgy7team4.feature_dashboard.ui.qris.ShowQrisFragment"
+        android:label="fragment_show_qris"
+        tools:layout="@layout/fragment_show_qris" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.synrgy7team4.feature_dashboard.ui.notificationScreen.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
+</navigation>

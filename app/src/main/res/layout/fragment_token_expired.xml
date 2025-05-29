@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    app:cardCornerRadius="12dp"
+    android:layout_gravity="center"
+    app:contentPadding="16dp"
+    android:background="@color/primary_lightBlue"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/BoldText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
+            android:text="Token Anda Sudah Kadaluwarsa"
+            android:textAlignment="center"
+            android:textColor="@color/primary_blue"
+            android:textSize="24sp" />
+
+        <TextView
+            style="@style/RegulerText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Silakan login kembali untuk mendapatkan token baru"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_kembali_ke_Onboarding"
+            style="@style/PrimaryActiveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Kembali ke Halaman OnBoarding" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

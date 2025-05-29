@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.mutasiScreen.MutasiFragment">
+
+    <ProgressBar
+        android:id="@+id/loading_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="16dp"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/custom_progress_drawable"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/back"
+        android:src="@drawable/back_button_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_transaksi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="@string/transaksi"
+            android:fontFamily="@font/calibri"
+            android:text="@string/transaksi"
+            android:textColor="@color/primary_blue"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_back" />
+
+        <com.google.android.material.internal.BaselineLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="@color/grey" />
+
+        <TextView
+            android:id="@+id/tv_jenis_transaksi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/calibri"
+            android:text="@string/jenis_transaksi"
+            android:textColor="@color/primary_blue"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="5dp"
+            android:contentDescription="@string/jenis_transaksi"
+            android:spinnerMode="dialog"
+            android:textAlignment="textStart" />
+
+        <com.google.android.material.internal.BaselineLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="@color/grey" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_tangal_awal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/date_start"
+                    android:fontFamily="@font/calibri"
+                    android:text="@string/date_start"
+                    android:textColor="@color/primary_blue"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_tanggal_awal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:boxCornerRadiusBottomEnd="8dp"
+                    app:boxCornerRadiusBottomStart="8dp"
+                    app:boxCornerRadiusTopEnd="8dp"
+                    app:boxCornerRadiusTopStart="8dp"
+                    app:endIconContentDescription="@string/calendar_picker"
+                    app:endIconDrawable="@drawable/baseline_calendar_month_24"
+                    app:endIconMode="custom"
+                    app:endIconTint="@color/primary_blue"
+                    app:expandedHintEnabled="false"
+                    app:layout_constraintWidth_percent="0.9"
+                    app:placeholderText="dd/mm/yyyy"
+                    app:placeholderTextAppearance="@style/RegulerText"
+                    app:placeholderTextColor="@color/grey">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiedt_tanggal_awal"
+                        style="@style/RegulerText"
+                        android:contentDescription="@string/masukkan_tanggal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="date"
+                        android:maxLines="1"
+                        android:textColor="@color/grey" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_tangal_akhir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/date_end"
+                    android:fontFamily="@font/calibri"
+                    android:text="@string/date_end"
+                    android:textColor="@color/primary_blue"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_tanggal_akhir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:boxCornerRadiusBottomEnd="8dp"
+                    app:boxCornerRadiusBottomStart="8dp"
+                    app:boxCornerRadiusTopEnd="8dp"
+                    app:boxCornerRadiusTopStart="8dp"
+                    app:endIconContentDescription="@string/calendar_picker"
+                    app:endIconDrawable="@drawable/baseline_calendar_month_24"
+                    app:endIconMode="custom"
+                    app:endIconTint="@color/primary_blue"
+                    app:expandedHintEnabled="false"
+                    app:layout_constraintWidth_percent="0.9"
+                    app:placeholderText="dd/mm/yyyy"
+                    app:placeholderTextAppearance="@style/RegulerText"
+                    app:placeholderTextColor="@color/grey">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiedt_tanggal_akhir"
+                        style="@style/RegulerText"
+                        android:contentDescription="@string/masukkan_tanggal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="date"
+                        android:maxLines="1"
+                        android:textColor="@color/grey" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.google.android.material.internal.BaselineLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="@color/grey" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_mutasi"
+            android:contentDescription="@string/daftar_riwayat_mutasi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            tools:itemCount="6"
+            tools:listitem="@layout/rv_item_per_date" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

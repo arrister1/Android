@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_home"
+        android:icon="@drawable/ic_home"
+        android:contentDescription="@string/beranda"
+        android:title="@string/beranda" />
+    <item
+        android:id="@+id/menu_qris"
+        android:icon="@drawable/ic_qr"
+        android:contentDescription="@string/qris"
+        android:title="@string/qris" />
+    <item
+        android:id="@+id/menu_account"
+        android:icon="@drawable/ic_account_circle"
+        android:contentDescription="@string/akun"
+        android:title="@string/akun" />
+</menu>

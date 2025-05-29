@@ -14,8 +14,12 @@
     <color name="grey">#B3B3B3 </color>
     <color name="light_grey">#F5F5F5</color>
 
+    <color name="textColorPrimary">#1C1C1E</color>
+    <color name="textColorSecondary">#B3B3B3 </color>
 
-<!--    - Red: #CB3A31-->
+
+
+    <!--    - Red: #CB3A31-->
 <!--    - Green: #12D79C-->
 <!--    - Yellow: #FFB831-->
 
